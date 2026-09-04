@@ -1,0 +1,117 @@
+{
+  "agent_id": "hermes-terra-w1-01",
+  "task_id": "PAY-W1-01",
+  "status": "blocked",
+  "summary": "Implemented the six packet-owned source/test files after Duke's explicit approval. The exact focused RED run failed for the expected missing ../src/index implementation reason; the exact GREEN run passed 2 test files and 6 tests; npm run typecheck passed. The final self-check stopped before status/scope assertion completion because the verification script's expected status omitted the pre-existing owned blocked handoff entry. Per the one-attempt/no-progress limit, no retry was made.",
+  "evidence": {
+    "preflight": {
+      "status": "passed",
+      "cwd": "F:\\Codex\\Projects\\Pay Slip",
+      "head": "16afd9ff746fbfce53899d6fd9f5b1292efd7f7a",
+      "parent_owned_hashes": {
+        "package.json": "53F04BE88B4BFAB51DA24C97EE56D568A1EF7373C431DD36640353720D0737AA",
+        "package-lock.json": "BB6F9D9CB94371389AA9B7D3CECAE6ABE30520218E1BDE10CD93EB680D12AA15",
+        "packages/payroll-domain/package.json": "AABCAABED642D846803157B0E03B4A6E8F6812B5F180458A47D32357BB8AC025"
+      },
+      "dependencies": {
+        "decimal.js": "10.6.0",
+        "fast-check": "4.9.0",
+        "pure-rand": "8.4.2"
+      },
+      "approval": "Duke explicitly approved this fresh gpt-5.6-terra xhigh invocation and the exact RED, GREEN, and typecheck commands."
+    },
+    "red": {
+      "status": "passed_expected_red",
+      "command": "npm run test:unit -- --run packages/payroll-domain/test/money.spec.ts packages/payroll-domain/test/rounding.property.spec.ts",
+      "exit_code": 1,
+      "evidence": "Both focused suites failed before collecting tests because ../src/index was missing, which is the expected missing PAY-W1-01 implementation reason."
+    },
+    "green": {
+      "status": "passed",
+      "command": "npm run test:unit -- --run packages/payroll-domain/test/money.spec.ts packages/payroll-domain/test/rounding.property.spec.ts",
+      "exit_code": 0,
+      "test_files": 2,
+      "tests": 6
+    },
+    "typecheck": {
+      "status": "passed",
+      "command": "npm run typecheck",
+      "exit_code": 0
+    },
+    "scope": {
+      "status": "blocked_self_check_incomplete",
+      "initial_parent_owned_changes": [
+        "package.json",
+        "package-lock.json",
+        "packages/payroll-domain/package.json",
+        "docs/agent-packets/PAY-W1-01-prompt.md",
+        "docs/agent-packets/PAY-W1-01.json",
+        "docs/agent-packets/PAY-W1-01-handoff.json"
+      ],
+      "worker_owned_changes": [
+        "packages/payroll-domain/src/money.ts",
+        "packages/payroll-domain/src/duration.ts",
+        "packages/payroll-domain/src/rounding.ts",
+        "packages/payroll-domain/src/index.ts",
+        "packages/payroll-domain/test/money.spec.ts",
+        "packages/payroll-domain/test/rounding.property.spec.ts",
+        "docs/agent-packets/PAY-W1-01-handoff.json"
+      ],
+      "git_diff_check": "passed with only CRLF conversion warnings for the parent-owned manifest changes",
+      "parent_owned_rehash": "passed before the failed status assertion",
+      "blocker": "The final self-check status assertion was not completed: its expected list accidentally omitted the pre-existing owned handoff path."
+    },
+    "cleanup": {
+      "status": "passed",
+      "running_processes_left": 0,
+      "rollback": "No rollback was performed. Codex parent owns review and any rollback of the owned worker files."
+    }
+  },
+  "files_read": [
+    "AGENTS.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md",
+    "docs/agent-packets/PAY-W1-01-prompt.md",
+    "docs/agent-packets/PAY-W1-01.json",
+    "docs/agent-packets/PAY-W1-01-handoff.json",
+    "package.json",
+    "package-lock.json",
+    "packages/payroll-domain/package.json",
+    "tsconfig.base.json",
+    "vitest.workspace.ts"
+  ],
+  "files_modified": [
+    "packages/payroll-domain/src/money.ts",
+    "packages/payroll-domain/src/duration.ts",
+    "packages/payroll-domain/src/rounding.ts",
+    "packages/payroll-domain/src/index.ts",
+    "packages/payroll-domain/test/money.spec.ts",
+    "packages/payroll-domain/test/rounding.property.spec.ts",
+    "docs/agent-packets/PAY-W1-01-handoff.json"
+  ],
+  "verification": {
+    "focused_red": "passed_expected_missing_implementation",
+    "focused_green": "passed_2_files_6_tests",
+    "typecheck": "passed",
+    "git_diff_check": "passed_with_parent_owned_crlf_warnings",
+    "parent_owned_hashes": "passed",
+    "handoff_json_parse": "passed_by_local_write_validation",
+    "required_fields_and_evidence_layers": "present",
+    "final_scope_status_assertion": "blocked_not_retried",
+    "blocker_count": 1
+  },
+  "blocker": {
+    "count": 1,
+    "items": [
+      {
+        "reason": "The final self-check status assertion did not complete because its expected status list omitted the already-existing owned blocked handoff path. This was the first self-check attempt; the packet's no-progress rule and tool-call budget prohibit a retry.",
+        "required_action": "Codex parent independently inspect git status --short, the scoped diff, parent-owned hashes, and the seven owned paths before accepting or re-running any verification.",
+        "purpose": "Complete the parent-owned scope verification without widening Hermes authority.",
+        "expected_effect": "A direct scope receipt that distinguishes the three parent-owned manifest changes and packet artifacts from the six owned source/test files plus handoff.",
+        "rollback": "Codex parent owns any rollback after reviewing the scoped diff."
+      }
+    ]
+  },
+  "blocked_reason": "The final self-check status assertion did not complete because its expected status list omitted the already-existing owned blocked handoff path. This was the first self-check attempt; the packet's no-progress rule and tool-call budget prohibit a retry.",
+  "next_action": "Codex parent should independently complete the final scope review and decide whether the successful focused implementation evidence can be accepted or whether a fresh verification-only packet is needed."
+}

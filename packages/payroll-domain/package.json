@@ -2,5 +2,8 @@
   "name": "@pay-slip/payroll-domain",
   "version": "0.0.0",
   "private": true,
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "decimal.js": "10.6.0"
+  }
 }

@@ -1,0 +1,238 @@
+{
+  "$schema": "F:\\Codex\\.agent\\contracts\\task-runtime.contract.schema.json",
+  "contract_kind": "task_runtime",
+  "schema_version": "1.0.0",
+  "task_id": "PAY-W1-01",
+  "agent_id": "hermes-terra-w1-01",
+  "title": "Implement exact VND money, duration, and rounding primitives",
+  "status": "done",
+  "goal": "Use test-driven development to create the smallest deterministic payroll-domain primitives for exact VND arithmetic, validated minute durations, and named rounding, with focused RED/GREEN evidence and no floating-point storage.",
+  "parent_acceptance_artifact": "docs/agent-packets/PAY-W1-01-parent-acceptance.json",
+  "workspace": {
+    "cwd": "F:\\Codex\\Projects\\Pay Slip",
+    "repository_root": "F:\\Codex\\Projects\\Pay Slip",
+    "branch": "main",
+    "base_commit": "16afd9ff746fbfce53899d6fd9f5b1292efd7f7a"
+  },
+  "model_route": {
+    "provider": "openai-codex",
+    "model": "gpt-5.6-terra",
+    "reasoning_effort": "xhigh",
+    "fallback": "none; stop and report if the requested model or reasoning effort is unavailable"
+  },
+  "authority": {
+    "level": "bounded_write_and_focused_test",
+    "delegation": "disabled",
+    "background_children": "disabled",
+    "real_data": "forbidden",
+    "credentials": "forbidden",
+    "commit": "forbidden",
+    "push": "forbidden"
+  },
+  "prerequisites": [
+    "PAY-W0-01 passed and commit 16afd9ff746fbfce53899d6fd9f5b1292efd7f7a is the W1 base",
+    "decimal.js 10.6.0 is installed as an exact dependency of @pay-slip/payroll-domain",
+    "fast-check 4.9.0 is installed as an exact root development dependency",
+    "Duke separately approves one Hermes gpt-5.6-terra xhigh invocation and the focused RED/GREEN test plus typecheck commands before execution starts"
+  ],
+  "inputs": [
+    "AGENTS.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md",
+    "docs/agent-packets/PAY-W1-01.json",
+    "docs/agent-packets/PAY-W1-01-prompt.md",
+    "package.json",
+    "packages/payroll-domain/package.json",
+    "tsconfig.base.json",
+    "vitest.workspace.ts"
+  ],
+  "owned_files": [
+    "packages/payroll-domain/src/money.ts",
+    "packages/payroll-domain/src/duration.ts",
+    "packages/payroll-domain/src/rounding.ts",
+    "packages/payroll-domain/src/index.ts",
+    "packages/payroll-domain/test/money.spec.ts",
+    "packages/payroll-domain/test/rounding.property.spec.ts",
+    "docs/agent-packets/PAY-W1-01-handoff.json"
+  ],
+  "read_only_files": [
+    "AGENTS.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md",
+    "docs/agent-packets/PAY-W1-01.json",
+    "docs/agent-packets/PAY-W1-01-prompt.md",
+    "package.json",
+    "package-lock.json",
+    "packages/payroll-domain/package.json",
+    "tsconfig.base.json",
+    "vitest.workspace.ts"
+  ],
+  "parent_owned_preexisting_changes": {
+    "files": [
+      "package.json",
+      "package-lock.json",
+      "packages/payroll-domain/package.json",
+      "docs/agent-packets/PAY-W1-01.json",
+      "docs/agent-packets/PAY-W1-01-prompt.md"
+    ],
+    "immutable_file_hashes": {
+      "package.json": "53F04BE88B4BFAB51DA24C97EE56D568A1EF7373C431DD36640353720D0737AA",
+      "package-lock.json": "BB6F9D9CB94371389AA9B7D3CECAE6ABE30520218E1BDE10CD93EB680D12AA15",
+      "packages/payroll-domain/package.json": "AABCAABED642D846803157B0E03B4A6E8F6812B5F180458A47D32357BB8AC025"
+    },
+    "rule": "Do not edit, stage, revert, delete, regenerate, or claim ownership of any parent-owned preexisting change. Re-hash the three immutable files before handoff and stop if any hash differs."
+  },
+  "excluded_scope": [
+    "Package manifest or lockfile edits",
+    "PAY-W1-02 or any legal rule-pack, PIT, insurance, overtime, public-holiday, or deduction logic",
+    "Apps, database, Prisma, API, authentication, attendance, UI, PDF, delivery, backup, or production work",
+    "All files outside the repository",
+    "Hermes or Codex configuration",
+    "Real employee, attendance, payroll, contract, credential, or secret data",
+    "Git branch creation, staging, commit, push, reset, checkout, deletion, or history mutation"
+  ],
+  "interfaces": {
+    "required": [
+      "type Vnd = bigint",
+      "type Minutes = number",
+      "multiplyRateByMinutes(rate: Vnd, minutes: Minutes, rule: RoundingRule): Vnd",
+      "roundVnd(value: Decimal, rule: RoundingRule): Vnd"
+    ],
+    "behavior": [
+      "multiplyRateByMinutes(26_000n, 90, 'HALF_UP_VND') returns 39_000n",
+      "minutes(-1) throws an error containing DURATION_NEGATIVE",
+      "minutes rejects non-integer values",
+      "Decimal.js is used only inside arithmetic and conversion to bigint occurs exactly once at a named rounding boundary",
+      "Unsafe JavaScript number conversion is rejected rather than silently rounded",
+      "Any VND serialization surface introduced by this task uses base-10 strings",
+      "Stored or returned VND values do not use floating point"
+    ]
+  },
+  "phases": [
+    {
+      "id": "preflight",
+      "action": "Confirm the exact cwd, model route, base commit, required reads, dependency versions, parent-owned hashes, and current Git status before modifying owned files."
+    },
+    {
+      "id": "red",
+      "action": "Create the two focused test files first, run the exact focused unit-test command, and preserve evidence that failure is caused by missing PAY-W1-01 exports or behavior rather than configuration, dependency, or environment failure."
+    },
+    {
+      "id": "green",
+      "action": "Create the four source files with the minimum exact implementation, rerun the focused tests, then run the approved root typecheck."
+    },
+    {
+      "id": "self_check",
+      "action": "Inspect the scoped diff, run git diff --check, re-hash parent-owned files, write and parse the structured handoff, then stop."
+    }
+  ],
+  "allowed_actions": [
+    "Read only the declared repository inputs and files needed to understand existing local TypeScript/test configuration",
+    "Run read-only Get-Location, git status, git diff, git diff --check, git rev-parse, Get-FileHash, and npm ls commands in the repository",
+    "Create or edit only owned_files",
+    "Run npm run test:unit -- --run packages/payroll-domain/test/money.spec.ts packages/payroll-domain/test/rounding.property.spec.ts for the required RED and GREEN evidence after Duke approval",
+    "Run npm run typecheck once after GREEN after Duke approval",
+    "Parse the handoff JSON locally"
+  ],
+  "approval_gates": [
+    "This packet and prompt do not authorize execution. Do not start until Duke separately approves one Hermes gpt-5.6-terra xhigh invocation through openai-codex, including model quota and runtime-network transport, plus the listed focused tests and typecheck.",
+    "During an approved run, do not use web or network-enabled tools and do not contact external services; only the approved Hermes runtime transport to openai-codex is permitted.",
+    "Do not install, remove, or update packages.",
+    "Do not run lint, build, integration tests, E2E tests, browsers, servers, databases, migrations, containers, tunnels, external binaries, or GUI automation.",
+    "Do not read credentials, secrets, .env contents, cookies, private keys, employment contracts, or real employee/payroll data.",
+    "Do not modify any unowned file, Git configuration, branches, staging area, or history; do not commit or push.",
+    "Do not delegate, spawn another agent, auto-decompose into workers, or start background children.",
+    "Stop immediately if cwd, model route, base commit, dependency versions, required inputs, or immutable parent hashes do not match this packet."
+  ],
+  "must_pass_gates": [
+    "cwd equals F:\\Codex\\Projects\\Pay Slip and HEAD equals 16afd9ff746fbfce53899d6fd9f5b1292efd7f7a",
+    "all required inputs are read before implementation",
+    "the initial focused test run is RED for the expected missing PAY-W1-01 implementation reason",
+    "the final focused test run passes both test files",
+    "npm run typecheck passes",
+    "git diff --check passes",
+    "all modified worker files are inside owned_files",
+    "package.json, package-lock.json, and packages/payroll-domain/package.json retain their packet hashes",
+    "handoff JSON parses and contains every required field",
+    "blocker count is zero"
+  ],
+  "verification": [
+    "npm ls decimal.js fast-check pure-rand --all",
+    "npm run test:unit -- --run packages/payroll-domain/test/money.spec.ts packages/payroll-domain/test/rounding.property.spec.ts",
+    "npm run typecheck",
+    "git diff --check",
+    "git status --short",
+    "Re-hash package.json, package-lock.json, and packages/payroll-domain/package.json and compare with parent_owned_preexisting_changes.immutable_file_hashes",
+    "Parse docs/agent-packets/PAY-W1-01-handoff.json and verify its identity, required fields, evidence layers, file scope, and blocker count"
+  ],
+  "limits": {
+    "max_tool_calls": 12,
+    "max_attempts_per_evidence_layer": 2,
+    "no_progress_breaker": 1,
+    "timeout_seconds": 900,
+    "max_concurrent_children": 0,
+    "architectural_fallbacks": 0
+  },
+  "stop_conditions": [
+    "The requested model or xhigh reasoning effort is unavailable",
+    "The repository path or base commit differs from the packet",
+    "A required input, dependency, or owned path is unavailable",
+    "A parent-owned immutable hash changes",
+    "RED fails for a configuration, dependency, import-resolution, or environment reason instead of the expected missing implementation",
+    "A second failure occurs at the same evidence layer or one attempt produces zero evidence delta",
+    "Any required action needs network access beyond model transport, an install, an unowned write, a broader test/build, credential access, real data, delegation, commit, or push",
+    "The handoff is complete"
+  ],
+  "side_effects": {
+    "expected_after_separate_execution_approval": [
+      "One Hermes gpt-5.6-terra xhigh invocation through openai-codex with normal model quota and transport",
+      "Six owned TypeScript source/test files",
+      "One owned JSON handoff file",
+      "Short-lived focused test and typecheck processes with no listener"
+    ],
+    "forbidden": [
+      "External writes or service calls",
+      "Processes left running",
+      "Changes outside owned_files",
+      "Package, lockfile, Git staging, commit, or push changes"
+    ]
+  },
+  "cleanup": {
+    "on_success": "Leave owned files and handoff uncommitted for Codex parent review; leave no running processes.",
+    "on_failure": "Preserve owned evidence, write a blocked or failed handoff if possible, and stop without retrying a frozen failure family or widening scope.",
+    "rollback": "Codex parent owns any rollback after reviewing the diff; Hermes must not revert parent or worker files."
+  },
+  "handoff": {
+    "$schema": "F:\\Codex\\.agent\\contracts\\subagent-status-contract.json",
+    "artifact": "docs/agent-packets/PAY-W1-01-handoff.json",
+    "required_fields": [
+      "agent_id",
+      "task_id",
+      "status",
+      "summary",
+      "evidence",
+      "files_read",
+      "files_modified",
+      "verification",
+      "blocker",
+      "blocked_reason",
+      "next_action"
+    ],
+    "required_evidence_layers": [
+      "preflight",
+      "red",
+      "green",
+      "typecheck",
+      "scope",
+      "cleanup"
+    ],
+    "parent_acceptance": "Codex independently reads every owned file, inspects the scoped diff, verifies immutable parent hashes, reruns focused tests and typecheck under separate authority, and owns commit and completion claims."
+  },
+  "execution_envelope": {
+    "protocol": "F:\\Codex\\.agent\\protocols\\universal-fast-core.md",
+    "defaults": "F:\\Codex\\.agent\\runtime\\execution-profile.defaults.json",
+    "profile_policy": "fast_core with payroll evidence boundaries and this packet's stricter no-delegation, no-fallback limits",
+    "core_before_polish": true,
+    "polish_backlog": "None inside PAY-W1-01; do not widen the primitives beyond the plan."
+  }
+}
