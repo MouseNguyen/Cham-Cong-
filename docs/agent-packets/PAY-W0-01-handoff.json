@@ -1,0 +1,81 @@
+{
+  "agent_id": "codex-parent-w0-01",
+  "task_id": "PAY-W0-01",
+  "status": "done",
+  "summary": "Created the pinned npm workspace and minimal Vietnamese Next.js scaffold, proved the runtime contract RED then GREEN, and passed lint, typecheck, focused test, and one production build.",
+  "evidence": {
+    "red": "The focused runtime-baseline test failed with one assertion because apps/web/package.json did not yet declare Next 16.3.3.",
+    "green": "The same focused test passed after the web workspace declared Next 16.3.3.",
+    "runtime": {
+      "node": "24.19.0",
+      "npm": "11.4.2",
+      "next": "16.3.3",
+      "react": "19.2.8",
+      "typescript": "6.0.3",
+      "vitest": "5.0.0",
+      "eslint": "9.39.5"
+    },
+    "evidence_layers": {
+      "structure": "passed",
+      "approved_runtime": "passed for W0 lint, typecheck, focused test, and production build",
+      "database": "not_run",
+      "server_browser": "not_run",
+      "business_behavior": "not_run",
+      "production": "not_run"
+    },
+    "known_limitations": [
+      "ESLint 9.39.5 is deprecated upstream but is the compatible major for eslint-config-next 16.3.3's current plugin set; W0 records this constraint and does not suppress peer checks.",
+      "psql was not installed or not available on PATH; PostgreSQL is deferred to its separately approved database wave.",
+      "Dependency security audit was not run because it was not part of the approved W0 command set."
+    ],
+    "blocker_count": 0
+  },
+  "files_read": [
+    "AGENTS.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md",
+    "docs/agent-packets/PAY-W0-01.json"
+  ],
+  "files_modified": [
+    ".nvmrc",
+    "apps/web/next-env.d.ts",
+    "apps/web/next.config.ts",
+    "apps/web/package.json",
+    "apps/web/src/app/layout.tsx",
+    "apps/web/src/app/page.tsx",
+    "apps/web/tsconfig.json",
+    "docs/adr/0001-runtime-baseline.md",
+    "docs/agent-packets/PAY-W0-01-handoff.json",
+    "docs/agent-packets/PAY-W0-01.json",
+    "eslint.config.mjs",
+    "package-lock.json",
+    "package.json",
+    "packages/attendance-domain/package.json",
+    "packages/contracts/package.json",
+    "packages/document-domain/package.json",
+    "packages/payroll-domain/package.json",
+    "tests/architecture/runtime-baseline.spec.ts",
+    "tsconfig.base.json",
+    "vitest.workspace.ts"
+  ],
+  "verification": [
+    {
+      "command": "npm run lint",
+      "status": "passed"
+    },
+    {
+      "command": "npm run typecheck",
+      "status": "passed"
+    },
+    {
+      "command": "npm test -- tests/architecture/runtime-baseline.spec.ts",
+      "status": "passed"
+    },
+    {
+      "command": "npm run build",
+      "status": "passed"
+    }
+  ],
+  "blocker": null,
+  "next_action": "Codex parent reruns the final W0 gates, verifies owned-file scope, commits explicit paths locally, and does not push."
+}

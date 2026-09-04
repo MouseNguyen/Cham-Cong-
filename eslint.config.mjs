@@ -1,0 +1,16 @@
+import { defineConfig, globalIgnores } from 'eslint/config';
+import nextVitals from 'eslint-config-next/core-web-vitals';
+import nextTypeScript from 'eslint-config-next/typescript';
+
+export default defineConfig([
+  {
+    settings: {
+      next: {
+        rootDir: 'apps/web/',
+      },
+    },
+  },
+  ...nextVitals,
+  ...nextTypeScript,
+  globalIgnores(['**/.next/**', '**/coverage/**', '**/node_modules/**', '**/out/**']),
+]);

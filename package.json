@@ -1,0 +1,30 @@
+{
+  "name": "pay-slip",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "npm@11.4.2",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace @pay-slip/web",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc --noEmit -p apps/web/tsconfig.json",
+    "test": "vitest run",
+    "test:unit": "vitest run",
+    "test:integration": "vitest run --passWithNoTests tests/integration",
+    "test:e2e": "vitest run --passWithNoTests tests/e2e"
+  },
+  "devDependencies": {
+    "@types/node": "24.13.3",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.3.3",
+    "typescript": "6.0.3",
+    "vitest": "5.0.0"
+  }
+}

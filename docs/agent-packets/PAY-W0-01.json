@@ -1,0 +1,120 @@
+{
+  "$schema": "F:\\Codex\\.agent\\contracts\\task-runtime.contract.schema.json",
+  "contract_kind": "task_runtime",
+  "schema_version": "1.0.0",
+  "task_id": "PAY-W0-01",
+  "agent_id": "codex-parent-w0-01",
+  "title": "Lock runtime and create the testable Pay Slip scaffold",
+  "status": "done",
+  "goal": "Create a pinned npm-workspace scaffold whose runtime contract, focused architecture test, lint, typecheck, and Next production build pass.",
+  "workspace": {
+    "cwd": "F:\\Codex\\Projects\\Pay Slip",
+    "repository_root": "F:\\Codex\\Projects\\Pay Slip",
+    "branch": "main"
+  },
+  "prerequisites": [
+    "Duke approved the W0 metadata, exact dependency installation, focused test, lint, typecheck, build, and local commit wave",
+    "Node 24.19.0 and npm 11.4.2 are installed",
+    "Next 16.3.3 and Prisma 7.10.0 stable compatibility metadata were retrieved on 2026-09-04"
+  ],
+  "inputs": [
+    "AGENTS.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md"
+  ],
+  "owned_files": [
+    "docs/agent-packets/PAY-W0-01.json",
+    "docs/agent-packets/PAY-W0-01-handoff.json",
+    "package.json",
+    "package-lock.json",
+    ".nvmrc",
+    ".gitignore",
+    "tsconfig.base.json",
+    "vitest.workspace.ts",
+    "eslint.config.mjs",
+    "apps/web/package.json",
+    "apps/web/next.config.ts",
+    "apps/web/tsconfig.json",
+    "apps/web/next-env.d.ts",
+    "apps/web/src/app/layout.tsx",
+    "apps/web/src/app/page.tsx",
+    "packages/contracts/package.json",
+    "packages/payroll-domain/package.json",
+    "packages/attendance-domain/package.json",
+    "packages/document-domain/package.json",
+    "tests/architecture/runtime-baseline.spec.ts",
+    "docs/adr/0001-runtime-baseline.md"
+  ],
+  "excluded_scope": [
+    "Business or payroll-domain implementation",
+    "PostgreSQL installation or service start",
+    "Prisma installation or schema",
+    "Server or browser start",
+    "Credentials, Cloudflare, Gmail, Zalo, iPOS, production data",
+    "Git push"
+  ],
+  "allowed_actions": [
+    "Read the approved design and implementation plans",
+    "Query npm registry metadata for the bounded W0 dependency set",
+    "Install only exact versions declared in W0 package manifests",
+    "Edit only owned_files",
+    "Run the focused RED/GREEN architecture test, lint, typecheck, and one Next production build",
+    "Commit only verified W0 files locally"
+  ],
+  "approval_gates": [
+    "No dependency outside the declared package manifests without a new preview",
+    "No PostgreSQL, Prisma, server, browser, credential, tunnel, integration, or production action",
+    "No push"
+  ],
+  "must_pass_gates": [
+    "The runtime-baseline test fails for the missing web runtime contract before the scaffold is implemented",
+    "All dependency versions are exact and package-lock.json is committed",
+    "npm run lint passes",
+    "npm run typecheck passes",
+    "the focused architecture test passes",
+    "npm run build passes",
+    "all modified files are inside owned_files"
+  ],
+  "verification": [
+    "npm run lint",
+    "npm run typecheck",
+    "npm test -- tests/architecture/runtime-baseline.spec.ts",
+    "npm run build",
+    "git diff --check",
+    "git status --short"
+  ],
+  "limits": {
+    "max_attempts_per_evidence_layer": 2,
+    "no_progress_breaker": 1,
+    "architectural_fallbacks": 1
+  },
+  "stop_conditions": [
+    "Any required action needs an unowned write or undeclared package",
+    "Any secret, real employee data, or external service is required",
+    "Second failure at the same evidence layer or one zero-evidence-delta attempt"
+  ],
+  "expected_artifacts": [
+    "Pinned package-lock.json",
+    "ADR-0001 with exact versions, official URLs, and retrieval date",
+    "Runtime baseline test",
+    "One production build receipt in command output"
+  ],
+  "handoff": {
+    "required_fields": [
+      "agent_id",
+      "task_id",
+      "status",
+      "summary",
+      "evidence",
+      "files_read",
+      "files_modified",
+      "verification",
+      "blocker",
+      "next_action"
+    ]
+  },
+  "execution_envelope": {
+    "profile_policy": "fast_core with payroll evidence boundaries preserved",
+    "core_before_polish": true
+  }
+}
