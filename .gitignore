@@ -1,0 +1,46 @@
+# Dependencies and build outputs
+node_modules/
+.next/
+out/
+dist/
+build/
+coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+
+# Runtime data and employee/payroll artifacts
+data/
+storage/
+uploads/
+exports/
+payslips/
+backups/
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+
+# Local agent/runtime state
+.hermes/
+.tmp/
+tmp/
+temp/
+
+# Logs and OS/editor noise
+*.log
+Thumbs.db
+.DS_Store
+.idea/
+.vscode/

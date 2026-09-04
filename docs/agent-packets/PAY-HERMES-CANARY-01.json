@@ -1,0 +1,155 @@
+{
+  "$schema": "F:\\Codex\\.agent\\contracts\\task-runtime.contract.schema.json",
+  "contract_kind": "task_runtime",
+  "schema_version": "1.0.0",
+  "task_id": "PAY-HERMES-CANARY-01",
+  "agent_id": "hermes-terra-canary-01",
+  "title": "Hermes bounded workspace and handoff canary",
+  "status": "planned",
+  "goal": "Prove that one Hermes worker can read the approved Pay Slip plans, remain inside the repository, write one structured handoff artifact, and stop without agent-initiated external side effects.",
+  "workspace": {
+    "cwd": "F:\\Codex\\Projects\\Pay Slip",
+    "repository_root": "F:\\Codex\\Projects\\Pay Slip",
+    "branch": "main",
+    "remote": "https://github.com/MouseNguyen/Cham-Cong-.git"
+  },
+  "model_route": {
+    "provider": "openai-codex",
+    "model": "gpt-5.6-terra",
+    "reasoning_effort": "high",
+    "fallback": "none; stop and report if the requested model is unavailable"
+  },
+  "authority": {
+    "level": "bounded_write",
+    "delegation": "disabled",
+    "background_children": "disabled",
+    "real_data": "forbidden",
+    "credentials": "forbidden"
+  },
+  "inputs": [
+    "AGENTS.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md"
+  ],
+  "owned_files": [
+    "docs/agent-packets/PAY-HERMES-CANARY-01-handoff.json"
+  ],
+  "read_only_files": [
+    "AGENTS.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md",
+    "docs/agent-packets/PAY-HERMES-CANARY-01.json"
+  ],
+  "excluded_scope": [
+    "All product source code",
+    "All files outside the repository",
+    "G:\\Becky\\Employment Contract",
+    "Hermes or Codex configuration",
+    "Git commits and pushes",
+    "Real employee or payroll data"
+  ],
+  "phases": [
+    {
+      "id": "preflight",
+      "action": "Confirm cwd, read AGENTS.md and the two approved plans, and inspect Git status without modifying files."
+    },
+    {
+      "id": "handoff",
+      "action": "Write exactly one JSON handoff at the owned path using the required handoff fields."
+    },
+    {
+      "id": "self_check",
+      "action": "Parse the handoff JSON, confirm the modified-file list contains only the owned path, report status, and stop."
+    }
+  ],
+  "coverage_proof": {
+    "required_reads": "All four read-only files must be listed in files_read.",
+    "required_write": "Exactly one owned handoff file must be listed in files_modified.",
+    "scope_evidence": "The handoff must include the final cwd and scoped Git status output.",
+    "success_condition": "All must-pass gates are true and blocker count is zero."
+  },
+  "allowed_actions": [
+    "Read the declared inputs and this task packet",
+    "Run read-only pwd/Get-Location, git status, and git diff commands in the repository",
+    "Create or replace only docs/agent-packets/PAY-HERMES-CANARY-01-handoff.json",
+    "Parse the created JSON locally"
+  ],
+  "approval_gates": [
+    "Do not start this canary until Duke separately approves one Hermes gpt-5.6-terra invocation through openai-codex, including its model-quota and runtime-network transport",
+    "During an approved run, do not use web or network-enabled tools and do not contact external services; only the Hermes runtime transport to openai-codex is permitted",
+    "Do not install or update packages",
+    "Do not run builds, tests, browsers, servers, databases, migrations, containers, tunnels, external services, or GUI automation",
+    "Do not read credentials, secrets, .env contents, cookies, private keys, contracts, or real employee data",
+    "Do not modify Git configuration, create branches, commit, push, delete, move, or edit any unowned file",
+    "Do not delegate or spawn another agent",
+    "Stop immediately if cwd is not exactly the declared repository root or if any required action would exceed this authority"
+  ],
+  "must_pass_gates": [
+    "cwd equals F:\\Codex\\Projects\\Pay Slip",
+    "all required inputs were read",
+    "handoff JSON parses successfully",
+    "only the owned handoff file was modified",
+    "no agent-initiated web/network access, credential access, install, server, browser, delegation, commit, or push occurred; only the separately approved openai-codex model transport was used",
+    "blocker count is zero"
+  ],
+  "verification": [
+    "Parse docs/agent-packets/PAY-HERMES-CANARY-01-handoff.json as JSON",
+    "Confirm required handoff fields are present: agent_id, task_id, status, summary, evidence, files_read, files_modified, verification, blocked_reason, next_action",
+    "Confirm task_id is PAY-HERMES-CANARY-01 and agent_id is hermes-terra-canary-01",
+    "Confirm files_modified contains exactly docs/agent-packets/PAY-HERMES-CANARY-01-handoff.json",
+    "Parent independently inspects Git status and diff before accepting the canary"
+  ],
+  "limits": {
+    "max_tool_calls": 8,
+    "max_attempts": 1,
+    "timeout_seconds": 600,
+    "max_concurrent_children": 0
+  },
+  "stop_conditions": [
+    "Any requested model or tool is unavailable",
+    "The repository path differs from the declared cwd",
+    "An owned or required input file is missing",
+    "Any action requires agent-initiated network access, credential access beyond the approved provider session, additional runtime execution, or an unowned write",
+    "The handoff JSON cannot be produced and parsed within one attempt",
+    "The handoff is complete"
+  ],
+  "side_effects": {
+    "expected": [
+      "One separately approved Hermes model invocation through openai-codex with its normal network transport and quota usage",
+      "One local JSON handoff file under docs/agent-packets"
+    ],
+    "forbidden": [
+      "External writes",
+      "Processes left running",
+      "Changes outside the owned handoff file"
+    ]
+  },
+  "cleanup": {
+    "on_success": "Leave the handoff file for Codex review; leave no running processes.",
+    "on_failure": "Do not delete evidence; report the blocker without attempting a second run or widening scope.",
+    "rollback": "Codex may remove the single uncommitted handoff file after review."
+  },
+  "handoff": {
+    "$schema": "F:\\Codex\\.agent\\contracts\\subagent-status-contract.json",
+    "artifact": "docs/agent-packets/PAY-HERMES-CANARY-01-handoff.json",
+    "required_fields": [
+      "agent_id",
+      "task_id",
+      "status",
+      "summary",
+      "evidence",
+      "files_read",
+      "files_modified",
+      "verification",
+      "blocked_reason",
+      "next_action"
+    ],
+    "parent_acceptance": "Codex independently verifies the artifact, file scope, and Git diff."
+  },
+  "execution_envelope": {
+    "protocol": "F:\\Codex\\.agent\\protocols\\universal-fast-core.md",
+    "defaults": "F:\\Codex\\.agent\\runtime\\execution-profile.defaults.json",
+    "profile_policy": "fast_core with this packet's stricter one-attempt, eight-tool, no-delegation limits",
+    "core_before_polish": true
+  }
+}

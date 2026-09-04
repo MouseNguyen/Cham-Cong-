@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "bundle_id": "2026-09-03-pay-slip-plan-cross-check",
+  "title": "Vietnam payroll plan legal and architecture cross-check",
+  "created_at": "2026-09-03T00:00:00+07:00",
+  "as_of_date": "2026-09-04",
+  "jurisdiction": "Vietnam",
+  "source_plan": "F:\\Codex\\Projects\\Pay Slip\\KE_HOACH_TRIEN_KHAI_CUOI_CUNG_DA_KIEM_CHUNG.md",
+  "outcome_status": "partial",
+  "preparation_status": "U01-U05, architecture A, detailed-design sections 1-6, the simple-premium UX contract, and the Codex/Hermes execution contract are owner-approved at the design layer. The consolidated design specification and task-by-task TDD implementation plan are written and statically reviewed. Runtime, specialist sign-off, integration, and production evidence are not run.",
+  "design_approval": {
+    "architecture": "Windows-native modular monolith; Next.js/TypeScript; PostgreSQL; deterministic payroll domain; PostgreSQL outbox; protected local documents; attendance-only Cloudflare ingress; no Docker dependency for MVP",
+    "approved_sections": [1, 2, 3, 4, 5, 6],
+    "ux_contract": "Vietnamese-first, easy, low-step, accessible, and visually premium without hiding payroll evidence",
+    "execution_contract": "Codex-direct or bounded Hermes packets; Codex owns integration and independent evidence review"
+  },
+  "claim_counts": {
+    "supported": 15,
+    "qualified": 3,
+    "contradicted": 1,
+    "unknown": 2
+  },
+  "blocker_count": 0,
+  "evidence_layers": {
+    "official_source_review": "passed",
+    "plan_cross_check": "passed",
+    "employment_contract_text_review": "passed",
+    "employment_contract_visual_review": "blocked_no_local_docx_renderer",
+    "professional_legal_review": "not_run",
+    "independent_payroll_case_validation": "not_run",
+    "design_specification": "passed_static_review",
+    "implementation_plan": "passed_static_review",
+    "runtime_verification": "not_run"
+  },
+  "planning_artifacts": [
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md"
+  ],
+  "files": [
+    "sources.json",
+    "claims.md",
+    "unknowns.md",
+    "risks.md",
+    "actions.md",
+    "agent_handoff.md",
+    "evidence/README.md"
+  ]
+}
