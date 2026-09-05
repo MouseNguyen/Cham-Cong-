@@ -1,0 +1,64 @@
+{
+  "agent_id": "pay_w2_01_reviewer",
+  "native_agent_id": "/root/pay_w2_01_reviewer",
+  "task_id": "PAY-W2-01",
+  "status": "passed_read_only_review_no_core_blockers_found",
+  "summary": "Independent GPT-5.5 xhigh reviewer found no concrete W2-01 core correctness/data-integrity blockers in current SQL/schema, repositories, restricted role and tests. Earlier canonical input/result hash gap is repaired.",
+  "findings": [],
+  "evidence": [
+    {
+      "path": "prisma/migrations/202609040001_initial/migration.sql",
+      "supports": "Canonical input/result SHA checks, scoped input hash references, finalized parent locks, referenced-version guards."
+    },
+    {
+      "path": "apps/web/src/lib/db/transaction.ts",
+      "supports": "Explicit connection-bound transaction with rollback."
+    },
+    {
+      "path": "apps/web/src/lib/db/repositories/pay-runs.ts",
+      "supports": "Version/audit/finalization/outbox writes and savepoint rollback; exact retry check."
+    },
+    {
+      "path": "apps/web/src/lib/db/repositories/outbox.ts",
+      "supports": "Organization/key uniqueness and changed-payload conflict."
+    },
+    {
+      "path": "scripts/windows/test-database.ps1",
+      "supports": "Separate migration/application roles, restricted DML and history privileges."
+    },
+    {
+      "path": "tests/integration/db/immutability.spec.ts",
+      "supports": "Observed pg_blocking_pids before finalization release; blocked child rejected."
+    },
+    {
+      "path": "tests/integration/db/hash-bindings.spec.ts",
+      "supports": "Hostile identity/hash references and result tampering cases."
+    },
+    {
+      "path": "ops/evidence/PAY-W2-01-runtime.json",
+      "supports": "Parent-owned passed Green/cleanup receipts inspected."
+    }
+  ],
+  "known": [
+    "Current migration locks finalized parent rows before employee/line mutation.",
+    "Input/result canonical bytes are independently hashed.",
+    "Application role cannot own/create schema, bypass RLS or edit append-only history."
+  ],
+  "inferred": [
+    "Inspected locks plus parent-run concurrency evidence support the bounded synthetic W2 scope."
+  ],
+  "unknown": [
+    "Reviewer did not independently execute runtime, tests, migrations or typecheck.",
+    "Production, authentication, legal release, real employee data, UI, PDF, delivery and recovery were not reviewed."
+  ],
+  "verification": {
+    "static_review": "passed",
+    "reviewer_runtime": "not_run_by_instruction",
+    "reviewer_edits": "none"
+  },
+  "blocker": {
+    "core_count": 0,
+    "items": []
+  },
+  "next_action": "Parent accepts direct evidence, persists final handoff, verifies scoped diff and commits locally."
+}

@@ -14,17 +14,20 @@
   "scripts": {
     "build": "npm run build --workspace @pay-slip/web",
     "lint": "eslint . --max-warnings=0",
-    "typecheck": "tsc --noEmit -p apps/web/tsconfig.json && tsc --noEmit -p packages/payroll-domain/tsconfig.json && tsc --noEmit -p packages/attendance-domain/tsconfig.json",
+    "typecheck": "tsc --noEmit -p apps/web/tsconfig.json && tsc --noEmit -p packages/payroll-domain/tsconfig.json && tsc --noEmit -p packages/attendance-domain/tsconfig.json && tsc --noEmit -p tests/integration/db/tsconfig.json",
     "test": "vitest run",
     "test:unit": "vitest run",
     "test:integration": "vitest run --passWithNoTests tests/integration",
-    "test:e2e": "vitest run --passWithNoTests tests/e2e"
+    "test:e2e": "vitest run --passWithNoTests tests/e2e",
+    "test:db": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/windows/test-database.ps1 -Mode Green"
   },
   "devDependencies": {
     "@types/node": "24.13.3",
+    "@types/pg": "8.23.1",
     "eslint": "9.39.5",
     "eslint-config-next": "16.3.3",
     "fast-check": "4.9.0",
+    "prisma": "7.10.0",
     "typescript": "6.0.3",
     "vitest": "5.0.0"
   }

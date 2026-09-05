@@ -1,0 +1,228 @@
+{
+  "contract_kind": "task_runtime",
+  "task_id": "PAY-W2-01",
+  "roster_id": "PAY-NATIVE-W2-01-R1",
+  "roster_revision": 1,
+  "status": "accepted_synthetic_only",
+  "workspace": "F:\\Codex\\Projects\\Pay Slip",
+  "baseline_commit": "bbecd5b82f8c96d82fefba03258dfa967aec0283",
+  "approval": {
+    "product_step": "Duke: Ok approve, directly answering W2-01 schema/repositories",
+    "ordinary_work": "Proceed autonomously within approved scope per Duke preference",
+    "new_effects": "Approved by Duke: Ok e, directly answering the exact W2-01 install/runtime/roster preview",
+    "recorded_at": "2026-09-05T06:56:55.912Z"
+  },
+  "outcome_status": "complete_for_W2_01_synthetic_database_scope",
+  "preparation_status": "implemented_reviewed_and_verified",
+  "core_outcome": "Fresh synthetic PostgreSQL database enforces immutable payroll inputs, effective dates, scoped idempotency, matching hashes, expected revisions and atomic audit/outbox writes.",
+  "inputs": [
+    "AGENTS.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md",
+    "docs/planning/task-status.json",
+    "docs/planning/payroll-decision-matrix.md",
+    "docs/planning/W2-01-data-contract.md",
+    "docs/agent-packets/PAY-W2-01-runtime-preview.md",
+    "packages/payroll-domain/src/types.ts",
+    "packages/attendance-domain/src/types.ts",
+    "package.json",
+    "package-lock.json",
+    "apps/web/package.json",
+    ".gitignore"
+  ],
+  "input_sha256": {
+    "AGENTS.md": "4c6e5f97e085cba64a4e6f466d09afc71b8bbcbfee7963ec732b00e0a356d89d",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md": "91474c6b5f28f7a1e721355b4dc4e2e5aced2976a26b9ff9626c57a645f83ad2",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md": "f65246ee13f5de2c63ea1299443f9891ec8bdcd20fe0a012cef070490539238d",
+    "docs/planning/task-status.json": "9ec898cf3fe12f7231afc6eda45408763e7f07e5ae859a760e32c7479def6293",
+    "docs/planning/payroll-decision-matrix.md": "51079fcc31cb08f909764426f837004dc593d99a7277087b899eae9f0e780b11",
+    "docs/planning/W2-01-data-contract.md": "71a782e40ca5f0970d15cd300d455dae7e01b4be86799ca9085b0d0b2427528c",
+    "docs/agent-packets/PAY-W2-01-runtime-preview.md": "67597322e79fc633dfd104789399559217fce340a37b8c28c20494bd5f376f8d",
+    "packages/payroll-domain/src/types.ts": "8f2e1613a1da8190deeed9b405a2824eb670aad33b4de867cc961b35fd2a175d",
+    "packages/attendance-domain/src/types.ts": "ff54df2a5deae42e77bb32a35f16f1a6bf71d77b49925cb47f4c38421c7a064a",
+    "package.json": "637b124c685eb67b623eac39991d83c5cda8c8b01b02dc48faed23b68e29d741",
+    "package-lock.json": "bb6f9d9cb94371389aa9b7d3cecae6abe30520218e1bde10cd93eb680d12aa15",
+    "apps/web/package.json": "806d244fbf6060c75dd23de73f4f631e55c89a337d8de7f6ded998353078f7fb",
+    ".gitignore": "63b139fa8f2efa082e41d4de7c387dec20a4f06e2b57ae83b1d0773f6297c4a1"
+  },
+  "runtime_preview": "docs/agent-packets/PAY-W2-01-runtime-preview.md",
+  "data_contract": "docs/planning/W2-01-data-contract.md",
+  "roster": [
+    {
+      "agent_id": "codex-parent",
+      "model": "current parent",
+      "job": "Schema/migration/repositories, exact runtime setup, integration and final commit",
+      "authority": "All named parent files; listed effects only after setup confirmation"
+    },
+    {
+      "agent_id": "pay_w2_01_test_worker",
+      "model": "gpt-5.6-terra",
+      "reasoning_effort": "high",
+      "job": "Write bounded independent DB01-DB12 synthetic integration tests from data contract",
+      "authority": "Owned test files only, listed scoped test commands; no install/start/migrations/commit",
+      "timeout_minutes": 25
+    },
+    {
+      "agent_id": "pay_w2_01_reviewer",
+      "model": "gpt-5.5",
+      "reasoning_effort": "xhigh",
+      "job": "One read-only concrete schema/transaction/immutability review after parent acceptance",
+      "authority": "Read-only; no tests, writes, children or broader security scans",
+      "timeout_minutes": 15
+    }
+  ],
+  "worker_owned_files": [
+    "tests/integration/db/effective-dates.spec.ts",
+    "tests/integration/db/immutability.spec.ts",
+    "tests/integration/db/hash-bindings.spec.ts",
+    "tests/integration/db/transactions.spec.ts",
+    "tests/integration/db/PAY-W2-01-test-worker-handoff.json"
+  ],
+  "parent_owned_files": [
+    "docs/agent-packets/PAY-W2-01.json",
+    "docs/agent-packets/PAY-W2-01-runtime-preview.md",
+    "docs/agent-packets/PAY-W2-01-handoff.json",
+    "docs/agent-packets/PAY-W2-01-review.json",
+    "docs/planning/W2-01-data-contract.md",
+    "docs/planning/task-status.json",
+    ".gitignore",
+    "package.json",
+    "package-lock.json",
+    "apps/web/package.json",
+    "prisma/schema.prisma",
+    "prisma.config.ts",
+    "prisma/migrations/migration_lock.toml",
+    "prisma/migrations/202609040001_initial/migration.sql",
+    "apps/web/src/lib/db/client.ts",
+    "apps/web/src/lib/db/transaction.ts",
+    "apps/web/src/lib/db/repositories/compensation.ts",
+    "apps/web/src/lib/db/repositories/clock-events.ts",
+    "apps/web/src/lib/db/repositories/snapshots.ts",
+    "apps/web/src/lib/db/repositories/rule-packs.ts",
+    "apps/web/src/lib/db/repositories/pay-runs.ts",
+    "apps/web/src/lib/db/repositories/outbox.ts",
+    "tests/integration/db/support.ts",
+    "tests/integration/db/tsconfig.json",
+    "scripts/windows/test-database.ps1",
+    "ops/runbooks/database-migration.md",
+    "ops/evidence/PAY-W2-01-runtime.json"
+  ],
+  "generated_scope": [
+    "node_modules installed package changes",
+    "apps/web/src/generated/prisma client (ignored)",
+    ".tools/postgresql/18.6 project-local binaries (ignored)",
+    ".tmp/PAY-W2-01 owned temporary cluster/download/logs (ignored)"
+  ],
+  "commands_before_setup": [
+    "Read-only source/metadata/status and static proposal writes only"
+  ],
+  "commands_after_setup": [
+    "npm install --save-dev --save-exact prisma@7.10.0 @types/pg@8.23.1",
+    "npm install --workspace @pay-slip/web --save-exact @prisma/client@7.10.0 @prisma/adapter-pg@7.10.0 pg@8.23.0",
+    "Official EDB PostgreSQL18.6 Windows64 download/extract and project-owned initdb/pg_ctl at127.0.0.1:55432 as specified in runtime preview",
+    "node node_modules/prisma/build/index.js validate",
+    "node node_modules/prisma/build/index.js generate",
+    "node node_modules/prisma/build/index.js migrate deploy",
+    "npm run test:integration -- --run tests/integration/db",
+    "npm run test:unit -- --run packages/attendance-domain/test packages/payroll-domain/test",
+    "npm run typecheck",
+    "git diff --check"
+  ],
+  "must_pass_gates": [
+    "All36 design entities represented and cross-references reconciled with both domain interfaces",
+    "DB01-DB12 independently tested on PostgreSQL using application role and two sessions where required",
+    "RED observed after runtime/dependencies available; missing-dependency failure is not behavioral RED",
+    "Prisma schema valid, generated client and reviewed SQL migration agree",
+    "63 existing domain tests remain green; new integration tests discovered with nonzero count; typecheck includes repository and DB tests",
+    "Exact owned database only, no ambient URL or existing credentials, zero remaining owned listeners/processes",
+    "Scoped diff, independent review, final receipts and explicit-path local commit"
+  ],
+  "execution_order": [
+    "Read current sources and prepare exact contract/setup preview",
+    "Confirm only newly introduced runtime/install effects and execution roster",
+    "Bounded installation and health/cleanup-capable database setup",
+    "Worker independent tests while parent prepares runtime/shared fixture support",
+    "Observed RED before schema implementation",
+    "Parent schema/migration/repositories and GREEN",
+    "One independent reviewer; parent causal fixes",
+    "Final runtime verification, stop/cleanup, receipts and local commit"
+  ],
+  "exclusions": [
+    "No production/legal release or real employee data",
+    "No existing database, credentials, .env, Windows service or system PATH mutation",
+    "No Docker, Hermes, browsers, public/LAN listener, deploy or push",
+    "No auth/UI/PDF/provider-message implementation",
+    "No new paid provider APIs or unlisted package versions"
+  ],
+  "limits": {
+    "max_active_children": 1,
+    "full_background_tasks": 0,
+    "max_tool_calls_per_child": 12,
+    "checkpoint_minutes": 15,
+    "runtime_checkpoint_minutes": 30,
+    "max_download_bytes": 1073741824,
+    "max_additional_disk_bytes": 3221225472,
+    "max_database_ram_bytes": 1073741824,
+    "same_layer_attempts": 2,
+    "architectural_fallbacks": 0
+  },
+  "blocker": {
+    "core_count": 0,
+    "items": [],
+    "production": "not_run"
+  },
+  "evidence_layers": {
+    "structure": "passed_36_models",
+    "prisma_validation": "passed",
+    "database_runtime": "passed_synthetic",
+    "integration": "passed_16_tests",
+    "domain_regression": "passed_63_tests",
+    "typecheck": "passed",
+    "independent_review": "passed_read_only",
+    "cleanup": "passed",
+    "production": "not_run"
+  },
+  "handoff": {
+    "artifact": "docs/agent-packets/PAY-W2-01-handoff.json",
+    "review": "docs/agent-packets/PAY-W2-01-review.json",
+    "required_fields": [
+      "agent_id",
+      "native_agent_id",
+      "task_id",
+      "status",
+      "summary",
+      "evidence",
+      "files_read",
+      "files_modified",
+      "verification",
+      "blocker",
+      "next_action"
+    ]
+  },
+  "cleanup": "Stop exact owned cluster in finally, verify PID/listener absence. Retain ignored binaries and stopped synthetic cluster. No broad deletion.",
+  "rollback": "Only project manifest/lockfile/source changes and new owned synthetic runtime; preserve previous file content and diagnostics. No destructive reset or existing DB action.",
+  "next_action": "Next dependency is W7-01a synthetic secret adapter preparation, then W2-02 authentication; no implicit real-secret or production authority.",
+  "polish_backlog": [
+    "Reassess four npm dev-tool transitive high package findings before release.",
+    "Forced-termination recovery rehearsal belongs to W7 operations."
+  ],
+  "runtime_repairs": [
+    {
+      "failure": "initdb18.6 treats --pwfile=- as filename, not stdin",
+      "source": "https://raw.githubusercontent.com/postgres/postgres/REL_18_6/src/common/sprompt.c#L91",
+      "repair": "--pwprompt with child-only OSTYPE=msys uses documented upstream stdin fallback; generated password twice via stdin, no file or host setting",
+      "predicted_delta": "SCRAM cluster initializes without password file; real database RED can run",
+      "attempts_before_repair": 1
+    },
+    {
+      "failure": "pg_ctl inherited captured pipes causing spawnSync timeout after successful startup",
+      "repair": "Ignore only pg_ctl stdio; retain startup health and exact finally stop",
+      "evidence": "red-66fe8308-e4f3-4eba-9957-dd737fd7e757 and subsequent passed runs"
+    },
+    {
+      "failure": "Expanded test found absent canonical_result column",
+      "repair": "Required exact input/result text plus checked SHA-256 in schema/migration",
+      "evidence": "green-32666083-7363-4210-8196-e27e57e79798 RED; subsequent14 and16-case GREEN"
+    }
+  ]
+}

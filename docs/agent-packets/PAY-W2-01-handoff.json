@@ -1,0 +1,266 @@
+{
+  "agent_id": "codex-parent",
+  "native_agent_id": "/root",
+  "task_id": "PAY-W2-01",
+  "status": "accepted_synthetic_only",
+  "outcome_status": "complete_for_W2_01_synthetic_database_scope",
+  "preparation_status": "implemented_reviewed_verified",
+  "summary": "36 model foundations with reviewed PostgreSQL invariants and transaction repositories;16 DB tests,63 domain regressions and typecheck passed. No whole-app or production-readiness claim.",
+  "evidence": {
+    "baseline_commit": "bbecd5b82f8c96d82fefba03258dfa967aec0283",
+    "final_runtime_run_id": "green-4a509ee8-df05-4ed2-9adb-b0425639f22e",
+    "runtime_receipt": "ops/evidence/PAY-W2-01-runtime.json",
+    "test_count": 16,
+    "test_files": 4,
+    "domain_tests": 63,
+    "domain_files": 9,
+    "prisma": "validate/generate/migrate deploy passed; generated adapter read and36-model column/type/nullability comparison passed",
+    "typecheck": "passed",
+    "review": "docs/agent-packets/PAY-W2-01-review.json",
+    "source_sha256": {
+      ".gitignore": "331813fb4999f9dd5255867248bcd5da337005e69c40f6727b10b9ccb63faa17",
+      "package.json": "3b3190c121201792ef4a02d1db3e1ab3c9afba23219dc298bf56cf5fe70b213d",
+      "package-lock.json": "7fb8ef3075dca6ac44d88ac6872aef2fb73f57c133744e43459b4f4c142b3ff0",
+      "apps/web/package.json": "373acd7a531265d0983e440aad22fce062913ef6bdd23e39533474ef02f5c406",
+      "prisma/schema.prisma": "fa60a5bb51158a3b1215de2acab6492832455ecff3fe1af0b3185d3881b66c91",
+      "prisma.config.ts": "f39bc145191125cfd469b22d8a38b4a3e6bb81d9369dd392dfd4b7f42b58ed58",
+      "prisma/migrations/migration_lock.toml": "1db17a8d051aa136110736752c5e1f8b7ed92b6ea8e803112fbbe2497047c210",
+      "prisma/migrations/202609040001_initial/migration.sql": "e04f0f9c243cb9167a5809410182ab1b25d150d96aa7690d425de4f08eaec792",
+      "apps/web/src/lib/db/client.ts": "4fd9d283d9d66b0c773ecb942ba80a8a07c338909aa527243918ea8f6116bac8",
+      "apps/web/src/lib/db/transaction.ts": "995ee65a845fc374ee3b912687413103cc32d3f5a9b721ea0058b19bd585cd01",
+      "apps/web/src/lib/db/repositories/compensation.ts": "0f4fc9e68c8f91a50264c97e5ddc3646de19ab0262a7ae7d82fc95c1306db46f",
+      "apps/web/src/lib/db/repositories/clock-events.ts": "fcfa9c370075f806b043df8d968107cc7dc6d4172c0ae33a46654f41c82e260c",
+      "apps/web/src/lib/db/repositories/snapshots.ts": "5163d7851189a33f20d4941643237edefc3cba4f5e589e247399a823a040ec00",
+      "apps/web/src/lib/db/repositories/rule-packs.ts": "8e7a11b032b12ce9ae26f6224cb9814490b41f6b1bc6bc08a3ef242539286c9d",
+      "apps/web/src/lib/db/repositories/pay-runs.ts": "011e0c02307e97f163e16b2dbeb9ac7278a3dba92b811f6dc914f08e4bce2b25",
+      "apps/web/src/lib/db/repositories/outbox.ts": "a6441d2b906fda71b9eec453fb0c6b03463bb8a657bf5483d3b45ac4e2c33896",
+      "tests/integration/db/support.ts": "5ace3c01fab15c7eb3a95e5cb28933691609746f530869942a3cc8cbe913f741",
+      "tests/integration/db/tsconfig.json": "747a2e4abd10f4991b064063f157fffac2f990e00f0653fb0e0398c62e2b5f34",
+      "scripts/windows/test-database.ps1": "f288d0611876baeabb97d9581ec9ca2fc471a9734ad5312a7a606e6f48e5f41e",
+      "tests/integration/db/effective-dates.spec.ts": "2f90b221fbab09ff46414d59210c4ee423625bc6b88b68ee760b3adf5b5cb853",
+      "tests/integration/db/immutability.spec.ts": "26315bd2c3f307af5f3db87d35a8079917550a3e2aa800ab17de600fbf4a848b",
+      "tests/integration/db/hash-bindings.spec.ts": "62c0f2ac273ffd82f4660cb1c3446f4af53535df76766b953901470785043e01",
+      "tests/integration/db/transactions.spec.ts": "08bde4ebf163afb476d26276ca2599ddb3e189249f029d35115615bb2202ecb7",
+      "tests/integration/db/PAY-W2-01-test-worker-handoff.json": "0269339aab46ccf55e250223f78f7964ffe52f7a0c03cbf29a3e2e0491e00049"
+    },
+    "post_runtime_change": "Only final EOF whitespace normalization in schema; no behavioral change after last16-test GREEN."
+  },
+  "claim_ledger": [
+    {
+      "claim": "DB01",
+      "status": "passed",
+      "layer": "synthetic_database_runtime",
+      "test": "effective-dates.spec.ts",
+      "evidence": "All version-family range exclusions and observed two-session overlap conflict"
+    },
+    {
+      "claim": "DB02",
+      "status": "passed",
+      "layer": "synthetic_database_runtime",
+      "test": "immutability.spec.ts",
+      "evidence": "Clock scoped exact replay/conflict and UPDATE/DELETE/TRUNCATE denied"
+    },
+    {
+      "claim": "DB03",
+      "status": "passed",
+      "layer": "synthetic_database_runtime",
+      "test": "immutability.spec.ts + transactions.spec.ts",
+      "evidence": "Canonical bytes/hash, snapshot immutability and UTF-8 repository archive"
+    },
+    {
+      "claim": "DB04",
+      "status": "passed",
+      "layer": "synthetic_database_runtime",
+      "test": "hash-bindings.spec.ts",
+      "evidence": "Synthetic draft release and production run insert denied"
+    },
+    {
+      "claim": "DB05",
+      "status": "passed",
+      "layer": "synthetic_database_runtime",
+      "test": "immutability.spec.ts",
+      "evidence": "Finalized header/employee/line update/delete, late insertion/reassignment denied"
+    },
+    {
+      "claim": "DB06",
+      "status": "passed",
+      "layer": "synthetic_database_runtime",
+      "test": "hash-bindings.spec.ts",
+      "evidence": "Scoped identity/hash foreign keys and canonical result hash check"
+    },
+    {
+      "claim": "DB07",
+      "status": "passed",
+      "layer": "synthetic_database_runtime",
+      "test": "transactions.spec.ts",
+      "evidence": "Expected version plus atomic data/audit rollback and exact successful count"
+    },
+    {
+      "claim": "DB08",
+      "status": "passed",
+      "layer": "synthetic_database_runtime",
+      "test": "transactions.spec.ts",
+      "evidence": "Finalization/outbox rollback, same-key replay and changed-request conflict"
+    },
+    {
+      "claim": "DB09",
+      "status": "passed",
+      "layer": "synthetic_database_runtime",
+      "test": "immutability.spec.ts + hash-bindings.spec.ts",
+      "evidence": "Document/attempt/approval/audit records append-only with real stored synthetic rows"
+    },
+    {
+      "claim": "DB10",
+      "status": "passed",
+      "layer": "synthetic_database_runtime",
+      "test": "immutability.spec.ts",
+      "evidence": "Referenced compensation/destination update/delete denied"
+    },
+    {
+      "claim": "DB11",
+      "status": "passed",
+      "layer": "synthetic_database_runtime",
+      "test": "transactions.spec.ts + immutability.spec.ts",
+      "evidence": "App cannot own/create schema, bypass RLS, truncate or disable triggers"
+    },
+    {
+      "claim": "DB12",
+      "status": "passed",
+      "layer": "synthetic_database_runtime",
+      "test": "immutability.spec.ts",
+      "evidence": "Actual pg_blocking_pids observed; child waits for finalization then fails"
+    },
+    {
+      "claim": "36 model/schema/client agreement",
+      "status": "passed",
+      "layer": "synthetic_database_runtime"
+    },
+    {
+      "claim": "63 domain regressions and typecheck",
+      "status": "passed",
+      "layer": "local_test"
+    },
+    {
+      "claim": "independent review",
+      "status": "passed",
+      "layer": "static"
+    },
+    {
+      "claim": "owned runtime cleanup",
+      "status": "passed",
+      "layer": "direct_process_listener_receipt"
+    },
+    {
+      "claim": "production/auth/UI/kiosk/PDF/delivery/recovery/legal release",
+      "status": "not_run",
+      "layer": "production",
+      "scope": "Later tasks, outside W2 acceptance"
+    }
+  ],
+  "verification": {
+    "red": "Actual missing-schema RED; expanded test separately exposed absent result archive",
+    "green": "16/16 PostgreSQL and63/63 domain",
+    "typecheck": "passed",
+    "schema_model_count": 36,
+    "independent_review": "zero concrete core findings",
+    "cleanup": {
+      "status": "passed",
+      "listener_absent": true,
+      "postmaster_pid_file_absent": true
+    },
+    "scope": "all changed/untracked paths belong to approved packet",
+    "git_diff_check": "passed"
+  },
+  "files_read": [
+    "AGENTS.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md",
+    "docs/planning/task-status.json",
+    "docs/planning/payroll-decision-matrix.md",
+    "docs/planning/W2-01-data-contract.md",
+    "docs/agent-packets/PAY-W2-01-runtime-preview.md",
+    "packages/payroll-domain/src/types.ts",
+    "packages/attendance-domain/src/types.ts",
+    "package.json",
+    "package-lock.json",
+    "apps/web/package.json",
+    ".gitignore"
+  ],
+  "files_modified": [
+    "docs/agent-packets/PAY-W2-01.json",
+    "docs/agent-packets/PAY-W2-01-runtime-preview.md",
+    "docs/agent-packets/PAY-W2-01-handoff.json",
+    "docs/agent-packets/PAY-W2-01-review.json",
+    "docs/planning/W2-01-data-contract.md",
+    "docs/planning/task-status.json",
+    ".gitignore",
+    "package.json",
+    "package-lock.json",
+    "apps/web/package.json",
+    "prisma/schema.prisma",
+    "prisma.config.ts",
+    "prisma/migrations/migration_lock.toml",
+    "prisma/migrations/202609040001_initial/migration.sql",
+    "apps/web/src/lib/db/client.ts",
+    "apps/web/src/lib/db/transaction.ts",
+    "apps/web/src/lib/db/repositories/compensation.ts",
+    "apps/web/src/lib/db/repositories/clock-events.ts",
+    "apps/web/src/lib/db/repositories/snapshots.ts",
+    "apps/web/src/lib/db/repositories/rule-packs.ts",
+    "apps/web/src/lib/db/repositories/pay-runs.ts",
+    "apps/web/src/lib/db/repositories/outbox.ts",
+    "tests/integration/db/support.ts",
+    "tests/integration/db/tsconfig.json",
+    "scripts/windows/test-database.ps1",
+    "ops/runbooks/database-migration.md",
+    "ops/evidence/PAY-W2-01-runtime.json",
+    "tests/integration/db/effective-dates.spec.ts",
+    "tests/integration/db/immutability.spec.ts",
+    "tests/integration/db/hash-bindings.spec.ts",
+    "tests/integration/db/transactions.spec.ts",
+    "tests/integration/db/PAY-W2-01-test-worker-handoff.json"
+  ],
+  "known": [
+    "PostgreSQL18.6 using restricted application role passed the named tests.",
+    "No existing database, real employee data, credentials file, Windows service, public listener or provider used."
+  ],
+  "inferred": [
+    "Storage foundation is ready for later approved application services."
+  ],
+  "unknown": [
+    "Production legal release/authentication and domain-to-storage orchestration are not implemented.",
+    "Whole-app behavior and forced process termination/recovery remain unverified."
+  ],
+  "blocker": {
+    "core_count": 0,
+    "items": []
+  },
+  "dependency_findings": {
+    "affected_packages_high": 4,
+    "scope": "Prisma development CLI transitive graph",
+    "packages": [
+      "prisma",
+      "@prisma/config",
+      "deepmerge-ts",
+      "mysql2"
+    ],
+    "status": "unresolved_not_demonstrated_app_exploits",
+    "details": "ops/runbooks/database-migration.md"
+  },
+  "cleanup": {
+    "status": "passed",
+    "listener_absent": true,
+    "postmaster_pid_file_absent": true,
+    "retained": [
+      "ignored portable binaries/archive",
+      "ignored stopped synthetic clusters/logs"
+    ],
+    "push": "not_run"
+  },
+  "next_action": "Next dependency is W7-01a synthetic secret adapter preparation, then W2-02 authentication; no implicit real-secret or production authority.",
+  "commit": {
+    "status": "accepted_for_local_commit",
+    "message": "feat(data): enforce immutable payroll records",
+    "reference": "The commit containing this handoff; no self-referential SHA."
+  }
+}
