@@ -192,13 +192,18 @@
     {
       "task_id": "PAY-W6-02",
       "title": "Outbox and delivery",
-      "owner": "codex-implementation-worker",
-      "status": "not_started",
-      "evidence": [],
+      "owner": "codex-parent",
+      "status": "partial",
+      "evidence": [
+        "docs/agent-packets/PAY-W6-02a-handoff.json",
+        "docs/agent-packets/PAY-W6-02a-review.json",
+        "ops/evidence/PAY-W6-02a-runtime.json"
+      ],
       "accepted_commit": null,
       "production": "not_run",
       "planned_manager": "codex-parent",
-      "planned_reviewer": "codex-independent-reviewer"
+      "planned_reviewer": "/root/pay_w6_02a_reviewer_terra",
+      "remaining_scope": "W6-02a accepted synthetic queue only; W6-02b release remains not_started and requires W6-01 PDF plus authentication."
     },
     {
       "task_id": "PAY-W7-01",
@@ -301,7 +306,14 @@
         "W2-01"
       ],
       "outcome": "transactional outbox repository/fake queue; no PDF dependency",
-      "status": "not_started"
+      "status": "accepted_synthetic_only",
+      "evidence": [
+        "docs/agent-packets/PAY-W6-02a-handoff.json",
+        "docs/agent-packets/PAY-W6-02a-review.json",
+        "ops/evidence/PAY-W6-02a-runtime.json"
+      ],
+      "blocker_count": 0,
+      "acceptance_commit_reference": "Commit containing docs/agent-packets/PAY-W6-02a-handoff.json"
     },
     {
       "id": "W2-02",
@@ -541,7 +553,7 @@
   "execution_route": {
     "kind": "native_codex_subagents",
     "decision": "Duke approved parent + one implementer + independent reviewer; Hermes repair deferred.",
-    "packet": "docs/agent-packets/PAY-W7-01a.json",
-    "roster_confirmation": "PAY-NATIVE-W7-01a-R1 executed for approved current-user canary; identity gates remain blocked"
+    "packet": "docs/agent-packets/PAY-W6-02a.json",
+    "roster_confirmation": "PAY-NATIVE-W6-02a-R2 confirmed and read-only review passed; W6-02a accepted synthetic only"
   }
 }

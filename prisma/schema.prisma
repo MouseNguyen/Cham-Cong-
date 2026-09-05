@@ -330,12 +330,17 @@ model delivery_drafts {
 model outbox_jobs {
   id String @db.Uuid @id
   organization_id String @db.Uuid
-  pay_run_id String @db.Uuid
+  pay_run_id String? @db.Uuid
+  kind String @default("synthetic_payslip_draft")
+  employee_id String? @db.Uuid
+  destination_id String? @db.Uuid
+  destination_hash String?
   idempotency_key String
   payload Json
   status String @default("draft")
   created_at DateTime @db.Timestamptz(3) @default(now())
   @@unique([organization_id, idempotency_key])
+  @@unique([id, organization_id])
 }
 
 model delivery_attempts {
@@ -394,4 +399,34 @@ model backup_runs {
   content_hash String?
   started_at DateTime @db.Timestamptz(3)
   finished_at DateTime? @db.Timestamptz(3)
+}
+
+model outbox_dispatches {
+  job_id String @db.Uuid @id
+  organization_id String @db.Uuid
+  status String @default("pending")
+  available_at DateTime @db.Timestamptz(3)
+  generation Int @default(0)
+  send_attempts Int @default(0)
+  reconcile_attempts Int @default(0)
+  lease_token String? @db.Uuid
+  lease_phase String?
+  lease_expires_at DateTime? @db.Timestamptz(3)
+  worker_id String?
+  provider_reference String?
+  terminal_reason String?
+  @@unique([job_id, organization_id])
+}
+
+model outbox_dispatch_attempts {
+  id String @db.Uuid @id
+  job_id String @db.Uuid
+  organization_id String @db.Uuid
+  generation Int
+  phase String
+  event String
+  outcome String
+  provider_reference String?
+  created_at DateTime @db.Timestamptz(3)
+  @@unique([job_id, generation, event])
 }

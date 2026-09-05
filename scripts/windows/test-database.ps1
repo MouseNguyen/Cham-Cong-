@@ -1,15 +1,16 @@
-param([ValidateSet('Red','Green')][string]$Mode='Green')
+param([ValidateSet('Red','Green')][string]$Mode='Green', [ValidateSet('PAY-W2-01','PAY-W6-02a')][string]$TaskId='PAY-W2-01')
 $ErrorActionPreference='Stop'
 $env:PAYSLIP_DB_TEST_MODE=$Mode
+$env:PAYSLIP_DB_TASK_ID=$TaskId
 try {
 @'
 const fs=require('fs'),path=require('path'),crypto=require('crypto'),cp=require('child_process');
 const {Pool}=require('pg');
-const root=process.cwd(),mode=process.env.PAYSLIP_DB_TEST_MODE;
+const root=process.cwd(),mode=process.env.PAYSLIP_DB_TEST_MODE,taskId=process.env.PAYSLIP_DB_TASK_ID;
 const bin=path.join(root,'.tools/postgresql/18.6/pgsql/bin');
 const runId=mode.toLowerCase()+'-'+crypto.randomUUID();
-const cluster=path.join(root,'.tmp/PAY-W2-01/cluster',runId);
-const log=path.join(root,'.tmp/PAY-W2-01',runId+'.log');
+const cluster=path.join(root,'.tmp',taskId,'cluster',runId);
+const log=path.join(root,'.tmp',taskId,runId+'.log');
 const ownerPassword=crypto.randomBytes(32).toString('hex'),appPassword=crypto.randomBytes(32).toString('hex');
 const ownerUrl='postgresql://payslip_owner:'+ownerPassword+'@127.0.0.1:55432/payslip_w2_01_synthetic';
 const appUrl='postgresql://payslip_app:'+appPassword+'@127.0.0.1:55432/payslip_w2_01_synthetic';
@@ -23,7 +24,7 @@ function run(exe,args,input,allowFail=false,childEnv=env){
  if(r.status!==0&&!allowFail)throw Error('Command failed ('+r.status+'): '+path.basename(exe)+' '+args.join(' '));
  return {exit:r.status,output:out};
 }
-const receipt={task_id:'PAY-W2-01',run_id:runId,mode,cluster,port:55432,status:'running',tests:null,cleanup:null};
+const receipt={task_id:taskId,run_id:runId,mode,cluster,port:55432,status:'running',tests:null,cleanup:null};
 let started=false,admin;
 (async()=>{
  try{
@@ -45,9 +46,10 @@ let started=false,admin;
     run(process.execPath,['node_modules/prisma/build/index.js','generate']);
     run(process.execPath,['node_modules/prisma/build/index.js','migrate','deploy']);
     await owner.query('GRANT SELECT,INSERT,UPDATE,DELETE ON ALL TABLES IN SCHEMA public TO payslip_app; REVOKE ALL ON TABLE _prisma_migrations FROM payslip_app; REVOKE UPDATE,DELETE ON clock_events,attendance_snapshots,legal_rule_packs,rule_sources,minimum_wages,insurance_policies,pit_policies,earning_component_policies,opening_hour_versions,employment_contracts,schedule_templates,schedule_assignments,attendance_adjustments,approval_events,adjustment_links,payslips,document_artifacts,delivery_attempts,audit_events,audit_events,retention_actions,outbox_jobs FROM payslip_app');
+    if((await owner.query("SELECT to_regclass('public.outbox_dispatch_attempts') AS name")).rows[0].name)await owner.query('REVOKE UPDATE,DELETE ON outbox_dispatch_attempts FROM payslip_app');
    }
   }finally{await owner.end();}
-  const tests=run(process.execPath,['node_modules/vitest/vitest.mjs','run','tests/integration/db','--maxWorkers=1','--no-file-parallelism'],undefined,true);
+  const tests=run(process.execPath,['node_modules/vitest/vitest.mjs','run','tests/integration/db',...(taskId==='PAY-W6-02a'?['tests/integration/delivery']:[]),'--maxWorkers=1','--no-file-parallelism'],undefined,true);
   receipt.tests={exit:tests.exit};
   if(mode==='Red'){
    if(tests.exit===0||!tests.output.includes('does not exist'))throw Error('Expected real missing-schema RED was not observed');
@@ -68,12 +70,12 @@ let started=false,admin;
    receipt.cleanup={status:'passed',listener_absent:true,postmaster_pid_file_absent:!fs.existsSync(path.join(cluster,'postmaster.pid'))};
   }catch(error){receipt.cleanup={status:'failed',error:redact(error.message)};process.exitCode=1;}
   fs.mkdirSync(path.join(root,'ops/evidence'),{recursive:true});
-  const dest=path.join(root,'ops/evidence/PAY-W2-01-runtime.json');
-  const history=fs.existsSync(dest)?JSON.parse(fs.readFileSync(dest,'utf8')):{task_id:'PAY-W2-01',runs:[]};
+  const dest=path.join(root,'ops/evidence/'+taskId+'-runtime.json');
+  const history=fs.existsSync(dest)?JSON.parse(fs.readFileSync(dest,'utf8')):{task_id:taskId,runs:[]};
   history.runs.push(receipt);fs.writeFileSync(dest,JSON.stringify(history,null,2)+'\n');
   process.stdout.write(JSON.stringify(receipt)+'\n');
  }
 })();
 '@ | node
  if($LASTEXITCODE -ne 0){throw "Database wave exited $LASTEXITCODE"}
-} finally {Remove-Item Env:PAYSLIP_DB_TEST_MODE -ErrorAction SilentlyContinue}
+} finally {Remove-Item Env:PAYSLIP_DB_TASK_ID -ErrorAction SilentlyContinue; Remove-Item Env:PAYSLIP_DB_TEST_MODE -ErrorAction SilentlyContinue}

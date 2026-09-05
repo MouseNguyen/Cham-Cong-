@@ -1,0 +1,117 @@
+{
+  "agent_id": "codex-parent",
+  "task_id": "PAY-W6-02a",
+  "status": "accepted_synthetic_only",
+  "outcome_status": "synthetic_queue_runtime_and_independent_review_passed",
+  "preparation_status": "implementation_tests_runbook_and_evidence_written",
+  "summary": "Durable fake-only notification queue accepted for the approved synthetic scope: direct PostgreSQL tests, domain regressions, typecheck, independent review and owned database cleanup passed.",
+  "evidence": [
+    {
+      "layer": "structure",
+      "status": "passed",
+      "details": "Prisma validate/generate, 38-model database column/type/nullability agreement, original migration SHA-256 unchanged."
+    },
+    {
+      "layer": "tdd_red",
+      "status": "passed",
+      "details": "Initial baseline schema run: 8 focused tests failed on missing implementation; 16 prior database tests passed; cluster stopped."
+    },
+    {
+      "layer": "approved_runtime",
+      "status": "passed",
+      "details": "Final PostgreSQL 18.6 fresh-cluster run green-0a3f9568-078d-4496-9278-788f2e2ca756: 27/27 tests (11 delivery +16 existing DB). Typecheck passed; 63/63 payroll and attendance domain tests passed."
+    },
+    {
+      "layer": "cleanup",
+      "status": "passed",
+      "details": "All three W6 clusters stopped; listener and postmaster PID-file absent in receipts. Final process query found no postgres.exe bound to W6 cluster paths and no listener at 55432."
+    },
+    {
+      "layer": "independent_review",
+      "status": "passed",
+      "details": "Confirmed R2 GPT-5.6-terra high read-only reviewer found zero core blockers; hashes matched. Original GPT-5.5 quota failure preserved in review history."
+    },
+    {
+      "layer": "dry_run",
+      "status": "not_required",
+      "details": "Direct isolated synthetic runtime used."
+    },
+    {
+      "layer": "production",
+      "status": "not_run",
+      "details": "Outside this packet; fake-only acceptance never means delivered."
+    }
+  ],
+  "verification": {
+    "database_tests": 27,
+    "delivery_tests": 11,
+    "domain_tests": 63,
+    "typecheck": "passed",
+    "initial_migration_sha256": "e04f0f9c243cb9167a5809410182ab1b25d150d96aa7690d425de4f08eaec792",
+    "historical_receipts": "unchanged",
+    "runtime_receipt": "ops/evidence/PAY-W6-02a-runtime.json",
+    "git_diff_check": "Working source checks passed; staged check required immediately before commit",
+    "commit": "Acceptance commit containing this receipt; resolve with git log -1 -- docs/agent-packets/PAY-W6-02a-handoff.json"
+  },
+  "known": [
+    "No real employee data, provider calls, installations, secret reads, or push.",
+    "Crash gap is simulated by discarding the result after fake acceptance; queue storage is actual PostgreSQL.",
+    "Fake provider memory loss returns unknown, not authoritative absence."
+  ],
+  "inferred": [
+    "The reviewed, directly tested queue slice can support further synthetic integration."
+  ],
+  "unknown": [
+    "Real email verification/delivery, PDF attachment release, authenticated tenant boundary and production operation remain later scope."
+  ],
+  "blocker": {
+    "core_count": 0,
+    "items": []
+  },
+  "remaining_scope": {
+    "parent_PAY_W6_02": "partial; W6-02b release and W6-01 PDF not_run",
+    "PAY_W7_01": "unchanged: two W7-01a Windows identity gates and W7-01b recovery remain"
+  },
+  "polish_backlog": [],
+  "next_action": "W6-02a accepted; continue downstream prerequisites. W2-02 authentication depends on completing the separate W7-01a identity gates; W6-01 PDF and W6-02b release remain not_run.",
+  "files_modified": [
+    "docs/planning/task-status.json",
+    "package.json",
+    "prisma/schema.prisma",
+    "scripts/windows/test-database.ps1",
+    "tests/integration/db/transactions.spec.ts",
+    "apps/web/src/lib/delivery/fake-adapter.ts",
+    "apps/web/src/lib/delivery/outbox.ts",
+    "apps/web/src/lib/delivery/types.ts",
+    "apps/web/src/lib/delivery/worker.ts",
+    "docs/agent-packets/PAY-W6-02a-handoff.json",
+    "docs/agent-packets/PAY-W6-02a-review.json",
+    "docs/agent-packets/PAY-W6-02a-runtime-preview.md",
+    "docs/agent-packets/PAY-W6-02a.json",
+    "docs/planning/W6-02a-outbox-contract.md",
+    "ops/evidence/PAY-W6-02a-runtime.json",
+    "ops/runbooks/fake-outbox.md",
+    "prisma/migrations/202609050001_outbox_dispatch/migration.sql",
+    "tests/integration/delivery/leases.spec.ts",
+    "tests/integration/delivery/outbox.spec.ts",
+    "tests/integration/delivery/retry.spec.ts",
+    "tests/integration/delivery/support.ts",
+    "tests/integration/delivery/tsconfig.json"
+  ],
+  "source_sha256": {
+    "apps/web/src/lib/delivery/types.ts": "cceba1bbe0dee131f68768b5fe41ea4aacbb54c252fd72dd6f3ea5d9ec392346",
+    "apps/web/src/lib/delivery/outbox.ts": "7d6f8532107aa9fc0a41f41460caa500e65c38e5612134bcb258ebac0e8a6f6e",
+    "apps/web/src/lib/delivery/worker.ts": "9efcbc603f961f2b8f868b738c00039468a932d8a3258b8c1cb2e088d26bd415",
+    "apps/web/src/lib/delivery/fake-adapter.ts": "b69f0ab5cab2e33475f8788ff9a5f80ec65ab54324a4710436fc3754e897a315",
+    "prisma/schema.prisma": "51988ae4c0e06111ea875a0fae308ad1e148340b3a632da11006c70617f2ed49",
+    "prisma/migrations/202609050001_outbox_dispatch/migration.sql": "6aa049d22081dc02e5a04db00b348adada96705588f3c6b55deaaa6f420dcaf0",
+    "scripts/windows/test-database.ps1": "0f923dee7ae2dc14133adf644d0159264ede1ef5dfc138bfab128150193c4874",
+    "tests/integration/db/transactions.spec.ts": "0b4962b692e0cff9058940db6ebf0b748c3915f0421430c4b43c231f01ecb35b",
+    "tests/integration/delivery/support.ts": "3b6630609b57111a4a78283332b433081813114e9dd0d5df9490b94597a8085d",
+    "tests/integration/delivery/outbox.spec.ts": "6df131c4938cc2f35d7d70e3e443eaa5ff28c601e305fbc6b7cf8886ff3eb868",
+    "tests/integration/delivery/leases.spec.ts": "faab8220c2275334099051d68fc7af531a57631292ec84cf40f7f0107385c27b",
+    "tests/integration/delivery/retry.spec.ts": "9107ca9f2a32220c5d239c6bbb597bb0376f7f204c47104209b2829fb73e4631",
+    "tests/integration/delivery/tsconfig.json": "a62f002c7783761265c2eaf18485dd2882d14d3c9d741f3d45960ea702548615",
+    "package.json": "128735c40a73a379b75c2bf5ad9adeefb13b06e49ccb38252ff2e3bc6e50ed38"
+  }
+}

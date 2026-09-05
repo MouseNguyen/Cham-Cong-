@@ -14,7 +14,7 @@
   "scripts": {
     "build": "npm run build --workspace @pay-slip/web",
     "lint": "eslint . --max-warnings=0",
-    "typecheck": "tsc --noEmit -p apps/web/tsconfig.json && tsc --noEmit -p packages/payroll-domain/tsconfig.json && tsc --noEmit -p packages/attendance-domain/tsconfig.json && tsc --noEmit -p tests/integration/db/tsconfig.json && tsc --noEmit -p tests/integration/operations/tsconfig.json",
+    "typecheck": "tsc --noEmit -p apps/web/tsconfig.json && tsc --noEmit -p packages/payroll-domain/tsconfig.json && tsc --noEmit -p packages/attendance-domain/tsconfig.json && tsc --noEmit -p tests/integration/db/tsconfig.json && tsc --noEmit -p tests/integration/operations/tsconfig.json && tsc --noEmit -p tests/integration/delivery/tsconfig.json",
     "test": "vitest run",
     "test:unit": "vitest run",
     "test:integration": "vitest run --passWithNoTests tests/integration",
