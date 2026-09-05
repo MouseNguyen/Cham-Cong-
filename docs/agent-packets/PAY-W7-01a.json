@@ -1,0 +1,144 @@
+{
+  "task_id": "PAY-W7-01a",
+  "parent_task": "PAY-W7-01",
+  "status": "partial_current_user_canary_accepted",
+  "workspace": "F:\\Codex\\Projects\\Pay Slip",
+  "baseline_commit": "9a2930a862cafc4c6f194633ed687b31d113f8fc",
+  "outcome_status": "passed_current_user_canary_identity_gates_blocked",
+  "preparation_status": "implemented_tested_reviewed",
+  "approval": {
+    "static_work": "Duke: Ok e, following W7-01a next step",
+    "new_effects": "Approved by Duke: Ok e, directly answering the exact DPAPI synthetic canary and reviewer preview"
+  },
+  "core_outcome": "Windows CurrentUser DPAPI adapter protects and restores synthetic bytes through captured pipes, rejects tampering and wrong purpose, and exposes only redacted errors.",
+  "must_pass_gates": [
+    "Observe focused RED before implementation",
+    "Actual Windows DPAPI roundtrip on fresh synthetic bytes",
+    "Wrong-purpose, tampered and malformed ciphertext rejected",
+    "No plaintext in process arguments, persisted artifacts or errors",
+    "Focused tests/typecheck and one read-only review",
+    "All child processes ended; explicit owned-file local commit"
+  ],
+  "inputs": [
+    "AGENTS.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md",
+    "docs/planning/task-status.json",
+    "docs/agent-packets/PAY-W2-01-handoff.json"
+  ],
+  "owned_files": [
+    "docs/agent-packets/PAY-W7-01a.json",
+    "docs/agent-packets/PAY-W7-01a-runtime-preview.md",
+    "docs/agent-packets/PAY-W7-01a-handoff.json",
+    "docs/agent-packets/PAY-W7-01a-review.json",
+    "docs/planning/task-status.json",
+    "scripts/windows/protect-secret.ps1",
+    "scripts/windows/unprotect-secret.ps1",
+    "apps/web/src/lib/secrets/windows-dpapi.ts",
+    "tests/integration/operations/secrets.windows.spec.ts",
+    "tests/integration/operations/tsconfig.json",
+    "ops/runbooks/secret-protection.md",
+    "ops/evidence/PAY-W7-01a-runtime.json",
+    "package.json"
+  ],
+  "roster_id": "PAY-NATIVE-W7-01a-R1",
+  "roster": [
+    {
+      "agent_id": "codex-parent",
+      "model": "current parent",
+      "job": "Tests, implementation, DPAPI canary, verification, cleanup and local commit"
+    },
+    {
+      "agent_id": "pay_w7_01a_reviewer",
+      "model": "gpt-5.5",
+      "reasoning_effort": "xhigh",
+      "job": "One read-only review of exact adapter/scripts/tests; no runtime, children or writes"
+    }
+  ],
+  "commands_after_confirmation": [
+    "node node_modules/vitest/vitest.mjs run tests/integration/operations/secrets.windows.spec.ts --maxWorkers=1 --no-file-parallelism",
+    "powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -File scripts/windows/protect-secret.ps1 (synthetic bytes via stdin only)",
+    "powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -File scripts/windows/unprotect-secret.ps1 (owned synthetic ciphertext via stdin only)",
+    "node node_modules/typescript/bin/tsc --noEmit -p tests/integration/operations/tsconfig.json",
+    "npm run typecheck",
+    "npm run test:unit -- --run packages/attendance-domain/test packages/payroll-domain/test",
+    "git diff --check",
+    "Explicit-path git add and local commit; no push"
+  ],
+  "network_scope": "At most three read-only Microsoft .NET ProtectedData/DPAPI documentation pages if necessary; no downloads or provider API",
+  "runtime_scope": {
+    "identity": "Current interactive Windows identity only; service identity not yet selected",
+    "secret_source": "New random synthetic bytes generated in tests; no existing secrets/ciphertexts",
+    "persistence": "Only source and redacted pass/fail metadata; plaintext and ciphertext stay in memory/captured pipes",
+    "os_effect": "DPAPI may access or initialize its normal CurrentUser protection state; no manual key files, account, service, registry or PATH changes",
+    "ports": [],
+    "installs": [],
+    "resource_limits": "CPU only, <=256 MiB child process memory target, <=1 MiB project evidence, <=20 DPAPI calls per run, <=15 minutes checkpoint, <=2 attempts per evidence layer"
+  },
+  "excluded": [
+    "Real TOTP/OAuth/PDF passwords, .env, private keys or employee data",
+    "Existing encrypted secrets or credentials",
+    "New Windows account, service identity or scheduled task",
+    "G: backups, age install, restore, replacement profile, network service, browser, database or push"
+  ],
+  "claim_ledger": [
+    {
+      "claim": "Current-user DPAPI canary",
+      "status": "passed"
+    },
+    {
+      "claim": "Other-Windows-identity decrypt rejection",
+      "status": "blocked",
+      "reason": "No alternate/service identity selected or authorized; cannot substitute wrong-purpose test"
+    },
+    {
+      "claim": "Intended service-identity deployment",
+      "status": "blocked",
+      "reason": "Service identity not selected"
+    },
+    {
+      "claim": "Portable recovery and parent PAY-W7-01",
+      "status": "not_run",
+      "owner": "W7-01b"
+    }
+  ],
+  "blocker": {
+    "current_user_core_count": 0,
+    "items": [
+      "Other-Windows-identity decrypt rejection not authorized or tested",
+      "Intended service identity not selected or tested"
+    ],
+    "remaining_identity_gates": 2
+  },
+  "polish_backlog": [
+    "UI/auth integration belongs to W2-02",
+    "Portable secret recovery and identity replacement belong to W7-01b"
+  ],
+  "cleanup": "Await each owned child exit; timeout ends only that owned child; do not launch detached processes or persist secret bytes.",
+  "next_action": "Keep W7-01a partial pending two identity gates. W6-02a fake outbox is an independent next core task with accepted W2-01 prerequisite; real identity/service effects need their own exact packet.",
+  "verification": {
+    "focused_tests": "passed_6_of_6",
+    "domain_tests": "passed_63_of_63",
+    "typecheck": "passed",
+    "independent_review": "passed_static_no_core_findings",
+    "runtime_receipt": "ops/evidence/PAY-W7-01a-runtime.json",
+    "cleanup": "8 observed helpers,0 remaining",
+    "production": "not_run"
+  },
+  "sources": [
+    {
+      "url": "https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.protecteddata?view=windowsdesktop-9.0",
+      "supports": "ProtectedData DPAPI wrapper and profile requirements"
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.dataprotectionscope?view=windowsdesktop-9.0",
+      "supports": "CurrentUser scope semantics"
+    }
+  ],
+  "input_sha256": {
+    "AGENTS.md": "4c6e5f97e085cba64a4e6f466d09afc71b8bbcbfee7963ec732b00e0a356d89d",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md": "91474c6b5f28f7a1e721355b4dc4e2e5aced2976a26b9ff9626c57a645f83ad2",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md": "f65246ee13f5de2c63ea1299443f9891ec8bdcd20fe0a012cef070490539238d",
+    "docs/agent-packets/PAY-W2-01-handoff.json": "3e739675e992cf8833d41adc9396752df481e8403fbf6a91374339220151e5a5"
+  }
+}

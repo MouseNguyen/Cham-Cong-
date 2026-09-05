@@ -1,0 +1,163 @@
+{
+  "agent_id": "codex-parent",
+  "native_agent_id": "/root",
+  "task_id": "PAY-W7-01a",
+  "parent_task": "PAY-W7-01",
+  "status": "partial_current_user_canary_accepted",
+  "outcome_status": "passed_current_user_canary_identity_gates_blocked",
+  "preparation_status": "implemented_tested_reviewed",
+  "summary": "Implemented and verified the approved current-user DPAPI synthetic canary. W7-01a remains partial because two Windows identity gates are untested; W7-01b recovery remains not_run.",
+  "evidence": {
+    "baseline_commit": "9a2930a862cafc4c6f194633ed687b31d113f8fc",
+    "red": "Four focused tests failed because windows-dpapi module did not exist; no helper started.",
+    "initial_green": "4/4 real CurrentUser tests passed",
+    "final_green": "6/6 tests passed;8 helper invocations",
+    "runtime_receipt": "ops/evidence/PAY-W7-01a-runtime.json",
+    "domain_regression": "63/63 tests across9 files",
+    "typecheck": "passed",
+    "independent_review": "docs/agent-packets/PAY-W7-01a-review.json",
+    "source_sha256": {
+      "apps/web/src/lib/secrets/windows-dpapi.ts": "2d92fde5946bd99c42980bc84596ab818896859152ea233c5da32420644ffcad",
+      "scripts/windows/protect-secret.ps1": "9a2658d6a55b22f18177e7259bc5c97ef6e88901656dfc6840fcbee827966556",
+      "scripts/windows/unprotect-secret.ps1": "88d12918a68cbd35dfb45121a6876470f347b243777686cbaa725b391804bdf6",
+      "tests/integration/operations/secrets.windows.spec.ts": "a89078c3288dce82ca741c9e1e6d6a5f0e5a788650909282b5369a1c79d5ee0e"
+    }
+  },
+  "claim_ledger": [
+    {
+      "claim": "Current-user synthetic roundtrip",
+      "status": "passed",
+      "layer": "direct_DPAPI_runtime"
+    },
+    {
+      "claim": "Wrong-purpose/tampered/malformed rejection",
+      "status": "passed",
+      "layer": "direct_DPAPI_runtime"
+    },
+    {
+      "claim": "Input limit,4KiB boundary and defensive copy",
+      "status": "passed",
+      "layer": "direct_test"
+    },
+    {
+      "claim": "Fixed argv,pipe capture,no shell",
+      "status": "passed",
+      "layer": "observed_spawn_metadata"
+    },
+    {
+      "claim": "Owned process cleanup",
+      "status": "passed",
+      "layer": "8 child exit observations,0 remaining"
+    },
+    {
+      "claim": "Source contains no secret file/log writes and uses stable errors",
+      "status": "passed",
+      "layer": "static_review_and_focused_runtime_errors"
+    },
+    {
+      "claim": "Forced termination and timeout fault injection",
+      "status": "not_run",
+      "layer": "not_part_of_canary_acceptance"
+    },
+    {
+      "claim": "Other Windows identity cannot decrypt",
+      "status": "blocked",
+      "layer": "identity_runtime"
+    },
+    {
+      "claim": "Intended service identity operation",
+      "status": "blocked",
+      "layer": "service_identity_runtime"
+    },
+    {
+      "claim": "Portable recovery",
+      "status": "not_run",
+      "owner": "W7-01b"
+    },
+    {
+      "claim": "Production readiness",
+      "status": "not_run"
+    }
+  ],
+  "verification": {
+    "focused_tests": "passed_6_of_6",
+    "domain_tests": "passed_63_of_63",
+    "typecheck": "passed",
+    "independent_review": "passed_static_no_core_findings",
+    "runtime_receipt": "ops/evidence/PAY-W7-01a-runtime.json",
+    "cleanup": "8 observed helpers,0 remaining",
+    "production": "not_run",
+    "git_diff_check": "passed",
+    "scope": "all modified/untracked paths match packet"
+  },
+  "files_read": [
+    "AGENTS.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md",
+    "docs/planning/task-status.json",
+    "docs/agent-packets/PAY-W2-01-handoff.json"
+  ],
+  "files_modified": [
+    "docs/agent-packets/PAY-W7-01a.json",
+    "docs/agent-packets/PAY-W7-01a-runtime-preview.md",
+    "docs/agent-packets/PAY-W7-01a-handoff.json",
+    "docs/agent-packets/PAY-W7-01a-review.json",
+    "docs/planning/task-status.json",
+    "scripts/windows/protect-secret.ps1",
+    "scripts/windows/unprotect-secret.ps1",
+    "apps/web/src/lib/secrets/windows-dpapi.ts",
+    "tests/integration/operations/secrets.windows.spec.ts",
+    "tests/integration/operations/tsconfig.json",
+    "ops/runbooks/secret-protection.md",
+    "ops/evidence/PAY-W7-01a-runtime.json",
+    "package.json"
+  ],
+  "known": [
+    "8 helpers ended;3 exit-code1 results are expected negative decrypt cases.",
+    "Only newly generated synthetic bytes were passed to DPAPI.",
+    "No package install, server, database, account creation, service registration, G: access or real-secret use occurred."
+  ],
+  "inferred": [
+    "The adapter can support later services once their identity and application gates pass."
+  ],
+  "unknown": [
+    "Cross-identity and intended-service behavior remain unproven.",
+    "This does not provide portable recovery or a memory-forensics erasure guarantee.",
+    "Peak process memory and throughput were not benchmarked."
+  ],
+  "blocker": {
+    "current_user_core_count": 0,
+    "items": [
+      "Other-Windows-identity decrypt rejection not authorized or tested",
+      "Intended service identity not selected or tested"
+    ],
+    "remaining_identity_gates": 2
+  },
+  "repair_history": [
+    {
+      "layer": "test_observation",
+      "failure": "Expanded metadata test saw0 mock calls",
+      "source": "node_modules/vitest/dist/chunks/defaults.D2ip7f-X.js:57 sets clearMocks:true",
+      "repair": "vi.hoisted non-secret observation list, plus nonzero cleanup denominator",
+      "result": "6/6 tests,8 helpers,0 remaining; old zero-observation receipt rejected"
+    },
+    {
+      "layer": "review_tooling",
+      "failure": "Default execution helper could not start",
+      "repair": "One same-scope read-only retry via the parent-verified escalated route",
+      "result": "Independent static review passed"
+    }
+  ],
+  "cleanup": {
+    "helper_calls": 8,
+    "remaining_owned_children": 0,
+    "secret_files_created": 0,
+    "retained": "source/tests and non-secret evidence only",
+    "push": "not_run"
+  },
+  "next_action": "Keep W7-01a partial pending two identity gates. W6-02a fake outbox is an independent next core task with accepted W2-01 prerequisite; real identity/service effects need their own exact packet.",
+  "commit": {
+    "message": "feat(secrets): add Windows DPAPI synthetic canary",
+    "reference": "The commit containing this handoff; no self-referential SHA."
+  }
+}

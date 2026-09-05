@@ -203,13 +203,18 @@
     {
       "task_id": "PAY-W7-01",
       "title": "Secrets and recovery",
-      "owner": "codex-implementation-worker",
-      "status": "not_started",
-      "evidence": [],
+      "owner": "codex-parent",
+      "status": "partial",
+      "evidence": [
+        "docs/agent-packets/PAY-W7-01a-handoff.json",
+        "docs/agent-packets/PAY-W7-01a-review.json",
+        "ops/evidence/PAY-W7-01a-runtime.json"
+      ],
       "accepted_commit": null,
       "production": "not_run",
       "planned_manager": "codex-parent",
-      "planned_reviewer": "codex-independent-reviewer"
+      "planned_reviewer": "/root/pay_w7_01a_reviewer",
+      "remaining_scope": "W7-01a two Windows identity gates; W7-01b portable backup/recovery not run."
     },
     {
       "task_id": "PAY-W7-02",
@@ -282,7 +287,12 @@
         "PAY-W0-01"
       ],
       "outcome": "DPAPI secret interface and approved synthetic identity test",
-      "status": "not_started"
+      "status": "partial",
+      "accepted_layer": "current_user_synthetic_canary",
+      "remaining_identity_gates": 2,
+      "evidence": [
+        "docs/agent-packets/PAY-W7-01a-handoff.json"
+      ]
     },
     {
       "id": "W6-02a",
@@ -531,7 +541,7 @@
   "execution_route": {
     "kind": "native_codex_subagents",
     "decision": "Duke approved parent + one implementer + independent reviewer; Hermes repair deferred.",
-    "packet": "docs/agent-packets/PAY-W2-01.json",
-    "roster_confirmation": "PAY-NATIVE-W2-01-R1 executed and accepted for synthetic scope"
+    "packet": "docs/agent-packets/PAY-W7-01a.json",
+    "roster_confirmation": "PAY-NATIVE-W7-01a-R1 executed for approved current-user canary; identity gates remain blocked"
   }
 }
