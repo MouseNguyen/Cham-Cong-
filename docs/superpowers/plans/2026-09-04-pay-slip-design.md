@@ -194,7 +194,9 @@ Luồng chính sau khi trang đã tải:
 2. nhập PIN sáu chữ số;
 3. chọn **Vào ca** hoặc **Tan ca**.
 
-PIN chỉ lưu dạng Argon2id hash. Server chỉ trả thành công sau khi đã ghi bền vững event kèm idempotency key. Nếu lỗi/timeout, màn hình phải nói rõ **Chưa ghi nhận chấm công**; không dùng thông báo mơ hồ. Kiosk không được đọc lương, danh sách nhân viên đầy đủ, PDF hoặc dữ liệu quản trị.
+PIN chỉ lưu dạng Argon2id hash. Server chỉ trả thành công sau khi đã ghi bền vững event kèm idempotency key. Chỉ lỗi được server xác nhận chưa commit mới hiển thị **Chưa ghi nhận chấm công**. Timeout/mất phản hồi hiển thị **Chưa xác nhận được — đang kiểm tra**, giữ nguyên key và tra cứu/retry có xác thực cùng key để tìm event đã commit; không tạo key mới hoặc khẳng định chưa ghi nhận khi trạng thái còn unknown. Kiosk không được đọc lương, danh sách nhân viên đầy đủ, PDF hoặc dữ liệu quản trị.
+
+Owner enroll thiết bị với shop binding và quyền chỉ chấm công, có xoay/revoke session riêng; PIN nhân viên không thay cho danh tính thiết bị. Public ingress là entrypoint riêng `apps/attendance-ingress/src/server.ts` ở loopback 46218, deny-by-default route allowlist (clock command, reconciliation và health tối thiểu). Kiosk static assets được serve từ allowlist đó. Tunnel chỉ trỏ entrypoint này, không trỏ Next admin. Luật ghi event dùng cùng attendance service; integration tests phải chứng minh public host không trả admin, PDF, payroll hoặc arbitrary proxy path.
 
 Raw timestamp được giữ nguyên, không tự làm tròn. Thiếu punch, trùng, thứ tự bất khả thi, overlap, ngoài lịch, ngày lễ và 22:00–06:00 đều tạo ngoại lệ. Kế toán đề xuất cách xử lý; chủ doanh nghiệp duyệt. Ngoại lệ chưa xử lý chặn snapshot tháng.
 
@@ -208,7 +210,11 @@ QR xoay vòng chỉ là challenge ngắn hạn, không phải kết nối mạng
 
 ### 9.1. Hợp đồng hàm tính
 
-Với cùng `PayInput`, `AttendanceSnapshot`, `CompensationTerm` và `LegalRulePack`, engine phải trả cùng `PayResult` và cùng calculation trace. Không được đọc ngày hệ thống, môi trường, mạng hoặc cơ sở dữ liệu bên trong phép tính.
+Với cùng `PayInput`, `AttendanceSnapshot`, `CompensationTerm`, `LegalRulePack` và calculator version, engine phải trả cùng `PayResult` và cùng calculation trace. Không được đọc ngày hệ thống, môi trường, mạng hoặc cơ sở dữ liệu bên trong phép tính.
+
+`docs/planning/payroll-decision-matrix.md` là ma trận bắt buộc cho rounding, độ chính xác thời gian, effective dates theo component, tax/fund/overtime bases, divisor ngày lễ và adjustments. Raw timestamp giữ milliseconds; payable duration dùng số nguyên milliseconds và phép chia chính xác, không cắt giây qua helper integer Minutes. Synthetic assumptions có nhãn riêng; thiếu quyết định có chữ ký thì chặn trường hợp production tương ứng.
+
+Rule release phải tái tính SHA-256 trên canonical content gồm identity/version, applicability, sources, rules, rounding và blockers; nguồn phải verified/có hash, references phải hợp lệ, hai chữ ký phải khớp nội dung và blockers phải rỗng. Metadata verified/chữ ký trong JSON không tự chứng minh nguồn thật hay danh tính người ký: trusted import/approval service phải xác thực các bằng chứng đó. Released object phải deep-immutable và detached khỏi draft.
 
 Mỗi calculation line chứa:
 
@@ -249,9 +255,9 @@ Không có công thức chung `giờ × 400%` áp dụng cho mọi người. B�
 ## 10. Pay run, phê duyệt và điều chỉnh
 
 ```text
-DRAFT -> CALCULATED -> REVIEW_PENDING -> APPROVED
-      -> FINALIZED -> PAYSLIPS_GENERATED
-      -> PARTIALLY_DELIVERED | DELIVERED
+DRAFT -> CALCULATED -> REVIEW_PENDING -> APPROVED -> FINALIZED
+Document status: PENDING -> GENERATING -> GENERATED | FAILED
+Dispatch summary: NOT_STARTED | IN_PROGRESS | ACTION_REQUIRED | DISPATCH_RECORDED
 ```
 
 - Kế toán tạo/chỉnh draft, xử lý ngoại lệ, tính và gửi review.
@@ -259,6 +265,9 @@ DRAFT -> CALCULATED -> REVIEW_PENDING -> APPROVED
 - Backend kiểm quyền ở từng command; ẩn nút trên UI không phải bằng chứng phân quyền.
 - `FINALIZED` không thể mở lại. Sửa bằng adjustment run chỉ rõ nguồn, lý do và người duyệt.
 - Mọi transition có expected version để chống double click/race và tạo audit event.
+- Finalize lưu frozen inputs, calculatorVersion/artifactHash, canonicalizationVersion và result schema version. Lưu archive calculator tương ứng để replay lịch sử; rule/salary version một mình không đủ.
+- Finalized state, input/result hashes, audit và outbox intent được insert trong cùng transaction. PDF/provider chỉ chạy sau commit; unique event key và retry idempotent xử lý crash/restart.
+- Dispatch summary được tính từ từng receipt, không sửa payroll lifecycle. Gmail `ProviderAccepted` chỉ là provider nhận yêu cầu; Zalo `operator_confirmed_manual` là xác nhận của người gửi. `DISPATCH_RECORDED` chỉ có nghĩa mọi phiếu đã có receipt theo kênh được chọn; không có nghĩa nhân viên đã nhận/đọc. Unknown/retry/dead-letter phải tiếp tục hiện riêng.
 
 ## 11. Phiếu lương và gửi
 
@@ -316,7 +325,9 @@ Chỉ ghi dưới `G:\PaySlip-Backups`; refuse mọi path escape và không đ�
 
 Backup dùng authenticated encryption độc lập. Recovery secret không nằm trên PC, ổ `G:`, source, log, database hoặc backup; có bản giấy niêm phong cất riêng. Lịch dự kiến: ngay sau finalize và hằng đêm 02:00; giữ 14 bản ngày, 8 bản tuần, 12 bản tháng. Cảnh báo khi mất ổ, thiếu dung lượng, hash sai hoặc quá hạn.
 
-Restore luôn vào thư mục/database tạm trước, kiểm schema/count/hash và mở một bộ dữ liệu tổng hợp; không restore đè production trong drill. Mục tiêu RPO dưới 24 giờ, với backup bổ sung ngay sau finalize. Ổ `G:` không bảo vệ khỏi trộm/cháy/ransomware toàn máy; offsite encrypted backup là gap tương lai phải tiếp tục hiển thị.
+DPAPI CurrentUser chỉ bảo vệ secret của service identity trên máy hiện tại; age-encrypt một bản sao DPAPI ciphertext không làm nó portable. Backup recovery phải có gói age-encrypted riêng chứa các PDF password cần khôi phục, chỉ xuất qua memory/pipe đã kiểm redaction; không tạo plaintext trên disk. Sau recovery, rewrap dưới identity mới. OAuth yêu cầu cấp quyền lại và TOTP yêu cầu owner recovery/re-enrollment qua recovery procedure đã ký; không tự bypass MFA. Recovery manifest nêu rõ từng secret class là portable hay re-enrollment_required.
+
+Restore luôn vào thư mục/database tạm trước, kiểm schema/count/hash và mở một bộ dữ liệu tổng hợp; không restore đè production trong drill. Bắt buộc thêm drill dưới Windows profile/máy thay thế không truy cập DPAPI master key cũ: giải mã một PDF cũ bằng recovery package, tái lập owner access đúng procedure, chứng minh OAuth bị vô hiệu cho đến khi cấp lại và không có plaintext secret tồn dư. Same-profile restore không thay cho bằng chứng này. Mục tiêu RPO dưới 24 giờ, với backup bổ sung ngay sau finalize. Ổ `G:` không bảo vệ khỏi trộm/cháy/ransomware toàn máy; offsite encrypted backup là gap tương lai phải tiếp tục hiển thị.
 
 ### 13.2. Health và sự cố
 
@@ -407,7 +418,8 @@ Mỗi tool khai báo JSON schema, output schema, risk, `readOnlyHint`, `requires
 
 ### 16.1. Nguyên tắc
 
-- Một kế hoạch chuẩn và các task ID ổn định; Codex và Hermes không tự tạo một kiến trúc song song.
+- Một kế hoạch chuẩn và các task ID ổn định; Codex và Hermes không tự tạo một kiến trúc song song. `docs/planning/task-status.json` giữ trạng thái hiện tại; `docs/planning/hermes-delegation.md` ánh xạ Atlas/Forge/Scout/Trace/Sentinel/Pulse.
+- Atlas chỉ điều phối các packet trong roster đã được Duke xác nhận qua `fleet_message` đến bot đã có; specialists không tự delegate. Codex vẫn giữ phê duyệt, shared-file integration, verification và commit.
 - Mỗi task chỉ có một owner ghi file tại một thời điểm; task song song phải có file ownership tách rời.
 - Codex là integrator/reviewer cuối: đọc artifact, kiểm diff/phạm vi và chạy lại focused verification quan trọng.
 - Agent không được dùng kết quả lint/static để tuyên bố runtime hoặc production pass.
@@ -496,12 +508,14 @@ Nếu thiếu một điều kiện, status là `blocked` hoặc `failed`, không
 - named Cloudflare Tunnel, domain, chính sách và kiểm thử bảo mật chưa pass;
 - kiosk iPOS thật chưa pass;
 - PDF encryption, recipient isolation hoặc owner preview/re-auth chưa pass;
-- backup/restore vào temp chưa pass hoặc recovery secret chưa được cất tách biệt;
+- backup/restore vào temp và replacement-profile recovery chưa pass hoặc recovery secret chưa được cất tách biệt;
 - hai kỳ chạy song song còn variance chưa giải thích/ký;
 - incident runbook chưa hoàn chỉnh;
 - còn lỗi WCAG/UX làm người dùng có thể chấm công, duyệt hoặc gửi nhầm.
 
-## 19. Evidence ledger hiện tại
+## 19. Evidence ledger ban đầu — historical 2026-09-04
+
+Bảng dưới giữ nguyên trạng thái tại lúc viết thiết kế, không phải trạng thái checkout hiện nay. Xem `docs/planning/task-status.json`: W0 và W1-01 có accepted receipts; W1-02 chỉ có draft rules. PAY-REVIEW-01 bổ sung regression evidence cho release boundary. Chưa có calculator/end-to-end app hay production proof.
 
 | Lớp bằng chứng | Trạng thái |
 |---|---|
@@ -520,3 +534,7 @@ Nếu thiếu một điều kiện, status là `blocked` hoặc `failed`, không
 Thiết kế được chốt theo hướng **một sản phẩm nội bộ hẹp nhưng hoàn chỉnh**, ưu tiên một vertical slice chạy thật trước: một nhân viên toàn thời gian, một snapshot chấm công sạch, một trường hợp ngày lễ, bảo hiểm, PIT, gross-to-net trace, một PDF mã hóa và một delivery draft giả lập. Sau khi lát cắt này pass, mở rộng bán thời gian và toàn bộ ma trận ca biên đã ký.
 
 UI simple-premium và khả năng giao task cho Codex/Hermes là điều kiện nghiệm thu xuyên suốt, không phải hạng mục trang trí cuối dự án.
+
+## 21. Performance acceptance
+
+Dùng workload/target trong `docs/planning/payroll-decision-matrix.md`. Mọi số latency là mục tiêu chưa đo. Chốt correctness trước: immutable-key caching, batched reads và async PDF/provider work; chỉ tối ưu theo profiler ở đúng máy/dataset đã ghi nhận.

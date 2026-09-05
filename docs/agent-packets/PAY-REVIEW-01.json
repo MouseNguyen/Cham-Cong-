@@ -1,0 +1,103 @@
+{
+  "contract_kind": "task_runtime",
+  "task_id": "PAY-REVIEW-01",
+  "agent_id": "codex-parent",
+  "status": "done",
+  "goal": "Apply the approved planning corrections, repair the existing rule-pack release boundary, and prepare an evidence-backed Hermes Manager delegation plan.",
+  "core_outcome": "Updated governing plans and a rule release gate that rejects altered or unverified content, with focused regression evidence.",
+  "phases": [
+    "confirm current sources",
+    "write regression tests",
+    "repair and verify rule gate",
+    "revise dependency plan and Hermes delegation",
+    "inspect diff and commit"
+  ],
+  "workspace": "F:\\Codex\\Projects\\Pay Slip",
+  "base_commit": "b581e21ebf2b2c26e49b794a0035e30a6da269d1",
+  "approval": {
+    "granted_by": "Duke",
+    "request": "Approve prior review recommendations and re-look at Hermes manager/subagent task delegation.",
+    "scope": "Project planning and existing rule-gate fixes; local focused rule regression tests and typecheck; verified local commit. Hermes inspection is static and non-secret only.",
+    "worker_execution": "Not authorized until an exact visible execution roster is confirmed."
+  },
+  "owned_files": [
+    "AGENTS.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md",
+    "docs/planning/payroll-decision-matrix.md",
+    "docs/planning/task-status.json",
+    "docs/planning/hermes-delegation.md",
+    "docs/agent-packets/PAY-REVIEW-01.json",
+    "docs/agent-packets/PAY-REVIEW-01-handoff.json",
+    "docs/agent-packets/PAY-HERMES-MANAGER-01.json",
+    "packages/payroll-domain/src/rules/types.ts",
+    "packages/payroll-domain/src/rules/content.ts",
+    "packages/payroll-domain/src/rules/validate.ts",
+    "packages/payroll-domain/test/rules/validate.spec.ts",
+    "packages/payroll-domain/test/rules/content.spec.ts",
+    "rules/vn/2026/draft.json",
+    "packages/payroll-domain/tsconfig.json"
+  ],
+  "allowed_actions": [
+    "read exact project sources",
+    "read non-secret Hermes routing documentation",
+    "edit owned project files",
+    "run focused existing Vitest rule tests",
+    "run existing root typecheck",
+    "run Git read checks and explicit-path local commit"
+  ],
+  "approval_gates": [
+    "No Hermes provider call or worker dispatch before roster confirmation",
+    "No install, new dependency, browser, server, database, migration, network research, credentials, real data, push, or outside-project write"
+  ],
+  "verification": [
+    "npm run test:unit -- --run packages/payroll-domain/test/rules",
+    "npm run typecheck",
+    "git diff --check",
+    "JSON parse and dependency/ownership inspection",
+    "git status --short"
+  ],
+  "coverage_proof": [
+    "each approved review finding has a plan/code disposition",
+    "every future task has prerequisites and role ownership",
+    "modified paths match ownership",
+    "runtime evidence separate from planning and production"
+  ],
+  "limits": {
+    "attempts_per_failed_layer": 2,
+    "architectural_fallbacks": 1,
+    "max_workers": 0,
+    "core_checkpoint_minutes": 15
+  },
+  "polish_backlog": [
+    "No optional new features or infrastructure in this correction packet"
+  ],
+  "handoff": {
+    "path": "docs/agent-packets/PAY-REVIEW-01-handoff.json",
+    "required_fields": [
+      "agent_id",
+      "task_id",
+      "status",
+      "summary",
+      "evidence",
+      "files_read",
+      "files_modified",
+      "verification",
+      "blocker",
+      "next_action"
+    ]
+  },
+  "execution_envelope": {
+    "protocol": "F:\\Codex\\.agent\\protocols\\universal-fast-core.md",
+    "defaults": "F:\\Codex\\.agent\\runtime\\execution-profile.defaults.json",
+    "profile_policy": "fast_core; narrow current code repair and complete plan corrections before optional work",
+    "core_before_polish": true
+  },
+  "result": {
+    "outcome_status": "complete_for_approved_corrections",
+    "preparation_status": "updated_plans_and_blocked_hermes_roster_prepared",
+    "core_blocker_count": 0,
+    "hermes_dispatch_blocker_count": 3,
+    "full_app_runtime": "not_run"
+  }
+}

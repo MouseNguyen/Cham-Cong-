@@ -1,0 +1,139 @@
+{
+  "contract_kind": "task_runtime",
+  "schema_version": "1.0.0",
+  "task_id": "PAY-HERMES-MANAGER-01",
+  "agent_id": "atlas",
+  "status": "blocked",
+  "roster_revision": 1,
+  "approval_status": "not_requested_pending_dispatch_repair",
+  "goal": "Prove project-bound Atlas delegation to the existing Sentinel profile using one read-only review of Pay Slip plans and the rule release correction.",
+  "workspace": "F:\\Codex\\Projects\\Pay Slip",
+  "phases": [
+    "repair existing dispatch in a separately approved Hermes task",
+    "confirm exact roster and non-secret effective model bindings",
+    "Atlas assigns the bounded review to Sentinel",
+    "Sentinel returns evidence and stops",
+    "Atlas synthesizes once; Codex verifies receipt/scope/cleanup"
+  ],
+  "roster": [
+    {
+      "agent_id": "atlas",
+      "model": "gpt-5.6-sol",
+      "reasoning_effort": "high",
+      "provider": "openai-codex",
+      "job": "Assign one approved review and synthesize one result",
+      "owned_files": []
+    },
+    {
+      "agent_id": "sentinel",
+      "model": "gpt-5.5",
+      "reasoning_effort": "xhigh",
+      "provider": "openai-codex",
+      "job": "Read-only critic of planning consistency and corrected rule gate",
+      "owned_files": []
+    }
+  ],
+  "model_binding_evidence": "Installed fleet blueprint only; effective profile overrides and provider availability not yet checked.",
+  "inputs": [
+    "AGENTS.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md",
+    "docs/planning/payroll-decision-matrix.md",
+    "docs/planning/task-status.json",
+    "docs/planning/hermes-delegation.md",
+    "docs/agent-packets/PAY-REVIEW-01-handoff.json",
+    "packages/payroll-domain/src/rules/content.ts",
+    "packages/payroll-domain/src/rules/validate.ts",
+    "packages/payroll-domain/test/rules/validate.spec.ts"
+  ],
+  "owned_files": [],
+  "allowed_actions": [
+    "Read only declared non-secret project inputs",
+    "After separate dispatch repair and exact roster confirmation only: one Atlas task to Sentinel and one result back through fleet_message"
+  ],
+  "approval_gates": [
+    "Existing project review approval does not authorize installed-Hermes code changes or model transport",
+    "Exact roster confirmation after project cwd/session/tools/limits enforcement is proven",
+    "No provider call while any preflight blocker remains",
+    "No product edits, tests/builds, installs, browsers, servers, database, real data, external messages, secret reads or outside-project configuration writes"
+  ],
+  "blockers": [
+    {
+      "id": "HD01",
+      "layer": "dispatch",
+      "evidence": "tools/bot_mode_dm.py:369-370",
+      "detail": "Target cwd forced to ~ instead of project"
+    },
+    {
+      "id": "HD02",
+      "layer": "context_isolation",
+      "evidence": "tools/bot_mode_dm.py:371-373",
+      "detail": "Generic Bot Chat continued rather than fresh project task session"
+    },
+    {
+      "id": "HD03",
+      "layer": "runtime_limits",
+      "evidence": "tools/fleet_messaging.py tool schema; tools/bot_mode_dm.py:363-375",
+      "detail": "No job-bound turn/deadline/tool limits passed to target"
+    }
+  ],
+  "blocker_count": 3,
+  "proposed_limits": {
+    "profiles": 2,
+    "parallel_writers": 0,
+    "dispatch_sessions": 3,
+    "provider_turns_per_session": 12,
+    "total_provider_turn_ceiling": 36,
+    "timeout_minutes": 15,
+    "model_fallbacks": 0,
+    "automatic_job_retries": 0
+  },
+  "cost_scope": "Normal openai-codex account quota, at most proposed 36 model turns; no additional paid APIs. Not authorized or enforced yet.",
+  "transport_side_effects_to_approve": [
+    "Selected-profile fresh task session records",
+    "Bounded DM temp files and normal stale-DM sweep if retained",
+    "Exact owned child processes and returned receipts"
+  ],
+  "verification": [
+    "Assert target process cwd is project",
+    "Assert task-specific fresh session and no generic Bot Chat resume",
+    "Assert effective model/tool/turn/deadline constraints for each target",
+    "Inspect structured task/result IDs and declared file reads",
+    "Confirm no product/config changes and no remaining owned processes"
+  ],
+  "coverage_proof": [
+    "All three dispatch blockers passed before runtime",
+    "Named Atlas and Sentinel profiles actually participated; no substitute child",
+    "Independent result references exact files/lines and test evidence",
+    "Codex checks reported scope and cleanup"
+  ],
+  "stop_conditions": [
+    "Any preflight blocker remains",
+    "Effective model/profile/roster differs",
+    "Read/mutation outside declared scope",
+    "Missing auth, unavailable model or exhausted time/turn budget",
+    "One assignment and one result completed"
+  ],
+  "handoff": {
+    "writer": "codex-parent",
+    "artifact": "docs/agent-packets/PAY-HERMES-MANAGER-01-handoff.json",
+    "required_fields": [
+      "agent_id",
+      "task_id",
+      "status",
+      "summary",
+      "evidence",
+      "files_read",
+      "files_modified",
+      "verification",
+      "blocker",
+      "next_action"
+    ]
+  },
+  "execution_envelope": {
+    "profile": "fast_core",
+    "core_before_polish": true,
+    "preparation_status": "prepared_blocked",
+    "outcome_status": "not_run"
+  }
+}

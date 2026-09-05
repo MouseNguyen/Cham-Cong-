@@ -1,0 +1,512 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-09-05",
+  "baseline_commit": "b581e21ebf2b2c26e49b794a0035e30a6da269d1",
+  "authority": "Current task state; checkbox steps in the dated implementation plan are templates, not execution receipts.",
+  "task_count": 20,
+  "tasks": [
+    {
+      "task_id": "PAY-W0-01",
+      "title": "Scaffold",
+      "owner": "codex-parent",
+      "status": "accepted",
+      "evidence": [
+        "docs/agent-packets/PAY-W0-01-handoff.json"
+      ],
+      "accepted_commit": "16afd9f",
+      "production": "not_run",
+      "planned_manager": "atlas",
+      "planned_reviewer": "sentinel"
+    },
+    {
+      "task_id": "PAY-W1-01",
+      "title": "Exact money",
+      "owner": "codex-parent",
+      "status": "accepted",
+      "evidence": [
+        "docs/agent-packets/PAY-W1-01-parent-acceptance.json"
+      ],
+      "accepted_commit": "ae25c2c",
+      "production": "not_run",
+      "planned_manager": "atlas",
+      "planned_reviewer": "sentinel"
+    },
+    {
+      "task_id": "PAY-W1-02",
+      "title": "Draft legal packs",
+      "owner": "codex-parent",
+      "status": "accepted_draft_only",
+      "evidence": [
+        "docs/agent-packets/PAY-W1-02-handoff.json"
+      ],
+      "accepted_commit": "b581e21",
+      "production": "not_run",
+      "planned_manager": "atlas",
+      "planned_reviewer": "sentinel"
+    },
+    {
+      "task_id": "PAY-W1-03",
+      "title": "Full-time calculator",
+      "owner": "forge",
+      "status": "not_started",
+      "evidence": [],
+      "accepted_commit": null,
+      "production": "not_run",
+      "planned_manager": "atlas",
+      "planned_reviewer": "sentinel"
+    },
+    {
+      "task_id": "PAY-W1-04",
+      "title": "Part-time and boundary coverage",
+      "owner": "forge",
+      "status": "not_started",
+      "evidence": [],
+      "accepted_commit": null,
+      "production": "not_run",
+      "planned_manager": "atlas",
+      "planned_reviewer": "sentinel"
+    },
+    {
+      "task_id": "PAY-W2-01",
+      "title": "Schema and repositories",
+      "owner": "forge",
+      "status": "not_started",
+      "evidence": [],
+      "accepted_commit": null,
+      "production": "not_run",
+      "planned_manager": "atlas",
+      "planned_reviewer": "sentinel"
+    },
+    {
+      "task_id": "PAY-W2-02",
+      "title": "Authentication",
+      "owner": "forge",
+      "status": "not_started",
+      "evidence": [],
+      "accepted_commit": null,
+      "production": "not_run",
+      "planned_manager": "atlas",
+      "planned_reviewer": "sentinel"
+    },
+    {
+      "task_id": "PAY-W2-03",
+      "title": "Employee contracts and destinations",
+      "owner": "forge",
+      "status": "not_started",
+      "evidence": [],
+      "accepted_commit": null,
+      "production": "not_run",
+      "planned_manager": "atlas",
+      "planned_reviewer": "sentinel"
+    },
+    {
+      "task_id": "PAY-W3-01",
+      "title": "Schedule and attendance domain",
+      "owner": "forge",
+      "status": "not_started",
+      "evidence": [],
+      "accepted_commit": null,
+      "production": "not_run",
+      "planned_manager": "atlas",
+      "planned_reviewer": "sentinel"
+    },
+    {
+      "task_id": "PAY-W3-02",
+      "title": "Isolated ingress and kiosk",
+      "owner": "forge",
+      "status": "not_started",
+      "evidence": [],
+      "accepted_commit": null,
+      "production": "not_run",
+      "planned_manager": "atlas",
+      "planned_reviewer": "sentinel"
+    },
+    {
+      "task_id": "PAY-W3-03",
+      "title": "Approved snapshots",
+      "owner": "forge",
+      "status": "not_started",
+      "evidence": [],
+      "accepted_commit": null,
+      "production": "not_run",
+      "planned_manager": "atlas",
+      "planned_reviewer": "sentinel"
+    },
+    {
+      "task_id": "PAY-W4-01",
+      "title": "Immutable pay-run orchestration",
+      "owner": "forge",
+      "status": "not_started",
+      "evidence": [],
+      "accepted_commit": null,
+      "production": "not_run",
+      "planned_manager": "atlas",
+      "planned_reviewer": "sentinel"
+    },
+    {
+      "task_id": "PAY-W5-01",
+      "title": "Visual design contract",
+      "owner": "codex-parent",
+      "status": "not_started",
+      "evidence": [],
+      "accepted_commit": null,
+      "production": "not_run",
+      "planned_manager": "atlas",
+      "planned_reviewer": "sentinel"
+    },
+    {
+      "task_id": "PAY-W5-02",
+      "title": "Admin UI and tools",
+      "owner": "forge",
+      "status": "not_started",
+      "evidence": [],
+      "accepted_commit": null,
+      "production": "not_run",
+      "planned_manager": "atlas",
+      "planned_reviewer": "sentinel"
+    },
+    {
+      "task_id": "PAY-W6-01",
+      "title": "Encrypted PDF",
+      "owner": "forge",
+      "status": "not_started",
+      "evidence": [],
+      "accepted_commit": null,
+      "production": "not_run",
+      "planned_manager": "atlas",
+      "planned_reviewer": "sentinel"
+    },
+    {
+      "task_id": "PAY-W6-02",
+      "title": "Outbox and delivery",
+      "owner": "forge",
+      "status": "not_started",
+      "evidence": [],
+      "accepted_commit": null,
+      "production": "not_run",
+      "planned_manager": "atlas",
+      "planned_reviewer": "sentinel"
+    },
+    {
+      "task_id": "PAY-W7-01",
+      "title": "Secrets and recovery",
+      "owner": "pulse",
+      "status": "not_started",
+      "evidence": [],
+      "accepted_commit": null,
+      "production": "not_run",
+      "planned_manager": "atlas",
+      "planned_reviewer": "sentinel"
+    },
+    {
+      "task_id": "PAY-W7-02",
+      "title": "Windows lifecycle",
+      "owner": "pulse",
+      "status": "not_started",
+      "evidence": [],
+      "accepted_commit": null,
+      "production": "not_run",
+      "planned_manager": "atlas",
+      "planned_reviewer": "sentinel"
+    },
+    {
+      "task_id": "PAY-W7-03",
+      "title": "Retention",
+      "owner": "forge",
+      "status": "not_started",
+      "evidence": [],
+      "accepted_commit": null,
+      "production": "not_run",
+      "planned_manager": "atlas",
+      "planned_reviewer": "sentinel"
+    },
+    {
+      "task_id": "PAY-W8-01",
+      "title": "Release verification",
+      "owner": "codex-parent",
+      "status": "not_started",
+      "evidence": [],
+      "accepted_commit": null,
+      "production": "not_run",
+      "planned_manager": "atlas",
+      "planned_reviewer": "sentinel"
+    }
+  ],
+  "subpackets": [
+    {
+      "id": "W1-03",
+      "parent_task": "PAY-W1-03",
+      "depends_on": [
+        "PAY-W1-01",
+        "PAY-W1-02"
+      ],
+      "outcome": "full-time pure calculator with explicit synthetic decisions",
+      "status": "not_started"
+    },
+    {
+      "id": "W3-01a",
+      "parent_task": "PAY-W3-01",
+      "depends_on": [
+        "PAY-W0-01"
+      ],
+      "outcome": "pure attendance types/state machine",
+      "status": "not_started"
+    },
+    {
+      "id": "W2-01",
+      "parent_task": "PAY-W2-01",
+      "depends_on": [
+        "W1-03",
+        "W3-01a"
+      ],
+      "outcome": "schema including outbox/approval/immutable version fields",
+      "status": "not_started"
+    },
+    {
+      "id": "W7-01a",
+      "parent_task": "PAY-W7-01",
+      "depends_on": [
+        "PAY-W0-01"
+      ],
+      "outcome": "DPAPI secret interface and approved synthetic identity test",
+      "status": "not_started"
+    },
+    {
+      "id": "W6-02a",
+      "parent_task": "PAY-W6-02",
+      "depends_on": [
+        "W2-01"
+      ],
+      "outcome": "transactional outbox repository/fake queue; no PDF dependency",
+      "status": "not_started"
+    },
+    {
+      "id": "W2-02",
+      "parent_task": "PAY-W2-02",
+      "depends_on": [
+        "W2-01",
+        "W7-01a"
+      ],
+      "outcome": "owner/accountant auth",
+      "status": "not_started"
+    },
+    {
+      "id": "W2-03",
+      "parent_task": "PAY-W2-03",
+      "depends_on": [
+        "W2-02",
+        "W6-02a"
+      ],
+      "outcome": "contracts and fake email verification",
+      "status": "not_started"
+    },
+    {
+      "id": "W3-01b",
+      "parent_task": "PAY-W3-01",
+      "depends_on": [
+        "W3-01a",
+        "W2-03"
+      ],
+      "outcome": "schedule commands",
+      "status": "not_started"
+    },
+    {
+      "id": "W7-02a",
+      "parent_task": "PAY-W7-02",
+      "depends_on": [
+        "W2-01"
+      ],
+      "outcome": "minimum start/health/stop launcher; deferred full operations suite",
+      "status": "not_started"
+    },
+    {
+      "id": "W3-02a",
+      "parent_task": "PAY-W3-02",
+      "depends_on": [
+        "W3-01b",
+        "W2-02"
+      ],
+      "outcome": "isolated ingress entrypoint and device enrollment/revocation",
+      "status": "not_started"
+    },
+    {
+      "id": "W3-02b",
+      "parent_task": "PAY-W3-02",
+      "depends_on": [
+        "W3-02a",
+        "W7-02a"
+      ],
+      "outcome": "real Playwright harness + local kiosk flow; iPOS/tunnel later",
+      "status": "not_started"
+    },
+    {
+      "id": "W3-03",
+      "parent_task": "PAY-W3-03",
+      "depends_on": [
+        "W3-02b"
+      ],
+      "outcome": "snapshot approval commands and local flow",
+      "status": "not_started"
+    },
+    {
+      "id": "W4-01",
+      "parent_task": "PAY-W4-01",
+      "depends_on": [
+        "W1-03",
+        "W2-03",
+        "W3-03",
+        "W6-02a"
+      ],
+      "outcome": "full-time finalization and atomic outbox",
+      "status": "not_started"
+    },
+    {
+      "id": "W5-01",
+      "parent_task": "PAY-W5-01",
+      "depends_on": [
+        "PAY-W0-01"
+      ],
+      "outcome": "approved visual direction; independent when tool use authorized",
+      "status": "not_started"
+    },
+    {
+      "id": "W5-02a",
+      "parent_task": "PAY-W5-02",
+      "depends_on": [
+        "W5-01",
+        "W4-01"
+      ],
+      "outcome": "minimum employee/attendance/payrun admin UI",
+      "status": "not_started"
+    },
+    {
+      "id": "W6-01",
+      "parent_task": "PAY-W6-01",
+      "depends_on": [
+        "W4-01",
+        "W7-01a"
+      ],
+      "outcome": "encrypted PDF and immutable artifact metadata",
+      "status": "not_started"
+    },
+    {
+      "id": "W6-02b",
+      "parent_task": "PAY-W6-02",
+      "depends_on": [
+        "W6-01",
+        "W6-02a",
+        "W2-02"
+      ],
+      "outcome": "fake release/preview services and manual handoff",
+      "status": "not_started"
+    },
+    {
+      "id": "W5-02b",
+      "parent_task": "PAY-W5-02",
+      "depends_on": [
+        "W5-02a",
+        "W6-02b"
+      ],
+      "outcome": "delivery UI + read/mutating page-tool evals",
+      "status": "not_started"
+    },
+    {
+      "id": "M0",
+      "parent_task": null,
+      "depends_on": [
+        "W5-02b"
+      ],
+      "outcome": "one synthetic full-time end-to-end core including holiday trace, PDF and fake receipt",
+      "status": "not_started"
+    },
+    {
+      "id": "W1-04",
+      "parent_task": "PAY-W1-04",
+      "depends_on": [
+        "M0"
+      ],
+      "outcome": "part-time expansion and complete numeric boundary pack",
+      "status": "not_started"
+    },
+    {
+      "id": "W5-02c",
+      "parent_task": "PAY-W5-02",
+      "depends_on": [
+        "W1-04",
+        "W5-02b"
+      ],
+      "outcome": "remaining UI states, responsive/accessibility coverage",
+      "status": "not_started"
+    },
+    {
+      "id": "W7-01b",
+      "parent_task": "PAY-W7-01",
+      "depends_on": [
+        "W6-01",
+        "W7-01a"
+      ],
+      "outcome": "portable encrypted recovery + replacement-profile drill",
+      "status": "not_started"
+    },
+    {
+      "id": "W7-02b",
+      "parent_task": "PAY-W7-02",
+      "depends_on": [
+        "W7-02a",
+        "W6-02b"
+      ],
+      "outcome": "full lifecycle health, private-admin and incident operations",
+      "status": "not_started"
+    },
+    {
+      "id": "W7-03",
+      "parent_task": "PAY-W7-03",
+      "depends_on": [
+        "W2-03",
+        "W6-02b"
+      ],
+      "outcome": "retention/hold workflow",
+      "status": "not_started"
+    },
+    {
+      "id": "W8-01",
+      "parent_task": "PAY-W8-01",
+      "depends_on": [
+        "W1-04",
+        "W5-02c",
+        "W7-01b",
+        "W7-02b",
+        "W7-03"
+      ],
+      "outcome": "signed decisions + all release gates, two independent parallel payroll cycles",
+      "status": "not_started"
+    }
+  ],
+  "corrections": [
+    {
+      "task_id": "PAY-REVIEW-01",
+      "status": "accepted",
+      "receipt": "docs/agent-packets/PAY-REVIEW-01-handoff.json"
+    }
+  ],
+  "rules": [
+    "Parent task remains partial until every subpacket and original acceptance requirement passes.",
+    "Existing accepted commits prove only their recorded evidence layer.",
+    "Synthetic M0 does not require real-data or live-provider gates; those remain mandatory before production.",
+    "No delegation is authorized by this inventory; use an exact confirmed roster."
+  ],
+  "release_blocker_groups": [
+    "Signed numeric/source matrix",
+    "Real iPOS/tunnel/security evidence",
+    "Real Gmail authorization/send/revoke",
+    "Replacement-profile recovery and Windows operation proof",
+    "Two signed parallel payroll cycles"
+  ],
+  "production_status": "not_run",
+  "assignment_evidence": "Future role proposals only; historical executed ownership is in each linked receipt.",
+  "hermes_dispatch": {
+    "status": "blocked",
+    "blocker_count": 3,
+    "packet": "docs/agent-packets/PAY-HERMES-MANAGER-01.json"
+  }
+}

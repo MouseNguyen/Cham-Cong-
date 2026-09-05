@@ -53,7 +53,7 @@
       { "id": "SI_SICKNESS_MATERNITY", "employeeRateBasisPoints": 0, "employerRateBasisPoints": 300, "effectiveFrom": "2026-01-01", "effectiveTo": null, "baseVersions": [{ "minimum": "2340000", "maximum": "46800000", "effectiveFrom": "2026-01-01", "effectiveTo": "2026-06-30", "sourceIds": ["S05", "S06"] }, { "minimum": "2530000", "maximum": "50600000", "effectiveFrom": "2026-07-01", "effectiveTo": null, "sourceIds": ["S05", "S08"] }], "sourceIds": ["S05", "S06"], "evidenceStatus": "verified" },
       { "id": "SI_RETIREMENT_SURVIVORSHIP", "employeeRateBasisPoints": 800, "employerRateBasisPoints": 1400, "effectiveFrom": "2026-01-01", "effectiveTo": null, "baseVersions": [{ "minimum": "2340000", "maximum": "46800000", "effectiveFrom": "2026-01-01", "effectiveTo": "2026-06-30", "sourceIds": ["S05", "S06"] }, { "minimum": "2530000", "maximum": "50600000", "effectiveFrom": "2026-07-01", "effectiveTo": null, "sourceIds": ["S05", "S08"] }], "sourceIds": ["S05", "S06"], "evidenceStatus": "verified" },
       { "id": "OCCUPATIONAL_ACCIDENT_DISEASE", "employeeRateBasisPoints": 0, "employerRateBasisPoints": 50, "effectiveFrom": "2026-01-01", "effectiveTo": null, "baseVersions": [{ "minimum": "2340000", "maximum": "46800000", "effectiveFrom": "2026-01-01", "effectiveTo": "2026-06-30", "sourceIds": ["S05"] }, { "minimum": "2530000", "maximum": "50600000", "effectiveFrom": "2026-07-01", "effectiveTo": null, "sourceIds": ["S05", "S08"] }], "sourceIds": ["S05"], "evidenceStatus": "verification_required" },
-      { "id": "HEALTH_INSURANCE", "employeeRateBasisPoints": 150, "employerRateBasisPoints": 300, "effectiveFrom": "2026-01-01", "effectiveTo": null, "baseVersions": [{ "minimum": "2340000", "maximum": "46800000", "effectiveFrom": "2026-01-01", "effectiveTo": "2026-06-30", "sourceIds": ["S11"] }, { "minimum": "2530000", "maximum": "50600000", "effectiveFrom": "2026-07-01", "effectiveTo": null, "sourceIds": ["S08", "S11"] }], "sourceIds": ["S11"], "evidenceStatus": "verified" },
+      { "id": "HEALTH_INSURANCE", "employeeRateBasisPoints": 150, "employerRateBasisPoints": 300, "effectiveFrom": "2026-01-01", "effectiveTo": null, "baseVersions": [{ "minimum": "2340000", "maximum": "46800000", "effectiveFrom": "2026-01-01", "effectiveTo": "2026-06-30", "sourceIds": ["S11"] }, { "minimum": "2530000", "maximum": "50600000", "effectiveFrom": "2026-07-01", "effectiveTo": null, "sourceIds": ["S08", "S11"] }], "sourceIds": ["S11"], "evidenceStatus": "verification_required" },
       { "id": "UNEMPLOYMENT_INSURANCE", "employeeRateBasisPoints": 100, "employerRateBasisPoints": 100, "effectiveFrom": "2026-01-01", "effectiveTo": null, "baseVersions": [{ "minimum": "2340000", "maximum": "106200000", "effectiveFrom": "2026-01-01", "effectiveTo": null, "sourceIds": ["S09", "S10", "S12"] }], "sourceIds": ["S09", "S10", "S12"], "evidenceStatus": "verified" }
     ],
     "partTimeMonthlyEligibility": [
@@ -70,8 +70,8 @@
   },
   "roundingRule": "HALF_UP_VND",
   "contentHashAlgorithm": "SHA-256",
-  "contentHashScope": "UTF-8 JSON.stringify({applicability,sourceRefs,rules,roundingRule}) in file property order",
-  "contentSha256": "5a6e83fc4ba91f96b4fbe146f2a633376acb9fb8bf445649a12483104bb0d0a4",
+  "contentHashScope": "v2: UTF-8 JSON; recursively sorted object keys; arrays preserved; decimal VND strings; {id,version,jurisdiction,applicability,sourceRefs,rules,roundingRule,releaseBlockers}; excludes status, signatures and explanatory metadata",
+  "contentSha256": "67de2f5177ed2549df642d1a8f5d2abb94c88bda2cf15828a3ec18785eff030a",
   "signatures": {
     "accountant": null,
     "externalSpecialist": null
@@ -80,6 +80,8 @@
     "SOURCE_CONTENT_HASHES_PENDING",
     "ACCOUNTANT_SIGNATURE_MISSING",
     "EXTERNAL_SPECIALIST_SIGNATURE_MISSING",
-    "OCCUPATIONAL_ACCIDENT_RATE_REQUIRES_COMPANY_CLASSIFICATION"
+    "OCCUPATIONAL_ACCIDENT_RATE_REQUIRES_COMPANY_CLASSIFICATION",
+    "PIT_INTERMEDIATE_BRACKETS_REQUIRE_PRIMARY_VERIFICATION",
+    "APPLIED_HEALTH_INSURANCE_RATE_REQUIRES_VERIFICATION"
   ]
 }

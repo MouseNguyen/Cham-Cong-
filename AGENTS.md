@@ -19,6 +19,10 @@ Read these in order before implementation:
 3. `docs/superpowers/plans/2026-09-04-pay-slip-implementation.md`
 4. The active task packet under `docs/agent-packets/`
 
+Current task state and prerequisites live in `docs/planning/task-status.json`;
+numeric decisions live in `docs/planning/payroll-decision-matrix.md`. Historical
+receipts remain evidence for their original commit and scope.
+
 If they conflict, stop and report the conflict to the Codex parent. Do not guess.
 
 ## Product boundaries
@@ -71,6 +75,11 @@ expected effect, rollback, and evidence that would be produced.
   and stop conditions declared in the active packet.
 - No worker may delegate, auto-decompose, start a background child, or widen its
   file scope unless the active packet explicitly allows it.
+- Atlas is the existing Hermes Manager. After Duke confirms an exact roster,
+  Atlas may route only its listed packets through `fleet_message` to the named
+  existing specialists. Specialists may not redelegate. This exception does not
+  authorize generic child spawning, new jobs, models, file scopes or tool effects.
+  See `docs/planning/hermes-delegation.md`.
 - Shared files and dependency-coupled changes are serialized by the Codex parent.
 - A worker handoff is evidence to inspect, not proof that the task is complete.
 

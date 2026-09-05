@@ -1,0 +1,35 @@
+# Payroll decision matrix — 2026-09-05
+
+Owner: Codex parent. This is the decision input for PAY-W1-03/04, W3 and W4. Product approval does not constitute accountant or legal sign-off. Earlier U01–U05 product decisions do not close the numeric questions below.
+
+## Evidence and execution boundary
+
+- Known from current code: exact VND arithmetic exists; rule packs support dated selection, source references, content hashes and signature metadata. The September 2026 source review still contains unresolved primary-source evidence. The checked-in pack stays draft.
+- Known from the correction: release recomputes canonical content, requires source verification/hash metadata and both matching signatures, rejects explicit blockers, and returns a detached deeply frozen graph.
+- Unknown: correctness of all statutory values, authentic identity of future signers, source-file contents and applicability to the company. Unit fixtures do not verify these facts. A trusted import/approval service must validate schema, authenticated signers, actual source hashes and current release evidence before production use.
+- Synthetic implementation may use explicitly named fixture assumptions and independent expected results. No unchecked JSON, test fixture, caller-provided verified flag, or draft pack may become a production release. No tax/insurance value is changed by this planning review.
+
+## Decisions required
+
+| ID | Required contract | Synthetic development rule | Production evidence / owner | Implement and verify |
+|---|---|---|---|---|
+| PD01 | Monetary rounding boundary | HALF_UP_VND once per employee/component/rate-effective segment aggregated over the period; round each employee/employer fund separately; compute net from displayed rounded components. Keep exact rational/decimal intermediate operands. This is a fixture assumption, not a legal ruling. | Accountant + specialist sign boundary/mode/order and expected results; include in policy hash. | W1-03/04: partition-invariance within one same-policy segment, net reconciliation, half-VND boundaries. Three minutes at 26,000/hour = 1,300 VND when aggregated; three individually rounded minutes = 1,299. |
+| PD02 | Time precision and policy | Preserve raw UTC milliseconds. Approved payable duration uses integer milliseconds, rationally divided by 3,600,000 for hourly pay; never truncate raw seconds to Minutes. The existing integer-minute helper remains a utility only. | Owner/accountant sign payable-time policy, correction and effective-rate segmentation. | W1-03 types, W1-04 duration arithmetic, W3 snapshots: 59s/60s/61s, paid breaks, split intervals, overlap rejection. |
+| PD03 | Rule date for each component | Ordinary pay follows effective compensation segments; test rule packs carry explicit earning/payment/tax context. No universal earning-period-end date may implicitly select PIT and every fund. | Specialist signs per-component date basis, mid-period change and June/July boundary behavior. | W1-03 resolves component policy; W1-04 and W4 test pay earned in June/paid in July and unsupported gaps. Current pack resolver is candidate selection only. |
+| PD04 | Component classification | Each supported component declares taxable amount policy, each insurance base inclusion, overtime base inclusion, employee/employer treatment and rounding key. Unknown component fails closed. | Accountant + specialist sign classification matrix and exemptions. | W1-03: no universal gross base; unsupported allowance/reimbursement/deduction rejected. |
+| PD05 | Full-time day/holiday hourly divisor | Synthetic holiday fixture explicitly supplies ordinary hourly base and divisor with provenance. Never infer monthlySalary/26/8 or use a universal 400% factor. | Sign divisor, eligible ordinary-pay components, entitlement already included in monthly pay, and separate holiday premium. | W1-03: independently calculated holiday case, double-count negative case; production blocks missing policy. |
+| PD06 | Unpaid leave, joining/leaving, salary changes | No automatic attendance deduction. Unapproved mid-month/proration/leave cases return a named blocker. | Owner/accountant + applicable specialist approve case matrix. | W1-03 fail-closed cases; later bounded extension only after signed decisions. |
+| PD07 | PIT bands, deductions and applicable insurance | Synthetic packs label every assumed value and provenance. Current legal draft cannot release. | Resolve PIT intermediate bands, applied BHYT rate, accident-fund company classification, source hashes, accountant and specialist signatures. | W1-02 source closure follow-up; W1-03/04 below/at/above every verified bracket/base/cap and per-fund eligibility. |
+| PD08 | Adjustments and historical replay | Preserve original run, payment/tax/earning periods, rule/compensation hashes, calculatorVersion, calculatorArtifactHash, canonicalizationVersion and result schema version. Unsupported adjustment-date interpretation blocks finalization. | Accountant/specialist sign adjustment attribution and supported correction cases. | W4: replay original archived calculator against frozen inputs; adjustment has its own approved version; no mutable dependency on active rules. |
+
+All eight rows require explicit production disposition. They are not eight defects in already implemented payroll: the calculator does not exist yet. PD01/02 are concrete synthetic engineering defaults for forthcoming task packets, subject to changed owner policy before real use. PD03–08 require signed domain decisions where indicated.
+
+## Independent golden cases
+
+A golden row carries case ID, synthetic/production-evidence mode, approved decision IDs, exact inputs, per-component expected values, expected rounding, source/version IDs, author, reviewer and content hash. Expected values must come from an independent calculation, never by copying engine output. The existing 8,000,000 salary example is a synthetic smoke vector only; its combined totals do not prove individual funds or current legal applicability.
+
+## Accuracy, speed and efficiency targets
+
+First deliver M0: one synthetic full-time employee -> clean approved snapshot -> holiday/insurance/PIT trace -> finalized local example -> encrypted PDF -> fake delivery preview/receipt. Do not wait for part-time breadth or real integrations to demonstrate this synthetic core. Production finalization still requires released real rules.
+
+Initial design targets (unmeasured): warm local calculation for 100 synthetic employees <1s p95; kiosk durable response <1s p95 on a stable local network; ordinary admin action <500ms p95 excluding PDF/provider work. Record machine, dataset hash, 5 warmups and 30 measured runs when the runtime wave is approved. Cache only by immutable input/rule/calculator hashes. Query snapshots in batches, index period/employee/status lookup keys, keep PDF and provider work outside the request transaction, and optimize only a measured bottleneck. Device/network results must be reported separately from pure calculation.

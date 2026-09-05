@@ -112,4 +112,5 @@ export interface LegalRulePack {
     readonly externalSpecialist: RulePackSignature | null;
   };
   readonly roundingRule?: RoundingRule;
+  readonly releaseBlockers?: readonly string[];
 }

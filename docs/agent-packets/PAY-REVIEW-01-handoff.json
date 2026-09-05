@@ -1,0 +1,182 @@
+{
+  "agent_id": "codex-parent",
+  "task_id": "PAY-REVIEW-01",
+  "status": "done",
+  "outcome_status": "complete_for_approved_corrections",
+  "preparation_status": "plans_corrected_manager_packet_blocked",
+  "summary": "Applied approved planning changes, fixed pure rule-pack content/release integrity, and mapped all tasks onto existing Hermes roles. Found three concrete issues in named-fleet dispatch; no installed Hermes file was changed and no bot was launched.",
+  "evidence": {
+    "baseline_commit": "b581e21ebf2b2c26e49b794a0035e30a6da269d1",
+    "red": "Regression RED: 8 expected rule-gate failures before repair; canonical module RED failed on missing module.",
+    "green": {
+      "command": "npm run test:unit -- --run packages/payroll-domain/test/rules",
+      "exit_code": 0,
+      "files": 3,
+      "tests": 17,
+      "observed_local_time": "2026-09-05 09:30:07 +07:00"
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "exit_code": 0
+    },
+    "static": {
+      "tasks": 20,
+      "acyclic_subpacket_nodes": 25,
+      "legal_numeric_rules_unchanged": true,
+      "draft_status": "draft",
+      "draft_release_blocker_count": 6,
+      "owned_paths_only": true,
+      "json_parse": "passed",
+      "git_diff_check": "passed"
+    },
+    "canonical_draft_sha256": "67de2f5177ed2549df642d1a8f5d2abb94c88bda2cf15828a3ec18785eff030a",
+    "claim_ledger": [
+      {
+        "layer": "approved_planning_corrections",
+        "status": "passed",
+        "evidence": "All 8 original findings dispositioned; 20 stable tasks and 25-node acyclic execution graph."
+      },
+      {
+        "layer": "focused_rule_runtime",
+        "status": "passed",
+        "evidence": "17 tests / 3 files; Vitest exit 0 on final code."
+      },
+      {
+        "layer": "typecheck",
+        "status": "passed",
+        "evidence": "Both configured TypeScript projects exit 0."
+      },
+      {
+        "layer": "whole_app_end_to_end",
+        "status": "not_run",
+        "evidence": "No app build/server/browser/database run in this packet."
+      },
+      {
+        "layer": "hermes_delegation",
+        "status": "blocked",
+        "blocker_count": 3,
+        "evidence": "HD01 cwd, HD02 shared session, HD03 child limits."
+      },
+      {
+        "layer": "production_payroll",
+        "status": "blocked",
+        "listed_rule_blocker_count": 6,
+        "evidence": "Draft retains 6 explicit release blockers; other real integrations remain not_run. Not an exhaustive production blocker inventory."
+      }
+    ]
+  },
+  "finding_dispositions": [
+    {
+      "id": "F01",
+      "status": "implemented and regression verified",
+      "detail": "hash/source/blocker checks and detached nested immutability"
+    },
+    {
+      "id": "F02",
+      "status": "planning resolved; production decisions still required",
+      "detail": "PD01–PD08 matrix with explicit synthetic assumptions"
+    },
+    {
+      "id": "F03",
+      "status": "plan corrected; runtime not implemented",
+      "detail": "finalize and outbox intent in one transaction"
+    },
+    {
+      "id": "F04",
+      "status": "plan corrected",
+      "detail": "early secret/outbox subpackets; M0 before part-time expansion"
+    },
+    {
+      "id": "F05",
+      "status": "plan corrected; runtime not implemented",
+      "detail": "separate ingress, device enrollment, truthful unknown/reconciliation state"
+    },
+    {
+      "id": "F06",
+      "status": "plan corrected; harness still scaffold",
+      "detail": "W3-02b owns real Playwright script/config and nonempty-test gates"
+    },
+    {
+      "id": "F07",
+      "status": "plan corrected; runtime not implemented",
+      "detail": "portable PDF-password envelope and replacement-profile recovery drill"
+    },
+    {
+      "id": "F08",
+      "status": "plan corrected; runtime not implemented",
+      "detail": "payroll lifecycle separate from dispatch receipts"
+    },
+    {
+      "id": "H01",
+      "status": "blocked pending separate Hermes repair",
+      "detail": "named dispatch cwd/session/budget constraints absent"
+    }
+  ],
+  "files_read": [
+    "AGENTS.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md",
+    "packages/payroll-domain/src/rules/types.ts",
+    "packages/payroll-domain/src/rules/validate.ts",
+    "packages/payroll-domain/test/rules/validate.spec.ts",
+    "packages/payroll-domain/tsconfig.json",
+    "rules/vn/2026/draft.json",
+    "docs/agent-packets/PAY-HERMES-MANAGER-01.json",
+    "docs/agent-packets/PAY-REVIEW-01.json",
+    "docs/planning/hermes-delegation.md",
+    "docs/planning/payroll-decision-matrix.md",
+    "docs/planning/task-status.json",
+    "packages/payroll-domain/src/rules/content.ts",
+    "packages/payroll-domain/test/rules/content.spec.ts",
+    "package.json",
+    "package-lock.json",
+    "packages/payroll-domain/src/rules/resolve.ts",
+    "rules/vn/2026/sources.json",
+    "docs/agent-packets/PAY-W0-01-handoff.json",
+    "docs/agent-packets/PAY-W1-01-parent-acceptance.json",
+    "docs/agent-packets/PAY-W1-02-handoff.json",
+    "docs/agent-packets/PAY-HERMES-CANARY-01-handoff.json",
+    ".research/2026-09-03-pay-slip-plan-cross-check/unknowns.md",
+    ".research/2026-09-05-pay-w1-02-official-sources/claims.md"
+  ],
+  "external_read_evidence": [
+    "Hermes profiles/atlas/profile.yaml (non-secret metadata)",
+    "Hermes profiles/atlas/SOUL.md (role excerpts)",
+    "Hermes hermes_cli/fleet_blueprints.py",
+    "Hermes tools/fleet_messaging.py",
+    "Hermes tools/fleet_mode.py",
+    "Hermes tools/bot_mode_dm.py",
+    "Hermes hermes_cli/main.py and _parser.py"
+  ],
+  "files_modified": [
+    "AGENTS.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md",
+    "packages/payroll-domain/src/rules/types.ts",
+    "packages/payroll-domain/src/rules/validate.ts",
+    "packages/payroll-domain/test/rules/validate.spec.ts",
+    "packages/payroll-domain/tsconfig.json",
+    "rules/vn/2026/draft.json",
+    "docs/agent-packets/PAY-HERMES-MANAGER-01.json",
+    "docs/agent-packets/PAY-REVIEW-01.json",
+    "docs/planning/hermes-delegation.md",
+    "docs/planning/payroll-decision-matrix.md",
+    "docs/planning/task-status.json",
+    "packages/payroll-domain/src/rules/content.ts",
+    "packages/payroll-domain/test/rules/content.spec.ts",
+    "docs/agent-packets/PAY-REVIEW-01-handoff.json"
+  ],
+  "verification": {
+    "code": "focused rules + typecheck passed",
+    "planning": "coverage/acyclic dependency/JSON/ownership checks passed",
+    "review": "Codex inspected source and scoped diff; no independent worker review run",
+    "runtime_limits": "No app server/browser/database/Hermes provider invocation started"
+  },
+  "blocker": {
+    "approved_correction_count": 0,
+    "hermes_dispatch_count": 3,
+    "legal_draft_release_codes": 6
+  },
+  "cleanup": "Finite focused test/typecheck commands exited. No app listeners or Hermes workers were started. No outside-project writes, installs, real-data access or push.",
+  "next_action": "If Duke wants Atlas to delegate execution, authorize a separate Hermes transport repair for HD01–HD03; then confirm the exact two-profile bounded review roster. The Pay Slip W1-03 task remains not_started."
+}

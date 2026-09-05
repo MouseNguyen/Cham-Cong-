@@ -1,6 +1,6 @@
 # Pay Slip Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:subagent-driven-development` (recommended) or `superpowers:executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking. The workspace rule **NO WORKTREES** overrides any generic worktree advice; execute in the main checkout with explicit file ownership.
+> **For agentic workers:** Execute only the active approved task packet; planning text does not authorize worker spawning or tool effects. Follow `docs/planning/hermes-delegation.md` for Atlas routing to existing named specialists. Steps use checkbox (`- [ ]`) syntax as task templates; current execution state is in `docs/planning/task-status.json`. **NO WORKTREES**: use this main checkout and explicit file ownership.
 
 **Goal:** Xây dựng ứng dụng Windows-native tiếng Việt cho The Kay’s Gelato để chấm công, duyệt bảng công, tính lương full-time/part-time có trace, tạo phiếu PDF mã hóa và phát hành an toàn qua Gmail hoặc Zalo thủ công.
 
@@ -9,6 +9,8 @@
 **Tech Stack:** Node.js 24 LTS; Next.js 16.3.3 Active LTS; React/TypeScript phiên bản tương thích được khóa trong `package-lock.json`; PostgreSQL 18.x current minor; Prisma stable production release; Vitest, fast-check, Testing Library, Playwright, axe-core; Decimal.js; Zod; Argon2id/TOTP; Playwright PDF + qpdf AES-256; age encrypted backups; Windows PowerShell service launchers.
 
 **Spec:** `docs/superpowers/plans/2026-09-04-pay-slip-design.md`
+
+**2026-09-05 corrections:** numeric policy inputs in `docs/planning/payroll-decision-matrix.md`; current 20-task/subpacket dependency graph in `docs/planning/task-status.json`; named Hermes roles and dispatch constraints in `docs/planning/hermes-delegation.md`. Task IDs remain stable. Historical receipts are immutable; W0/W1-01 and draft W1-02 are not rerun just because template boxes remain empty.
 
 ## Global Constraints
 
@@ -126,7 +128,7 @@ Codex review gate cho mọi packet:
 ```text
 apps/web/
   src/app/(admin)/              # dashboard, employees, attendance, pay runs, delivery, settings
-  src/app/kiosk/                # giao diện chấm công tối giản
+  src/app/kiosk/                # private development composition only; not tunnel target
   src/app/api/                  # route handlers mỏng
   src/components/               # design-system components
   src/lib/application/          # commands/queries, quyền, transaction boundaries
@@ -134,6 +136,7 @@ apps/web/
   src/lib/db/                   # Prisma client và repositories
   src/lib/agent-tools/          # internal typed page-tool registry và adapter tùy chọn
   src/styles/                   # tokens, globals, print/PDF styles
+apps/attendance-ingress/        # standalone loopback 46218 allowlisted server + kiosk static assets
 packages/contracts/src/         # Zod request/response schemas, shared IDs/statuses
 packages/payroll-domain/src/    # money, rules, payroll calculation, trace; không I/O
 packages/payroll-domain/test/   # unit/golden/property tests
@@ -156,7 +159,17 @@ docs/adr/                       # runtime, auth, PDF, backup decisions
 docs/agent-packets/             # instantiated packets and handoff receipts
 ```
 
-## 3. Execution waves và phê duyệt
+## 3. Work packages, dependency order và phê duyệt
+
+Wave numbers group ownership and release scope; do not execute them as an unconditional W0→W8 sequence. The dependency graph in `docs/planning/task-status.json` governs order. A split packet gets an explicit subset of its parent Files list; the parent is not done until all original acceptance checks pass.
+
+1. Existing accepted W0/W1-01/draft W1-02 -> W1-03 synthetic full-time calculator. W3-01a pure attendance and W5-01 design preparation are independent when authorized.
+2. W2-01 schema -> W6-02a transactional outbox/fake queue. W7-01a secret adapter must precede W2-02 auth; then W2-03 employee/email verification and W3-01b schedule commands.
+3. W7-02a minimal local launcher and W3-02a isolated ingress/device registration -> W3-02b actual Playwright harness/local kiosk -> W3-03 snapshots -> W4-01 full-time orchestration.
+4. W5-02a minimum admin UI + W6-01 encrypted PDF -> W6-02b preview/fake delivery services -> W5-02b delivery UI and tool evals. **M0 acceptance:** one synthetic full-time cycle with holiday, insurance/PIT trace, approved snapshot, finalized example, encrypted PDF and fake receipt.
+5. Only after M0: W1-04 part-time/full boundary expansion and W5-02c remaining UI breadth. W7-01b recovery, W7-02b full operations and W7-03 retention close their required gates. W8 verifies real integrations, signed rules and two parallel cycles.
+
+M0 uses an isolated synthetic dataset and explicitly labelled fixture policies; previewing the checked-in legal draft cannot authorize production finalization. No real person, real email transport or live deployment is required for M0. Each subsequent runtime still needs its exact approved wave.
 
 | Wave | Tasks | Core outcome | Gated actions cần preview/phê duyệt trước khi chạy |
 |---|---|---|---|
@@ -296,7 +309,7 @@ Expected: FAIL on missing resolver.
 
 - [ ] **Step 3: Implement typed immutable packs**
 
-Include source IDs/URLs, effective interval, Region I floor 5,310,000/month and 25,500/hour from 01/01/2026, PIT five-bracket schedule, separate fund policies, part-time monthly eligibility threshold versions, holiday entitlement/premium separation, content SHA-256, accountant signature metadata and external-specialist signature metadata. The checked-in 2026 file remains `draft`; production finalization rejects it until signatures are present.
+Include source IDs/URLs, effective interval, Region I floor 5,310,000/month and 25,500/hour from 01/01/2026, PIT five-bracket schedule, separate fund policies, part-time monthly eligibility threshold versions, holiday entitlement/premium separation, content SHA-256, accountant signature metadata and external-specialist signature metadata. The checked-in 2026 file remains `draft`; production finalization rejects it until source verification, source content hashes, numeric decisions, authenticated accountant/specialist signatures and every release blocker are closed. Recompute the canonical content hash at validation/release; never trust a caller-supplied digest or verified flag. Deep-freeze a detached released copy. PAY-REVIEW-01 repairs the pure release boundary; trusted source import and authenticated approval belong to the application integration, not this in-memory metadata gate.
 
 - [ ] **Step 4: Run GREEN and fixture validation**
 
@@ -309,17 +322,21 @@ Commit message: `feat(payroll): add versioned Vietnam rule packs`.
 
 ### Task PAY-W1-03: Full-time deterministic payroll vertical slice
 
+**Execution dependency / split:** After accepted W1-01/W1-02; use the synthetic decision matrix and require production policy closure separately.
+
 **Files:**
 - Create: `packages/payroll-domain/src/types.ts`, `packages/payroll-domain/src/calculate.ts`, `packages/payroll-domain/src/insurance.ts`, `packages/payroll-domain/src/pit.ts`, `packages/payroll-domain/src/holiday.ts`, `packages/payroll-domain/src/trace.ts`
 - Test: `packages/payroll-domain/test/full-time.golden.spec.ts`, `tests/fixtures/payroll/full-time-basic.json`, `tests/fixtures/payroll/full-time-holiday-synthetic.json`
 
 **Interfaces:**
 - Produces: `calculatePayroll(input: PayrollInput): PayrollResult`.
-- `PayrollResult` contains `gross`, fund-by-fund employee/employer amounts, `pit`, `net`, `employerCost`, `lines`, `rulePackId`, `rulePackHash`, `inputHash`.
+- `PayrollResult` contains `gross`, fund-by-fund employee/employer amounts, `pit`, `net`, `employerCost`, `lines`, `rulePackId`, `rulePackHash`, `inputHash`, `calculatorVersion`, `calculatorArtifactHash`, `canonicalizationVersion` and `resultSchemaVersion`.
+- Resolve PD01–PD08 from the decision matrix explicitly. Synthetic assumptions are labelled, production cases require their signed policies. Bind per-component rounding/date/base decisions; retain exact time units.
 
 - [ ] **Step 1: Write basic RED golden test**
 
 ```ts
+// Synthetic smoke vector only; independent per-fund golden cases are mandatory.
 const result = calculatePayroll(fullTimeBasic({ monthlySalary: '8000000' }));
 expect(result.gross).toBe('8000000');
 expect(result.employeeInsuranceTotal).toBe('840000');
@@ -347,6 +364,8 @@ Call the same fixture 100 times and require byte-identical canonical JSON/hash. 
 Commit message: `feat(payroll): calculate traced full-time payroll`.
 
 ### Task PAY-W1-04: Part-time, legal boundaries và property tests
+
+**Execution dependency / split:** After M0. Keep all planned boundary cases; this expansion must not delay the first full-time PDF/fake-delivery cycle.
 
 **Files:**
 - Modify: `packages/payroll-domain/src/calculate.ts`, `packages/payroll-domain/src/insurance.ts`
@@ -383,6 +402,8 @@ Commit message: `feat(payroll): cover part-time and rule boundaries`.
 
 ### Task PAY-W2-01: PostgreSQL schema, invariants và repositories
 
+**Execution dependency / split:** After W1-03 and W3-01a interfaces. Include outbox rows and immutable calculator/policy references from the beginning.
+
 **Files:**
 - Create: `prisma/schema.prisma`, `prisma.config.ts`, `prisma/migrations/202609040001_initial/migration.sql`
 - Create: `apps/web/src/lib/db/client.ts`, `apps/web/src/lib/db/repositories/*.ts`
@@ -416,6 +437,8 @@ Commit message: `feat(data): enforce immutable payroll records`.
 
 ### Task PAY-W2-02: Owner/accountant authentication và authorization
 
+**Execution dependency / split:** After W2-01 and W7-01a secret adapter.
+
 **Files:**
 - Create: `apps/web/src/lib/auth/password.ts`, `totp.ts`, `session.ts`, `csrf.ts`, `authorization.ts`
 - Create: `apps/web/src/lib/application/commands/authorization.ts`
@@ -446,6 +469,8 @@ Run integration tests then Playwright auth test with synthetic accounts; expecte
 Commit message: `feat(auth): enforce owner accountant maker checker`.
 
 ### Task PAY-W2-03: Employee, contract, compensation và verified delivery destination
+
+**Execution dependency / split:** After W2-02 and W6-02a transactional outbox/fake adapter.
 
 **Files:**
 - Create: `packages/contracts/src/employee.ts`, `packages/contracts/src/compensation.ts`
@@ -480,6 +505,8 @@ Run employee integration tests and typecheck; expected PASS. Commit message: `fe
 
 ### Task PAY-W3-01: Scheduling và attendance state machine
 
+**Execution dependency / split:** Split a: pure types/state machine before W2-01; b: schedule repository/commands after W2-03. No schema dependency in the pure module.
+
 **Files:**
 - Create: `packages/attendance-domain/src/types.ts`, `state-machine.ts`, `anomalies.ts`, `payable-segments.ts`, `snapshot.ts`
 - Create: `apps/web/src/lib/application/commands/save-weekly-schedule.ts`, `set-schedule-exception.ts`
@@ -495,7 +522,7 @@ Cover IN->OUT happy path, duplicate command with same idempotency key returning 
 
 - [ ] **Step 2: Write paid-break and payroll-boundary tests**
 
-Six-hour and ten-hour shifts keep all approved minutes; no scheduled/assumed break is deducted. Full-time variance emits review context but never a salary deduction. Part-time output contains only approved payable minutes.
+Six-hour and ten-hour shifts keep the entire approved payable duration; no scheduled/assumed break is deducted. Preserve integer milliseconds from raw events and exact duration arithmetic (PD02); do not truncate to the existing integer Minutes utility. Full-time variance never implies a salary deduction. Part-time output contains only approved payable segments.
 
 - [ ] **Step 3: Run RED, implement pure state machine, run GREEN**
 
@@ -507,7 +534,7 @@ Store the approved opening pattern—Monday closed, Tuesday–Friday 15:00–21:
 
 - [ ] **Step 5: Add canonical snapshot hash test**
 
-Reordering input records must not change the canonical snapshot; changing one approved minute, classification or approver must change its SHA-256.
+Reordering input records must not change the canonical snapshot; changing one approved millisecond, classification or approver must change its SHA-256.
 
 - [ ] **Step 6: Commit**
 
@@ -515,15 +542,20 @@ Commit message: `feat(attendance): add auditable attendance state machine`.
 
 ### Task PAY-W3-02: Attendance ingress API và iPOS kiosk
 
+**Execution dependency / split:** Split a: ingress/device enrollment after W3-01b; b: local harness/kiosk after W7-02a. Keep real iPOS/tunnel evidence outstanding until their approved gate.
+
 **Files:**
 - Create: `packages/contracts/src/attendance.ts`
-- Create: `apps/web/src/app/api/attendance/events/route.ts`, `apps/web/src/lib/application/commands/record-clock-event.ts`
-- Create: `apps/web/src/app/kiosk/page.tsx`, `apps/web/src/app/kiosk/kiosk-form.tsx`, `apps/web/src/styles/kiosk.css`
+- Create: `apps/attendance-ingress/package.json`, `src/server.ts`, `src/routes/clock.ts`, `src/routes/reconcile.ts`, `src/kiosk/{index.html,kiosk.ts,kiosk.css}`
+- Create: `packages/attendance-domain/src/ports.ts`, `apps/attendance-ingress/src/record-clock-event.ts`, `src/device-session.ts`
+- Create: `apps/web/src/lib/application/commands/enroll-kiosk-device.ts`, `revoke-kiosk-device.ts` (private owner-only admin commands)
+- Modify: root `package.json`, `package-lock.json`, Vitest configuration; create `playwright.config.ts` in W3-02b with separately approved dependency/browser installation if required. Explicit ownership is serialized by Codex.
 - Test: `tests/integration/attendance/ingress.spec.ts`, `tests/e2e/kiosk.spec.ts`
 
 **Interfaces:**
 - Input: `{ employeeCode: string, pin: string, action: 'CLOCK_IN'|'CLOCK_OUT', idempotencyKey: uuid }`.
-- Output success: `{ recorded: true, eventId, recordedAt, nextAllowedAction }`; failure: `{ recorded: false, code, message, nextAction }`.
+- Device context: server-authenticated enrolled device/shop binding, independent of employee PIN; owner enrolls/revokes and rotates it.
+- Output success: `{ recorded: true, eventId, recordedAt, nextAllowedAction }`; definitive server rejection: `{ recorded: false, code, message, nextAction }`; transport ambiguity is client `pending_confirmation`, reconciled with the original key and device/employee authorization.
 
 - [ ] **Step 1: Write RED API tests**
 
@@ -531,11 +563,13 @@ Require durable transaction before `recorded:true`; retry same key returns same 
 
 - [ ] **Step 2: Implement command and isolated route**
 
-Route may access employee code/PIN status and attendance repositories only. Add IP/session rate limit, request ID and redacted audit. It cannot import payroll, document or admin query modules; architecture test enforces this.
+Implement a standalone entrypoint at loopback 46218 with an explicit route/static-asset allowlist and shared attendance service ports. It may access only enrolled-device, PIN status and attendance repositories. Add rate limit, request ID and redacted audit; prove revoked/wrong-shop devices are denied. No Next admin server, arbitrary reverse proxy, payroll, document or admin query imports. Direct negative requests to admin/PDF/payroll/unknown paths must fail through the real ingress listener.
 
 - [ ] **Step 3: Write RED kiosk UI test**
 
-Playwright enters code, six-digit PIN and action in three interactions, sees success only after response, resets sensitive fields, and sees **Chưa ghi nhận chấm công** when the request fails. Verify 44×44 targets and no salary/name-list exposure.
+Before browser tests, replace the current Vitest `test:e2e` placeholder with `playwright test` and real config; remove `--passWithNoTests` for required E2E/integration gates. Assert nonzero discovered test counts; no skipped suite may be called passing. Root harness changes belong to W3-02b.
+
+Playwright enters code, six-digit PIN and action in three interactions, resets PIN after submission, and shows success only for a durable receipt. Definitive rejection shows **Chưa ghi nhận chấm công**. A commit followed by lost response shows **Chưa xác nhận được — đang kiểm tra**; reconcile with the same key without retaining a PIN or duplicating the event. Test both failure classes, 44×44 targets and no salary/name-list exposure.
 
 - [ ] **Step 4: Implement minimal kiosk UI and run GREEN**
 
@@ -582,6 +616,8 @@ Commit message: `feat(attendance): approve immutable monthly snapshots`.
 
 ### Task PAY-W4-01: Pay-run orchestration, review và finalization
 
+**Execution dependency / split:** After W1-03, W2-03, W3-03 and W6-02a.
+
 **Files:**
 - Create: `packages/contracts/src/pay-run.ts`
 - Create: `apps/web/src/lib/application/commands/create-pay-run.ts`, `calculate-pay-run.ts`, `submit-pay-run.ts`, `approve-pay-run.ts`, `finalize-pay-run.ts`, `create-adjustment-run.ts`
@@ -598,11 +634,11 @@ Cover valid transition chain; missing/changed snapshot; unsigned rule pack; acco
 
 - [ ] **Step 2: Write RED reproducibility test**
 
-Reload a historical finalized run after active salary/rule changes and require byte-identical result/trace/hash from frozen inputs.
+Reload a historical finalized run after active salary/rule and calculator changes. Use frozen inputs plus the archived calculatorArtifactHash/version, canonicalizationVersion and resultSchemaVersion; require byte-identical result/trace/hash. Never replay historical runs through whatever engine is currently active.
 
 - [ ] **Step 3: Implement commands through one transaction boundary**
 
-Persist input snapshot before result, call only pure payroll-domain, append approval/audit events, and use compare-and-swap status/version. No PDF or email inside finalize transaction; enqueue outbox work after commit.
+Persist input snapshot, result, final status/version, approval/audit events and outbox intent in ONE database transaction. W6-02a supplies the outbox repository before this task. Enforce a unique payRunId/event-kind/version key. Execute PDF/provider effects only after commit. Test rollback-before-commit, crash-after-commit-before-worker, worker retry and double-finalize; there must be no finalized run without its durable required job.
 
 - [ ] **Step 4: Run GREEN**
 
@@ -644,10 +680,13 @@ Commit message: `docs(design): approve simple premium payroll UI`.
 
 ### Task PAY-W5-02: Admin UI, responsive components và agent-ready registry
 
+**Execution dependency / split:** Split a: minimum admin UI after W4-01 and approved W5-01; b: delivery UI/tool evals only after W6-02b services; c: full part-time/breadth after M0/W1-04. Do not implement placeholder release buttons before their services.
+
 **Files:**
 - Create: `apps/web/src/styles/tokens.css`, `globals.css`, `print.css`
 - Create: `apps/web/src/components/{Button,Field,Money,Status,StepFlow,DataTable,Dialog,TracePanel}.tsx`
-- Create: admin pages listed in the design spec
+- Create: remaining admin pages listed in the design spec, including delivery/page.tsx.
+- Modify after W3-03 acceptance: existing attendance/page.tsx and review-panel.tsx. Do not assign two simultaneous owners or recreate accepted pages.
 - Create: `apps/web/src/lib/agent-tools/{types,registry,webmcp-adapter}.ts`
 - Test: `tests/e2e/admin-flows.spec.ts`, `tests/e2e/accessibility.spec.ts`, `tests/agent-tools/registry.spec.ts`, `tests/agent-tools/evals.spec.ts`, `tests/visual/*.spec.ts`
 
@@ -684,6 +723,8 @@ Commit message: `feat(ui): add simple premium payroll workflows`.
 
 ### Task PAY-W6-01: Vietnamese payslip PDF, hash và password encryption
 
+**Execution dependency / split:** After W4-01 and W7-01a, before M0.
+
 **Files:**
 - Create: `packages/document-domain/src/payslip-view-model.ts`, `artifact.ts`
 - Create: `apps/web/src/lib/documents/render-payslip.ts`, `encrypt-pdf.ts`, `store-document.ts`
@@ -716,15 +757,18 @@ Commit message: `feat(payslips): render encrypted Vietnamese PDFs`.
 
 ### Task PAY-W6-02: PostgreSQL outbox, Gmail adapter và Zalo manual handoff
 
+**Execution dependency / split:** Split a: types/outbox repository/fake queue after W2-01, before email verification/finalize; b: preview/release/manual services after W6-01 and auth. Provider credentials and real sending remain disabled until W8 release evidence.
+
 **Files:**
 - Create: `apps/web/src/lib/delivery/types.ts`, `outbox.ts`, `worker.ts`, `fake-adapter.ts`, `gmail-adapter.ts`, `zalo-manual-adapter.ts`, `password-handoff.ts`
 - Create: `apps/web/src/lib/application/commands/preview-payslip-release.ts`, `release-payslips.ts`, `confirm-manual-delivery.ts`
-- Create: `apps/web/src/app/(admin)/delivery/page.tsx`
+- Delivery page ownership belongs only to W5-02b; this task owns its application services/adapters.
 - Test: `tests/integration/delivery/outbox.spec.ts`, `recipient-isolation.spec.ts`, `gmail-contract.spec.ts`, `zalo-manual.spec.ts`
 
 **Interfaces:**
 - `DeliveryDraft` binds exactly one employee, verified destination, period, payslip ID and PDF hash.
 - `DeliveryAdapter.send(draft): ProviderAccepted | Failed`; manual adapter never returns `Delivered`.
+- Pay-run stays FINALIZED. Document status and receipt-derived dispatch summary are separate. Provider acceptance/manual confirmation do not mean delivered/read; unknown sends require reconciliation before any resend.
 
 - [ ] **Step 1: Write RED fake-outbox tests**
 
@@ -758,6 +802,8 @@ Commit message: `feat(delivery): send employee-bound payslips safely`.
 
 ### Task PAY-W7-01: DPAPI secrets, encrypted backups và restore drill
 
+**Execution dependency / split:** Split a: secret port/DPAPI scripts and synthetic secret tests early; b: backup/export/recovery/retention after W6-01. Whole task is partial until both pass.
+
 **Files:**
 - Create: `scripts/windows/protect-secret.ps1`, `unprotect-secret.ps1`, `backup.ps1`, `restore-test.ps1`
 - Create: `apps/web/src/lib/secrets/windows-dpapi.ts`, `apps/web/src/lib/operations/backup-health.ts`
@@ -774,7 +820,7 @@ Round-trip a synthetic secret under the intended Windows service identity; asser
 
 - [ ] **Step 2: Implement DPAPI adapter and age backup manifest**
 
-Use DPAPI `CurrentUser` for service-held OAuth/PDF-password ciphertext. For portable backup, encrypt tar/archive content to an age public recipient so the private recovery key can remain off-PC. Manifest includes schema, created time, DB dump hash, document count/hash, rule/audit hashes and app version.
+W7-01a first implements the secret interface/DPAPI CurrentUser adapter (including TOTP protection) needed by W2-02, W6-01 and W6-02. W7-01b later implements full backup/recovery. Encrypt the archive to an age public recipient; its private key remains off-PC. Separately export the PDF password recovery envelope through memory/pipe into age encryption, then rewrap under a replacement service identity during recovery. Copying DPAPI ciphertext into an encrypted archive is insufficient. OAuth is reauthorized and TOTP uses a signed owner recovery/re-enrollment procedure. Manifest lists every secret class disposition plus schema, creation time, DB/document/rule/audit hashes and app/calculator versions.
 
 - [ ] **Step 3: Implement retention and health**
 
@@ -782,13 +828,15 @@ Schedule immediately after finalize and 02:00 daily. Keep 14 daily, 8 weekly, 12
 
 - [ ] **Step 4: Run synthetic write and restore drill only after G: approval**
 
-Write only under `G:\PaySlip-Backups`; independently resolve every path before write/delete. Restore into a fresh temp directory/database, compare schema/count/SHA-256, open one synthetic payslip, then remove only the verified temp target. Save receipt in `ops/evidence/backup-restore-<date>.md`.
+Write only under `G:\PaySlip-Backups`; independently resolve every path before write/delete. Restore into a fresh temp directory/database, compare schema/count/SHA-256, open one synthetic payslip, then remove only the verified temp target. Repeat the synthetic restore under a replacement Windows profile/host without the old DPAPI master key; recover/open an old PDF, verify owner recovery and disabled OAuth until reauthorization, and prove no plaintext secret files/logs remain. This identity/host action needs explicit approval. Save both same-host integrity and replacement-profile receipts in `ops/evidence/backup-restore-<date>.md`.
 
 - [ ] **Step 5: Run GREEN and commit**
 
 Expected: path, encryption, retention and restore tests PASS. Commit message: `feat(ops): add encrypted verified payroll backups`.
 
 ### Task PAY-W7-02: Windows service lifecycle, health và incident runbooks
+
+**Execution dependency / split:** Split a: smallest safe local launcher/health/stop before W3-02b runtime; b: full worker/backup/tunnel/private-admin incident closure later. Do not spend M0 time on optional supervisor hardening.
 
 **Files:**
 - Create: `scripts/windows/start-pay-slip.ps1`, `stop-pay-slip.ps1`, `health-pay-slip.ps1`
@@ -900,10 +948,10 @@ Use explicit non-secret paths. Commit message: `test: verify payroll pilot relea
 1. **After W0:** runtime/lockfile/architecture only; no product claim.
 2. **After W1:** pure payroll slice and draft golden pack; no database/UI claim.
 3. **After W3:** local kiosk-to-snapshot behavior; no public tunnel claim until separate gate.
-4. **After W4:** deterministic finalized synthetic pay run; first runnable core outcome.
+4. **After W4:** deterministic finalized synthetic pay run; backend slice only. **M0** is reached after W6-01, W6-02b and W5-02b prove the full-time UI/PDF/fake-delivery cycle.
 5. **After W5:** owner-approved simple-premium UI and agent-tool safety.
 6. **After W6:** encrypted PDF + fake delivery; Gmail real evidence remains separate.
-7. **After W7:** Windows lifecycle and synthetic restore proof.
+7. **After W7:** Windows lifecycle, backup integrity and replacement-profile secret recovery proof.
 8. **After W8:** specialist signatures, real integrations and two parallel cycles decide production status.
 
 ## 5. Spec-to-task coverage review
@@ -927,15 +975,11 @@ Coverage result at planning layer: every design section has at least one owning 
 
 ## 6. Recommended agent allocation
 
-Codex có thể thực hiện tuần tự toàn bộ plan. Nếu dùng Hermes, giao từng task riêng và Codex review giữa các task. Không giao song song các task có chung file:
+Use the existing Hermes fleet: Atlas manages, Forge implements, Scout researches approved sources, Trace diagnoses bounded failures, Sentinel reviews evidence, and Pulse handles Windows operations. Full task-to-owner mapping and prerequisites are in `docs/planning/task-status.json`; dispatch contract/evidence is in `docs/planning/hermes-delegation.md`.
 
-| Packet | Có thể giao độc lập khi prerequisite pass | File ownership chính |
-|---|---|---|
-| PAY-W1-01 | sau W0 | `packages/payroll-domain/src/money*`, `duration*`, `rounding*` |
-| PAY-W5-01 | sau spec, không phụ thuộc code | `.superdesign/`, `docs/design/` |
-| PAY-W7-02 runbook drafting | sau khi port/service contract chốt; read-only runtime | `ops/runbooks/`, `ops/services/` |
+One writer at a time; Atlas routes only packets in the confirmed roster to existing named profiles through fleet_message. Specialists may not redelegate. Codex owns shared contracts/schema, integration, final acceptance and commits. Independent read-only advice may overlap when the roster permits; no blanket six-agent fanout.
 
-Mọi phần còn lại nên nối tiếp vì dùng shared contracts/schema. Một Hermes packet không được tự spawn worker khác, sửa Prisma cùng lúc với agent khác hoặc chạy gated action chưa liệt kê.
+Current dispatch has three documented project-isolation/budget blockers (HD01–HD03). A proposed manager packet is prepared, but no Hermes worker is authorized to execute until the transport is corrected under its own scope and the exact roster is confirmed. Existing accepted W0/W1-01/W1-02 work must not be reassigned from stale checkbox templates.
 
 ## 7. Định nghĩa hoàn tất
 

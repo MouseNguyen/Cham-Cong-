@@ -1,3 +1,4 @@
+import { hashRulePackContent } from './content';
 import type {
   DateInterval,
   LegalRulePack,
@@ -45,6 +46,10 @@ export function validateRulePack(pack: LegalRulePack): LegalRulePack {
   }
   if (!SHA256.test(pack.contentSha256)) {
     throw new Error('RULE_PACK_HASH_INVALID');
+  }
+
+  if (hashRulePackContent(pack) !== pack.contentSha256) {
+    throw new Error('RULE_PACK_CONTENT_HASH_MISMATCH');
   }
 
   validateInterval(pack.applicability);
@@ -122,5 +127,43 @@ export function releaseRulePack(pack: LegalRulePack): Readonly<LegalRulePack> {
 
   validateRulePack(pack);
 
-  return Object.freeze({ ...pack, status: 'released' as const });
+  assertVerifiedSources(pack);
+  if (pack.rules.insuranceFunds.some(fund => fund.evidenceStatus !== 'verified')) {
+    throw new Error('RULE_PACK_POLICY_UNVERIFIED');
+  }
+  if ((pack.releaseBlockers ?? []).length > 0) {
+    throw new Error('RULE_PACK_RELEASE_BLOCKED');
+  }
+
+  return freezeNested(structuredClone({ ...pack, status: 'released' as const }));
+}
+
+function assertVerifiedSources(pack: LegalRulePack): void {
+  if (pack.sourceRefs.length === 0 || pack.sourceRefs.some(source =>
+    source.evidenceStatus !== 'verified' || source.contentSha256 === null)) {
+    throw new Error('RULE_PACK_SOURCES_UNVERIFIED');
+  }
+  const ids = new Set(pack.sourceRefs.map(source => source.id));
+  function inspect(value: unknown): void {
+    if (Array.isArray(value)) {
+      value.forEach(inspect);
+    } else if (value !== null && typeof value === 'object') {
+      for (const [key, child] of Object.entries(value)) {
+        if (key === 'sourceIds' && (!Array.isArray(child) ||
+          child.some(id => typeof id !== 'string' || !ids.has(id)))) {
+          throw new Error('RULE_PACK_SOURCE_REFERENCE_MISSING');
+        }
+        inspect(child);
+      }
+    }
+  }
+  inspect(pack.rules);
+}
+
+function freezeNested<T>(value: T): T {
+  if (value !== null && typeof value === 'object') {
+    Object.values(value).forEach(freezeNested);
+    Object.freeze(value);
+  }
+  return value;
 }
