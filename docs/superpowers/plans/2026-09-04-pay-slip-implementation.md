@@ -1,6 +1,6 @@
 # Pay Slip Implementation Plan
 
-> **For agentic workers:** Execute only the active approved task packet; planning text does not authorize worker spawning or tool effects. Follow `docs/planning/hermes-delegation.md` for Atlas routing to existing named specialists. Steps use checkbox (`- [ ]`) syntax as task templates; current execution state is in `docs/planning/task-status.json`. **NO WORKTREES**: use this main checkout and explicit file ownership.
+> **For agentic workers:** Execute only the active approved task packet; planning text does not authorize worker spawning or tool effects. Follow `docs/planning/codex-delegation.md` for native Codex parent/worker/reviewer routing. Steps use checkbox (`- [ ]`) syntax as task templates; current execution state is in `docs/planning/task-status.json`. **NO WORKTREES**: use this main checkout and explicit file ownership.
 
 **Goal:** Xây dựng ứng dụng Windows-native tiếng Việt cho The Kay’s Gelato để chấm công, duyệt bảng công, tính lương full-time/part-time có trace, tạo phiếu PDF mã hóa và phát hành an toàn qua Gmail hoặc Zalo thủ công.
 
@@ -10,7 +10,7 @@
 
 **Spec:** `docs/superpowers/plans/2026-09-04-pay-slip-design.md`
 
-**2026-09-05 corrections:** numeric policy inputs in `docs/planning/payroll-decision-matrix.md`; current 20-task/subpacket dependency graph in `docs/planning/task-status.json`; named Hermes roles and dispatch constraints in `docs/planning/hermes-delegation.md`. Task IDs remain stable. Historical receipts are immutable; W0/W1-01 and draft W1-02 are not rerun just because template boxes remain empty.
+**2026-09-05 corrections:** numeric policy inputs in `docs/planning/payroll-decision-matrix.md`; current 20-task/subpacket dependency graph in `docs/planning/task-status.json`; active native Codex routing in `docs/planning/codex-delegation.md` (approved 2026-09-05; supersedes Hermes execution). Task IDs remain stable. Historical receipts are immutable; W0/W1-01 and draft W1-02 are not rerun just because template boxes remain empty.
 
 ## Global Constraints
 
@@ -975,11 +975,11 @@ Coverage result at planning layer: every design section has at least one owning 
 
 ## 6. Recommended agent allocation
 
-Use the existing Hermes fleet: Atlas manages, Forge implements, Scout researches approved sources, Trace diagnoses bounded failures, Sentinel reviews evidence, and Pulse handles Windows operations. Full task-to-owner mapping and prerequisites are in `docs/planning/task-status.json`; dispatch contract/evidence is in `docs/planning/hermes-delegation.md`.
+Use native Codex subagents. The parent manages tasks, accepts evidence and integrates. A bounded implementation worker writes only its packet files; an independent reviewer reports concrete accuracy/core/data-integrity findings. Full task-to-owner mapping and prerequisites are in `docs/planning/task-status.json`; the active contract is `docs/planning/codex-delegation.md`.
 
-One writer at a time; Atlas routes only packets in the confirmed roster to existing named profiles through fleet_message. Specialists may not redelegate. Codex owns shared contracts/schema, integration, final acceptance and commits. Independent read-only advice may overlap when the roster permits; no blanket six-agent fanout.
+One writer at a time. Parent spawns only native workers in the confirmed roster; children may not redelegate. Codex owns shared contracts/schema, integration, final acceptance and commits. Independent work may overlap when useful and authorized; the first implementer/reviewer wave is sequential, with at most one active child at a time.
 
-Current dispatch has three documented project-isolation/budget blockers (HD01–HD03). A proposed manager packet is prepared, but no Hermes worker is authorized to execute until the transport is corrected under its own scope and the exact roster is confirmed. Existing accepted W0/W1-01/W1-02 work must not be reassigned from stale checkbox templates.
+Hermes transport repair is deferred and is not a prerequisite for Pay Slip. Preserve HD01–HD03 as historical findings only. Next packet is PAY-W1-03, full-time synthetic calculation. Native routing approval does not silently authorize its new code/test/model scope: confirm that exact visible roster once, then execute its bounded wave without repeated step approvals. Existing accepted W0/W1-01/W1-02 work must not be reassigned from stale checkbox templates.
 
 ## 7. Định nghĩa hoàn tất
 

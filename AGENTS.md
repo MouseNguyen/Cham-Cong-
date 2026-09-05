@@ -71,15 +71,16 @@ expected effect, rollback, and evidence that would be produced.
 
 - The Codex parent owns architecture, approval interpretation, integration,
   verification, commits, cleanup, and completion claims.
-- Hermes workers must use the model, reasoning effort, cwd, owned files, limits,
+- Native Codex subagents must use the model, reasoning effort, cwd, owned files, limits,
   and stop conditions declared in the active packet.
 - No worker may delegate, auto-decompose, start a background child, or widen its
   file scope unless the active packet explicitly allows it.
-- Atlas is the existing Hermes Manager. After Duke confirms an exact roster,
-  Atlas may route only its listed packets through `fleet_message` to the named
-  existing specialists. Specialists may not redelegate. This exception does not
-  authorize generic child spawning, new jobs, models, file scopes or tool effects.
-  See `docs/planning/hermes-delegation.md`.
+- Native Codex subagents are the active execution route approved by Duke.
+  Codex parent manages one bounded implementation owner and an independent
+  reviewer when needed; children may not delegate. Confirm the exact model/job/
+  action roster before execution. See `docs/planning/codex-delegation.md`.
+- Hermes delegation is deferred. Its unresolved transport findings are historical
+  evidence and do not block Pay Slip implementation through native Codex.
 - Shared files and dependency-coupled changes are serialized by the Codex parent.
 - A worker handoff is evidence to inspect, not proof that the task is complete.
 
@@ -98,6 +99,6 @@ expected effect, rollback, and evidence that would be produced.
 - Work directly in this checkout. Do not create worktrees.
 - Never push, force-push, rewrite history, or run destructive reset/checkout.
 - Stage explicit paths only; never use `git add -A`.
-- Hermes workers do not commit unless their task packet explicitly grants it.
+- Subagents do not commit; Codex parent owns final verification and commits.
 - Before handoff, report `git status --short`, the scoped diff, verification
   results, blockers, and every modified file.

@@ -418,8 +418,8 @@ Mỗi tool khai báo JSON schema, output schema, risk, `readOnlyHint`, `requires
 
 ### 16.1. Nguyên tắc
 
-- Một kế hoạch chuẩn và các task ID ổn định; Codex và Hermes không tự tạo một kiến trúc song song. `docs/planning/task-status.json` giữ trạng thái hiện tại; `docs/planning/hermes-delegation.md` ánh xạ Atlas/Forge/Scout/Trace/Sentinel/Pulse.
-- Atlas chỉ điều phối các packet trong roster đã được Duke xác nhận qua `fleet_message` đến bot đã có; specialists không tự delegate. Codex vẫn giữ phê duyệt, shared-file integration, verification và commit.
+- Một kế hoạch chuẩn và các task ID ổn định; Codex và Hermes không tự tạo một kiến trúc song song. `docs/planning/task-status.json` giữ trạng thái hiện tại; `docs/planning/codex-delegation.md` quy định Codex parent, implementation worker và reviewer; Hermes được hoãn theo quyết định của Duke.
+- Codex parent giao packet đã duyệt trực tiếp cho native subagent; một người ghi file và reviewer độc lập khi cần. Subagent không tự delegate. Codex giữ phê duyệt, shared-file integration, verification và commit.
 - Mỗi task chỉ có một owner ghi file tại một thời điểm; task song song phải có file ownership tách rời.
 - Codex là integrator/reviewer cuối: đọc artifact, kiểm diff/phạm vi và chạy lại focused verification quan trọng.
 - Agent không được dùng kết quả lint/static để tuyên bố runtime hoặc production pass.

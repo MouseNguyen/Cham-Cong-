@@ -3,7 +3,7 @@
   "schema_version": "1.0.0",
   "task_id": "PAY-HERMES-MANAGER-01",
   "agent_id": "atlas",
-  "status": "blocked",
+  "status": "aborted",
   "roster_revision": 1,
   "approval_status": "not_requested_pending_dispatch_repair",
   "goal": "Prove project-bound Atlas delegation to the existing Sentinel profile using one read-only review of Pay Slip plans and the rule release correction.",
@@ -135,5 +135,7 @@
     "core_before_polish": true,
     "preparation_status": "prepared_blocked",
     "outcome_status": "not_run"
-  }
+  },
+  "disposition": "Superseded before execution by Duke-approved native Codex routing. Historical blockers remain unmodified and do not block the active route.",
+  "superseded_by": "docs/planning/codex-delegation.md"
 }

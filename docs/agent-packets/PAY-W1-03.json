@@ -1,0 +1,180 @@
+{
+  "contract_kind": "task_runtime",
+  "task_id": "PAY-W1-03",
+  "agent_id": "pay_w1_03_implementer",
+  "status": "planned",
+  "roster_id": "PAY-NATIVE-W1-03-R1",
+  "roster_revision": 1,
+  "approval": {
+    "route": "approved by Duke: native Codex parent/implementer/reviewer",
+    "exact_execution_wave": "pending",
+    "approval_ttl_minutes": 30
+  },
+  "goal": "Implement and verify one deterministic full-time synthetic calculator, preserving exact money/time and explicit legal uncertainty.",
+  "workspace": "F:\\Codex\\Projects\\Pay Slip",
+  "baseline_commit": "46c098f3b9920126b3ae6d05d621b7c0c80e81bc",
+  "inputs": [
+    "AGENTS.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md",
+    "docs/planning/payroll-decision-matrix.md",
+    "docs/planning/codex-delegation.md",
+    "packages/payroll-domain/src/money.ts",
+    "packages/payroll-domain/src/rounding.ts",
+    "packages/payroll-domain/src/rules/types.ts",
+    "packages/payroll-domain/src/rules/validate.ts",
+    "packages/payroll-domain/src/rules/content.ts",
+    "packages/payroll-domain/src/rules/resolve.ts",
+    "rules/vn/2026/draft.json"
+  ],
+  "owned_files": [
+    "packages/payroll-domain/src/types.ts",
+    "packages/payroll-domain/src/calculate.ts",
+    "packages/payroll-domain/src/insurance.ts",
+    "packages/payroll-domain/src/pit.ts",
+    "packages/payroll-domain/src/holiday.ts",
+    "packages/payroll-domain/src/trace.ts",
+    "packages/payroll-domain/test/full-time.golden.spec.ts",
+    "tests/fixtures/payroll/full-time-basic.json",
+    "tests/fixtures/payroll/full-time-holiday-synthetic.json",
+    "docs/agent-packets/PAY-W1-03-handoff.json"
+  ],
+  "parent_owned_files": [
+    "docs/agent-packets/PAY-W1-03-review.json"
+  ],
+  "excluded_scope": [
+    "Part-time implementation",
+    "Proration/unpaid leave/night work calculations",
+    "Source/legal rate edits",
+    "Rules resolver or money helper refactors",
+    "UI/database/PDF/delivery/auth implementation",
+    "Dependency/config/lockfile changes",
+    "Production payroll claims"
+  ],
+  "roster": [
+    {
+      "agent_id": "pay_w1_03_implementer",
+      "model": "gpt-5.6-terra",
+      "reasoning_effort": "high",
+      "authority": "bounded product writes and listed focused tests",
+      "job": "Implement PAY-W1-03 with TDD",
+      "timeout_minutes": 25
+    },
+    {
+      "agent_id": "pay_w1_03_reviewer",
+      "model": "gpt-5.5",
+      "reasoning_effort": "xhigh",
+      "authority": "read-only source/diff/receipt review; no test/runtime execution",
+      "job": "Independently review arithmetic, scope, deterministic trace and unsupported-case rejection",
+      "depends_on": "parent acceptance of implementer handoff",
+      "timeout_minutes": 15
+    }
+  ],
+  "phases": [
+    "Revalidate approval, slots and exact input hashes",
+    "RED focused golden tests",
+    "Smallest calculator implementation",
+    "GREEN focused suite and typecheck",
+    "Parent checks arithmetic/diff and accepts handoff",
+    "Independent reviewer pass",
+    "Parent integrates causal fixes inside scope, verifies and commits"
+  ],
+  "allowed_actions": [
+    "Read declared project inputs and existing domain tests",
+    "Edit only owned files",
+    "Run the listed installed test/typecheck commands after exact wave approval",
+    "Read-only git status/diff checks"
+  ],
+  "commands": [
+    "npm run test:unit -- --run packages/payroll-domain/test/full-time.golden.spec.ts",
+    "npm run test:unit -- --run packages/payroll-domain/test",
+    "npm run typecheck",
+    "git diff --check"
+  ],
+  "approval_gates": [
+    "Do not spawn until this exact visible roster is confirmed",
+    "No new install/build/browser/server/database/network/research/credentials/real-data/runtime class",
+    "No worker commits or pushes",
+    "No child delegation or model fallback"
+  ],
+  "must_pass_gates": [
+    "Independent expected per-fund values for synthetic monthly-salary baseline; employer contributions never reduce employee net",
+    "Separate holiday entitlement and premium; explicit hourly base/divisor; no universal 400 percent calculation",
+    "Nonzero progressive PIT case with traceable independent expected bracket arithmetic",
+    "Exact VND intermediates/rounding per PD01; raw/payable time precision per PD02",
+    "Explicit component bases/date policies; unsupported or unresolved applicability fails closed rather than guessed",
+    "Reject night work, unsupported employment/component/proration and production use of draft rules",
+    "Draft calculation permitted only as explicitly labelled non-finalizable synthetic preview; no synthetic verified flag becomes production authority",
+    "Same input yields byte-identical canonical result/trace/hash; include declared calculator and canonicalization identity",
+    "Actual source artifact hash is computed outside the pure calculator and carried as an explicit input binding, never guessed or read from filesystem inside calculatePayroll",
+    "Full scoped tests and typecheck pass; diff contains only owned paths"
+  ],
+  "synthetic_policy_contract": "Use PD01-PD08 as published. Existing legal draft values may populate labelled test scenarios only. Do not research, change legal values, forge human approvals or close production blockers. Fixtures record assumed component date/base/holiday choices; unsupported choices reject.",
+  "verification": {
+    "golden_source": "Compute expected values independently; do not copy calculatePayroll output.",
+    "determinism": "100 repeated fixture calculations and input/key-order/hash checks as prescribed by the plan.",
+    "evidence_layers": [
+      "static_scope",
+      "focused_unit_runtime",
+      "typecheck",
+      "independent_review",
+      "production_not_run"
+    ]
+  },
+  "coverage_proof": [
+    "Every W1-03 acceptance requirement is linked to a test/case or explicit unsupported rejection",
+    "Every modified file is owned",
+    "Report every skip/blocker and no broader app claim"
+  ],
+  "limits": {
+    "max_active_children": 1,
+    "full_background_tasks": 0,
+    "max_tool_calls_per_child": 12,
+    "checkpoint_minutes": 15,
+    "max_attempts_same_layer": 2,
+    "architectural_fallbacks": 0,
+    "max_child_depth": 1
+  },
+  "cost_scope": "Native Codex account usage for one Terra implementation and one GPT-5.5 review; no extra paid provider/API calls. Test tooling is existing local Node/npm.",
+  "resource_scope": "Small source/fixture writes and short CPU-only Vitest/TypeScript checks; no GPU, network downloads, ports or databases.",
+  "cleanup": "Wait for finite commands; interrupt only owned child on timeout; preserve handoffs; no detached services. Parent alone commits explicit paths, never pushes.",
+  "rollback": "Changes remain scoped to newly created files; preserve any partial diff for review. No destructive reset; no automatic deletion.",
+  "handoff": {
+    "artifact": "docs/agent-packets/PAY-W1-03-handoff.json",
+    "review_artifact": "docs/agent-packets/PAY-W1-03-review.json",
+    "required_fields": [
+      "agent_id",
+      "task_id",
+      "status",
+      "summary",
+      "evidence",
+      "files_read",
+      "files_modified",
+      "verification",
+      "blocker",
+      "next_action",
+      "native_agent_id"
+    ]
+  },
+  "execution_envelope": {
+    "profile": "fast_core",
+    "core_before_polish": true,
+    "polish_backlog": [
+      "Part-time and full boundary expansion remain W1-04 after M0"
+    ]
+  },
+  "input_sha256": {
+    "AGENTS.md": "4c6e5f97e085cba64a4e6f466d09afc71b8bbcbfee7963ec732b00e0a356d89d",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md": "91474c6b5f28f7a1e721355b4dc4e2e5aced2976a26b9ff9626c57a645f83ad2",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md": "f65246ee13f5de2c63ea1299443f9891ec8bdcd20fe0a012cef070490539238d",
+    "docs/planning/payroll-decision-matrix.md": "51079fcc31cb08f909764426f837004dc593d99a7277087b899eae9f0e780b11",
+    "docs/planning/codex-delegation.md": "90f00ec9ba51534e98c0db1359ab52da003c6ffba5d46911db9d5c30b53d491e",
+    "packages/payroll-domain/src/money.ts": "eeb866e5e2a81bf219bc21fbedeb138d02e895439a3dc6831debf990d6ba2590",
+    "packages/payroll-domain/src/rounding.ts": "77c34c094a029e04181b07188434391ad0c936b22efb3552f2ef4064953c4e52",
+    "packages/payroll-domain/src/rules/types.ts": "9ed3eb7f0d43028f9d9592f7a663f582953dc39e8caa880b434ad4e6515ba601",
+    "packages/payroll-domain/src/rules/validate.ts": "70646851d73d98a054617e896c6b9e9ed777dc9be9dd29866cae0d27f1e5d092",
+    "packages/payroll-domain/src/rules/content.ts": "c39af1b5b6398ed6b6ba1f5f0fb6465f9648a58ef395bf58791adf6d009c2036",
+    "packages/payroll-domain/src/rules/resolve.ts": "817f162c234c607c4dc5462577b17d9397bc07ee65ce32a9a7a2ff05acf9001b",
+    "rules/vn/2026/draft.json": "f02d387e0a314d70229e90c4b25dfebfe80ac702757485a171fbcd65194fcb7b"
+  }
+}

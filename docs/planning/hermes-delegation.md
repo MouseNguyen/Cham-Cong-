@@ -1,4 +1,6 @@
-# Hermes delegation — proposed revision 1
+# Hermes delegation — deferred historical proposal
+
+Duke approved native Codex subagents instead. See `codex-delegation.md`. This document and HD01–HD03 are retained as evidence; Hermes repair is outside the Pay Slip critical path. No Hermes execution is planned.
 
 As of 2026-09-05. This file configures project task ownership, not the installed fleet. No agent was launched by PAY-REVIEW-01.
 

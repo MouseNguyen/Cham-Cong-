@@ -15,8 +15,8 @@
       ],
       "accepted_commit": "16afd9f",
       "production": "not_run",
-      "planned_manager": "atlas",
-      "planned_reviewer": "sentinel"
+      "planned_manager": "codex-parent",
+      "planned_reviewer": "codex-independent-reviewer"
     },
     {
       "task_id": "PAY-W1-01",
@@ -28,8 +28,8 @@
       ],
       "accepted_commit": "ae25c2c",
       "production": "not_run",
-      "planned_manager": "atlas",
-      "planned_reviewer": "sentinel"
+      "planned_manager": "codex-parent",
+      "planned_reviewer": "codex-independent-reviewer"
     },
     {
       "task_id": "PAY-W1-02",
@@ -41,107 +41,107 @@
       ],
       "accepted_commit": "b581e21",
       "production": "not_run",
-      "planned_manager": "atlas",
-      "planned_reviewer": "sentinel"
+      "planned_manager": "codex-parent",
+      "planned_reviewer": "codex-independent-reviewer"
     },
     {
       "task_id": "PAY-W1-03",
       "title": "Full-time calculator",
-      "owner": "forge",
+      "owner": "codex-implementation-worker",
       "status": "not_started",
       "evidence": [],
       "accepted_commit": null,
       "production": "not_run",
-      "planned_manager": "atlas",
-      "planned_reviewer": "sentinel"
+      "planned_manager": "codex-parent",
+      "planned_reviewer": "codex-independent-reviewer"
     },
     {
       "task_id": "PAY-W1-04",
       "title": "Part-time and boundary coverage",
-      "owner": "forge",
+      "owner": "codex-implementation-worker",
       "status": "not_started",
       "evidence": [],
       "accepted_commit": null,
       "production": "not_run",
-      "planned_manager": "atlas",
-      "planned_reviewer": "sentinel"
+      "planned_manager": "codex-parent",
+      "planned_reviewer": "codex-independent-reviewer"
     },
     {
       "task_id": "PAY-W2-01",
       "title": "Schema and repositories",
-      "owner": "forge",
+      "owner": "codex-implementation-worker",
       "status": "not_started",
       "evidence": [],
       "accepted_commit": null,
       "production": "not_run",
-      "planned_manager": "atlas",
-      "planned_reviewer": "sentinel"
+      "planned_manager": "codex-parent",
+      "planned_reviewer": "codex-independent-reviewer"
     },
     {
       "task_id": "PAY-W2-02",
       "title": "Authentication",
-      "owner": "forge",
+      "owner": "codex-implementation-worker",
       "status": "not_started",
       "evidence": [],
       "accepted_commit": null,
       "production": "not_run",
-      "planned_manager": "atlas",
-      "planned_reviewer": "sentinel"
+      "planned_manager": "codex-parent",
+      "planned_reviewer": "codex-independent-reviewer"
     },
     {
       "task_id": "PAY-W2-03",
       "title": "Employee contracts and destinations",
-      "owner": "forge",
+      "owner": "codex-implementation-worker",
       "status": "not_started",
       "evidence": [],
       "accepted_commit": null,
       "production": "not_run",
-      "planned_manager": "atlas",
-      "planned_reviewer": "sentinel"
+      "planned_manager": "codex-parent",
+      "planned_reviewer": "codex-independent-reviewer"
     },
     {
       "task_id": "PAY-W3-01",
       "title": "Schedule and attendance domain",
-      "owner": "forge",
+      "owner": "codex-implementation-worker",
       "status": "not_started",
       "evidence": [],
       "accepted_commit": null,
       "production": "not_run",
-      "planned_manager": "atlas",
-      "planned_reviewer": "sentinel"
+      "planned_manager": "codex-parent",
+      "planned_reviewer": "codex-independent-reviewer"
     },
     {
       "task_id": "PAY-W3-02",
       "title": "Isolated ingress and kiosk",
-      "owner": "forge",
+      "owner": "codex-implementation-worker",
       "status": "not_started",
       "evidence": [],
       "accepted_commit": null,
       "production": "not_run",
-      "planned_manager": "atlas",
-      "planned_reviewer": "sentinel"
+      "planned_manager": "codex-parent",
+      "planned_reviewer": "codex-independent-reviewer"
     },
     {
       "task_id": "PAY-W3-03",
       "title": "Approved snapshots",
-      "owner": "forge",
+      "owner": "codex-implementation-worker",
       "status": "not_started",
       "evidence": [],
       "accepted_commit": null,
       "production": "not_run",
-      "planned_manager": "atlas",
-      "planned_reviewer": "sentinel"
+      "planned_manager": "codex-parent",
+      "planned_reviewer": "codex-independent-reviewer"
     },
     {
       "task_id": "PAY-W4-01",
       "title": "Immutable pay-run orchestration",
-      "owner": "forge",
+      "owner": "codex-implementation-worker",
       "status": "not_started",
       "evidence": [],
       "accepted_commit": null,
       "production": "not_run",
-      "planned_manager": "atlas",
-      "planned_reviewer": "sentinel"
+      "planned_manager": "codex-parent",
+      "planned_reviewer": "codex-independent-reviewer"
     },
     {
       "task_id": "PAY-W5-01",
@@ -151,74 +151,74 @@
       "evidence": [],
       "accepted_commit": null,
       "production": "not_run",
-      "planned_manager": "atlas",
-      "planned_reviewer": "sentinel"
+      "planned_manager": "codex-parent",
+      "planned_reviewer": "codex-independent-reviewer"
     },
     {
       "task_id": "PAY-W5-02",
       "title": "Admin UI and tools",
-      "owner": "forge",
+      "owner": "codex-implementation-worker",
       "status": "not_started",
       "evidence": [],
       "accepted_commit": null,
       "production": "not_run",
-      "planned_manager": "atlas",
-      "planned_reviewer": "sentinel"
+      "planned_manager": "codex-parent",
+      "planned_reviewer": "codex-independent-reviewer"
     },
     {
       "task_id": "PAY-W6-01",
       "title": "Encrypted PDF",
-      "owner": "forge",
+      "owner": "codex-implementation-worker",
       "status": "not_started",
       "evidence": [],
       "accepted_commit": null,
       "production": "not_run",
-      "planned_manager": "atlas",
-      "planned_reviewer": "sentinel"
+      "planned_manager": "codex-parent",
+      "planned_reviewer": "codex-independent-reviewer"
     },
     {
       "task_id": "PAY-W6-02",
       "title": "Outbox and delivery",
-      "owner": "forge",
+      "owner": "codex-implementation-worker",
       "status": "not_started",
       "evidence": [],
       "accepted_commit": null,
       "production": "not_run",
-      "planned_manager": "atlas",
-      "planned_reviewer": "sentinel"
+      "planned_manager": "codex-parent",
+      "planned_reviewer": "codex-independent-reviewer"
     },
     {
       "task_id": "PAY-W7-01",
       "title": "Secrets and recovery",
-      "owner": "pulse",
+      "owner": "codex-implementation-worker",
       "status": "not_started",
       "evidence": [],
       "accepted_commit": null,
       "production": "not_run",
-      "planned_manager": "atlas",
-      "planned_reviewer": "sentinel"
+      "planned_manager": "codex-parent",
+      "planned_reviewer": "codex-independent-reviewer"
     },
     {
       "task_id": "PAY-W7-02",
       "title": "Windows lifecycle",
-      "owner": "pulse",
+      "owner": "codex-implementation-worker",
       "status": "not_started",
       "evidence": [],
       "accepted_commit": null,
       "production": "not_run",
-      "planned_manager": "atlas",
-      "planned_reviewer": "sentinel"
+      "planned_manager": "codex-parent",
+      "planned_reviewer": "codex-independent-reviewer"
     },
     {
       "task_id": "PAY-W7-03",
       "title": "Retention",
-      "owner": "forge",
+      "owner": "codex-implementation-worker",
       "status": "not_started",
       "evidence": [],
       "accepted_commit": null,
       "production": "not_run",
-      "planned_manager": "atlas",
-      "planned_reviewer": "sentinel"
+      "planned_manager": "codex-parent",
+      "planned_reviewer": "codex-independent-reviewer"
     },
     {
       "task_id": "PAY-W8-01",
@@ -228,8 +228,8 @@
       "evidence": [],
       "accepted_commit": null,
       "production": "not_run",
-      "planned_manager": "atlas",
-      "planned_reviewer": "sentinel"
+      "planned_manager": "codex-parent",
+      "planned_reviewer": "codex-independent-reviewer"
     }
   ],
   "subpackets": [
@@ -487,6 +487,11 @@
       "task_id": "PAY-REVIEW-01",
       "status": "accepted",
       "receipt": "docs/agent-packets/PAY-REVIEW-01-handoff.json"
+    },
+    {
+      "task_id": "PAY-ROUTE-02",
+      "status": "accepted",
+      "receipt": "docs/agent-packets/PAY-ROUTE-02.json"
     }
   ],
   "rules": [
@@ -503,10 +508,17 @@
     "Two signed parallel payroll cycles"
   ],
   "production_status": "not_run",
-  "assignment_evidence": "Future role proposals only; historical executed ownership is in each linked receipt.",
+  "assignment_evidence": "Native role proposals; actual worker IDs/model bindings come from each confirmed packet. Historical executed ownership remains in receipts.",
   "hermes_dispatch": {
-    "status": "blocked",
-    "blocker_count": 3,
+    "status": "deferred",
+    "historical_blocker_count": 3,
+    "blocks_current_execution_route": false,
     "packet": "docs/agent-packets/PAY-HERMES-MANAGER-01.json"
+  },
+  "execution_route": {
+    "kind": "native_codex_subagents",
+    "decision": "Duke approved parent + one implementer + independent reviewer; Hermes repair deferred.",
+    "packet": "docs/agent-packets/PAY-W1-03.json",
+    "roster_confirmation": "pending_exact_wave"
   }
 }
