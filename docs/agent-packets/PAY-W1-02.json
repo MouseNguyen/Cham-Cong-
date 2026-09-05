@@ -1,0 +1,95 @@
+{
+  "$schema": "F:\\Codex\\.agent\\contracts\\task-runtime.contract.schema.json",
+  "contract_kind": "task_runtime",
+  "schema_version": "1.0.0",
+  "task_id": "PAY-W1-02",
+  "agent_id": "codex-parent",
+  "title": "Implement the draft Vietnam legal rule-pack contract and effective-date resolver",
+  "status": "done",
+  "goal": "Create the smallest typed, immutable draft legal rule pack, deterministic effective-date resolver, release gates, canonical official-source manifest, focused RED/GREEN evidence, typecheck evidence, and one local commit without pushing.",
+  "workspace": {
+    "cwd": "F:\\Codex\\Projects\\Pay Slip",
+    "repository_root": "F:\\Codex\\Projects\\Pay Slip",
+    "branch": "main",
+    "base_commit": "ae25c2c6f52596c2042245e2b7eca1de7f86908b",
+    "worktree": "forbidden_by_repository"
+  },
+  "authority": {
+    "level": "bounded_write_focused_tests_typecheck_local_commit",
+    "delegation": "disabled",
+    "real_data": "forbidden",
+    "credentials": "forbidden",
+    "commit": "approved_after_verification",
+    "push": "forbidden"
+  },
+  "approval": {
+    "granted_by": "Duke",
+    "text": "Approve next step",
+    "interpreted_scope": "W1-02 draft implementation + focused tests + typecheck + local commit",
+    "granted_at_local_date": "2026-09-05"
+  },
+  "inputs": [
+    "AGENTS.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md",
+    ".research/2026-09-03-pay-slip-plan-cross-check/sources.json",
+    ".research/2026-09-03-pay-slip-plan-cross-check/claims.md",
+    ".research/2026-09-05-pay-w1-02-official-sources/artifact_manifest.json",
+    ".research/2026-09-05-pay-w1-02-official-sources/sources.json"
+  ],
+  "owned_files": [
+    "docs/agent-packets/PAY-W1-02.json",
+    "docs/agent-packets/PAY-W1-02-handoff.json",
+    "packages/payroll-domain/src/rules/types.ts",
+    "packages/payroll-domain/src/rules/resolve.ts",
+    "packages/payroll-domain/src/rules/validate.ts",
+    "packages/payroll-domain/test/rules/resolve.spec.ts",
+    "packages/payroll-domain/test/rules/validate.spec.ts",
+    "rules/vn/2026/draft.json",
+    "rules/vn/2026/sources.json",
+    ".research/2026-09-05-pay-w1-02-official-sources/artifact_manifest.json",
+    ".research/2026-09-05-pay-w1-02-official-sources/sources.json",
+    ".research/2026-09-05-pay-w1-02-official-sources/claims.md",
+    ".research/2026-09-05-pay-w1-02-official-sources/unknowns.md",
+    ".research/2026-09-05-pay-w1-02-official-sources/risks.md",
+    ".research/2026-09-05-pay-w1-02-official-sources/actions.md",
+    ".research/2026-09-05-pay-w1-02-official-sources/agent_handoff.md"
+  ],
+  "immutable_inputs": {
+    "package.json": "C6F127274683C80C459079EB73B2F1B36A03A18A7FA9B6E36785B98E250CD452",
+    "package-lock.json": "BB6F9D9CB94371389AA9B7D3CECAE6ABE30520218E1BDE10CD93EB680D12AA15",
+    "packages/payroll-domain/package.json": "AABCAABED642D846803157B0E03B4A6E8F6812B5F180458A47D32357BB8AC025",
+    "packages/payroll-domain/src/index.ts": "5D3E5CD38E193A671F3A0F5E96B0DCFFB096219CF56347310C207CD9B021055E",
+    ".research/2026-09-03-pay-slip-plan-cross-check/sources.json": "EA76EEA1E84D2B49F917AADD50E10D05F29138B1D626DF095111A80066FFB8FE",
+    ".research/2026-09-03-pay-slip-plan-cross-check/claims.md": "3189029417532EEDDA150A0041823EB62005EA16B8CF40F0286DDF33E5CA5BD8"
+  },
+  "interfaces": [
+    "LegalRulePack",
+    "RuleContext { earningPeriod, paymentDate, taxPeriod, workplaceRegion, adjustmentOfPayRunId }",
+    "resolveRulePack(context, packs)",
+    "validateRulePack(pack)",
+    "releaseRulePack(pack)"
+  ],
+  "must_pass_gates": [
+    "RED fails because W1-02 modules are missing",
+    "GREEN focused rule tests pass",
+    "root typecheck passes",
+    "draft rule content hash is exact for the declared canonical hash scope",
+    "official source manifest contains S01-S21 and S31 with no local private path or secret",
+    "production release rejects missing accountant or external-specialist signatures",
+    "git diff --check passes",
+    "only owned files are committed"
+  ],
+  "excluded_scope": [
+    "Payroll calculation implementation from W1-03 onward",
+    "Package installation or dependency changes",
+    "Build, lint, integration, E2E, browser, server, database, migration, container, tunnel, or external service actions",
+    "Real employee, contract, attendance, payroll, credential, secret, or private-key data",
+    "Push, branch creation, worktree creation, history rewrite, destructive reset, or checkout"
+  ],
+  "limits": {
+    "max_attempts_per_evidence_layer": 2,
+    "architectural_fallbacks": 0,
+    "max_concurrent_children": 0
+  }
+}

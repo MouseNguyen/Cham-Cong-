@@ -1,0 +1,85 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "VN-2026-DRAFT",
+  "version": "2026.1-draft",
+  "jurisdiction": "VN",
+  "status": "draft",
+  "applicability": {
+    "basis": "earning_period_end",
+    "effectiveFrom": "2026-01-01",
+    "effectiveTo": null,
+    "workplaceRegions": ["VN-REGION-I"]
+  },
+  "sourceRefs": [
+    { "id": "S01", "url": "https://vanban.chinhphu.vn/?classid=0&docid=217002&pageid=27160", "contentSha256": null, "evidenceStatus": "verification_required" },
+    { "id": "S02", "url": "https://congbao.cdnchinhphu.vn/CongBaoCP/CongBao/2025/9/46083/58726-1-1309-1310.pdf", "contentSha256": null, "evidenceStatus": "verification_required" },
+    { "id": "S03", "url": "https://vanban.chinhphu.vn/default.aspx?docid=201967&pageid=27160", "contentSha256": null, "evidenceStatus": "verification_required" },
+    { "id": "S04", "url": "https://xaydungchinhsach.chinhphu.vn/co-phai-bat-buoc-thuong-tet-tien-luong-lam-them-gio-ngay-le-tet-duoc-tinh-the-nao-119240201145549.htm", "contentSha256": null, "evidenceStatus": "verification_required" },
+    { "id": "S05", "url": "https://xaydungchinhsach.chinhphu.vn/toan-van-luat-so-41-2024-qh15-bao-hiem-xa-hoi-119240723163650489.htm", "contentSha256": null, "evidenceStatus": "verification_required" },
+    { "id": "S06", "url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-158-2025-nd-cp-quy-dinh-ve-bao-hiem-xa-hoi-bat-buoc-119250629171336803.htm", "contentSha256": null, "evidenceStatus": "verification_required" },
+    { "id": "S07", "url": "https://baohiemxahoi.gov.vn/tintuc/Pages/bao-hiem-y-te-hocsinh-sinhvien.aspx?CateID=0&ItemID=26424", "contentSha256": null, "evidenceStatus": "verification_required" },
+    { "id": "S08", "url": "https://xaydungchinhsach.chinhphu.vn/tu-1-7-nhieu-khoan-tro-cap-bhxh-thay-doi-the-nao-khi-luong-co-so-tang-119260523163024829.htm", "contentSha256": null, "evidenceStatus": "verification_required" },
+    { "id": "S09", "url": "https://xaydungchinhsach.chinhphu.vn/toan-van-luat-viec-lam-119250711173403835.htm", "contentSha256": null, "evidenceStatus": "verification_required" },
+    { "id": "S10", "url": "https://xaydungchinhsach.chinhphu.vn/nhung-diem-moi-cua-nghi-dinh-374-2025-nd-cp-trong-thuc-hien-bao-hiem-that-nghiep-119260109091006651.htm", "contentSha256": null, "evidenceStatus": "verification_required" },
+    { "id": "S11", "url": "https://xaydungchinhsach.chinhphu.vn/nghi-dinh-188-2025-nd-cp-quy-dinh-moi-ve-doi-tuong-muc-dong-muc-ho-tro-dong-bao-hiem-y-te-119250711175642187.htm", "contentSha256": null, "evidenceStatus": "verification_required" },
+    { "id": "S12", "url": "https://xaydungchinhsach.chinhphu.vn/nghi-dinh-so-293-2025-nd-cp-quy-dinh-muc-luong-toi-thieu-doi-voi-nguoi-lao-dong-lam-viec-theo-hop-dong-lao-dong-119251110172808433.htm", "contentSha256": null, "evidenceStatus": "verification_required" },
+    { "id": "S13", "url": "https://vanban.chinhphu.vn/?docid=218215&pageid=27160", "contentSha256": null, "evidenceStatus": "verification_required" },
+    { "id": "S14", "url": "https://xaydungchinhsach.chinhphu.vn/cach-tinh-thue-thu-nhap-ca-nhan-tu-tien-luong-tien-cong-119260623094516526.htm", "contentSha256": null, "evidenceStatus": "verification_required" },
+    { "id": "S15", "url": "https://vanban.chinhphu.vn/?docid=218684&pageid=27160&typegroupid=4", "contentSha256": null, "evidenceStatus": "verification_required" },
+    { "id": "S16", "url": "https://xaydungchinhsach.chinhphu.vn/quy-dinh-moi-ve-khau-tru-thue-thu-nhap-ca-nhan-119260703150410707.htm", "contentSha256": null, "evidenceStatus": "verification_required" },
+    { "id": "S17", "url": "https://vanban.chinhphu.vn/?docid=219330&orggroupid=1&pageid=27160", "contentSha256": null, "evidenceStatus": "verification_required" },
+    { "id": "S18", "url": "https://xaydungchinhsach.chinhphu.vn/quy-dinh-moi-ve-mien-giam-tam-dung-dong-kinh-phi-cong-doan-119241216121905197.htm", "contentSha256": null, "evidenceStatus": "verification_required" },
+    { "id": "S31", "url": "https://sxd.dongnai.gov.vn/vi/news/Quan-ly-hoat-dong-va-vat-lieu-xay-dung/y-kien-ve-phuong-an-gia-ban-gia-thue-nha-o-xa-hoi-tai-du-an-nha-o-xa-hoi-a6-a7-duong-nguyen-ai-quoc-phuong-quang-vinh-tp-bien-hoa-nay-la-phuong-tran-bien-tinh-dong-12849.html", "contentSha256": null, "evidenceStatus": "verification_required" }
+  ],
+  "rules": {
+    "minimumWages": [
+      { "region": "VN-REGION-I", "monthly": "5310000", "hourly": "25500", "effectiveFrom": "2026-01-01", "effectiveTo": null, "sourceIds": ["S12", "S31"] }
+    ],
+    "pit": {
+      "taxPeriod": "2026",
+      "personalDeduction": "15500000",
+      "dependentDeduction": "6200000",
+      "brackets": [
+        { "upTo": "10000000", "rateBasisPoints": 500 },
+        { "upTo": "30000000", "rateBasisPoints": 1000 },
+        { "upTo": "60000000", "rateBasisPoints": 2000 },
+        { "upTo": "100000000", "rateBasisPoints": 3000 },
+        { "upTo": null, "rateBasisPoints": 3500 }
+      ],
+      "businessIncomeReliefExcluded": true,
+      "sourceIds": ["S13", "S14", "S17"]
+    },
+    "insuranceFunds": [
+      { "id": "SI_SICKNESS_MATERNITY", "employeeRateBasisPoints": 0, "employerRateBasisPoints": 300, "effectiveFrom": "2026-01-01", "effectiveTo": null, "baseVersions": [{ "minimum": "2340000", "maximum": "46800000", "effectiveFrom": "2026-01-01", "effectiveTo": "2026-06-30", "sourceIds": ["S05", "S06"] }, { "minimum": "2530000", "maximum": "50600000", "effectiveFrom": "2026-07-01", "effectiveTo": null, "sourceIds": ["S05", "S08"] }], "sourceIds": ["S05", "S06"], "evidenceStatus": "verified" },
+      { "id": "SI_RETIREMENT_SURVIVORSHIP", "employeeRateBasisPoints": 800, "employerRateBasisPoints": 1400, "effectiveFrom": "2026-01-01", "effectiveTo": null, "baseVersions": [{ "minimum": "2340000", "maximum": "46800000", "effectiveFrom": "2026-01-01", "effectiveTo": "2026-06-30", "sourceIds": ["S05", "S06"] }, { "minimum": "2530000", "maximum": "50600000", "effectiveFrom": "2026-07-01", "effectiveTo": null, "sourceIds": ["S05", "S08"] }], "sourceIds": ["S05", "S06"], "evidenceStatus": "verified" },
+      { "id": "OCCUPATIONAL_ACCIDENT_DISEASE", "employeeRateBasisPoints": 0, "employerRateBasisPoints": 50, "effectiveFrom": "2026-01-01", "effectiveTo": null, "baseVersions": [{ "minimum": "2340000", "maximum": "46800000", "effectiveFrom": "2026-01-01", "effectiveTo": "2026-06-30", "sourceIds": ["S05"] }, { "minimum": "2530000", "maximum": "50600000", "effectiveFrom": "2026-07-01", "effectiveTo": null, "sourceIds": ["S05", "S08"] }], "sourceIds": ["S05"], "evidenceStatus": "verification_required" },
+      { "id": "HEALTH_INSURANCE", "employeeRateBasisPoints": 150, "employerRateBasisPoints": 300, "effectiveFrom": "2026-01-01", "effectiveTo": null, "baseVersions": [{ "minimum": "2340000", "maximum": "46800000", "effectiveFrom": "2026-01-01", "effectiveTo": "2026-06-30", "sourceIds": ["S11"] }, { "minimum": "2530000", "maximum": "50600000", "effectiveFrom": "2026-07-01", "effectiveTo": null, "sourceIds": ["S08", "S11"] }], "sourceIds": ["S11"], "evidenceStatus": "verified" },
+      { "id": "UNEMPLOYMENT_INSURANCE", "employeeRateBasisPoints": 100, "employerRateBasisPoints": 100, "effectiveFrom": "2026-01-01", "effectiveTo": null, "baseVersions": [{ "minimum": "2340000", "maximum": "106200000", "effectiveFrom": "2026-01-01", "effectiveTo": null, "sourceIds": ["S09", "S10", "S12"] }], "sourceIds": ["S09", "S10", "S12"], "evidenceStatus": "verified" }
+    ],
+    "partTimeMonthlyEligibility": [
+      { "id": "PART_TIME_H1_2026", "fundIds": ["SI_SICKNESS_MATERNITY", "SI_RETIREMENT_SURVIVORSHIP", "OCCUPATIONAL_ACCIDENT_DISEASE", "HEALTH_INSURANCE", "UNEMPLOYMENT_INSURANCE"], "monthlyWageAtLeast": "2340000", "effectiveFrom": "2026-01-01", "effectiveTo": "2026-06-30", "sourceIds": ["S05", "S07", "S09", "S11"] },
+      { "id": "PART_TIME_H2_2026", "fundIds": ["SI_SICKNESS_MATERNITY", "SI_RETIREMENT_SURVIVORSHIP", "OCCUPATIONAL_ACCIDENT_DISEASE", "HEALTH_INSURANCE", "UNEMPLOYMENT_INSURANCE"], "monthlyWageAtLeast": "2530000", "effectiveFrom": "2026-07-01", "effectiveTo": null, "sourceIds": ["S05", "S07", "S08", "S09", "S11"] }
+    ],
+    "holiday": {
+      "paidEntitlementSeparate": true,
+      "daytimeOvertimePremiumBasisPoints": 30000,
+      "includesPaidHolidayEntitlement": false,
+      "nightWork": "unsupported",
+      "sourceIds": ["S03", "S04"]
+    }
+  },
+  "roundingRule": "HALF_UP_VND",
+  "contentHashAlgorithm": "SHA-256",
+  "contentHashScope": "UTF-8 JSON.stringify({applicability,sourceRefs,rules,roundingRule}) in file property order",
+  "contentSha256": "5a6e83fc4ba91f96b4fbe146f2a633376acb9fb8bf445649a12483104bb0d0a4",
+  "signatures": {
+    "accountant": null,
+    "externalSpecialist": null
+  },
+  "releaseBlockers": [
+    "SOURCE_CONTENT_HASHES_PENDING",
+    "ACCOUNTANT_SIGNATURE_MISSING",
+    "EXTERNAL_SPECIALIST_SIGNATURE_MISSING",
+    "OCCUPATIONAL_ACCIDENT_RATE_REQUIRES_COMPANY_CLASSIFICATION"
+  ]
+}

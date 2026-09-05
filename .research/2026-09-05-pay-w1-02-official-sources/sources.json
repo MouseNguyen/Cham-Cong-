@@ -1,0 +1,137 @@
+{
+  "retrieved_at": "2026-09-05T00:00:00+07:00",
+  "source_policy": "Chi dung cong thong tin cua Chinh phu, Quoc hoi hoac Bao hiem xa hoi Viet Nam; khong dung blog thuong mai lam can cu.",
+  "hash_algorithm": "SHA-256",
+  "hash_scope": "normalized_evidence_excerpt_utf8",
+  "sources": [
+    {
+      "source_id": "src-001",
+      "title": "Nghi dinh so 293/2025/ND-CP: Quy dinh muc luong toi thieu",
+      "url": "https://xaydungchinhsach.chinhphu.vn/nghi-dinh-so-293-2025-nd-cp-quy-dinh-muc-luong-toi-thieu-doi-voi-nguoi-lao-dong-lam-viec-theo-hop-dong-lao-dong-119251110172808433.htm",
+      "official_domain": "xaydungchinhsach.chinhphu.vn",
+      "effective_from": "2026-01-01",
+      "disposition": "used",
+      "evidence_excerpt": "Nghi dinh 293/2025/ND-CP; hieu luc 2026-01-01; Vung I 5310000 VND/thang va 25500 VND/gio; phuong Tran Bien, Dong Nai thuoc Vung I.",
+      "evidence_sha256": "68919476323360faae2cfafbd6368de8649a9c5b5c25fe25770a750773952ad9"
+    },
+    {
+      "source_id": "src-002",
+      "title": "Noi dung chinh cua Luat Thue thu nhap ca nhan so 109/2025/QH15",
+      "url": "https://xaydungchinhsach.chinhphu.vn/noi-dung-chinh-cua-luat-thue-thu-nhap-ca-nhan-so-109-2025-qh15-119260123144204743.htm",
+      "official_domain": "xaydungchinhsach.chinhphu.vn",
+      "effective_from": "2026-07-01",
+      "special_application": "Quy dinh ve tien luong, tien cong cua ca nhan cu tru ap dung tu ky tinh thue 2026.",
+      "disposition": "used",
+      "evidence_excerpt": "Luat Thue thu nhap ca nhan 109/2025/QH15; giam tru ban than 15500000 VND/thang, nguoi phu thuoc 6200000 VND/thang; quy dinh tien luong ap dung tu ky tinh thue 2026.",
+      "evidence_sha256": "98bf11be91996dd53002e6a8ec682965093755fd34553fde284bfda601955ca3"
+    },
+    {
+      "source_id": "src-003",
+      "title": "Ban dang toan van Luat Bao hiem xa hoi 41/2024/QH15 tren cong BHXH Viet Nam",
+      "url": "https://baohiemxahoi.gov.vn/tintuc/Pages/linh-vuc-bao-hiem-y-te.aspx?CateID=0&ItemID=23352",
+      "official_domain": "baohiemxahoi.gov.vn",
+      "effective_from": "2025-07-01",
+      "disposition": "superseded_by_src-008",
+      "evidence_excerpt": "Ban dang toan van Luat Bao hiem xa hoi 41/2024/QH15 tren cong BHXH Viet Nam; duoc thay bang nguon toan van sach src-008 trong bo bang chung.",
+      "evidence_sha256": "d948af18af0f1588ff726938f3512b26c04d3b5b24417a00bc3020b6a514d4ca"
+    },
+    {
+      "source_id": "src-004",
+      "title": "Bo luat Lao dong so 45/2019/QH14",
+      "url": "https://vanban.chinhphu.vn/?classid=1&docid=198540&pageid=27160&typegroupid=3",
+      "official_domain": "vanban.chinhphu.vn",
+      "effective_from": "2021-01-01",
+      "disposition": "used_as_official_metadata",
+      "evidence_excerpt": "Bo luat Lao dong 45/2019/QH14; ban hanh 2019-11-20; hieu luc 2021-01-01; nguon metadata va tep ky so chinh thuc.",
+      "evidence_sha256": "4808e87151f13fa6021a0fb33f0ab363e3e106247614e62742b5fcf05569dd6f"
+    },
+    {
+      "source_id": "src-005",
+      "title": "Nghi dinh so 145/2020/ND-CP",
+      "url": "https://vanban.chinhphu.vn/default.aspx?docid=201967&pageid=27160",
+      "official_domain": "vanban.chinhphu.vn",
+      "effective_from": "2021-02-01",
+      "disposition": "used_as_official_metadata",
+      "evidence_excerpt": "Nghi dinh 145/2020/ND-CP; ban hanh 2020-12-14; hieu luc 2021-02-01; nguon metadata va tep ky so chinh thuc.",
+      "evidence_sha256": "1514aae2818a6f52beb5a69b31492a570a5acd232710b78cd6baf924edb9aa01"
+    },
+    {
+      "source_id": "src-006",
+      "title": "Diem moi dang chu y cua Luat Thue thu nhap ca nhan 2025",
+      "url": "https://xaydungchinhsach.chinhphu.vn/diem-moi-dang-chu-y-cua-luat-thue-thu-nhap-ca-nhan-2025-119260108102819094.htm",
+      "official_domain": "xaydungchinhsach.chinhphu.vn",
+      "effective_from": "2026-07-01",
+      "disposition": "supporting",
+      "evidence_excerpt": "Bai diem moi Luat Thue thu nhap ca nhan 2025; xac nhan 5 bac va cac muc giam tru; nguon ho tro, khong thay van ban luat.",
+      "evidence_sha256": "4baedacce068dc0fc06cbf986753385b8519a577696d7fb4a62f58401ee064ba"
+    },
+    {
+      "source_id": "src-007",
+      "title": "Toan van Luat Viec lam so 74/2025/QH15",
+      "url": "https://xaydungchinhsach.chinhphu.vn/toan-van-luat-viec-lam-119250711173403835.htm",
+      "official_domain": "xaydungchinhsach.chinhphu.vn",
+      "effective_from": "2026-01-01",
+      "disposition": "used",
+      "evidence_excerpt": "Luat Viec lam 74/2025/QH15; hieu luc 2026-01-01; part-time thuoc BHTN khi luong thang dat nguong BHXH toi thieu; NLD va NSDLD moi ben toi da 1%.",
+      "evidence_sha256": "5d19ecf5462c672c2587f46ae7765161f5be8a9385843f4a749888b404788d4d"
+    },
+    {
+      "source_id": "src-008",
+      "title": "Toan van Luat Bao hiem xa hoi so 41/2024/QH15",
+      "url": "https://xaydungchinhsach.chinhphu.vn/toan-van-luat-so-41-2024-qh15-bao-hiem-xa-hoi-119240723163650489.htm",
+      "official_domain": "xaydungchinhsach.chinhphu.vn",
+      "effective_from": "2025-07-01",
+      "disposition": "used",
+      "evidence_excerpt": "Luat Bao hiem xa hoi 41/2024/QH15; hieu luc 2025-07-01; part-time dat nguong luong toi thieu thuoc dien bat buoc; NLD dong 8% quy huu tri tu tuat; quy bat buoc gom 3% om dau thai san va 22% huu tri tu tuat.",
+      "evidence_sha256": "336a34b38a5199105bedf955a78f490db20ddbcfc38c1fd82778623a7a93a4bf"
+    },
+    {
+      "source_id": "src-009",
+      "title": "Luat 51/2024/QH15 sua doi, bo sung Luat Bao hiem y te",
+      "url": "https://xaydungchinhsach.chinhphu.vn/toan-van-luat-sua-doi-bo-sung-mot-so-dieu-cua-luat-bao-hiem-y-te-11924122017211787.htm",
+      "official_domain": "xaydungchinhsach.chinhphu.vn",
+      "effective_from": "2025-07-01",
+      "disposition": "used",
+      "evidence_excerpt": "Luat 51/2024/QH15 sua Luat BHYT; hieu luc chinh 2025-07-01; part-time dat nguong BHXH toi thieu thuoc nhom tham gia; muc luat dinh toi da 6%, NSDLD 2/3 va NLD 1/3.",
+      "evidence_sha256": "e7d30558eb2aef66f7f6e5130ed4fb5966a57b2d9e85e760adfabaeb00a20ade"
+    },
+    {
+      "source_id": "src-010",
+      "title": "Chinh sach noi bat ve tien luong va giam thue co hieu luc tu thang 1/2026",
+      "url": "https://xaydungchinhsach.chinhphu.vn/chinh-sach-noi-bat-ve-tien-luong-giam-thue-bang-gia-dat-co-hieu-luc-tu-1-1-2026-11925122411395028.htm",
+      "official_domain": "xaydungchinhsach.chinhphu.vn",
+      "effective_from": "2026-01-01",
+      "disposition": "used",
+      "evidence_excerpt": "Chinh sach hieu luc tu 2026; PIT luong cu tru ap dung tu ky tinh thue 2026; 5 muc thue suat 5%, 10%, 20%, 30%, 35%; bac dau den 10 trieu/thang, bac cuoi tren 100 trieu/thang.",
+      "evidence_sha256": "6435d221e7359d3da0aee67e73a77c60b49d54599a55d3c4a33420c7179f7112"
+    },
+    {
+      "source_id": "src-011",
+      "title": "Toan van Nghi quyet 43/2026/QH16",
+      "url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-quyet-so-43-2026-qh16-ve-giam-thue-thu-nhap-ca-nhan-thue-thu-nhap-doanh-nghiep-119260830184758301.htm",
+      "official_domain": "xaydungchinhsach.chinhphu.vn",
+      "effective_from": "2026-08-24",
+      "effective_to_tax_period": "2027-12-31",
+      "disposition": "used",
+      "evidence_excerpt": "Nghi quyet 43/2026/QH16; hieu luc 2026-08-24; ap dung ky tinh thue 2026-2027; giam 30% PIT phai nop chi voi thu nhap kinh doanh cua ca nhan cu tru co doanh thu nam khong qua 10 ty dong.",
+      "evidence_sha256": "5d3840cf36b6f1df085e12bbd0180b1368a8088724eba72f248795a7f5bb96f8"
+    },
+    {
+      "source_id": "src-012",
+      "title": "Nhung diem moi cua Nghi dinh 374/2025/ND-CP ve bao hiem that nghiep",
+      "url": "https://xaydungchinhsach.chinhphu.vn/nhung-diem-moi-cua-nghi-dinh-374-2025-nd-cp-trong-thuc-hien-bao-hiem-that-nghiep-119260109091006651.htm",
+      "official_domain": "xaydungchinhsach.chinhphu.vn",
+      "effective_from": "2026-01-01",
+      "disposition": "used",
+      "evidence_excerpt": "Nghi dinh 374/2025/ND-CP; hieu luc 2026-01-01; BHTN giu 1% luong thang phia NLD va 1% quy luong phia NSDLD; co ngoai le giam phan NSDLD cho nguoi lao dong khuyet tat du dieu kien.",
+      "evidence_sha256": "c8e80a5ee1e46aef6b9f17a6af6acf2519f6e75a778ed4a86b006386337136aa"
+    }
+  ],
+  "canonical_rule_source_register": {
+    "path": ".research/2026-09-03-pay-slip-plan-cross-check/sources.json",
+    "sha256": "EA76EEA1E84D2B49F917AADD50E10D05F29138B1D626DF095111A80066FFB8FE",
+    "required_ids": "S01-S21,S31",
+    "status": "authoritative_for_W1-02"
+  },
+  "mapping_status": "resolved_to_existing_canonical_register"
+}

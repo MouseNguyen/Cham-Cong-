@@ -1,0 +1,73 @@
+{
+  "$schema": "F:\\Codex\\.agent\\contracts\\subagent-status-contract.json",
+  "agent_id": "codex-parent",
+  "task_id": "PAY-W1-02",
+  "status": "done",
+  "outcome_status": "complete_for_draft_scope",
+  "production_status": "blocked",
+  "summary": "Implemented the typed Vietnam 2026 draft legal rule-pack contract, effective-date resolver, validation and release gates, canonical official-source manifest, and focused TDD coverage. No production payroll calculation, install, build, browser, service, database, real-data, credential, or push action occurred.",
+  "evidence": {
+    "base_commit": "ae25c2c6f52596c2042245e2b7eca1de7f86908b",
+    "red": "Focused Vitest run exited 1 because the resolver and validator modules did not yet exist.",
+    "green": "Focused Vitest run passed 2 files and 7 tests.",
+    "typecheck": "Root npm run typecheck exited 0 after the focused GREEN run.",
+    "draft_content_sha256": "5a6e83fc4ba91f96b4fbe146f2a633376acb9fb8bf445649a12483104bb0d0a4",
+    "canonical_source_registry_sha256": "EA76EEA1E84D2B49F917AADD50E10D05F29138B1D626DF095111A80066FFB8FE",
+    "canonical_source_rows": 22
+  },
+  "files_read": [
+    "AGENTS.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md",
+    ".research/2026-09-03-pay-slip-plan-cross-check/sources.json",
+    ".research/2026-09-03-pay-slip-plan-cross-check/claims.md",
+    ".research/2026-09-03-pay-slip-plan-cross-check/unknowns.md",
+    "package.json",
+    "package-lock.json",
+    "packages/payroll-domain/package.json",
+    "packages/payroll-domain/tsconfig.json",
+    "packages/payroll-domain/src/index.ts",
+    "tsconfig.base.json",
+    "vitest.workspace.ts"
+  ],
+  "files_modified": [
+    "docs/agent-packets/PAY-W1-02.json",
+    "docs/agent-packets/PAY-W1-02-handoff.json",
+    "packages/payroll-domain/src/rules/types.ts",
+    "packages/payroll-domain/src/rules/resolve.ts",
+    "packages/payroll-domain/src/rules/validate.ts",
+    "packages/payroll-domain/test/rules/resolve.spec.ts",
+    "packages/payroll-domain/test/rules/validate.spec.ts",
+    "rules/vn/2026/draft.json",
+    "rules/vn/2026/sources.json",
+    ".research/2026-09-05-pay-w1-02-official-sources/artifact_manifest.json",
+    ".research/2026-09-05-pay-w1-02-official-sources/sources.json",
+    ".research/2026-09-05-pay-w1-02-official-sources/claims.md",
+    ".research/2026-09-05-pay-w1-02-official-sources/unknowns.md",
+    ".research/2026-09-05-pay-w1-02-official-sources/risks.md",
+    ".research/2026-09-05-pay-w1-02-official-sources/actions.md",
+    ".research/2026-09-05-pay-w1-02-official-sources/agent_handoff.md"
+  ],
+  "verification": {
+    "preflight": "passed",
+    "red": "passed",
+    "green": "passed_7_of_7",
+    "typecheck": "passed",
+    "draft_hash": "passed",
+    "canonical_source_copy": "passed_22_of_22",
+    "immutable_inputs": "passed",
+    "git_diff_check": "passed",
+    "scope": "passed_16_owned_paths_0_unexpected",
+    "cleanup": "no_runtime_process_or_listener_started"
+  },
+  "blocker": null,
+  "blocked_reason": null,
+  "task_blocker_count": 0,
+  "production_blocker_count": 3,
+  "production_blockers": [
+    "Official signed/full-text source files have not all been independently sealed and hashed.",
+    "Accountant and independent external-specialist signatures are absent.",
+    "Company classification and the applicable occupational accident/disease contribution rate require confirmation."
+  ],
+  "next_action": "After this handoff passes final parent verification and local commit, proceed to PAY-W1-03 only under a separate Duke approval. Duke will push later."
+}

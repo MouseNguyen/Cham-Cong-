@@ -1,0 +1,47 @@
+{
+  "artifact_id": "PAY-W1-02-OFFICIAL-SOURCES-2026-09-05",
+  "topic": "Nguon chinh thuc cho goi quy tac luong Viet Nam 2026",
+  "created_at": "2026-09-05T00:00:00+07:00",
+  "outcome_status": "complete_with_production_gaps",
+  "preparation_status": "consumed_by_verified_draft_rule_pack_implementation",
+  "approved_scope": {
+    "official_source_page_limit": 12,
+    "official_source_pages_inspected": 12,
+    "time_limit_minutes": 15,
+    "network": "read_only_official_sources",
+    "code_changes": false,
+    "tests_or_builds": false,
+    "real_employee_data": false,
+    "credentials": false,
+    "browser_automation": false,
+    "paid_apis": false
+  },
+  "evidence_layers": {
+    "official_source_discovery": "passed",
+    "core_numeric_rules": "passed_with_declared_inference",
+    "effective_dates": "passed",
+    "signed_attachment_hashes": "not_run",
+    "accountant_or_external_specialist_review": "not_run",
+    "production_rule_finalization": "blocked"
+  },
+  "production_blocker_count": 3,
+  "production_blockers": [
+    "Chua bam va doi chieu tep van ban ky so/toan van chinh thuc cho moi quy tac.",
+    "Chua co chu ky phe duyet cua ke toan va chuyen gia ben ngoai.",
+    "Mot so tham so thi hanh can xac minh them: cac moc PIT trung gian, muc BHYT dang ap dung va quy tai nan lao dong-benh nghe nghiep."
+  ],
+  "hash_contract": {
+    "algorithm": "SHA-256",
+    "scope": "normalized_evidence_excerpt_utf8",
+    "warning": "Day la hash cua trich yeu bang chung da chuan hoa, khong phai hash tep PDF ky so hoac HTML nguyen ban."
+  },
+  "files": [
+    "artifact_manifest.json",
+    "sources.json",
+    "claims.md",
+    "unknowns.md",
+    "risks.md",
+    "actions.md",
+    "agent_handoff.md"
+  ]
+}
