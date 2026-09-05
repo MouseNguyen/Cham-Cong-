@@ -53,7 +53,7 @@
         "docs/agent-packets/PAY-W1-03-handoff.json",
         "docs/agent-packets/PAY-W1-03-review.json"
       ],
-      "accepted_commit": null,
+      "accepted_commit": "9ec9ed342cf7030c49e148de46c5092ec7dbae94",
       "production": "not_run",
       "planned_manager": "codex-parent",
       "planned_reviewer": "/root/pay_w1_03_reviewer",
@@ -106,13 +106,17 @@
     {
       "task_id": "PAY-W3-01",
       "title": "Schedule and attendance domain",
-      "owner": "codex-implementation-worker",
-      "status": "not_started",
-      "evidence": [],
+      "owner": "codex-parent",
+      "status": "partial",
+      "evidence": [
+        "docs/agent-packets/PAY-W3-01a-handoff.json",
+        "docs/agent-packets/PAY-W3-01a-review.json"
+      ],
       "accepted_commit": null,
       "production": "not_run",
       "planned_manager": "codex-parent",
-      "planned_reviewer": "codex-independent-reviewer"
+      "planned_reviewer": "/root/pay_w3_01a_reviewer",
+      "remaining_scope": "W3-01b effective-dated schedule repositories/commands after W2-03; W3-01a accepted synthetic domain only."
     },
     {
       "task_id": "PAY-W3-02",
@@ -254,7 +258,7 @@
         "PAY-W0-01"
       ],
       "outcome": "pure attendance types/state machine",
-      "status": "not_started"
+      "status": "accepted_synthetic_only"
     },
     {
       "id": "W2-01",
@@ -522,7 +526,7 @@
   "execution_route": {
     "kind": "native_codex_subagents",
     "decision": "Duke approved parent + one implementer + independent reviewer; Hermes repair deferred.",
-    "packet": "docs/agent-packets/PAY-W1-03.json",
-    "roster_confirmation": "PAY-NATIVE-W1-03-R1 approved by Duke"
+    "packet": "docs/agent-packets/PAY-W3-01a.json",
+    "roster_confirmation": "PAY-NATIVE-W3-01A-R1 approved by Duke"
   }
 }

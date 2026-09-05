@@ -1,0 +1,158 @@
+{
+  "task_id": "PAY-W3-01a",
+  "agent_id": "codex-parent",
+  "status": "done",
+  "outcome_status": "accepted_synthetic_domain",
+  "preparation_status": "verification_and_scope_checks_passed",
+  "classification": "core_outcome_blocker",
+  "evidence_mode": "synthetic_domain_only",
+  "independent_expectations": [
+    {
+      "case": "6-hour paid-break shift",
+      "startUtc": "2026-09-01T08:00:00.000Z",
+      "endUtc": "2026-09-01T14:00:00.000Z",
+      "local": "15:00-21:00 Asia/Ho_Chi_Minh",
+      "durationMilliseconds": "21600000",
+      "night": false
+    },
+    {
+      "case": "10-hour paid-break shift",
+      "startUtc": "2026-09-05T04:00:00.000Z",
+      "endUtc": "2026-09-05T14:00:00.000Z",
+      "local": "11:00-21:00",
+      "durationMilliseconds": "36000000",
+      "night": false
+    },
+    {
+      "case": "Night start exclusive endpoint",
+      "startUtc": "2026-09-01T14:59:59.999Z",
+      "endUtc": "2026-09-01T15:00:00.000Z",
+      "local": "21:59:59.999-22:00:00.000",
+      "durationMilliseconds": "1",
+      "night": false
+    },
+    {
+      "case": "Night start inclusive work",
+      "startUtc": "2026-09-01T15:00:00.000Z",
+      "endUtc": "2026-09-01T15:00:00.001Z",
+      "durationMilliseconds": "1",
+      "night": true
+    },
+    {
+      "case": "Night end exclusive",
+      "startUtc": "2026-09-01T23:00:00.000Z",
+      "endUtc": "2026-09-01T23:00:00.001Z",
+      "local": "2026-09-02 06:00",
+      "durationMilliseconds": "1",
+      "night": false
+    },
+    {
+      "case": "Holiday crossing local midnight",
+      "startUtc": "2026-09-01T16:59:59.999Z",
+      "endUtc": "2026-09-01T17:00:00.001Z",
+      "holidayDate": "2026-09-02",
+      "durationMilliseconds": "2",
+      "holiday": true,
+      "night": true
+    },
+    {
+      "case": "Half-open holiday endpoint",
+      "startUtc": "2026-09-01T16:59:59.999Z",
+      "endUtc": "2026-09-01T17:00:00.000Z",
+      "holidayDate": "2026-09-02",
+      "durationMilliseconds": "1",
+      "holiday": false
+    },
+    {
+      "case": "Exact durations",
+      "seconds": [
+        59,
+        60,
+        61
+      ],
+      "durationMilliseconds": [
+        "59000",
+        "60000",
+        "61000"
+      ]
+    },
+    {
+      "case": "Snapshot order invariance",
+      "expectation": "Sorting unordered collections is canonicalization only; changing duration/classification/approver changes hash"
+    },
+    {
+      "case": "Idempotency and revision",
+      "expectation": "Same key + same business payload replays existing event before stale-version check; altered payload conflicts; new key using stale revision cannot accept"
+    }
+  ],
+  "method": "Independent calendar boundary reasoning: explicit UTC examples for UTC+07 Asia/Ho_Chi_Minh in September2026, half-open intervals and exact integer durations. No imported worker implementation.",
+  "compiler_integration": {
+    "file": "package.json",
+    "change": "Append attendance-domain project to existing typecheck; dependencies and remaining scripts untouched"
+  },
+  "reviewer_result": {
+    "agent_id": "pay_w3_01a_reviewer",
+    "native_agent_id": "/root/pay_w3_01a_reviewer",
+    "task_id": "PAY-W3-01a",
+    "model": "gpt-5.5",
+    "reasoning_effort": "xhigh",
+    "status": "review_complete_no_core_blockers_found",
+    "summary": "Read-only static reviewer found no concrete blockers in reviewed replay, cross-identity pairing, overlap/anomalies, night/holiday boundaries, payable filtering, exact durations and detached canonical hashing.",
+    "evidence": [
+      "state-machine.ts:16-36 validates replay/revision and freezes accepted values",
+      "anomalies.ts:50-68 before final parent change groups employee/workplace and checks overlap/context",
+      "payable-segments.ts:14-39 rejects exception-bearing approvals and preserves bigint duration",
+      "snapshot.ts:20-47 validates identity/period/overlap/duration/approval and hashes detached canonical content",
+      "package.json:17 attendance-inclusive typecheck"
+    ],
+    "files_modified": [],
+    "verification": {
+      "static_review": "passed",
+      "tests": "not_run_by_reviewer",
+      "typecheck": "not_run_by_reviewer"
+    },
+    "known_core_count": 0,
+    "transcript_pointer": "/root/pay_w3_01a_reviewer completed structured response in this task",
+    "evidence_limit": "Review predates the small final parent backwards-timestamp anomaly correction; parent verified that correction without a second review cycle."
+  },
+  "evidence_layers": {
+    "static": "passed",
+    "unit_runtime": "passed",
+    "typecheck": "passed",
+    "database_concurrency": "not_run",
+    "authenticated_approval": "not_run",
+    "kiosk": "not_run",
+    "production": "not_run"
+  },
+  "parent_postreview": {
+    "finding": "Disjoint completed intervals in backwards raw timestamp order were not flagged.",
+    "red": {
+      "failed": 1,
+      "passed": 20,
+      "time": "2026-09-05T11:32:55+07:00"
+    },
+    "fix": "Add NON_MONOTONIC_EVENT_TIME per employee/workplace stream; preserve raw order.",
+    "green": {
+      "passed": 63,
+      "attendance": 21,
+      "payroll": 42,
+      "files": 9,
+      "time": "2026-09-05T11:33:24+07:00"
+    },
+    "typecheck": "passed",
+    "diff_check": "passed"
+  },
+  "source_sha256": {
+    "packages/attendance-domain/src/types.ts": "ff54df2a5deae42e77bb32a35f16f1a6bf71d77b49925cb47f4c38421c7a064a",
+    "packages/attendance-domain/src/state-machine.ts": "aeb7c74e57d6519ab0dc6f30dfb19e9fcb10c66a1cc0b41e6392f51d121d5c62",
+    "packages/attendance-domain/src/anomalies.ts": "4dd4da2717908e4998d2fbec1033f694310b3def28a603542576ba1eb8a17103",
+    "packages/attendance-domain/src/payable-segments.ts": "3686a56620155e4929de73e663f8ad8fd4e39d0b059a645679a0ee1264805eeb",
+    "packages/attendance-domain/src/snapshot.ts": "e62c0cc28aea8db4bf38fbb0d18b861b86f9b452765689927d3318c45b9fd279",
+    "packages/attendance-domain/tsconfig.json": "9fb40ed9756aa28c32133de34ea4c8296a4a25b04df54e04451c8764c859b646",
+    "packages/attendance-domain/test/state-machine.spec.ts": "1da003ab9c54714cb7638aed3844148549140f8b1f20f43229766a355dce413c",
+    "packages/attendance-domain/test/anomalies.spec.ts": "8cdba9907951899ce4c5e68a63c673a89d50657b8358befd172c7b34877a8aaa",
+    "packages/attendance-domain/test/snapshot.spec.ts": "bfea13fae1f16f1c65a7edaa003e43e15e22b29cfbcaa4feefde554fb1148725",
+    "package.json": "637b124c685eb67b623eac39991d83c5cda8c8b01b02dc48faed23b68e29d741"
+  },
+  "open_core_blockers": 0
+}

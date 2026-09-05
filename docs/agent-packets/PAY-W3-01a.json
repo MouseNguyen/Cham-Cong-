@@ -1,0 +1,187 @@
+{
+  "contract_kind": "task_runtime",
+  "task_id": "PAY-W3-01a",
+  "parent_task": "PAY-W3-01",
+  "roster_id": "PAY-NATIVE-W3-01A-R1",
+  "roster_revision": 1,
+  "status": "done",
+  "approval": {
+    "product_step": "Duke: Approve for next step, following W3-01a attendance proposal",
+    "exact_roster_and_commands": "Approved by Duke: Yup approve, directly answering PAY-NATIVE-W3-01A-R1",
+    "reason": "Exact roster and listed commands approved; routine in-scope integration, tests, causal fixes and local commit proceed without repeated confirmation.",
+    "recorded_at": "2026-09-05T04:14:49.884Z",
+    "autonomy_preference": "Duke trusts Codex to proceed with ordinary authorized work; ask only for material scope, cost, sensitive-data or consequential effect changes."
+  },
+  "workspace": "F:\\Codex\\Projects\\Pay Slip",
+  "baseline_commit": "9ec9ed342cf7030c49e148de46c5092ec7dbae94",
+  "core_outcome": "Pure synthetic clock-event processing -> explicit anomaly set -> owner-approved payable segments -> deterministic snapshot value and hash, usable by later schema/services.",
+  "must_pass_gates": [
+    "Same employee/workplace and idempotency key with identical payload returns the same event; conflicting payload fails explicitly.",
+    "IN then OUT retains exact UTC integer milliseconds; no mutation of original event history.",
+    "Competing commands use explicit expected revision: stale revision conflicts. Pure tests prove conflict semantics only; actual DB concurrency remains W2/W3 integration evidence.",
+    "OUT without IN, repeated IN, missing OUT, reversed/zero duration, duplicate event IDs and overlapping intervals produce stable errors or blocking exceptions; never silently fabricate work.",
+    "Out-of-schedule, public-holiday and 22:00-06:00 local work are explicit exceptions, including intervals crossing midnight and local calendar boundaries.",
+    "Shop timezone is Asia/Ho_Chi_Minh; timestamps are raw UTC milliseconds; local time derives from explicit context without system clock or host timezone.",
+    "Six-hour and ten-hour approved shifts keep the whole duration including paid breaks; 59/60/61 second durations remain exact.",
+    "Only explicitly approved payable intervals appear in payable outputs. Full-time variance never emits automatic monetary deductions.",
+    "Snapshot construction rejects unresolved exceptions and unapproved/overlapping/out-of-period or mismatched employee/workplace segments. Supplied approval metadata is synthetic domain input, not authenticated authorization proof.",
+    "Reordering semantically unordered input records gives the same snapshot hash; changing an approved millisecond, classification or approver changes it. Snapshot is detached and immutable.",
+    "Attendance unit tests, payroll regressions, attendance-inclusive typecheck and scoped diff check pass."
+  ],
+  "interface_decisions": {
+    "time": "UTC epoch milliseconds within JS safe integer/Date range, validate integer before arithmetic; duration as bigint; canonical JSON encodes bigint as decimal strings.",
+    "transitions": "acceptClockCommand receives immutable state, typed command, explicit event ID/timestamp and expected revision; returns accepted/replayed/conflict result. No I/O, clock or hidden persistence.",
+    "ordering": "Never reorder commands to repair impossible sequences. Canonical sorting applies only to unordered snapshot collections.",
+    "schedules": "Explicit effective schedule intervals and holiday local-date context are inputs. Missing context fails visibly. Store opening-pattern versions and schedule commands in W3-01b, not here.",
+    "intervals": "Half-open [start,end), positive duration; adjoining intervals do not overlap. Night boundaries are local 22:00 inclusive and 06:00 exclusive.",
+    "functions": [
+      "acceptClockCommand",
+      "detectAttendanceExceptions",
+      "classifySegment",
+      "buildAttendanceSnapshot",
+      "hashAttendanceSnapshot"
+    ],
+    "snapshot": "Pure prevalidated value builder; no database finalization, signature authentication or owner permission enforcement claim."
+  },
+  "inputs": [
+    "AGENTS.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md",
+    "docs/planning/payroll-decision-matrix.md",
+    "docs/planning/codex-delegation.md",
+    "tsconfig.base.json",
+    "packages/attendance-domain/package.json",
+    "vitest.workspace.ts"
+  ],
+  "input_sha256": {
+    "AGENTS.md": "4c6e5f97e085cba64a4e6f466d09afc71b8bbcbfee7963ec732b00e0a356d89d",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md": "91474c6b5f28f7a1e721355b4dc4e2e5aced2976a26b9ff9626c57a645f83ad2",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md": "f65246ee13f5de2c63ea1299443f9891ec8bdcd20fe0a012cef070490539238d",
+    "docs/planning/payroll-decision-matrix.md": "51079fcc31cb08f909764426f837004dc593d99a7277087b899eae9f0e780b11",
+    "docs/planning/codex-delegation.md": "90f00ec9ba51534e98c0db1359ab52da003c6ffba5d46911db9d5c30b53d491e",
+    "tsconfig.base.json": "9616cf152f46d1dc2eb223993961f56886d8c0c40b377175281373f878901b86",
+    "packages/attendance-domain/package.json": "55af634e9ffe299c9b6d847769caa57df9f30fd2c3134a1351d002abf473e459",
+    "vitest.workspace.ts": "76125401f8bce1f07d8291b0c6f664d9f6222cda3734832f726341bdf2018d27"
+  },
+  "owned_files": [
+    "packages/attendance-domain/src/types.ts",
+    "packages/attendance-domain/src/state-machine.ts",
+    "packages/attendance-domain/src/anomalies.ts",
+    "packages/attendance-domain/src/payable-segments.ts",
+    "packages/attendance-domain/src/snapshot.ts",
+    "packages/attendance-domain/tsconfig.json",
+    "packages/attendance-domain/test/state-machine.spec.ts",
+    "packages/attendance-domain/test/anomalies.spec.ts",
+    "packages/attendance-domain/test/snapshot.spec.ts",
+    "docs/agent-packets/PAY-W3-01a-handoff.json"
+  ],
+  "parent_owned_files": [
+    "docs/agent-packets/PAY-W3-01a.json",
+    "docs/agent-packets/PAY-W3-01a-review.json",
+    "docs/planning/task-status.json",
+    "package.json"
+  ],
+  "parent_config_edit": "Append attendance-domain tsc project to existing typecheck script only; preserve dependencies, versions, all other scripts and lockfile.",
+  "roster": [
+    {
+      "agent_id": "pay_w3_01a_implementer",
+      "model": "gpt-5.6-terra",
+      "reasoning_effort": "high",
+      "job": "TDD implementation in owned attendance files",
+      "authority": "owned writes and exact listed local commands",
+      "timeout_minutes": 25
+    },
+    {
+      "agent_id": "pay_w3_01a_reviewer",
+      "model": "gpt-5.5",
+      "reasoning_effort": "xhigh",
+      "job": "One independent read-only correctness and scope review after parent accepts implementation",
+      "authority": "read-only; no tests, writes or children",
+      "timeout_minutes": 15
+    }
+  ],
+  "parent_job": "In parallel with useful worker implementation, derive independent time-boundary expectations and inspect package integration; then serialize config edits, verify causal fixes, explicit-path commit and cleanup.",
+  "commands": [
+    "npm run test:unit -- --run packages/attendance-domain/test",
+    "npm run test:unit -- --run packages/attendance-domain/test packages/payroll-domain/test",
+    "node node_modules/typescript/bin/tsc --noEmit -p packages/attendance-domain/tsconfig.json",
+    "npm run typecheck",
+    "git diff --check"
+  ],
+  "execution_order": [
+    "Recheck exact roster approval, slots, baseline and protected source hashes",
+    "RED focused tests",
+    "Minimal pure implementation",
+    "GREEN focused tests and typecheck",
+    "Parent evidence acceptance",
+    "One read-only reviewer pass",
+    "Parent causal fixes and final regressions",
+    "Receipt, task-state acceptance and explicit-path local commit"
+  ],
+  "excluded_scope": [
+    "Schedule repository/commands and database concurrency",
+    "W3-02 kiosk, PIN/device auth, ingress and tunnel",
+    "W3-03 authenticated approval services",
+    "Payroll/rule changes",
+    "Installs or dependency upgrades",
+    "Network, credentials, real employee data, database, server, browser, containers, builds, production writes",
+    "Hermes jobs, child delegation, worktrees or pushes"
+  ],
+  "limits": {
+    "max_active_children": 1,
+    "full_background_tasks": 0,
+    "max_tool_calls_per_child": 12,
+    "checkpoint_minutes": 15,
+    "same_layer_attempts": 2,
+    "architectural_fallbacks": 0,
+    "roster_start_ttl_minutes": 30
+  },
+  "stop_conditions": [
+    "Changed protected input or shared file conflict",
+    "Two failures at one evidence layer or a zero-progress attempt: freeze and report evidence before another effect",
+    "Missing authority or unlisted model/tool effect",
+    "Time/tool checkpoint without runnable-core progress"
+  ],
+  "resource_scope": "Existing local Node/npm/TypeScript/Vitest; short CPU-only checks, small source writes, no GPU/network/ports. One Terra and one GPT-5.5 native account-usage job; no separate provider API.",
+  "rollback": "Preserve scoped uncommitted changes for review; no reset/delete. Parent may restore only its exact package.json script edit from the recorded pre-edit content after confirming no user change.",
+  "cleanup": "Finite commands must exit; both native children must finish or be interrupted by parent at their bound. No detached services. Parent owns commit, never push.",
+  "handoff": {
+    "artifact": "docs/agent-packets/PAY-W3-01a-handoff.json",
+    "review_artifact": "docs/agent-packets/PAY-W3-01a-review.json",
+    "required_fields": [
+      "agent_id",
+      "native_agent_id",
+      "task_id",
+      "status",
+      "summary",
+      "evidence",
+      "files_read",
+      "files_modified",
+      "verification",
+      "blocker",
+      "next_action"
+    ]
+  },
+  "evidence_layers": {
+    "structure": "passed",
+    "focused_runtime": "passed",
+    "typecheck": "passed",
+    "database_concurrency": "not_run",
+    "kiosk": "not_run",
+    "authenticated_approval": "not_run",
+    "production": "not_run"
+  },
+  "polish_backlog": [
+    "Future schedule persistence and UI belong to W3-01b/W3-02",
+    "Full approval service belongs to W3-03",
+    "Performance benchmark only after measured need and approved runtime scope"
+  ],
+  "outcome_status": "accepted_synthetic_domain",
+  "acceptance": {
+    "handoff": "docs/agent-packets/PAY-W3-01a-handoff.json",
+    "review": "docs/agent-packets/PAY-W3-01a-review.json",
+    "tests": 63,
+    "attendance_tests": 21,
+    "core_blockers": 0
+  }
+}
