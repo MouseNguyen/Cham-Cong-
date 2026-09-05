@@ -1,0 +1,187 @@
+{
+  "agent_id": "codex-parent",
+  "native_agent_id": "/root/pay_w1_03_implementer",
+  "task_id": "PAY-W1-03",
+  "status": "done",
+  "summary": "Terra produced initial RED and partial draft. Parent completed integration, reproduced and fixed three independent reviewer findings, then passed 42 domain tests and typecheck. No app or production readiness claim.",
+  "worker_result": {
+    "status": "blocked",
+    "evidence": "Initial missing calculate module RED; two failed correction-write tools, including orchestrator SyntaxError Unexpected token dot; no worker GREEN claim accepted."
+  },
+  "parent_integration": {
+    "status": "unit_and_typecheck_passed",
+    "red": "9 meaningful acceptance failures reproduced in 16 tests",
+    "green": "Final 19 focused / 42 total payroll-domain tests and typecheck passed.",
+    "transport_repair": "Direct PowerShell JSON data-to-WriteAllText and literal-script pipe removed nested eval/quoted-wrapper dependency; successful write plus RED/GREEN is direct evidence.",
+    "review": "Three findings fixed after observed RED: 4 failures / 15 passes; final focused suite 19 passes."
+  },
+  "files_read": [
+    "AGENTS.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md",
+    "docs/planning/payroll-decision-matrix.md",
+    "docs/planning/codex-delegation.md",
+    "packages/payroll-domain/src/money.ts",
+    "packages/payroll-domain/src/rounding.ts",
+    "packages/payroll-domain/src/rules/types.ts",
+    "packages/payroll-domain/src/rules/validate.ts",
+    "packages/payroll-domain/src/rules/content.ts",
+    "packages/payroll-domain/src/rules/resolve.ts",
+    "rules/vn/2026/draft.json"
+  ],
+  "files_modified": [
+    "packages/payroll-domain/src/types.ts",
+    "packages/payroll-domain/src/calculate.ts",
+    "packages/payroll-domain/src/insurance.ts",
+    "packages/payroll-domain/src/pit.ts",
+    "packages/payroll-domain/src/holiday.ts",
+    "packages/payroll-domain/src/trace.ts",
+    "packages/payroll-domain/test/full-time.golden.spec.ts",
+    "tests/fixtures/payroll/full-time-basic.json",
+    "tests/fixtures/payroll/full-time-holiday-synthetic.json",
+    "docs/agent-packets/PAY-W1-03-handoff.json",
+    "docs/agent-packets/PAY-W1-03-review.json",
+    "docs/agent-packets/PAY-W1-03.json",
+    "docs/planning/task-status.json"
+  ],
+  "verification": {
+    "focused_unit_runtime": {
+      "status": "passed",
+      "tests": 19,
+      "command": "npm run test:unit -- --run packages/payroll-domain/test/full-time.golden.spec.ts",
+      "observed_local_time": "2026-09-05T10:41:29+07:00"
+    },
+    "payroll_domain_runtime": {
+      "status": "passed",
+      "tests": 42,
+      "files": 6,
+      "exit_code": 0,
+      "command": "npm run test:unit -- --run packages/payroll-domain/test",
+      "observed_local_time": "2026-09-05T10:44:23+07:00"
+    },
+    "typecheck": {
+      "status": "passed",
+      "exit_code": 0,
+      "command": "npm run typecheck"
+    },
+    "static_scope": {
+      "status": "passed",
+      "protected_inputs_unchanged": 12,
+      "owned_paths": 13
+    },
+    "independent_review": {
+      "status": "passed",
+      "meaning": "Read-only review completed; three findings subsequently fixed and verified by parent. No second reviewer pass."
+    },
+    "app_end_to_end": {
+      "status": "not_run",
+      "scope": "Outside W1-03"
+    },
+    "production": {
+      "status": "blocked",
+      "blocker_count": 6,
+      "blockers": [
+        "SOURCE_CONTENT_HASHES_PENDING",
+        "ACCOUNTANT_SIGNATURE_MISSING",
+        "EXTERNAL_SPECIALIST_SIGNATURE_MISSING",
+        "OCCUPATIONAL_ACCIDENT_RATE_REQUIRES_COMPANY_CLASSIFICATION",
+        "PIT_INTERMEDIATE_BRACKETS_REQUIRE_PRIMARY_VERIFICATION",
+        "APPLIED_HEALTH_INSURANCE_RATE_REQUIRES_VERIFICATION"
+      ]
+    }
+  },
+  "blocker": {
+    "core_count": 0,
+    "review_pending": false,
+    "production_rule_blocker_count": 6,
+    "production_rule_blockers": [
+      "SOURCE_CONTENT_HASHES_PENDING",
+      "ACCOUNTANT_SIGNATURE_MISSING",
+      "EXTERNAL_SPECIALIST_SIGNATURE_MISSING",
+      "OCCUPATIONAL_ACCIDENT_RATE_REQUIRES_COMPANY_CLASSIFICATION",
+      "PIT_INTERMEDIATE_BRACKETS_REQUIRE_PRIMARY_VERIFICATION",
+      "APPLIED_HEALTH_INSURANCE_RATE_REQUIRES_VERIFICATION"
+    ]
+  },
+  "next_action": "W3-01a pure attendance packet is next in the planned core route; no new worker or runtime wave dispatched.",
+  "outcome_status": "accepted_synthetic_calculator",
+  "preparation_status": "review_and_receipts_recorded",
+  "evidence": {
+    "review_artifact": "docs/agent-packets/PAY-W1-03-review.json",
+    "source_sha256": {
+      "packages/payroll-domain/src/types.ts": "8f2e1613a1da8190deeed9b405a2824eb670aad33b4de867cc961b35fd2a175d",
+      "packages/payroll-domain/src/calculate.ts": "e53f09a9f25a7e3b0c321c017bcf34c676edd9d24664e03feaeffbaad2b00840",
+      "packages/payroll-domain/src/insurance.ts": "047069c87888e0a7cd8034c5b9b4c63c25cdb874a52cff95e73dcffc3ef2f176",
+      "packages/payroll-domain/src/pit.ts": "a51ab60f2c24c181966d9c3d0e9e7d5ce82cc30a7e193668d8c043d494fffbe3",
+      "packages/payroll-domain/src/holiday.ts": "c133b33fbe81863eaed32515eab99d5e73cf555b9936551abd950216efafe57e",
+      "packages/payroll-domain/src/trace.ts": "b49687abaffbde7f003209a483490b4a1195dcd0daa3d33a54ac49316caa1bf5",
+      "packages/payroll-domain/test/full-time.golden.spec.ts": "5375cfdfd843556e2369c53d222d61d9d587b35bc7b21f56163e5fea2e9e7a42",
+      "tests/fixtures/payroll/full-time-basic.json": "17f42de3da18a3038a97f68b1fcbe50dee4141e37a52f0de7712635311c33da2",
+      "tests/fixtures/payroll/full-time-holiday-synthetic.json": "84ff5c4dc327634d37f5ee9bd5162258d24a3c2039c492290b5fc969fd1b3238"
+    },
+    "dispatch_commit": "8c6e10cbaef029fdaa0ecd8fe4c634f35ee3459e"
+  },
+  "claim_ledger": [
+    {
+      "requirement": "Independent expected per-fund values for synthetic monthly-salary baseline; employer contributions never reduce employee net",
+      "status": "passed",
+      "evidence": "packages/payroll-domain/test/full-time.golden.spec.ts; parent source inspection; PAY-W1-03-review.json"
+    },
+    {
+      "requirement": "Separate holiday entitlement and premium; explicit hourly base/divisor; no universal 400 percent calculation",
+      "status": "passed",
+      "evidence": "packages/payroll-domain/test/full-time.golden.spec.ts; parent source inspection; PAY-W1-03-review.json"
+    },
+    {
+      "requirement": "Nonzero progressive PIT case with traceable independent expected bracket arithmetic",
+      "status": "passed",
+      "evidence": "packages/payroll-domain/test/full-time.golden.spec.ts; parent source inspection; PAY-W1-03-review.json"
+    },
+    {
+      "requirement": "Exact VND intermediates/rounding per PD01; raw/payable time precision per PD02",
+      "status": "passed",
+      "evidence": "packages/payroll-domain/test/full-time.golden.spec.ts; parent source inspection; PAY-W1-03-review.json"
+    },
+    {
+      "requirement": "Explicit component bases/date policies; unsupported or unresolved applicability fails closed rather than guessed",
+      "status": "passed",
+      "evidence": "packages/payroll-domain/test/full-time.golden.spec.ts; parent source inspection; PAY-W1-03-review.json"
+    },
+    {
+      "requirement": "Reject night work, unsupported employment/component/proration and production use of draft rules",
+      "status": "passed",
+      "evidence": "packages/payroll-domain/test/full-time.golden.spec.ts; parent source inspection; PAY-W1-03-review.json"
+    },
+    {
+      "requirement": "Draft calculation permitted only as explicitly labelled non-finalizable synthetic preview; no synthetic verified flag becomes production authority",
+      "status": "passed",
+      "evidence": "packages/payroll-domain/test/full-time.golden.spec.ts; parent source inspection; PAY-W1-03-review.json"
+    },
+    {
+      "requirement": "Same input yields byte-identical canonical result/trace/hash; include declared calculator and canonicalization identity",
+      "status": "passed",
+      "evidence": "packages/payroll-domain/test/full-time.golden.spec.ts; parent source inspection; PAY-W1-03-review.json"
+    },
+    {
+      "requirement": "Actual source artifact hash is computed outside the pure calculator and carried as an explicit input binding, never guessed or read from filesystem inside calculatePayroll",
+      "status": "passed",
+      "evidence": "packages/payroll-domain/test/full-time.golden.spec.ts; parent source inspection; PAY-W1-03-review.json"
+    },
+    {
+      "requirement": "Full scoped tests and typecheck pass; diff contains only owned paths",
+      "status": "passed",
+      "evidence": "42 domain tests; typecheck; 12 protected input hashes; exact owned-path check"
+    }
+  ],
+  "cleanup": {
+    "native_agents": "Both approved children completed",
+    "commands": "Finite test/typecheck commands exited",
+    "services_started": 0,
+    "hermes_jobs_started": 0
+  },
+  "limitations": [
+    "Synthetic materialized policy only; no authenticated legal pack calculation or production finalization.",
+    "No app E2E, PDF, database, delivery or performance benchmark evidence.",
+    "Six legal release blockers retained unchanged."
+  ]
+}

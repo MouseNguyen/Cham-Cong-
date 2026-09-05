@@ -1,0 +1,133 @@
+{
+  "caseId": "FT-SYNTHETIC-HOLIDAY-01",
+  "input": {
+    "mode": "synthetic_preview",
+    "calculator": {
+      "id": "payroll-domain",
+      "version": "0.1.0",
+      "canonicalizationVersion": "1",
+      "sourceArtifactSha256": "TEST_LOADER_COMPUTES_CURRENT_SOURCE_HASH"
+    },
+    "employment": {
+      "kind": "full_time",
+      "monthlySalaryVnd": "8000000",
+      "proration": "none"
+    },
+    "ruleBinding": {
+      "id": "VN-2026-SYNTHETIC",
+      "version": "fixture-1",
+      "status": "draft",
+      "componentDates": {
+        "ordinaryPay": "2026-08-31",
+        "insurance": "2026-08-31",
+        "pit": "2026-08-31"
+      }
+    },
+    "attendance": {
+      "rawMilliseconds": "7200000",
+      "payableMilliseconds": "7200000",
+      "nightWorkMilliseconds": "0"
+    },
+    "insuranceFunds": [
+      {
+        "id": "SI_SICKNESS_MATERNITY",
+        "eligible": true,
+        "baseVnd": "8000000",
+        "minimumVnd": "2530000",
+        "maximumVnd": "50600000",
+        "employeeRateBasisPoints": 0,
+        "employerRateBasisPoints": 300,
+        "componentDate": "2026-08-31"
+      },
+      {
+        "id": "SI_RETIREMENT_SURVIVORSHIP",
+        "eligible": true,
+        "baseVnd": "8000000",
+        "minimumVnd": "2530000",
+        "maximumVnd": "50600000",
+        "employeeRateBasisPoints": 800,
+        "employerRateBasisPoints": 1400,
+        "componentDate": "2026-08-31"
+      },
+      {
+        "id": "HEALTH_INSURANCE",
+        "eligible": true,
+        "baseVnd": "8000000",
+        "minimumVnd": "2530000",
+        "maximumVnd": "50600000",
+        "employeeRateBasisPoints": 150,
+        "employerRateBasisPoints": 300,
+        "componentDate": "2026-08-31"
+      },
+      {
+        "id": "UNEMPLOYMENT_INSURANCE",
+        "eligible": true,
+        "baseVnd": "8000000",
+        "minimumVnd": "2530000",
+        "maximumVnd": "106200000",
+        "employeeRateBasisPoints": 100,
+        "employerRateBasisPoints": 100,
+        "componentDate": "2026-08-31"
+      },
+      {
+        "id": "OCCUPATIONAL_ACCIDENT_DISEASE",
+        "eligible": true,
+        "baseVnd": "8000000",
+        "minimumVnd": "2530000",
+        "maximumVnd": "50600000",
+        "employeeRateBasisPoints": 0,
+        "employerRateBasisPoints": 50,
+        "componentDate": "2026-08-31"
+      }
+    ],
+    "pit": {
+      "personalDeductionVnd": "15500000",
+      "dependentCount": 0,
+      "dependentDeductionVnd": "6200000",
+      "brackets": [
+        {
+          "upToVnd": "10000000",
+          "rateBasisPoints": 500
+        },
+        {
+          "upToVnd": "30000000",
+          "rateBasisPoints": 1000
+        },
+        {
+          "upToVnd": "60000000",
+          "rateBasisPoints": 2000
+        },
+        {
+          "upToVnd": "100000000",
+          "rateBasisPoints": 3000
+        },
+        {
+          "upToVnd": null,
+          "rateBasisPoints": 3500
+        }
+      ]
+    },
+    "holiday": {
+      "paidEntitlementVnd": "0",
+      "ordinaryHourlyDivisorHours": "80",
+      "daytimePremiumBasisPoints": 30000,
+      "payableMilliseconds": "7200000",
+      "entitlementTreatment": "included_in_monthly"
+    },
+    "policy": {
+      "insuranceBasePolicy": "explicit_per_fund",
+      "pitBasePolicy": "all_earnings_less_employee_funds",
+      "evidence": "synthetic_assumption",
+      "holidayPremiumBasisPoints": 30000,
+      "holidayEntitlementTreatment": "included_in_monthly"
+    },
+    "unsupportedComponents": []
+  },
+  "expected": {
+    "holidayEntitlementVnd": "0",
+    "holidayPremiumVnd": "600000",
+    "employeeInsuranceVnd": "840000",
+    "employerInsuranceVnd": "1720000",
+    "netVnd": "7760000"
+  }
+}

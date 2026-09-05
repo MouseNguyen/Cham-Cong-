@@ -47,13 +47,17 @@
     {
       "task_id": "PAY-W1-03",
       "title": "Full-time calculator",
-      "owner": "codex-implementation-worker",
-      "status": "not_started",
-      "evidence": [],
+      "owner": "codex-parent",
+      "status": "accepted_synthetic_only",
+      "evidence": [
+        "docs/agent-packets/PAY-W1-03-handoff.json",
+        "docs/agent-packets/PAY-W1-03-review.json"
+      ],
       "accepted_commit": null,
       "production": "not_run",
       "planned_manager": "codex-parent",
-      "planned_reviewer": "codex-independent-reviewer"
+      "planned_reviewer": "/root/pay_w1_03_reviewer",
+      "acceptance_commit_reference": "The commit containing these acceptance receipts; accepted_commit is null to avoid a self-referential hash."
     },
     {
       "task_id": "PAY-W1-04",
@@ -241,7 +245,7 @@
         "PAY-W1-02"
       ],
       "outcome": "full-time pure calculator with explicit synthetic decisions",
-      "status": "not_started"
+      "status": "accepted_synthetic_only"
     },
     {
       "id": "W3-01a",
@@ -519,6 +523,6 @@
     "kind": "native_codex_subagents",
     "decision": "Duke approved parent + one implementer + independent reviewer; Hermes repair deferred.",
     "packet": "docs/agent-packets/PAY-W1-03.json",
-    "roster_confirmation": "pending_exact_wave"
+    "roster_confirmation": "PAY-NATIVE-W1-03-R1 approved by Duke"
   }
 }

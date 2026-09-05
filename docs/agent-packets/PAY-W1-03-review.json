@@ -1,0 +1,313 @@
+{
+  "task_id": "PAY-W1-03",
+  "agent_id": "codex-parent",
+  "status": "review_findings_closed_by_parent",
+  "evidence_mode": "synthetic_only",
+  "arithmetic_method": "Parent BigInt rational arithmetic; fixed declared synthetic rates/caps/brackets independent of worker implementation. Salary is sole insurance base, all employee funds deductible for this fixture, no dependents.",
+  "independent_vectors": [
+    {
+      "date": "2026-06",
+      "salary": "8000000",
+      "funds": [
+        {
+          "id": "SI_SICKNESS_MATERNITY",
+          "base": "8000000",
+          "employee": "0",
+          "employer": "240000"
+        },
+        {
+          "id": "SI_RETIREMENT_SURVIVORSHIP",
+          "base": "8000000",
+          "employee": "640000",
+          "employer": "1120000"
+        },
+        {
+          "id": "OCCUPATIONAL_ACCIDENT_DISEASE",
+          "base": "8000000",
+          "employee": "0",
+          "employer": "40000"
+        },
+        {
+          "id": "HEALTH_INSURANCE",
+          "base": "8000000",
+          "employee": "120000",
+          "employer": "240000"
+        },
+        {
+          "id": "UNEMPLOYMENT_INSURANCE",
+          "base": "8000000",
+          "employee": "80000",
+          "employer": "80000"
+        }
+      ],
+      "employeeInsurance": "840000",
+      "employerInsurance": "1720000",
+      "taxable": "0",
+      "pit": "0",
+      "net": "7160000",
+      "employerCost": "9720000"
+    },
+    {
+      "date": "2026-06",
+      "salary": "40000000",
+      "funds": [
+        {
+          "id": "SI_SICKNESS_MATERNITY",
+          "base": "40000000",
+          "employee": "0",
+          "employer": "1200000"
+        },
+        {
+          "id": "SI_RETIREMENT_SURVIVORSHIP",
+          "base": "40000000",
+          "employee": "3200000",
+          "employer": "5600000"
+        },
+        {
+          "id": "OCCUPATIONAL_ACCIDENT_DISEASE",
+          "base": "40000000",
+          "employee": "0",
+          "employer": "200000"
+        },
+        {
+          "id": "HEALTH_INSURANCE",
+          "base": "40000000",
+          "employee": "600000",
+          "employer": "1200000"
+        },
+        {
+          "id": "UNEMPLOYMENT_INSURANCE",
+          "base": "40000000",
+          "employee": "400000",
+          "employer": "400000"
+        }
+      ],
+      "employeeInsurance": "4200000",
+      "employerInsurance": "8600000",
+      "taxable": "20300000",
+      "pit": "1530000",
+      "net": "34270000",
+      "employerCost": "48600000"
+    },
+    {
+      "date": "2026-06",
+      "salary": "60000000",
+      "funds": [
+        {
+          "id": "SI_SICKNESS_MATERNITY",
+          "base": "46800000",
+          "employee": "0",
+          "employer": "1404000"
+        },
+        {
+          "id": "SI_RETIREMENT_SURVIVORSHIP",
+          "base": "46800000",
+          "employee": "3744000",
+          "employer": "6552000"
+        },
+        {
+          "id": "OCCUPATIONAL_ACCIDENT_DISEASE",
+          "base": "46800000",
+          "employee": "0",
+          "employer": "234000"
+        },
+        {
+          "id": "HEALTH_INSURANCE",
+          "base": "46800000",
+          "employee": "702000",
+          "employer": "1404000"
+        },
+        {
+          "id": "UNEMPLOYMENT_INSURANCE",
+          "base": "60000000",
+          "employee": "600000",
+          "employer": "600000"
+        }
+      ],
+      "employeeInsurance": "5046000",
+      "employerInsurance": "10194000",
+      "taxable": "39454000",
+      "pit": "4390800",
+      "net": "50563200",
+      "employerCost": "70194000"
+    },
+    {
+      "date": "2026-07",
+      "salary": "60000000",
+      "funds": [
+        {
+          "id": "SI_SICKNESS_MATERNITY",
+          "base": "50600000",
+          "employee": "0",
+          "employer": "1518000"
+        },
+        {
+          "id": "SI_RETIREMENT_SURVIVORSHIP",
+          "base": "50600000",
+          "employee": "4048000",
+          "employer": "7084000"
+        },
+        {
+          "id": "OCCUPATIONAL_ACCIDENT_DISEASE",
+          "base": "50600000",
+          "employee": "0",
+          "employer": "253000"
+        },
+        {
+          "id": "HEALTH_INSURANCE",
+          "base": "50600000",
+          "employee": "759000",
+          "employer": "1518000"
+        },
+        {
+          "id": "UNEMPLOYMENT_INSURANCE",
+          "base": "60000000",
+          "employee": "600000",
+          "employer": "600000"
+        }
+      ],
+      "employeeInsurance": "5407000",
+      "employerInsurance": "10973000",
+      "taxable": "39093000",
+      "pit": "4318600",
+      "net": "50274400",
+      "employerCost": "70973000"
+    }
+  ],
+  "reviewer_result": {
+    "agent_id": "/root/pay_w1_03_reviewer",
+    "model": "gpt-5.5",
+    "reasoning_effort": "xhigh",
+    "status": "review_complete_with_core_blockers",
+    "summary": "Read-only review found no arithmetic mismatch in checked synthetic salary/holiday/PIT vectors and found three contract blockers.",
+    "findings": [
+      {
+        "id": "R1",
+        "title": "Rule hash mixed employee/input data with policy identity",
+        "evidence": [
+          "design.md:217",
+          "implementation.md:333",
+          "calculate.ts:29-30 before correction"
+        ],
+        "impact": "Same policy could have different hashes per employee."
+      },
+      {
+        "id": "R2",
+        "title": "Fixture parser silently ignored unknown payroll fields",
+        "evidence": [
+          "payroll-decision-matrix.md:19",
+          "implementation.md:356",
+          "calculate.ts:50-71 before correction"
+        ],
+        "impact": "Unsupported allowance/deduction data could be dropped."
+      },
+      {
+        "id": "R3",
+        "title": "Trace and result omitted formula, pre/post-rounding and component date evidence",
+        "evidence": [
+          "design.md:219-224,238",
+          "implementation.md:333",
+          "types.ts:57-85 before correction"
+        ],
+        "impact": "Output did not meet required audit/replay contract."
+      }
+    ],
+    "files_modified": [],
+    "verification": "Static only; reviewer did not run tests or inspect subsequent fixes.",
+    "core_blocker_count_at_review": 3,
+    "transcript_pointer": "Native agent /root/pay_w1_03_reviewer completed response in this task"
+  },
+  "preimplementation_findings": [
+    "Use actual calculator source digest, not fixture placeholder",
+    "Include all five synthetic funds and baseline 8m case",
+    "Declare monthly-included holiday entitlement and reject double counting",
+    "Test component policy/date and result-version bindings"
+  ],
+  "parent_postintegration": {
+    "status": "accepted_synthetic_only",
+    "red_before_fixes": {
+      "failed": 4,
+      "passed": 15,
+      "time": "2026-09-05T10:39:33+07:00"
+    },
+    "verification": {
+      "focused_unit_runtime": {
+        "status": "passed",
+        "tests": 19,
+        "command": "npm run test:unit -- --run packages/payroll-domain/test/full-time.golden.spec.ts",
+        "observed_local_time": "2026-09-05T10:41:29+07:00"
+      },
+      "payroll_domain_runtime": {
+        "status": "passed",
+        "tests": 42,
+        "files": 6,
+        "exit_code": 0,
+        "command": "npm run test:unit -- --run packages/payroll-domain/test",
+        "observed_local_time": "2026-09-05T10:44:23+07:00"
+      },
+      "typecheck": {
+        "status": "passed",
+        "exit_code": 0,
+        "command": "npm run typecheck"
+      },
+      "static_scope": {
+        "status": "passed",
+        "protected_inputs_unchanged": 12,
+        "owned_paths": 13
+      },
+      "independent_review": {
+        "status": "passed",
+        "meaning": "Read-only review completed; three findings subsequently fixed and verified by parent. No second reviewer pass."
+      },
+      "app_end_to_end": {
+        "status": "not_run",
+        "scope": "Outside W1-03"
+      },
+      "production": {
+        "status": "blocked",
+        "blocker_count": 6,
+        "blockers": [
+          "SOURCE_CONTENT_HASHES_PENDING",
+          "ACCOUNTANT_SIGNATURE_MISSING",
+          "EXTERNAL_SPECIALIST_SIGNATURE_MISSING",
+          "OCCUPATIONAL_ACCIDENT_RATE_REQUIRES_COMPANY_CLASSIFICATION",
+          "PIT_INTERMEDIATE_BRACKETS_REQUIRE_PRIMARY_VERIFICATION",
+          "APPLIED_HEALTH_INSURANCE_RATE_REQUIRES_VERIFICATION"
+        ]
+      }
+    },
+    "source_sha256": {
+      "packages/payroll-domain/src/types.ts": "8f2e1613a1da8190deeed9b405a2824eb670aad33b4de867cc961b35fd2a175d",
+      "packages/payroll-domain/src/calculate.ts": "e53f09a9f25a7e3b0c321c017bcf34c676edd9d24664e03feaeffbaad2b00840",
+      "packages/payroll-domain/src/insurance.ts": "047069c87888e0a7cd8034c5b9b4c63c25cdb874a52cff95e73dcffc3ef2f176",
+      "packages/payroll-domain/src/pit.ts": "a51ab60f2c24c181966d9c3d0e9e7d5ce82cc30a7e193668d8c043d494fffbe3",
+      "packages/payroll-domain/src/holiday.ts": "c133b33fbe81863eaed32515eab99d5e73cf555b9936551abd950216efafe57e",
+      "packages/payroll-domain/src/trace.ts": "b49687abaffbde7f003209a483490b4a1195dcd0daa3d33a54ac49316caa1bf5",
+      "packages/payroll-domain/test/full-time.golden.spec.ts": "5375cfdfd843556e2369c53d222d61d9d587b35bc7b21f56163e5fea2e9e7a42",
+      "tests/fixtures/payroll/full-time-basic.json": "17f42de3da18a3038a97f68b1fcbe50dee4141e37a52f0de7712635311c33da2",
+      "tests/fixtures/payroll/full-time-holiday-synthetic.json": "84ff5c4dc327634d37f5ee9bd5162258d24a3c2039c492290b5fc969fd1b3238"
+    },
+    "open_review_findings": 0,
+    "source_hash_method": "Fixture loader computes SHA-256 over ordered six source filename/full-text pairs outside pure calculator."
+  },
+  "parent_dispositions": [
+    {
+      "id": "R1",
+      "status": "fixed",
+      "change": "Hash only materialized synthetic policy identity/rates/caps/deductions; employee and compensation fields remain in inputHash.",
+      "test": "policy hash excludes employee bases, eligibility, dependents and worked duration"
+    },
+    {
+      "id": "R2",
+      "status": "fixed",
+      "change": "Strict own-key schema at each JSON object; require explicit unsupportedComponents.",
+      "test": "strict JSON input rejects unknown root and nested fields and omitted component declaration"
+    },
+    {
+      "id": "R3",
+      "status": "fixed",
+      "change": "Add exact rational pre-rounding, formula, operands, component dates, result aliases and fund outputs.",
+      "test": "every financial line exposes exact formula, rounding and effective-date evidence"
+    }
+  ]
+}
