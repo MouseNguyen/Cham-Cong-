@@ -1,0 +1,84 @@
+{
+  "task_id": "PAY-W2-02",
+  "db_delivery": [
+    {
+      "task_id": "PAY-W6-02a",
+      "run_id": "green-f26f54e4-ec27-4caa-89cd-cfae069e345c",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W6-02a\\cluster\\green-f26f54e4-ec27-4caa-89cd-cfae069e345c",
+      "port": 55432,
+      "status": "failed",
+      "tests": {
+        "exit": 1,
+        "passed_count": 0
+      },
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      },
+      "error": "Integration failed"
+    },
+    {
+      "task_id": "PAY-W6-02a",
+      "run_id": "green-c7c70150-f858-4850-8cc8-c27c6ad40b67",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W6-02a\\cluster\\green-c7c70150-f858-4850-8cc8-c27c6ad40b67",
+      "port": 55432,
+      "status": "passed",
+      "tests": {
+        "exit": 0,
+        "passed_count": 27
+      },
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      }
+    }
+  ],
+  "current_user_dpapi": {
+    "task_id": "PAY-W7-01a",
+    "recorded_at": "2026-09-06T05:41:28.002Z",
+    "layer": "current_user_synthetic_child_cleanup",
+    "helper_calls": 8,
+    "helper_exit_codes": [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      0,
+      0
+    ],
+    "cleanup_status": "passed",
+    "remaining_owned_children": 0,
+    "secret_payloads_persisted": false,
+    "source_sha256": {
+      "apps/web/src/lib/secrets/windows-dpapi.ts": "2d92fde5946bd99c42980bc84596ab818896859152ea233c5da32420644ffcad",
+      "scripts/windows/protect-secret.ps1": "9a2658d6a55b22f18177e7259bc5c97ef6e88901656dfc6840fcbee827966556",
+      "scripts/windows/unprotect-secret.ps1": "88d12918a68cbd35dfb45121a6876470f347b243777686cbaa725b391804bdf6",
+      "tests/integration/operations/secrets.windows.spec.ts": "a89078c3288dce82ca741c9e1e6d6a5f0e5a788650909282b5369a1c79d5ee0e"
+    }
+  },
+  "domain_architecture_dpapi": {
+    "command": "node node_modules/vitest/vitest.mjs run packages tests/architecture tests/integration/operations/secrets.windows.spec.ts --maxWorkers=1 --no-file-parallelism",
+    "exit": 0,
+    "passed": 70,
+    "files": 11
+  },
+  "build": {
+    "command": "npm run build",
+    "exit": 0
+  },
+  "lint": {
+    "command": "npm run lint",
+    "exit": 0
+  },
+  "typecheck": {
+    "command": "npm run typecheck",
+    "exit": 0
+  },
+  "production": "not_run"
+}

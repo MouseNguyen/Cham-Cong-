@@ -1,7 +1,8 @@
-param([ValidateSet('Red','Green')][string]$Mode='Green', [ValidateSet('PAY-W2-01','PAY-W6-02a')][string]$TaskId='PAY-W2-01')
+param([ValidateSet('Red','Green')][string]$Mode='Green', [ValidateSet('PAY-W2-01','PAY-W6-02a','PAY-W2-02')][string]$TaskId='PAY-W2-01', [switch]$Browser)
 $ErrorActionPreference='Stop'
 $env:PAYSLIP_DB_TEST_MODE=$Mode
 $env:PAYSLIP_DB_TASK_ID=$TaskId
+$env:PAYSLIP_AUTH_BROWSER=if($Browser){'1'}else{'0'}
 try {
 @'
 const fs=require('fs'),path=require('path'),crypto=require('crypto'),cp=require('child_process');
@@ -12,12 +13,13 @@ const runId=mode.toLowerCase()+'-'+crypto.randomUUID();
 const cluster=path.join(root,'.tmp',taskId,'cluster',runId);
 const log=path.join(root,'.tmp',taskId,runId+'.log');
 const ownerPassword=crypto.randomBytes(32).toString('hex'),appPassword=crypto.randomBytes(32).toString('hex');
-const ownerUrl='postgresql://payslip_owner:'+ownerPassword+'@127.0.0.1:55432/payslip_w2_01_synthetic';
-const appUrl='postgresql://payslip_app:'+appPassword+'@127.0.0.1:55432/payslip_w2_01_synthetic';
+const database=taskId==='PAY-W2-02'?'payslip_w2_02_auth_synthetic':'payslip_w2_01_synthetic';
+const ownerConnection=new URL('postgresql://127.0.0.1:55432/'+database); ownerConnection.username='payslip_owner'; ownerConnection.password=ownerPassword; const ownerUrl=ownerConnection.href;
+const appConnection=new URL('postgresql://127.0.0.1:55432/'+database); appConnection.username='payslip_app'; appConnection.password=appPassword; const appUrl=appConnection.href;
 const env={...process.env,DATABASE_URL:ownerUrl,PAYSLIP_TEST_DATABASE_URL:appUrl,PRISMA_HIDE_UPDATE_MESSAGE:'1'};
 const redact=text=>String(text).split(ownerPassword).join('[redacted]').split(appPassword).join('[redacted]');
 function run(exe,args,input,allowFail=false,childEnv=env){
- const r=cp.spawnSync(exe,args,{cwd:root,env:childEnv,encoding:'utf8',input,timeout:120000,windowsHide:true,maxBuffer:8*1024*1024,stdio:path.basename(exe)==='pg_ctl.exe'?'ignore':'pipe'});
+ const r=cp.spawnSync(exe,args,{cwd:root,env:childEnv,encoding:'utf8',input,timeout:args.includes('tests/integration/auth/browser-runner.cjs')?240000:120000,windowsHide:true,maxBuffer:8*1024*1024,stdio:path.basename(exe)==='pg_ctl.exe'?'ignore':'pipe'});
  if(r.error)throw r.error;
  const out=redact((r.stdout||'')+(r.stderr||''));
  if(out)process.stdout.write(out);
@@ -33,14 +35,14 @@ let started=false,admin;
   run(path.join(bin,'initdb.exe'),['-D',cluster,'-U','payslip_owner','--encoding=UTF8','--locale=C','--auth=scram-sha-256','--pwprompt'],ownerPassword+'\n'+ownerPassword+'\n',false,{...env,OSTYPE:'msys'});
   fs.appendFileSync(path.join(cluster,'postgresql.conf'),"\nlisten_addresses='127.0.0.1'\nport=55432\nshared_buffers='64MB'\nwork_mem='4MB'\nmax_connections=12\ntimezone='UTC'\n");
   started=true;run(path.join(bin,'pg_ctl.exe'),['-D',cluster,'-l',log,'-w','-t','20','start']);
-  admin=new Pool({connectionString:ownerUrl.replace('/payslip_w2_01_synthetic','/postgres'),max:1,connectionTimeoutMillis:3000});
+  admin=new Pool({connectionString:ownerUrl.replace('/'+database,'/postgres'),max:1,connectionTimeoutMillis:3000});
   await admin.query('SELECT 1');
   await admin.query("CREATE ROLE payslip_app LOGIN PASSWORD '"+appPassword+"' NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT NOBYPASSRLS");
-  await admin.query('CREATE DATABASE payslip_w2_01_synthetic OWNER payslip_owner');
+  await admin.query('CREATE DATABASE '+database+' OWNER payslip_owner');
   await admin.end();admin=null;
   const owner=new Pool({connectionString:ownerUrl,max:1});
   try{
-   await owner.query('REVOKE ALL ON DATABASE payslip_w2_01_synthetic FROM PUBLIC; GRANT CONNECT ON DATABASE payslip_w2_01_synthetic TO payslip_app; REVOKE CREATE ON SCHEMA public FROM PUBLIC; GRANT USAGE ON SCHEMA public TO payslip_app');
+   await owner.query('REVOKE ALL ON DATABASE '+database+' FROM PUBLIC; GRANT CONNECT ON DATABASE '+database+' TO payslip_app; REVOKE CREATE ON SCHEMA public FROM PUBLIC; GRANT USAGE ON SCHEMA public TO payslip_app');
    if(mode==='Green'){
     run(process.execPath,['node_modules/prisma/build/index.js','validate']);
     run(process.execPath,['node_modules/prisma/build/index.js','generate']);
@@ -49,13 +51,18 @@ let started=false,admin;
     if((await owner.query("SELECT to_regclass('public.outbox_dispatch_attempts') AS name")).rows[0].name)await owner.query('REVOKE UPDATE,DELETE ON outbox_dispatch_attempts FROM payslip_app');
    }
   }finally{await owner.end();}
-  const tests=run(process.execPath,['node_modules/vitest/vitest.mjs','run','tests/integration/db',...(taskId==='PAY-W6-02a'?['tests/integration/delivery']:[]),'--maxWorkers=1','--no-file-parallelism'],undefined,true);
-  receipt.tests={exit:tests.exit};
+  const tests=run(process.execPath,['node_modules/vitest/vitest.mjs','run',taskId==='PAY-W2-02'?'tests/integration/auth':'tests/integration/db',...(taskId==='PAY-W6-02a'?['tests/integration/delivery']:[]),'--maxWorkers=1','--no-file-parallelism'],undefined,true);
+  receipt.tests={exit:tests.exit,passed_count:Number(tests.output.match(/Tests\s+(\d+) passed/)?.[1]||0)};
   if(mode==='Red'){
    if(tests.exit===0||!tests.output.includes('does not exist'))throw Error('Expected real missing-schema RED was not observed');
    receipt.status='red_observed';
   }else{
    if(tests.exit!==0)throw Error('Integration failed');
+   if(taskId==='PAY-W2-02'&&process.env.PAYSLIP_AUTH_BROWSER==='1'){
+    const browser=run(process.execPath,['tests/integration/auth/browser-runner.cjs'],undefined,true);
+    receipt.browser={exit:browser.exit,passed_count:Number(browser.output.match(/(\d+) passed/)?.[1]||0)};
+    if(browser.exit!==0)throw Error('Browser flow failed');
+   }
    receipt.status='passed';
   }
  }catch(error){receipt.status='failed';receipt.error=redact(error.message);process.exitCode=1;}

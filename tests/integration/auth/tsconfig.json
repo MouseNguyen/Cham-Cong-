@@ -1,0 +1,1 @@
+{"extends":"../../../tsconfig.base.json","compilerOptions":{"types":["node","vitest/globals"]},"include":["./**/*.ts","../../../apps/web/src/lib/auth/**/*.ts","../../../apps/web/src/lib/db/repositories/auth.ts","../../../apps/web/src/lib/application/commands/authorization.ts"],"exclude":["../../../node_modules"]}

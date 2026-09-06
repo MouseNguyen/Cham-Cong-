@@ -1,0 +1,203 @@
+{
+  "agent_id": "codex-parent",
+  "task_id": "PAY-W2-02",
+  "status": "accepted_synthetic_only",
+  "outcome_status": "W2_02_synthetic_authentication_and_authorization_verified",
+  "preparation_status": "implemented_reviewed_verified",
+  "baseline_commit": "4a992c762d09c4c09ac47d8f5dea70a2433a377b",
+  "summary": "Parent completed the full bounded auth slice after Hermes stopped;47 auth +3 Chromium +27 DB/delivery +70 domain/architecture/DPAPI tests passed. No whole-app or production completion claim.",
+  "worker": {
+    "agent_id": "hermes-forge-w2-02",
+    "session_id": "20260906_113852_022cf9",
+    "status": "stopped_partial_handoff",
+    "historical_receipt": "docs/agent-packets/PAY-W2-02-HERMES-handoff.json",
+    "parent_takeover": "Existing scoped approval covered parent integration/runtime; no extra worker spawned."
+  },
+  "claim_ledger": [
+    {
+      "layer": "structure",
+      "status": "passed",
+      "evidence": "42-model/schema/type/nullability match; scoped source review and TypeScript/lint"
+    },
+    {
+      "layer": "tdd_red",
+      "status": "passed",
+      "evidence": "Parent observed missing-repository behavior failures, missing HTTP module, Next normalized-origin/forged-host failures, and missing authorization audit rows before their respective GREEN runs. Historical failed harness receipts retained; passed_count on failed mixed suites was not parsed by the old receipt regex."
+    },
+    {
+      "layer": "approved_synthetic_database_dpapi",
+      "status": "passed",
+      "evidence": "47 auth tests including28 principal/command cases, concurrent replay, lockout, rotation, expiry, CSRF, protected seeds and append-only audit",
+      "run_id": "green-176d40c9-0652-44aa-9409-d81db7ecd2ed"
+    },
+    {
+      "layer": "approved_browser",
+      "status": "passed",
+      "evidence": "Three actual Chromium UI/API flows with synthetic owner/accountant and Secure/HttpOnly cookies; no mocked auth or disabled CSRF"
+    },
+    {
+      "layer": "regressions",
+      "status": "passed",
+      "evidence": "27 database/delivery and70 domain/architecture/CurrentUser DPAPI tests"
+    },
+    {
+      "layer": "argon2_benchmark",
+      "status": "passed",
+      "evidence": "ops/evidence/PAY-W2-02-argon2.json"
+    },
+    {
+      "layer": "build_lint_typecheck",
+      "status": "passed",
+      "evidence": "ops/evidence/PAY-W2-02-regressions.json"
+    },
+    {
+      "layer": "parent_integration_review",
+      "status": "passed",
+      "evidence": "Reviewed trusted configuration/Actor, SQL locks and transaction failure persistence, replay uniqueness, rotation, immutable audit, bounded input, CSRF Origin+Host, and actual browser negatives. Separate reviewer agent not part of this approved wave."
+    },
+    {
+      "layer": "cleanup",
+      "status": "passed",
+      "evidence": "ops/evidence/PAY-W2-02-cleanup.json"
+    },
+    {
+      "layer": "dry_run",
+      "status": "not_required",
+      "reason": "Direct approved synthetic runtime was exercised"
+    },
+    {
+      "layer": "production",
+      "status": "not_run",
+      "blocking_for_this_synthetic_task": false,
+      "reason": "No real accounts/data, deployed server, public ingress, real delivery, recovery or production security claim"
+    }
+  ],
+  "evidence": {
+    "runtime": "ops/evidence/PAY-W2-02-runtime.json",
+    "regressions": "ops/evidence/PAY-W2-02-regressions.json",
+    "cleanup": "ops/evidence/PAY-W2-02-cleanup.json",
+    "dependencies": "ops/evidence/PAY-W2-02-dependencies.json",
+    "total_distinct_tests": 147,
+    "source_sha256": {
+      "apps/web/package.json": "0d59e5de31156f0c963eeb031af51803d51d16062b08a937fe7e72a995c737b6",
+      "apps/web/src/app/api/auth/authorize/route.ts": "d5207350b433786479df0793180270ce0bb7b0ac01eea9de4ab040474cb78613",
+      "apps/web/src/app/api/auth/login/route.ts": "f5c56cc8ba107984b93dfe877306e5022ba82a4353d042dd1306fb281852bdf0",
+      "apps/web/src/app/api/auth/logout/route.ts": "81ee01dedd15c452e47fc80d07dbab6cc04f96de4c38dc13709f99645a0555e1",
+      "apps/web/src/app/api/auth/session/route.ts": "dbdef586af328424c04f269fc56197a804cbba529c4d7e3ed85ab5bc692d2c7d",
+      "apps/web/src/app/api/auth/totp/route.ts": "bfaa09b7825a6d4a54ac9cf25e375ba6c20dd0a177fbe8445420ba579f97c0bc",
+      "apps/web/src/app/login/auth.module.css": "3efc51d116e71663a83b547da18f8cc3d809124a1144acc2603ebedc43b99ac0",
+      "apps/web/src/app/login/page.tsx": "0112e3f40bbe9783a57879f8bcf6c4795028c98716a39aaf084c7013aea78464",
+      "apps/web/src/app/login/totp/page.tsx": "347b602f46f045360df73455a9ca54a4271d31abc877086c91fbfa8792428134",
+      "apps/web/src/lib/application/commands/authorization.ts": "4cdaa319bc6db4d69b8c57fa8421567ac77d2e2fca6989d8dc056459a1419f9f",
+      "apps/web/src/lib/auth/authorization.ts": "a9de8ef2ecc423d8d0efd6bf39b4643bb349a2f819fd80df504c5c57061d7095",
+      "apps/web/src/lib/auth/csrf.ts": "41ac289cd521b79c28aa23f57b550164ff1f6f537b63c61839d2f82bf1775acc",
+      "apps/web/src/lib/auth/http.ts": "b504271e90c9c1aa497bf41272676a77d8b05e487c8e62a79e1fd06b41c89db8",
+      "apps/web/src/lib/auth/password.ts": "b7a93c0af2478e62ebb2d85bec791abfdb60ea36b233244ae77bf2cacc6ec7c9",
+      "apps/web/src/lib/auth/runtime.ts": "7b92dc05296d9faf6dbe47746efaa1da28835d5aec3952f71fde10d4f41b617b",
+      "apps/web/src/lib/auth/session.ts": "9211a0931c424002d1a990dc705f5d75b7c175d266ba69dcab7f125ffd71acdd",
+      "apps/web/src/lib/auth/totp.ts": "85577144539ebe039e5294fcd9f9e7f5e48afd0d6f7edfb0663b7dfbe9ffb2a6",
+      "apps/web/src/lib/db/repositories/auth.ts": "af587f3adf291fdf9aaf4cfc585ae9a8a15557b235ff86309a4cf5fbc13d8477",
+      "eslint.config.mjs": "13df6a4181abb6b0293f2c6348994f6effc6ecc4ec95c88f6ada53087b4d8c55",
+      "package-lock.json": "8cc3850bbc77ccbbd8470c711be9bcadf8039ccefb6123521ebcce7d5d6c7bab",
+      "package.json": "447139c754762322c1e9eec6d36888435c328e303301ce0ee46aecb0b66e4aa2",
+      "playwright.config.ts": "216c48fd15c09782c239acaf042ce67423f59efc2cc71d145d64168f20bfecca",
+      "prisma/migrations/202609060001_w2_02_auth/migration.sql": "245070886ec4c830f65bd983aa3650ce31756a543bf1924b927227a172f850d9",
+      "prisma/schema.prisma": "bb96a3cb9408826aab9af2f4add89e31ce7251139d7a179115fa9b85bc25e91a",
+      "scripts/windows/test-auth.ps1": "45c33bc3302ed6f61607670605814cda558a96afc5920ee155a4f90441d29c13",
+      "scripts/windows/test-database.ps1": "8045b2dbf65bc179b0c755e85b005f70dc835a1fe9134b98f458e4fc8943da22",
+      "tests/e2e/auth.spec.ts": "8332183420a036f6b3262640b4c9d1c3aca0ac37c26d1b341fa8383553e64391",
+      "tests/integration/auth/assertions.ts": "a0dd0f7629cdf218779654eaa1e5a12deda090985dd3106b362efaf69e4e3894",
+      "tests/integration/auth/authorization.spec.ts": "961d04006008933f9b77b737ece89a91cfa2583874c8b7571756710d5ab077b0",
+      "tests/integration/auth/browser-runner.cjs": "d4babf3a714f7f1b0b4692b65c8a339b39b32002aa871fac329108eb1d057ece",
+      "tests/integration/auth/http.spec.ts": "ebf514a373bad4eadf20a62c5b156e226ccb743970b7406aff4f589c6c2904cc",
+      "tests/integration/auth/origin.spec.ts": "9fa22e71f1812fed9dd763dce269a536760054fdb0ba1cb48d123fb2db4e719c",
+      "tests/integration/auth/password-benchmark.spec.ts": "7bd937e561c3fa0c0c87419579feecb77ae47f671880a83928ebca17e7f9883c",
+      "tests/integration/auth/password-totp.spec.ts": "ea6fe327e5b8edd2cc4de31f280e6b27d5ba2b581adc39cbe42f24a1a408a530",
+      "tests/integration/auth/session-csrf.spec.ts": "4942457de1842eab9affa99677738c4dcee9f8489125d7eb18ba1919c8d3d6e0",
+      "tests/integration/auth/storage.spec.ts": "2864e1937cdd898ea440e9ea3ad4bab00edebee618ed4b300165186b357e91a7",
+      "tests/integration/auth/support.ts": "99638c92befc11b2dd37e7cc39f308477639626913dc590d3bc2dc7802ff4a8a",
+      "tests/integration/auth/tsconfig.json": "56e3dae3b591b1c442ca734f3001954d036e66a782cf495300a5b82adf2c5cee",
+      "tests/integration/db/transactions.spec.ts": "a8eafa6a8d9cc7a69d505501fff2819366ffb5619265a5b4520c907fda569ced"
+    }
+  },
+  "review_corrections": [
+    "Scoped root lint away from pre-existing third-party PostgreSQL/pgAdmin and generated files while retaining product lint.",
+    "Replaced literal redaction markers in worker DB connection construction with in-memory URL username/password assignment.",
+    "Next loopback normalization repaired using exact configured Origin plus actual Host; forged Host remains denied.",
+    "Authenticated browser permission checks use browser fetch because Playwright APIRequestContext does not send Secure cookies on HTTP loopback.",
+    "Updated existing fixed schema denominator38->42 without relaxing complete column/type/nullability comparison.",
+    "Replaced permissive Vitest test:e2e placeholder with actual owned browser harness."
+  ],
+  "blocker": {
+    "count": 0,
+    "scope": "W2-02 approved synthetic feature only",
+    "production_release_blocker_groups": 5
+  },
+  "limitations": [
+    "Dependency installation reported4 high findings; broader advisory investigation/remediation not performed.",
+    "Windows benchmark is local sequential latency, not production load/capacity.",
+    "Early RED promise assertion exposed one now-invalid synthetic pending challenge in tool output; safer assertions no longer print unexpected result objects and disposable data was removed. No real credential/data was used.",
+    "No separate reviewer agent run; parent source review plus direct verification is the accepted wave boundary.",
+    "Future payroll/attendance command implementations must integrate trusted authorization and transaction/state guards."
+  ],
+  "files_modified": [
+    "apps/web/package.json",
+    "apps/web/src/app/api/auth/authorize/route.ts",
+    "apps/web/src/app/api/auth/login/route.ts",
+    "apps/web/src/app/api/auth/logout/route.ts",
+    "apps/web/src/app/api/auth/session/route.ts",
+    "apps/web/src/app/api/auth/totp/route.ts",
+    "apps/web/src/app/login/auth.module.css",
+    "apps/web/src/app/login/page.tsx",
+    "apps/web/src/app/login/totp/page.tsx",
+    "apps/web/src/lib/application/commands/authorization.ts",
+    "apps/web/src/lib/auth/authorization.ts",
+    "apps/web/src/lib/auth/csrf.ts",
+    "apps/web/src/lib/auth/http.ts",
+    "apps/web/src/lib/auth/password.ts",
+    "apps/web/src/lib/auth/runtime.ts",
+    "apps/web/src/lib/auth/session.ts",
+    "apps/web/src/lib/auth/totp.ts",
+    "apps/web/src/lib/db/repositories/auth.ts",
+    "docs/agent-packets/PAY-W2-02-HERMES-completion-prompt.md",
+    "docs/agent-packets/PAY-W2-02-HERMES-execution-approval.md",
+    "docs/agent-packets/PAY-W2-02-HERMES-execution-prompt.md",
+    "docs/agent-packets/PAY-W2-02-HERMES-execution.json",
+    "docs/agent-packets/PAY-W2-02-HERMES-handoff.json",
+    "docs/agent-packets/PAY-W2-02-HERMES-progress.json",
+    "docs/agent-packets/PAY-W2-02-HERMES-prompt.md",
+    "docs/agent-packets/PAY-W2-02-HERMES-runtime-preview.md",
+    "docs/agent-packets/PAY-W2-02-HERMES.json",
+    "docs/agent-packets/PAY-W2-02-parent-acceptance.json",
+    "docs/planning/W2-02-auth-contract.md",
+    "docs/planning/task-status.json",
+    "eslint.config.mjs",
+    "ops/evidence/PAY-W2-02-argon2.json",
+    "ops/evidence/PAY-W2-02-cleanup.json",
+    "ops/evidence/PAY-W2-02-dependencies.json",
+    "ops/evidence/PAY-W2-02-regressions.json",
+    "ops/evidence/PAY-W2-02-runtime.json",
+    "package-lock.json",
+    "package.json",
+    "playwright.config.ts",
+    "prisma/migrations/202609060001_w2_02_auth/migration.sql",
+    "prisma/schema.prisma",
+    "scripts/windows/test-auth.ps1",
+    "scripts/windows/test-database.ps1",
+    "tests/e2e/auth.spec.ts",
+    "tests/integration/auth/assertions.ts",
+    "tests/integration/auth/authorization.spec.ts",
+    "tests/integration/auth/browser-runner.cjs",
+    "tests/integration/auth/http.spec.ts",
+    "tests/integration/auth/origin.spec.ts",
+    "tests/integration/auth/password-benchmark.spec.ts",
+    "tests/integration/auth/password-totp.spec.ts",
+    "tests/integration/auth/session-csrf.spec.ts",
+    "tests/integration/auth/storage.spec.ts",
+    "tests/integration/auth/support.ts",
+    "tests/integration/auth/tsconfig.json",
+    "tests/integration/db/transactions.spec.ts"
+  ],
+  "next_action": "PAY-W2-03 employee contracts and fake delivery verification is next; its separate product/runtime scope is not silently authorized by this packet.",
+  "acceptance_commit_reference": "The commit containing this receipt; resolve with git log -1 -- docs/agent-packets/PAY-W2-02-parent-acceptance.json"
+}

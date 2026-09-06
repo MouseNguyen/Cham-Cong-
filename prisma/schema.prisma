@@ -55,6 +55,7 @@ model users {
   role String
   email String
   password_hash String?
+  active Boolean @default(true)
   @@unique([id, organization_id])
   @@unique([organization_id, email])
 }
@@ -359,6 +360,7 @@ model mfa_factors {
   organization_id String @db.Uuid
   user_id String @db.Uuid
   encrypted_secret_ref String
+  enabled Boolean @default(true)
   created_at DateTime @db.Timestamptz(3) @default(now())
 }
 
@@ -369,7 +371,33 @@ model sessions {
   token_hash String
   expires_at DateTime @db.Timestamptz(3)
   revoked_at DateTime? @db.Timestamptz(3)
+  csrf_hash String?
+  mfa_satisfied_at DateTime? @db.Timestamptz(3)
+  replaced_by_id String? @db.Uuid
   @@unique([token_hash])
+}
+
+model auth_login_challenges {
+  id String @db.Uuid @id
+  organization_id String @db.Uuid
+  user_id String @db.Uuid
+  token_hash String @unique
+  expires_at DateTime @db.Timestamptz(3)
+  used_at DateTime? @db.Timestamptz(3)
+}
+
+model auth_totp_replays {
+  factor_id String @db.Uuid
+  time_step String
+  consumed_at DateTime @db.Timestamptz(3) @default(now())
+  @@id([factor_id, time_step])
+}
+
+model auth_rate_limits {
+  key_hash String @id
+  failure_count Int @default(0)
+  locked_until DateTime? @db.Timestamptz(3)
+  updated_at DateTime @db.Timestamptz(3) @default(now())
 }
 
 model audit_events {
@@ -429,4 +457,14 @@ model outbox_dispatch_attempts {
   provider_reference String?
   created_at DateTime @db.Timestamptz(3)
   @@unique([job_id, generation, event])
+}
+
+model auth_security_events {
+  id String @id @db.Uuid
+  organization_id String @db.Uuid
+  actor_id String? @db.Uuid
+  action String
+  outcome String
+  account_ref String
+  created_at DateTime @default(now()) @db.Timestamptz(3)
 }

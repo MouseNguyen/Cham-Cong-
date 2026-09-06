@@ -12,5 +12,5 @@ export default defineConfig([
   },
   ...nextVitals,
   ...nextTypeScript,
-  globalIgnores(['**/.next/**', '**/coverage/**', '**/node_modules/**', '**/out/**']),
+  globalIgnores(['**/.next/**', '**/coverage/**', '**/node_modules/**', '**/out/**', '.tools/**', '.tmp/**', 'apps/web/src/generated/prisma/**']),
 ]);

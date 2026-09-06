@@ -1,0 +1,211 @@
+{
+  "contract_kind": "task_runtime",
+  "schema_version": "1.0.0",
+  "task_id": "PAY-W2-02",
+  "agent_id": "hermes-forge-w2-02",
+  "goal": "Own the entire owner/accountant authentication and authorization vertical slice through synthetic verification and a reviewable Codex handoff.",
+  "status": "worker_stopped_parent_completed_synthetic_scope",
+  "workspace": "F:\\Codex\\Projects\\Pay Slip",
+  "base_commit": "4a992c762d09c4c09ac47d8f5dea70a2433a377b",
+  "authority": {
+    "approval_date": "2026-09-06",
+    "route": "Continue only existing project task session 20260906_113852_022cf9, Forge profile; no children or model fallback.",
+    "immediate": "Execute the full W2-02 synthetic feature wave and its named installs, database/migration, CurrentUser DPAPI, server/browser, tests/build, cleanup. Do not repeat intake or request approval for ordinary listed steps.",
+    "approval": "Duke explicitly approved the consolidated execution-approval.md scope: ok approve and get it done stop asking bull shit question that waste my time",
+    "scope_document": "docs/agent-packets/PAY-W2-02-HERMES-execution-approval.md"
+  },
+  "model_route": {
+    "model": "gpt-5.6-terra-900k",
+    "profile": "forge",
+    "reasoning_effort": "medium",
+    "evidence": "Allowlisted effective fields read from existing Forge config 2026-09-06; no model or profile edits.",
+    "provider": "openai-codex",
+    "fallback": "none"
+  },
+  "inputs": [
+    "AGENTS.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md",
+    "docs/planning/task-status.json",
+    "docs/planning/payroll-decision-matrix.md",
+    "docs/agent-packets/PAY-W2-02-HERMES.json",
+    "docs/planning/W2-02-auth-contract.md",
+    "docs/agent-packets/PAY-W2-02-HERMES-execution-approval.md",
+    "docs/agent-packets/PAY-W2-02-HERMES-execution.json"
+  ],
+  "owned_files": [
+    "apps/web/src/lib/auth/**",
+    "apps/web/src/lib/application/commands/authorization.ts",
+    "apps/web/src/lib/db/repositories/auth.ts",
+    "apps/web/src/app/login/**",
+    "apps/web/src/app/api/auth/**",
+    "tests/integration/auth/**",
+    "tests/e2e/auth.spec.ts",
+    "playwright.config.ts",
+    "package.json",
+    "package-lock.json",
+    "apps/web/package.json",
+    "prisma/schema.prisma",
+    "prisma/migrations/202609060001_w2_02_auth/migration.sql",
+    "apps/web/src/generated/prisma/** (generated only)",
+    "scripts/windows/test-database.ps1",
+    "scripts/windows/test-auth.ps1",
+    "tests/integration/db/support.ts",
+    "vitest.workspace.ts",
+    "docs/agent-packets/PAY-W2-02-HERMES-handoff.json",
+    "docs/agent-packets/PAY-W2-02-HERMES-progress.json",
+    "ops/evidence/PAY-W2-02-runtime.json",
+    "ops/evidence/PAY-W2-02-dependencies.json",
+    "docs/planning/W2-02-auth-contract.md",
+    "docs/agent-packets/PAY-W2-02-HERMES-runtime-preview.md",
+    ".tmp/PAY-W2-02/** (synthetic transient only)",
+    ".tools/playwright/** (Chromium cache)"
+  ],
+  "proposed_implementation_scope": [
+    "apps/web/src/lib/auth/",
+    "apps/web/src/lib/application/commands/authorization.ts",
+    "apps/web/src/app/login/",
+    "apps/web/src/app/api/auth/",
+    "apps/web/src/lib/db/repositories/auth.ts",
+    "tests/integration/auth/",
+    "tests/e2e/auth.spec.ts",
+    "prisma/schema.prisma and one additive auth migration only if required",
+    "package manifests/lockfile and exact auth test/build configuration only if required"
+  ],
+  "core_outcome": "Two synthetic owner/accountant accounts can sign in with password and TOTP, use revocable rotating sessions, and reach only backend-authorized commands; the login/TOTP flow is usable in Vietnamese.",
+  "must_pass_gates": [
+    "Actual backend owner/accountant/kiosk authorization matrix, including denial of accountant approval/finalization/release",
+    "Fresh TOTP step-up for owner privileged actions; atomic TOTP replay prevention",
+    "Argon2id benchmark and password verification; bounded login/TOTP rate limiting and lockout",
+    "Server-side session rotation, revocation and expiry; trusted Actor construction, CSRF and appropriate secure cookies",
+    "TOTP secret protection through existing Windows DPAPI adapter; no secret persistence in logs/fixtures/receipts",
+    "Direct synthetic RED/GREEN integration evidence and real Playwright auth flow; no passWithNoTests substitute",
+    "No regressions in existing accepted domain, database, delivery and secrets scope as supported by approved commands",
+    "Codex independent diff, evidence and cleanup review before acceptance or commit"
+  ],
+  "polish_backlog": [
+    "Visual refinements beyond a clear accessible Vietnamese auth flow",
+    "Unrelated admin screens and broader people/payroll features"
+  ],
+  "phases": [
+    "Intake is accepted. Recheck hashes/ownership and resolve/install named exact dependencies.",
+    "Genuine focused RED then full auth backend plus Vietnamese login/TOTP UI.",
+    "GREEN/direct backend negatives/real local browser flow; relevant regressions and typecheck/lint/build; cleanup and handoff for parent independent review."
+  ],
+  "allowed_actions": [
+    "All seven explicitly approved effects in execution-approval.md; current worker model transport plus official named dependency metadata/install/CDN, never unrelated network",
+    "Owned product edits and one additive auth schema migration; Prisma validate/generate/migrate against fresh W2-02 synthetic target",
+    "Project-local PostgreSQL18.6 on 127.0.0.1:55432; newly generated credentials only via memory/environment; CurrentUser DPAPI synthetic seeds only",
+    "Bounded Argon2id benchmark, real focused RED/GREEN Vitest tests, actual Next login/TOTP/secure-cookie Playwright flow on 127.0.0.1:46217",
+    "Relevant domain/database/delivery/current-user-secrets regressions, lint/typecheck/build and independent parent verification",
+    "Progress/handoff/evidence and scoped cleanup; no commit/stage/push or child agents"
+  ],
+  "approval_gates": [
+    "Listed effects are now approved by Duke. Pause only for a material new scope/model/quota/resource/authority or exhausted evidence-based recovery.",
+    "No real records, ambient DATABASE_URL/.env/credentials/cookies, public or LAN listeners, Gmail/Zalo/tunnel/iPOS, global installs/config, scheduled tasks, new identity, backup/recovery or unrelated features.",
+    "Resolve exact compatible stable argon2/otplib/@playwright/test versions from official metadata and record before save-exact install; no guessed versions or upgrade of existing direct dependencies.",
+    "No test:secrets:identity; no passWithNoTests for required auth; no npx implicit install. Disable traces/video/screenshots that might retain auth values.",
+    "Prisma edits must finish validate/generate/migration/testing on fresh synthetic target in the same approved wave. No existing data target."
+  ],
+  "verification": [
+    "Actual nonempty focused Vitest auth suite through synthetic harness, with RED and GREEN counts/exit status",
+    "Actual Playwright login/TOTP/denial/revocation flow through Next routes; no test-only bypass substitutes",
+    "Concurrent TOTP replay, session rotation/revocation/expiry, CSRF, password-only denial, trusted Actor/maker-checker and fresh MFA matrix",
+    "Argon2id measured parameters, DPAPI ciphertext-only storage and synthetic tamper tests",
+    "Relevant existing tests, lint/typecheck/build; scoped Git diff and exact owned process/listener cleanup; production not_run"
+  ],
+  "coverage_proof": [
+    "Every original PAY-W2-02 acceptance requirement mapped; distinguish static preparation, synthetic runtime, UI and production",
+    "No production readiness claim; no new downstream task starts"
+  ],
+  "limits": {
+    "max_turns": 120,
+    "download_gb": 1,
+    "architectural_fallbacks": 1,
+    "database_ram_gb": 1,
+    "max_writers": 1,
+    "additional_disk_gb": 3,
+    "checkpoint_minutes": 15,
+    "same_layer_attempts": 2,
+    "children": 0,
+    "active_test_runtime_minutes": 30,
+    "runtime_seconds": 5400,
+    "gpu": false
+  },
+  "cleanup": "Follow approved execution-approval.md exact task-owned process/port/temporary cleanup. Never kill unrelated processes. Keep source/lockfile/tests/redacted receipts and browser cache. No plaintext secret files or traces. Report exact blockers rather than false completion.",
+  "handoff": {
+    "required_fields": [
+      "agent_id",
+      "task_id",
+      "status",
+      "summary",
+      "evidence",
+      "files_read",
+      "files_modified",
+      "verification",
+      "blocker",
+      "next_action",
+      "outcome_status",
+      "preparation_status"
+    ],
+    "artifact": "docs/agent-packets/PAY-W2-02-HERMES-handoff.json",
+    "parent": "Codex owns approvals, integration, independent verification, final task-status mutation and commit."
+  },
+  "execution_envelope": {
+    "core_before_polish": true,
+    "defaults": "F:\\Codex\\.agent\\runtime\\execution-profile.defaults.json",
+    "protocol": "F:\\Codex\\.agent\\protocols\\universal-fast-core.md",
+    "profile_policy": "Approved full W2-02 feature, 90min/120turns maximum,15min checkpoint,core first,2same-layer failures then researched bounded fallback"
+  },
+  "input_hashes": [
+    {
+      "sha256": "4C6E5F97E085CBA64A4E6F466D09AFC71B8BBCBFEE7963EC732B00E0A356D89D",
+      "path": "AGENTS.md"
+    },
+    {
+      "sha256": "38A3D36FE4CFC117614A4255F0C41DB0CDCADF3FA86393353F9642A38AA02AC9",
+      "path": "docs/planning/task-status.json"
+    },
+    {
+      "sha256": "C9B12CFC87F86F5B3B0B9707487697E3D3F5E778D8B128DFF578FA32B9AA1741",
+      "path": "prisma/schema.prisma"
+    },
+    {
+      "sha256": "44B446F06BF89C4F66C9485E4E1E8A693ACBCFB9712AFBADBE1472F532A3859A",
+      "path": "package.json"
+    },
+    {
+      "sha256": "8CC3850BBC77CCBBD8470C711BE9BCADF8039CCEFB6123521EBCCE7D5D6C7BAB",
+      "path": "package-lock.json"
+    },
+    {
+      "sha256": "0D59E5DE31156F0C963EEB031AF51803D51D16062B08A937FE7E72A995C737B6",
+      "path": "apps/web/package.json"
+    },
+    {
+      "sha256": "459B084D27A838989C0EEB8CC9095385E2E922F0400701D1C366A86E94FCE852",
+      "path": "scripts/windows/test-database.ps1"
+    },
+    {
+      "sha256": "2D92FDE5946BD99C42980BC84596AB818896859152EA233C5DA32420644FFCAD",
+      "path": "apps/web/src/lib/secrets/windows-dpapi.ts"
+    }
+  ],
+  "parent_repair": {
+    "instruction": "Continue within original approved wave; no new scope approval. Do not stop because implementation remains to do or optional polish/lint work exists. Implement core then verify.",
+    "source_owner": "Parent repaired eslint.config.mjs and test-database.ps1 while worker stopped; baseline hashes rebound.",
+    "failure": "Root lint traversed pre-existing vendor/tools tree; worker stopped before implementing core. Synthetic DB URL source also contained literal redaction markers.",
+    "direct_evidence": "ESLint.isPathIgnored vendor=false/product=false before fix, vendor=true/product=false after; URL builder now assigns generated runtime password properties.",
+    "classification": "Lint scope formal verification blocker resolved; authentication core remains the actual core_outcome_blocker."
+  },
+  "parent_acceptance": "docs/agent-packets/PAY-W2-02-parent-acceptance.json",
+  "parent_integration_paths": [
+    "eslint.config.mjs",
+    "tests/integration/db/transactions.spec.ts",
+    "docs/planning/task-status.json",
+    "docs/agent-packets/PAY-W2-02-parent-acceptance.json",
+    "ops/evidence/PAY-W2-02-argon2.json",
+    "ops/evidence/PAY-W2-02-cleanup.json",
+    "ops/evidence/PAY-W2-02-regressions.json"
+  ]
+}

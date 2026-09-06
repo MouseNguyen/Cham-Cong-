@@ -14,16 +14,19 @@
   "scripts": {
     "build": "npm run build --workspace @pay-slip/web",
     "lint": "eslint . --max-warnings=0",
-    "typecheck": "tsc --noEmit -p apps/web/tsconfig.json && tsc --noEmit -p packages/payroll-domain/tsconfig.json && tsc --noEmit -p packages/attendance-domain/tsconfig.json && tsc --noEmit -p tests/integration/db/tsconfig.json && tsc --noEmit -p tests/integration/operations/tsconfig.json && tsc --noEmit -p tests/integration/delivery/tsconfig.json",
+    "typecheck": "tsc --noEmit -p apps/web/tsconfig.json && tsc --noEmit -p packages/payroll-domain/tsconfig.json && tsc --noEmit -p packages/attendance-domain/tsconfig.json && tsc --noEmit -p tests/integration/db/tsconfig.json && tsc --noEmit -p tests/integration/operations/tsconfig.json && tsc --noEmit -p tests/integration/delivery/tsconfig.json && tsc --noEmit -p tests/integration/auth/tsconfig.json",
     "test": "vitest run",
     "test:unit": "vitest run",
     "test:integration": "vitest run --passWithNoTests tests/integration",
-    "test:e2e": "vitest run --passWithNoTests tests/e2e",
+    "test:e2e": "powershell -NoProfile -File scripts/windows/test-auth.ps1 -Browser",
     "test:db": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/windows/test-database.ps1 -Mode Green",
     "test:secrets": "vitest run tests/integration/operations/secrets.windows.spec.ts --maxWorkers=1 --no-file-parallelism",
-    "test:secrets:identity": "vitest run tests/integration/operations/secrets.windows.identity.spec.ts --maxWorkers=1 --no-file-parallelism"
+    "test:secrets:identity": "vitest run tests/integration/operations/secrets.windows.identity.spec.ts --maxWorkers=1 --no-file-parallelism",
+    "test:auth": "powershell -NoProfile -File scripts/windows/test-auth.ps1",
+    "test:auth:browser": "powershell -NoProfile -File scripts/windows/test-auth.ps1 -Browser"
   },
   "devDependencies": {
+    "@playwright/test": "1.63.0",
     "@types/node": "24.13.3",
     "@types/pg": "8.23.1",
     "eslint": "9.39.5",

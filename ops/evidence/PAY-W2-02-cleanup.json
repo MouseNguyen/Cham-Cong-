@@ -1,0 +1,18 @@
+{
+  "browser_cache": "retained .tools/playwright",
+  "recorded_at": "2026-09-06T05:48:47.6433903Z",
+  "ports_absent": [
+    46217,
+    55432
+  ],
+  "deleted_targets": [
+    "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W2-02",
+    "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W6-02a\\cluster\\green-f26f54e4-ec27-4caa-89cd-cfae069e345c",
+    "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W6-02a\\cluster\\green-c7c70150-f858-4850-8cc8-c27c6ad40b67"
+  ],
+  "status": "passed",
+  "generated_next_agent_files": "removed only newly auto-generated files after verifying managed markers",
+  "remaining_owned_process_count": 0,
+  "source_and_receipts": "retained",
+  "task_id": "PAY-W2-02"
+}

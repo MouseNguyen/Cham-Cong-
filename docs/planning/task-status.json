@@ -89,13 +89,16 @@
     {
       "task_id": "PAY-W2-02",
       "title": "Authentication",
-      "owner": "codex-implementation-worker",
-      "status": "not_started",
-      "evidence": [],
+      "owner": "codex-parent",
+      "status": "accepted_synthetic_only",
+      "evidence": [
+        "docs/agent-packets/PAY-W2-02-parent-acceptance.json"
+      ],
       "accepted_commit": null,
       "production": "not_run",
       "planned_manager": "codex-parent",
-      "planned_reviewer": "codex-independent-reviewer"
+      "planned_reviewer": "codex-parent integration review",
+      "acceptance_commit_reference": "Commit containing docs/agent-packets/PAY-W2-02-parent-acceptance.json"
     },
     {
       "task_id": "PAY-W2-03",
@@ -328,7 +331,10 @@
         "W7-01a"
       ],
       "outcome": "owner/accountant auth",
-      "status": "not_started"
+      "status": "accepted_synthetic_only",
+      "evidence": [
+        "docs/agent-packets/PAY-W2-02-parent-acceptance.json"
+      ]
     },
     {
       "id": "W2-03",
@@ -550,15 +556,17 @@
   "production_status": "not_run",
   "assignment_evidence": "Native role proposals; actual worker IDs/model bindings come from each confirmed packet. Historical executed ownership remains in receipts.",
   "hermes_dispatch": {
-    "status": "deferred",
+    "status": "w2_02_job_stopped_parent_accepted",
     "historical_blocker_count": 3,
     "blocks_current_execution_route": false,
-    "packet": "docs/agent-packets/PAY-HERMES-MANAGER-01.json"
+    "packet": "docs/agent-packets/PAY-HERMES-MANAGER-01.json",
+    "current_job": "20260906_113852_022cf9",
+    "current_receipt": "docs/agent-packets/PAY-W2-02-parent-acceptance.json"
   },
   "execution_route": {
-    "kind": "native_codex_subagents",
-    "decision": "Duke approved parent + one implementer + independent reviewer; Hermes repair deferred.",
-    "packet": "docs/agent-packets/PAY-W7-01a.json",
-    "roster_confirmation": "PAY-NATIVE-W7-01a-R2 completed; replacement read-only review passed; W7-01a accepted synthetic identity only"
+    "kind": "codex_parent_after_bounded_hermes_job",
+    "decision": "Duke explicitly approved full Hermes W2-02 wave; worker stopped partial, parent completed scoped integration and direct verification.",
+    "packet": "docs/agent-packets/PAY-W2-02-HERMES-execution.json",
+    "roster_confirmation": "Existing Forge session only; no extra workers; W2-02 accepted synthetic only"
   }
 }

@@ -1,0 +1,34 @@
+{
+  "task_id": "PAY-W2-02",
+  "status": "metadata_observed_before_install",
+  "retrieval": {
+    "command": "npm view <package> dist-tags.latest version engines license repository.url --json",
+    "source": "https://registry.npmjs.org/",
+    "network_scope": "approved npm registry metadata only"
+  },
+  "runtime": { "node": "24.19.0", "npm": "11.4.2" },
+  "selected": [
+    {
+      "package": "argon2",
+      "version": "0.45.1",
+      "engines": ">=16.17.0",
+      "license": "MIT",
+      "repository": "https://github.com/ranisalt/node-argon2"
+    },
+    {
+      "package": "otplib",
+      "version": "13.5.0",
+      "engines": null,
+      "license": "MIT",
+      "repository": "https://github.com/yeojz/otplib"
+    },
+    {
+      "package": "@playwright/test",
+      "version": "1.63.0",
+      "engines": ">=20",
+      "license": "Apache-2.0",
+      "repository": "https://github.com/microsoft/playwright"
+    }
+  ],
+  "decision": "All selected latest tags were stable exact releases according to npm registry metadata and are compatible with project Node 24. Existing direct package versions remain unchanged."
+}
