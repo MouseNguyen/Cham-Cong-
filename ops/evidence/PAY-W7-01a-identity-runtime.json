@@ -1,0 +1,31 @@
+{
+  "taskId": "PAY-W7-01a",
+  "recordedAt": "2026-09-06T02:39:43.781Z",
+  "layer": "windows_identity_runtime",
+  "schemaVersion": 1,
+  "currentInteractiveIdentity": {
+    "selected": true,
+    "tested": true
+  },
+  "worker": {
+    "account": "NT AUTHORITY\\LOCAL SERVICE",
+    "sid": "S-1-5-19"
+  },
+  "localService": {
+    "selfRoundtrip": true,
+    "rejectedInteractiveCiphertext": true
+  },
+  "namedPipe": {
+    "aclRestrictedToCurrentUserAndLocalService": true
+  },
+  "scheduledTask": {
+    "createdCount": 1,
+    "cleanup": "passed",
+    "residueCount": 0
+  },
+  "redaction": {
+    "plaintextPersisted": false,
+    "ciphertextPersisted": false,
+    "secretInArguments": false
+  }
+}

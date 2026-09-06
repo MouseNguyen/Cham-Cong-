@@ -1,23 +1,27 @@
 {
   "task_id": "PAY-W7-01a",
   "parent_task": "PAY-W7-01",
-  "status": "partial_current_user_canary_accepted",
+  "status": "accepted_synthetic_identity_only",
   "workspace": "F:\\Codex\\Projects\\Pay Slip",
   "baseline_commit": "9a2930a862cafc4c6f194633ed687b31d113f8fc",
-  "outcome_status": "passed_current_user_canary_identity_gates_blocked",
+  "outcome_status": "passed_windows_identity_gates",
   "preparation_status": "implemented_tested_reviewed",
   "approval": {
     "static_work": "Duke: Ok e, following W7-01a next step",
-    "new_effects": "Approved by Duke: Ok e, directly answering the exact DPAPI synthetic canary and reviewer preview"
+    "new_effects": "Duke explicitly approved one UAC-elevated PAY-W7-01a rerun against the current script, exactly one nonce LocalService scheduled task, an ACL-restricted named pipe, synthetic bytes only and zero residue"
   },
-  "core_outcome": "Windows CurrentUser DPAPI adapter protects and restores synthetic bytes through captured pipes, rejects tampering and wrong purpose, and exposes only redacted errors.",
+  "core_outcome": "Windows CurrentUser DPAPI works for the selected M0 interactive identity, LocalService can protect and restore its own synthetic bytes but cannot decrypt the interactive identity ciphertext, and the nonce scheduled-task canary leaves zero residue.",
   "must_pass_gates": [
     "Observe focused RED before implementation",
     "Actual Windows DPAPI roundtrip on fresh synthetic bytes",
     "Wrong-purpose, tampered and malformed ciphertext rejected",
     "No plaintext in process arguments, persisted artifacts or errors",
     "Focused tests/typecheck and one read-only review",
-    "All child processes ended; explicit owned-file local commit"
+    "All child processes ended; explicit owned-file local commit",
+    "Selected M0 interactive identity passes a fresh CurrentUser roundtrip",
+    "LocalService S-1-5-19 passes its own CurrentUser roundtrip and rejects interactive-user ciphertext",
+    "Actual named-pipe ACL contains only the interactive identity and LocalService",
+    "Exactly one nonce scheduled task is created and removed with zero residue"
   ],
   "inputs": [
     "AGENTS.md",
@@ -27,6 +31,9 @@
     "docs/agent-packets/PAY-W2-01-handoff.json"
   ],
   "owned_files": [
+    "tests/integration/operations/secrets.windows.identity.spec.ts",
+    "scripts/windows/test-dpapi-identity.ps1",
+    "ops/evidence/PAY-W7-01a-identity-runtime.json",
     "docs/agent-packets/PAY-W7-01a.json",
     "docs/agent-packets/PAY-W7-01a-runtime-preview.md",
     "docs/agent-packets/PAY-W7-01a-handoff.json",
@@ -41,7 +48,7 @@
     "ops/evidence/PAY-W7-01a-runtime.json",
     "package.json"
   ],
-  "roster_id": "PAY-NATIVE-W7-01a-R1",
+  "roster_id": "PAY-NATIVE-W7-01a-R2",
   "roster": [
     {
       "agent_id": "codex-parent",
@@ -56,6 +63,7 @@
     }
   ],
   "commands_after_confirmation": [
+    "npm run test:secrets:identity from an elevated PowerShell session",
     "node node_modules/vitest/vitest.mjs run tests/integration/operations/secrets.windows.spec.ts --maxWorkers=1 --no-file-parallelism",
     "powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -File scripts/windows/protect-secret.ps1 (synthetic bytes via stdin only)",
     "powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -File scripts/windows/unprotect-secret.ps1 (owned synthetic ciphertext via stdin only)",
@@ -67,10 +75,10 @@
   ],
   "network_scope": "At most three read-only Microsoft .NET ProtectedData/DPAPI documentation pages if necessary; no downloads or provider API",
   "runtime_scope": {
-    "identity": "Current interactive Windows identity only; service identity not yet selected",
+    "identity": "M0 intended service identity is the current interactive Windows identity; NT AUTHORITY\\LOCAL SERVICE (S-1-5-19) is used only as the synthetic negative-canary identity",
     "secret_source": "New random synthetic bytes generated in tests; no existing secrets/ciphertexts",
     "persistence": "Only source and redacted pass/fail metadata; plaintext and ciphertext stay in memory/captured pipes",
-    "os_effect": "DPAPI may access or initialize its normal CurrentUser protection state; no manual key files, account, service, registry or PATH changes",
+    "os_effect": "Exactly one nonce-named scheduled task runs as NT AUTHORITY\\LOCAL SERVICE through an ACL-restricted named pipe; the controller removes that exact task before reporting success",
     "ports": [],
     "installs": [],
     "resource_limits": "CPU only, <=256 MiB child process memory target, <=1 MiB project evidence, <=20 DPAPI calls per run, <=15 minutes checkpoint, <=2 attempts per evidence layer"
@@ -78,7 +86,7 @@
   "excluded": [
     "Real TOTP/OAuth/PDF passwords, .env, private keys or employee data",
     "Existing encrypted secrets or credentials",
-    "New Windows account, service identity or scheduled task",
+    "New Windows accounts, persistent service registration, persistent scheduled tasks or non-nonce scheduled tasks",
     "G: backups, age install, restore, replacement profile, network service, browser, database or push"
   ],
   "claim_ledger": [
@@ -88,13 +96,13 @@
     },
     {
       "claim": "Other-Windows-identity decrypt rejection",
-      "status": "blocked",
-      "reason": "No alternate/service identity selected or authorized; cannot substitute wrong-purpose test"
+      "status": "passed",
+      "layer": "direct LocalService S-1-5-19 DPAPI runtime"
     },
     {
-      "claim": "Intended service-identity deployment",
-      "status": "blocked",
-      "reason": "Service identity not selected"
+      "claim": "M0 intended service-identity selection and canary",
+      "status": "passed",
+      "layer": "direct current-interactive-identity DPAPI runtime; production service deployment not claimed"
     },
     {
       "claim": "Portable recovery and parent PAY-W7-01",
@@ -104,25 +112,27 @@
   ],
   "blocker": {
     "current_user_core_count": 0,
-    "items": [
-      "Other-Windows-identity decrypt rejection not authorized or tested",
-      "Intended service identity not selected or tested"
-    ],
-    "remaining_identity_gates": 2
+    "items": [],
+    "remaining_identity_gates": 0
   },
   "polish_backlog": [
     "UI/auth integration belongs to W2-02",
     "Portable secret recovery and identity replacement belong to W7-01b"
   ],
   "cleanup": "Await each owned child exit; timeout ends only that owned child; do not launch detached processes or persist secret bytes.",
-  "next_action": "Keep W7-01a partial pending two identity gates. W6-02a fake outbox is an independent next core task with accepted W2-01 prerequisite; real identity/service effects need their own exact packet.",
+  "next_action": "W7-01a is accepted at the synthetic Windows identity layer. W2-02 is now unblocked but is not started in this task. W7-01b portable recovery remains not run.",
   "verification": {
-    "focused_tests": "passed_6_of_6",
+    "current_user_focused_tests": "passed_6_of_6",
+    "identity_focused_test": "passed_1_of_1",
     "domain_tests": "passed_63_of_63",
     "typecheck": "passed",
-    "independent_review": "passed_static_no_core_findings",
-    "runtime_receipt": "ops/evidence/PAY-W7-01a-runtime.json",
-    "cleanup": "8 observed helpers,0 remaining",
+    "independent_review": "passed_replacement_read_only_static_no_core_findings",
+    "current_user_runtime_receipt": "ops/evidence/PAY-W7-01a-runtime.json",
+    "identity_runtime_receipt": "ops/evidence/PAY-W7-01a-identity-runtime.json",
+    "identity_script_sha256": "394204168dd91b6e54bb38b00d15455c3e66d9392d8b06f354e1918da8754a38",
+    "identity_spec_sha256": "00142b1b41272bc9749bbc3a094e9b8a317c37028b4a9507169be89ad8ae6ecf",
+    "identity_receipt_sha256": "75d554481f48409f0378ef3365ba0ed01f4b01d3f722580038803460f971c513",
+    "cleanup": "CurrentUser helpers: 8 observed, 0 remaining; identity canary: one nonce task created, removed, 0 residue",
     "production": "not_run"
   },
   "sources": [

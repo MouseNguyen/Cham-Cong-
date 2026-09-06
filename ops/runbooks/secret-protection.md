@@ -1,4 +1,4 @@
-# Windows secret protection — current-user synthetic canary
+# Windows secret protection — synthetic identity canaries
 
 ## Verified boundary
 
@@ -6,7 +6,7 @@ PAY-W7-01a provides createWindowsDpapi({ projectRoot }) with protect(bytes, purp
 
 The current-user synthetic canary passed six focused tests, with eight observed real PowerShell helpers. Each result waits for child close; the final receipt records zero remaining helpers. No existing secret, .env, real TOTP seed, OAuth token, PDF password, private key or employee data was opened.
 
-Microsoft documents ProtectedData as a wrapper over Windows DPAPI and notes its dependency on user-profile state. We use System.Security ProtectedData with CurrentUser, not LocalMachine. Documentation describes the intended boundary; the current canary does not experimentally prove a different-user denial or the intended service profile.
+Microsoft documents ProtectedData as a wrapper over Windows DPAPI and notes its dependency on user-profile state. We use System.Security ProtectedData with CurrentUser, not LocalMachine. The current interactive identity is selected for M0 and passed a fresh roundtrip. A LocalService (`S-1-5-19`) scheduled-task canary passed its own roundtrip and rejected ciphertext created by the interactive identity.
 Sources: [ProtectedData](https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.protecteddata?view=windowsdesktop-9.0), [DataProtectionScope](https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.dataprotectionscope?view=windowsdesktop-9.0).
 
 ## Interface and data handling
@@ -27,6 +27,7 @@ From F:\Codex\Projects\Pay Slip, within approved synthetic runtime scope:
 
 ```powershell
 npm run test:secrets
+npm run test:secrets:identity # requires an elevated PowerShell session
 npm run typecheck
 npm run test:unit -- --run packages/attendance-domain/test packages/payroll-domain/test
 ```
@@ -35,17 +36,14 @@ The tests generate random bytes in memory. Test assertions use booleans and stab
 
 The focused runtime proved roundtrip, wrong-purpose/tamper/malformed rejection, maximum plaintext size, defensive copying, fixed argv/pipe/no-shell operation and child exits. Timeouts and forced host termination were not fault-injected; the timeout path is static-reviewed only. No DPAPI throughput or peak-memory claim is made.
 
-## Two open identity gates and recovery
+## Identity gates and recovery
 
-1. Prove decrypt rejection under another explicitly authorized Windows identity.
-2. Prove operation under the selected intended service identity with its profile loaded.
-
-Neither identity is selected or authorized in this packet. Do not create an account, impersonate an existing account or read its credentials automatically. Wrong-purpose rejection does not replace cross-identity proof. W7-01a remains partial outside the accepted current-user canary, and PAY-W7-01 remains partial.
+Both W7-01a Windows identity gates passed with fresh synthetic bytes. The elevated test created one nonce task as LocalService, used an actual named-pipe ACL restricted to the interactive identity and LocalService, and removed the task with zero residue. The negative identity is not the intended production service identity, and the result is not a production-deployment claim.
 
 W7-01b owns portable PDF-password recovery, age-encrypted exports, replacement-profile recovery, TOTP re-enrollment and OAuth reauthorization. This adapter does not make DPAPI ciphertext portable and does not authorize G: writes, service registration, real-secret use or production deployment.
 
 ## Cleanup and rollback
 
-All normal and expected-failure helpers in the canary exited. No detached process, listener, secret data file or installed package remains. Retain only source/tests and redacted evidence. Roll back a future accepted code change with a reviewed forward change; do not remove Windows DPAPI profile state or reset the working tree.
+All normal and expected-failure helpers exited. The identity canary reports one nonce scheduled task created and removed, with zero matching residue. No detached process, listener, secret data file or installed package remains. Retain only source/tests and redacted evidence. Roll back a future accepted code change with a reviewed forward change; do not remove Windows DPAPI profile state or reset the working tree.
 
 A failed initial metadata assertion observed zero calls because Vitest resets mock history between tests. That receipt was rejected. The final test uses an independent non-secret observation list and requires a nonzero denominator before accepting cleanup.

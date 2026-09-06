@@ -1,10 +1,10 @@
 {
-  "agent_id": "pay_w7_01a_reviewer",
-  "native_agent_id": "/root/pay_w7_01a_reviewer",
+  "agent_id": "pay_w7_01a_identity_reviewer_r2",
+  "native_agent_id": "/root/pay_w7_01a_identity_reviewer_r2",
   "task_id": "PAY-W7-01a",
   "status": "passed_static_review_no_core_findings",
   "findings": [],
-  "summary": "Independent GPT-5.5 xhigh review found no concrete adapter/script integrity, secret leakage or core lifecycle issue for the approved synthetic CurrentUser canary.",
+  "summary": "Independent replacement GPT-5.5 xhigh read-only review found no concrete correctness, secret-leakage, evidence-integrity or cleanup issue for the CurrentUser and LocalService synthetic identity canaries.",
   "evidence": [
     {
       "path": "scripts/windows/protect-secret.ps1",
@@ -24,19 +24,27 @@
     {
       "path": "tests/integration/operations/secrets.windows.spec.ts",
       "supports": "Focused current-user roundtrip and negatives; metadata test was being repaired during review."
+    },
+    {
+      "path": "scripts/windows/test-dpapi-identity.ps1",
+      "supports": "Current script hash matched the runtime packet; nonce LocalService task, actual pipe ACL inspection, synthetic DPAPI roundtrips, cross-identity rejection and exact unregister cleanup are explicit."
+    },
+    {
+      "path": "ops/evidence/PAY-W7-01a-identity-runtime.json",
+      "supports": "Records LocalService S-1-5-19 self-roundtrip, rejection of interactive ciphertext, restricted pipe ACL, one created task and zero residue without secret payloads."
     }
   ],
   "known": [
-    "Reviewer inspected source through the working escalated read-only route after default helper failure.",
-    "No reviewer tests, runtime, edits, outside-repo reads, secrets or network actions occurred."
+    "Replacement reviewer inspected only the exact task-owned files through the working escalated read-only route.",
+    "Replacement reviewer performed no tests, runtime, edits, outside-repo reads, secrets or network actions.",
+    "Identity script SHA-256 was 394204168dd91b6e54bb38b00d15455c3e66d9392d8b06f354e1918da8754a38."
   ],
   "inferred": [
-    "Source integrity is acceptable for the bounded current-user synthetic canary."
+    "Source integrity is acceptable for the bounded current-user and LocalService negative-identity synthetic canaries."
   ],
   "unknown": [
-    "Cross-identity rejection and intended service-identity operation remain unproven.",
-    "Reviewer did not rerun the parent's repaired nonzero child-observation test.",
-    "Portable recovery not run."
+    "Production service deployment and real-secret operation remain unproven.",
+    "Portable recovery remains not run under W7-01b."
   ],
   "verification": {
     "static": "passed",
@@ -44,12 +52,13 @@
   },
   "blocker": {
     "current_user_core_count": 0,
-    "identity_gates": 2,
+    "identity_gates": 0,
     "portable_recovery": "not_run_W7-01b"
   },
-  "tooling_history": "Default shell helper failed before file access. One same-scope retry using parent-verified require_escalated read-only calls succeeded.",
+  "tooling_history": "The first identity reviewer violated read-only scope by rewriting the script, so the parent invalidated the older receipt, reran the approved elevated canary against the current hash, and replaced that reviewer. The replacement reviewer used read-only repository commands only and changed no files.",
   "parent_acceptance": {
     "metadata_repair": "Installed Vitest5 defaults clearMocks:true; parent replaced reset mock history with vi.hoisted observations. Subsequent6/6 tests record8 helpers,0 remaining.",
-    "production_code_after_review": "No adapter/script changes after initial GREEN and static review."
+    "identity_runtime": "Fresh elevated GREEN receipt is newer than the current script and records exact cleanup with zero scheduled-task residue.",
+    "production_code_after_review": "No adapter/script changes after the fresh identity GREEN and replacement static review."
   }
 }

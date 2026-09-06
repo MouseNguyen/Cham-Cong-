@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-09-05",
+  "as_of": "2026-09-06",
   "baseline_commit": "b581e21ebf2b2c26e49b794a0035e30a6da269d1",
   "authority": "Current task state; checkbox steps in the dated implementation plan are templates, not execution receipts.",
   "task_count": 20,
@@ -213,13 +213,14 @@
       "evidence": [
         "docs/agent-packets/PAY-W7-01a-handoff.json",
         "docs/agent-packets/PAY-W7-01a-review.json",
-        "ops/evidence/PAY-W7-01a-runtime.json"
+        "ops/evidence/PAY-W7-01a-runtime.json",
+        "ops/evidence/PAY-W7-01a-identity-runtime.json"
       ],
       "accepted_commit": null,
       "production": "not_run",
       "planned_manager": "codex-parent",
-      "planned_reviewer": "/root/pay_w7_01a_reviewer",
-      "remaining_scope": "W7-01a two Windows identity gates; W7-01b portable backup/recovery not run."
+      "planned_reviewer": "/root/pay_w7_01a_identity_reviewer_r2",
+      "remaining_scope": "W7-01a accepted at the synthetic Windows identity layer; W7-01b portable backup/recovery not run."
     },
     {
       "task_id": "PAY-W7-02",
@@ -292,12 +293,16 @@
         "PAY-W0-01"
       ],
       "outcome": "DPAPI secret interface and approved synthetic identity test",
-      "status": "partial",
-      "accepted_layer": "current_user_synthetic_canary",
-      "remaining_identity_gates": 2,
+      "status": "accepted_synthetic_only",
+      "accepted_layer": "current_user_and_localservice_negative_identity_synthetic_canaries",
+      "remaining_identity_gates": 0,
       "evidence": [
-        "docs/agent-packets/PAY-W7-01a-handoff.json"
-      ]
+        "docs/agent-packets/PAY-W7-01a-handoff.json",
+        "docs/agent-packets/PAY-W7-01a-review.json",
+        "ops/evidence/PAY-W7-01a-runtime.json",
+        "ops/evidence/PAY-W7-01a-identity-runtime.json"
+      ],
+      "blocker_count": 0
     },
     {
       "id": "W6-02a",
@@ -553,7 +558,7 @@
   "execution_route": {
     "kind": "native_codex_subagents",
     "decision": "Duke approved parent + one implementer + independent reviewer; Hermes repair deferred.",
-    "packet": "docs/agent-packets/PAY-W6-02a.json",
-    "roster_confirmation": "PAY-NATIVE-W6-02a-R2 confirmed and read-only review passed; W6-02a accepted synthetic only"
+    "packet": "docs/agent-packets/PAY-W7-01a.json",
+    "roster_confirmation": "PAY-NATIVE-W7-01a-R2 completed; replacement read-only review passed; W7-01a accepted synthetic identity only"
   }
 }
