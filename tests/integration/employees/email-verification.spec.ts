@@ -61,10 +61,10 @@ test("DPAPI failure rolls back old destination closure, invalidation and new rec
  expect(Number((await pool.query("SELECT count(*) FROM outbox_jobs WHERE employee_id=$1",[s.employeeId])).rows[0].count)).toBe(1);
 });
 test("address changes invalidate payslip drafts and preserve their original destination hash",async()=>{
- const {seedScenario,sha}=await import("../db/support");const {withTransaction}=await import("../../../apps/web/src/lib/db/transaction");const {changePayRun}=await import("../../../apps/web/src/lib/db/repositories/pay-runs");const {randomUUID}=await import("node:crypto");
+ const {finalizeSyntheticPayRun,prepareSyntheticPayRunForFinalization,seedScenario,sha}=await import("../db/support");const {withTransaction}=await import("../../../apps/web/src/lib/db/transaction");const {randomUUID}=await import("node:crypto");
  const c=await pool.connect();let f;try{f=await seedScenario(c)}finally{c.release()}
  const s=await fixture(pool,"owner",f.orgId);
- await withTransaction(pool,tx=>changePayRun(tx,{id:f.runId,expectedVersion:0,actorId:s.id,status:"reviewed"}));await withTransaction(pool,tx=>changePayRun(tx,{id:f.runId,expectedVersion:1,actorId:s.id,status:"finalized"}));
+ const approvedVersion=await withTransaction(pool,tx=>prepareSyntheticPayRunForFinalization(tx,{id:f.runId,expectedVersion:0,actorId:s.id}));await withTransaction(pool,tx=>finalizeSyntheticPayRun(tx,{id:f.runId,expectedVersion:approvedVersion,actorId:s.id,idempotencyKey:'pay-run:'+f.runId+':finalized:'+(approvedVersion+1)}));
  const original=await s.repo.changeEmail(s.credentials,{employeeId:f.employeeId,expectedDestinationId:null,address:"original@example.invalid"});
  const payslip=randomUUID(),artifact=randomUUID(),draft=randomUUID();
  await pool.query("INSERT INTO payslips(id,organization_id,employee_id,pay_run_employee_id,content_hash) VALUES($1,$2,$3,$4,$5)",[payslip,f.orgId,f.employeeId,f.runEmployeeId,sha("synthetic")]);

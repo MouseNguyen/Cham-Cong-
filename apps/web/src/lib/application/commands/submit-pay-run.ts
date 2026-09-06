@@ -1,0 +1,1 @@
+import type {PayRunCredentials,VersionedPayRunInput} from "../../../../../../packages/contracts/src/pay-run";import type {PayRunRepository} from "../../db/repositories/pay-runs";export const submitPayRun=(r:PayRunRepository,c:PayRunCredentials,i:VersionedPayRunInput)=>r.submit(c,i);

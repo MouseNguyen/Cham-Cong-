@@ -1,0 +1,163 @@
+{
+  "task_id": "PAY-W4-01",
+  "agent_id": "codex-parent",
+  "status": "accepted_synthetic_only",
+  "outcome_status": "passed_synthetic_full_time_pay_run_orchestration",
+  "preparation_status": "integrated_migrated_built_verified",
+  "as_of": "2026-09-06T12:35:52.5365614Z",
+  "base_commit": "d81bb4528a1a743ad0bc061eab9d8f2ec688cb64",
+  "accepted_commit_reference": "Commit containing this receipt",
+  "local_core_blocker_count": 0,
+  "production": "not_run",
+  "production_release_blocker_group_count": 5,
+  "production_release_blocker_groups": [
+    "Signed numeric/source matrix",
+    "Real iPOS/tunnel/security evidence",
+    "Real Gmail authorization/send/revoke",
+    "Replacement-profile recovery and Windows operation proof",
+    "Two signed parallel payroll cycles"
+  ],
+  "claim_ledger": [
+    {
+      "layer": "structure",
+      "status": "passed",
+      "evidence": "Five-state lifecycle, authenticated command/query boundary, W1-derived immutable calculation records, versioned finalization outbox intent, Prisma synchronization, legacy caller reconciliation, JSON/diff checks."
+    },
+    {
+      "layer": "behavior_specific_red",
+      "status": "passed",
+      "evidence": "red-ba7fc2fb-5d6c-464e-bc70-9ed7e16613d2 applied all seven pre-W4 migrations and failed all three focused tests at the old lifecycle trigger. Direct output was adjudicated in ops/evidence/PAY-W4-01-red-adjudication.json because the original classifier was too narrow."
+    },
+    {
+      "layer": "approved_synthetic_runtime",
+      "status": "passed",
+      "evidence": "green-c1814385-e0dd-471d-81b0-239e4842a7e0 applied all eight migrations and passed 7/7 focused lifecycle and reproducibility tests."
+    },
+    {
+      "layer": "regressions",
+      "status": "passed",
+      "distinct_tests": 98,
+      "evidence": "42 payroll-domain, 16 database, 22 employee, 11 delivery/outbox, and 7 focused W4 tests. PAY-W6-02a reported 27 because it includes the same 16 database tests; overlap is counted once."
+    },
+    {
+      "layer": "typecheck_lint_build",
+      "status": "passed",
+      "evidence": "Root typecheck passed all declared projects; ESLint passed with zero warnings; attendance kiosk compilation and optimized Next.js production build passed."
+    },
+    {
+      "layer": "independent_static_review",
+      "status": "passed",
+      "blocker_count": 0,
+      "evidence": "pay_w4_01_reviewer closed all nine original P1 findings, the two append-only row-lock findings, and the canonical JSON/replay test adjudications without finding a masked product defect."
+    },
+    {
+      "layer": "cleanup",
+      "status": "passed",
+      "evidence": "Every final harness receipt reports listener_absent and postmaster_pid_file_absent; independent Get-NetTCPConnection check found no listener on 55432."
+    },
+    {
+      "layer": "production",
+      "status": "not_run",
+      "blocker_group_count": 5
+    }
+  ],
+  "verification": {
+    "distinct_passed_tests": 98,
+    "runs": [
+      {
+        "task_id": "PAY-W4-01",
+        "path": "ops/evidence/PAY-W4-01-runtime.json",
+        "run_id": "green-c1814385-e0dd-471d-81b0-239e4842a7e0",
+        "tests": 7,
+        "cleanup": {
+          "status": "passed",
+          "listener_absent": true,
+          "postmaster_pid_file_absent": true
+        }
+      },
+      {
+        "task_id": "PAY-W2-01",
+        "path": "ops/evidence/PAY-W2-01-runtime.json",
+        "run_id": "green-3c0b80fd-fd8e-49d9-87bf-c3849f27fdc8",
+        "tests": 16,
+        "cleanup": {
+          "status": "passed",
+          "listener_absent": true,
+          "postmaster_pid_file_absent": true
+        }
+      },
+      {
+        "task_id": "PAY-W2-03",
+        "path": "ops/evidence/PAY-W2-03-runtime.json",
+        "run_id": "green-0c2d2e32-eba7-44b7-9d83-c7b6f4823413",
+        "tests": 22,
+        "cleanup": {
+          "status": "passed",
+          "listener_absent": true,
+          "postmaster_pid_file_absent": true
+        }
+      },
+      {
+        "task_id": "PAY-W6-02a",
+        "path": "ops/evidence/PAY-W6-02a-runtime.json",
+        "run_id": "green-8d104c1e-4f0a-43c4-be2e-077fb5f4ecd1",
+        "tests": 27,
+        "cleanup": {
+          "status": "passed",
+          "listener_absent": true,
+          "postmaster_pid_file_absent": true
+        }
+      }
+    ],
+    "payroll_domain_tests": 42,
+    "typecheck": "passed",
+    "lint": "passed",
+    "build": "passed",
+    "diff_check": "passed",
+    "independent_listener_check": "PORT_55432_LISTENER_ABSENT"
+  },
+  "source_seals": [
+    {
+      "path": "packages/contracts/src/pay-run.ts",
+      "sha256": "1d23a4867a6b0824a2f0233ce2c78470c5ed72c423dcbeb6402b550555cafad9"
+    },
+    {
+      "path": "apps/web/src/lib/db/repositories/pay-runs.ts",
+      "sha256": "0be72cf13e16425c53ab8113cb2a8750c45612479f51f603a446052b93d2b120"
+    },
+    {
+      "path": "apps/web/src/lib/db/repositories/outbox.ts",
+      "sha256": "f6945d14a6a7d996d97f72efeef1e9773cb484589a8a4e71a051815897d2f041"
+    },
+    {
+      "path": "prisma/migrations/202609060006_w4_01_pay_runs/migration.sql",
+      "sha256": "dd064435b949d1bcec230baf4da61ca1624d16bbc2f20740cbd59d0592840b31"
+    },
+    {
+      "path": "prisma/schema.prisma",
+      "sha256": "cec9394629c0c4d942758c44d9e67cf93eaf7b2e5c7d1dde289cd3115fae3ee1"
+    },
+    {
+      "path": "tests/integration/pay-runs/lifecycle.spec.ts",
+      "sha256": "b6a51a5640a4959f47d22f4acf7ee3d7b721c14440f290fa7f6115a9db829c45"
+    },
+    {
+      "path": "tests/integration/pay-runs/reproducibility.spec.ts",
+      "sha256": "818ad6e9b935b4c735e4e1307755199d6ff3cf0ba965ae831a8d51d7bdb0edaf"
+    },
+    {
+      "path": "scripts/windows/test-pay-runs.ps1",
+      "sha256": "83c9918231cc011ece06c9c0971d73ac482d4009b7f608cee110c6316644a7df"
+    },
+    {
+      "path": "scripts/windows/test-database.ps1",
+      "sha256": "4052035b888e62d1f27936cc9321cf107d1a582e1aa7ab37a9fe697ecf721635"
+    }
+  ],
+  "scope_limits": [
+    "Synthetic local full-time payroll only; finalization explicitly returns productionReady false.",
+    "No part-time payroll, combined holiday-plus-night expansion, UI, PDF, provider delivery, real legal rules, real employee data, deployment, or production evidence.",
+    "Historical failed attempts remain in the run ledgers and research bundle; later passes do not erase their evidence limits."
+  ],
+  "next_action": "PAY-W5-01 visual design contract or PAY-W5-02a minimum admin UI may proceed under its own approved packet; production remains blocked."
+}

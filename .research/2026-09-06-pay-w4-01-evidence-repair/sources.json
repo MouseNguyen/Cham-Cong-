@@ -1,0 +1,73 @@
+{
+  "sources": [
+    {
+      "id": "src-001",
+      "path": "docs/agent-packets/PAY-W4-01.json",
+      "kind": "active_task_packet",
+      "authority": "current",
+      "supports": ["approved scope", "must-pass gates", "two-attempt limit"]
+    },
+    {
+      "id": "src-002",
+      "path": "docs/agent-packets/PAY-W4-01-implementer-report.md",
+      "kind": "corrected_worker_handoff",
+      "authority": "current correction supersedes lower stale claims",
+      "supports": ["failure chronology", "later focused passes", "known evidence gaps"]
+    },
+    {
+      "id": "src-003",
+      "path": "ops/evidence/PAY-W4-01-runtime.json",
+      "kind": "machine_receipt",
+      "authority": "direct run ledger",
+      "supports": ["one invalid RED run", "four failed GREEN runs", "two passed GREEN runs", "cleanup"]
+    },
+    {
+      "id": "src-004",
+      "path": "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+      "kind": "approved_design",
+      "authority": "source_of_truth",
+      "supports": ["pay-run lifecycle", "immutability", "maker-checker", "historical reproducibility"]
+    },
+    {
+      "id": "src-005",
+      "path": "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md",
+      "kind": "implementation_plan",
+      "authority": "source_of_truth",
+      "supports": ["W4-01 behavior", "focused tests", "integration requirements"]
+    },
+    {
+      "id": "src-006",
+      "path": "scripts/windows/test-database.ps1",
+      "kind": "test_harness",
+      "authority": "current working tree",
+      "supports": ["Red mode skips migrations", "Green mode deploys all migrations"]
+    },
+    {
+      "id": "src-007",
+      "path": "prisma/migrations/202609060006_w4_01_pay_runs/migration.sql",
+      "kind": "implementation",
+      "authority": "uncommitted working tree",
+      "supports": ["five-state migration", "synthetic rule evidence", "database triggers"]
+    },
+    {
+      "id": "src-008",
+      "path": "apps/web/src/lib/db/repositories/pay-runs.ts",
+      "kind": "implementation",
+      "authority": "uncommitted working tree",
+      "supports": ["command persistence", "authorization", "finalization transaction", "historical reads"]
+    },
+    {
+      "id": "src-009",
+      "path": "tests/integration/pay-runs",
+      "kind": "focused_tests",
+      "authority": "uncommitted working tree",
+      "supports": ["current 3-test coverage", "single-employee fixture", "handcrafted calculation fixture"]
+    }
+  ],
+  "source_conflicts": [
+    {
+      "conflict": "The lower implementer report calls RED and attempt compliance passed, while its superseding top correction and machine receipt prove those claims false.",
+      "resolution": "Use the top correction and src-003; treat lower conflicting text as stale."
+    }
+  ]
+}

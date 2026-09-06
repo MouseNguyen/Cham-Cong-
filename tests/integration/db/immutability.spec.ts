@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import type { Pool } from "pg";
-import { appPool, seedScenario, sha, waitUntilBlocked } from "./support";
+import { appPool, finalizeSyntheticPayRun, prepareSyntheticPayRunForFinalization, seedScenario, sha, waitUntilBlocked } from "./support";
 
 let pool: Pool;
 beforeAll(async () => { pool = appPool(); });
@@ -38,15 +38,14 @@ describe("DB03 approved snapshots", () => {
 describe("DB05, DB10 and DB12 finalized child history", () => {
   it("serializes finalization against child writes and blocks late inserts, reassignments, and referenced-term mutations", async () => {
     const { withTransaction } = await import("../../../apps/web/src/lib/db/transaction");
-    const { changePayRun } = await import("../../../apps/web/src/lib/db/repositories/pay-runs");
     const fixture = await fresh();
     const initial = Number((await pool.query<{version:number}>("SELECT version FROM pay_runs WHERE id = $1", [fixture.runId])).rows[0]!.version);
-    await withTransaction(pool, (tx) => changePayRun(tx, { id: fixture.runId, expectedVersion: initial, actorId: fixture.ownerId, status: "reviewed" }));
+    const approvedVersion=await withTransaction(pool,(tx)=>prepareSyntheticPayRunForFinalization(tx,{id:fixture.runId,expectedVersion:initial,actorId:fixture.ownerId}));
     const finalizer = await pool.connect(); const writer = await pool.connect();
     try {
       await finalizer.query("BEGIN");
       await finalizer.query("SELECT id FROM pay_runs WHERE id = $1 FOR UPDATE", [fixture.runId]);
-      await changePayRun(finalizer, { id: fixture.runId, expectedVersion: initial + 1, actorId: fixture.ownerId, status: "finalized" });
+      await finalizeSyntheticPayRun(finalizer, { id: fixture.runId, expectedVersion: approvedVersion, actorId: fixture.ownerId, idempotencyKey:'pay-run:'+fixture.runId+':finalized:'+(approvedVersion+1) });
       const writerPid=(await writer.query("SELECT pg_backend_pid() pid")).rows[0].pid;
       const lateWrite = writer.query("INSERT INTO calculation_lines (id, pay_run_employee_id, code, amount_vnd) VALUES ($1,$2,$3,$4)", [randomUUID(), fixture.runEmployeeId, "RACE", 1]);
       const lateAssertion=rejectCode(lateWrite,"IMMUTABLE_RECORD");
@@ -67,14 +66,13 @@ describe("DB05, DB10 and DB12 finalized child history", () => {
 describe("DB05/DB09/DB10 replayable document and payroll history", () => {
   it("retains finalized rows and destination versions and denies append-only table mutation", async () => {
     const {withTransaction}=await import("../../../apps/web/src/lib/db/transaction");
-    const {changePayRun}=await import("../../../apps/web/src/lib/db/repositories/pay-runs");
     const f=await fresh(); const c=await pool.connect();
     try {
       const lineId=randomUUID();
       await c.query("INSERT INTO calculation_lines(id,pay_run_employee_id,code,amount_vnd) VALUES($1,$2,'synthetic',9007199254740993)",[lineId,f.runEmployeeId]);
       expect((await c.query("SELECT amount_vnd FROM calculation_lines WHERE id=$1",[lineId])).rows[0].amount_vnd).toBe("9007199254740993");
-      await withTransaction(pool,tx=>changePayRun(tx,{id:f.runId,expectedVersion:0,actorId:f.ownerId,status:"reviewed"}));
-      await withTransaction(pool,tx=>changePayRun(tx,{id:f.runId,expectedVersion:1,actorId:f.ownerId,status:"finalized"}));
+      const approvedVersion=await withTransaction(pool,tx=>prepareSyntheticPayRunForFinalization(tx,{id:f.runId,expectedVersion:0,actorId:f.ownerId}));
+      await withTransaction(pool,tx=>finalizeSyntheticPayRun(tx,{id:f.runId,expectedVersion:approvedVersion,actorId:f.ownerId,idempotencyKey:'pay-run:'+f.runId+':finalized:'+(approvedVersion+1)}));
       for(const [table,id] of [["pay_runs",f.runId],["pay_run_employees",f.runEmployeeId],["calculation_lines",lineId]]){
         await rejectCode(c.query("UPDATE "+table+" SET id=id WHERE id=$1",[id]),"IMMUTABLE_RECORD");
         await rejectCode(c.query("DELETE FROM "+table+" WHERE id=$1",[id]),"IMMUTABLE_RECORD");

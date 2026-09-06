@@ -1,0 +1,26 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "types": [
+      "node",
+      "vitest/globals"
+    ]
+  },
+  "include": [
+    "./**/*.ts",
+    "../../../packages/contracts/src/**/*.ts",
+    "../../../packages/payroll-domain/src/**/*.ts",
+    "../../../apps/web/src/lib/auth/**/*.ts",
+    "../../../apps/web/src/lib/db/transaction.ts",
+    "../../../apps/web/src/lib/db/repositories/auth.ts",
+    "../../../apps/web/src/lib/db/repositories/outbox.ts",
+    "../../../apps/web/src/lib/db/repositories/pay-runs.ts",
+    "../../../apps/web/src/lib/application/commands/*pay-run.ts",
+    "../../../apps/web/src/lib/application/commands/create-adjustment-run.ts",
+    "../../../apps/web/src/lib/application/queries/get-pay-run.ts",
+    "../../../apps/web/src/lib/application/queries/explain-calculation.ts"
+  ],
+  "exclude": [
+    "../../../node_modules"
+  ]
+}

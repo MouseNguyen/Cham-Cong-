@@ -1,0 +1,1 @@
+import type {CreateAdjustmentRunInput,PayRunCredentials} from "../../../../../../packages/contracts/src/pay-run";import type {PayRunRepository} from "../../db/repositories/pay-runs";export const createAdjustmentRun=(r:PayRunRepository,c:PayRunCredentials,i:CreateAdjustmentRunInput)=>r.createAdjustment(c,i);

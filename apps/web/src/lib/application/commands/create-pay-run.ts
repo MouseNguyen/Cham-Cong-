@@ -1,0 +1,1 @@
+import type {CreatePayRunInput,PayRunCredentials} from "../../../../../../packages/contracts/src/pay-run";import type {PayRunRepository} from "../../db/repositories/pay-runs";export const createPayRun=(r:PayRunRepository,c:PayRunCredentials,i:CreatePayRunInput)=>r.create(c,i);

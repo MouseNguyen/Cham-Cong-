@@ -32,11 +32,11 @@ describe("DB04 synthetic legal rule packs", () => {
     const client = await pool.connect();
     try {
       const result = await client.query<{ status: string; evidence_mode: string }>(
-        "SELECT status, evidence_mode FROM legal_rule_packs WHERE id = $1", [fixture.rulePackId],
+        "SELECT status, evidence_mode FROM legal_rule_packs WHERE id = $1", [fixture.draftRulePackId],
       );
       expect(result.rows).toEqual([{ status: "draft", evidence_mode: "synthetic" }]);
       await expectCode(
-        client.query("UPDATE legal_rule_packs SET status = 'released' WHERE id = $1", [fixture.rulePackId]),
+        client.query("UPDATE legal_rule_packs SET status = 'released' WHERE id = $1", [fixture.draftRulePackId]),
         "42501",
       );
     } finally {

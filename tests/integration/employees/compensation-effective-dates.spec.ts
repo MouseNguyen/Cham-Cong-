@@ -37,15 +37,15 @@ test("overlapping contracts and out-of-contract compensation fail atomically",as
 
 
 test("referenced compensation can close after the payroll period without rewriting any frozen input",async()=>{
- const {seedScenario}=await import("../db/support");const c=await pool.connect();let f;try{f=await seedScenario(c)}finally{c.release()}
+ const {finalizeSyntheticPayRun,prepareSyntheticPayRunForFinalization,seedScenario}=await import("../db/support");const c=await pool.connect();let f;try{f=await seedScenario(c)}finally{c.release()}
  const s=await fixture(pool,"owner",f.orgId),own=await s.repo.createEmployee(s.credentials,input(f.workplaceId));
  const {randomUUID}=await import("node:crypto");const snapshot=randomUUID();
  await pool.query("INSERT INTO attendance_snapshots(id,organization_id,workplace_id,employee_id,period_start,period_end,canonical_payload,content_hash,status,approved_by) SELECT $1,organization_id,workplace_id,$2,period_start,period_end,canonical_payload,content_hash,status,approved_by FROM attendance_snapshots WHERE id=$3",[snapshot,own.employeeId,f.snapshotId]);
  const ownTerm=(await pool.query("SELECT content_hash FROM compensation_terms WHERE id=$1",[own.compensationId])).rows[0];
  await pool.query("UPDATE pay_run_employees SET employee_id=$1,compensation_id=$2,compensation_hash=$3,snapshot_id=$4 WHERE id=$5",[own.employeeId,own.compensationId,ownTerm.content_hash,snapshot,f.runEmployeeId]);
- const {withTransaction}=await import("../../../apps/web/src/lib/db/transaction");const {changePayRun}=await import("../../../apps/web/src/lib/db/repositories/pay-runs");
- await withTransaction(pool,tx=>changePayRun(tx,{id:f.runId,expectedVersion:0,actorId:s.id,status:"reviewed"}));
- await withTransaction(pool,tx=>changePayRun(tx,{id:f.runId,expectedVersion:1,actorId:s.id,status:"finalized"}));
+ const {withTransaction}=await import("../../../apps/web/src/lib/db/transaction");
+ const approvedVersion=await withTransaction(pool,tx=>prepareSyntheticPayRunForFinalization(tx,{id:f.runId,expectedVersion:0,actorId:s.id}));
+ await withTransaction(pool,tx=>finalizeSyntheticPayRun(tx,{id:f.runId,expectedVersion:approvedVersion,actorId:s.id,idempotencyKey:'pay-run:'+f.runId+':finalized:'+(approvedVersion+1)}));
  const before=(await pool.query("SELECT * FROM pay_run_employees WHERE id=$1",[f.runEmployeeId])).rows[0],term=(await pool.query("SELECT * FROM compensation_terms WHERE id=$1",[own.compensationId])).rows[0];
  await denied(s.repo.changeCompensation(s.credentials,{employeeId:own.employeeId,expectedTermId:own.compensationId,effectiveFrom:"2026-09-01",compensation:{basis:"monthly_salary",monthlySalaryVnd:"9000000"}}),"HISTORICAL_PERIOD_CONFLICT");
  await s.repo.changeCompensation(s.credentials,{employeeId:own.employeeId,expectedTermId:own.compensationId,effectiveFrom:"2026-10-01",compensation:{basis:"monthly_salary",monthlySalaryVnd:"9000000"}});

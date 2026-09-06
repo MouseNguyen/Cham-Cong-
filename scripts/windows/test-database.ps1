@@ -1,4 +1,4 @@
-param([ValidateSet('Red','Green')][string]$Mode='Green', [ValidateSet('PAY-W2-01','PAY-W6-02a','PAY-W2-02','PAY-W2-03','PAY-W3-01b','PAY-W3-02a','PAY-W3-02b','PAY-W7-02a','PAY-W3-03')][string]$TaskId='PAY-W2-01', [switch]$Browser)
+param([ValidateSet('Red','Green')][string]$Mode='Green', [ValidateSet('PAY-W2-01','PAY-W6-02a','PAY-W2-02','PAY-W2-03','PAY-W3-01b','PAY-W3-02a','PAY-W3-02b','PAY-W7-02a','PAY-W3-03','PAY-W4-01')][string]$TaskId='PAY-W2-01', [switch]$Browser)
 $ErrorActionPreference='Stop'
 $env:PAYSLIP_DB_TEST_MODE=$Mode
 $env:PAYSLIP_DB_TASK_ID=$TaskId
@@ -14,7 +14,7 @@ const cluster=path.join(root,'.tmp',taskId,'cluster',runId);
 const log=path.join(root,'.tmp',taskId,runId+'.log');
 const ownerPassword=crypto.randomBytes(32).toString('hex'),appPassword=crypto.randomBytes(32).toString('hex'),ingressPassword=crypto.randomBytes(32).toString('hex');
 const kioskTask=['PAY-W3-02a','PAY-W3-02b','PAY-W7-02a'].includes(taskId);
-const database=taskId==='PAY-W3-03'?'payslip_w3_03_synthetic':kioskTask?'payslip_w3_02_synthetic':taskId==='PAY-W3-01b'?'payslip_w3_01b_synthetic':taskId==='PAY-W2-03'?'payslip_w2_03_synthetic':taskId==='PAY-W2-02'?'payslip_w2_02_auth_synthetic':'payslip_w2_01_synthetic';
+const database=taskId==='PAY-W4-01'?'payslip_w4_01_synthetic':taskId==='PAY-W3-03'?'payslip_w3_03_synthetic':kioskTask?'payslip_w3_02_synthetic':taskId==='PAY-W3-01b'?'payslip_w3_01b_synthetic':taskId==='PAY-W2-03'?'payslip_w2_03_synthetic':taskId==='PAY-W2-02'?'payslip_w2_02_auth_synthetic':'payslip_w2_01_synthetic';
 const ownerConnection=new URL('postgresql://127.0.0.1:55432/'+database); ownerConnection.username='payslip_owner'; ownerConnection.password=ownerPassword; const ownerUrl=ownerConnection.href;
 const appConnection=new URL('postgresql://127.0.0.1:55432/'+database); appConnection.username='payslip_app'; appConnection.password=appPassword; const appUrl=appConnection.href;
 const ingressConnection=new URL(ownerUrl); ingressConnection.username='payslip_ingress';ingressConnection.password=ingressPassword;const ingressUrl=ingressConnection.href;
@@ -46,18 +46,37 @@ let started=false,admin;
   const owner=new Pool({connectionString:ownerUrl,max:1});
   try{
    await owner.query('REVOKE ALL ON DATABASE '+database+' FROM PUBLIC; GRANT CONNECT ON DATABASE '+database+' TO payslip_app,payslip_ingress; REVOKE CREATE ON SCHEMA public FROM PUBLIC; GRANT USAGE ON SCHEMA public TO payslip_app');
+   let schemaReady=false;
    if(mode==='Green'){
     run(process.execPath,['node_modules/prisma/build/index.js','validate']);
     run(process.execPath,['node_modules/prisma/build/index.js','generate']);
     run(process.execPath,['node_modules/prisma/build/index.js','migrate','deploy']);
-    await owner.query('GRANT SELECT,INSERT,UPDATE,DELETE ON ALL TABLES IN SCHEMA public TO payslip_app; REVOKE ALL ON TABLE _prisma_migrations FROM payslip_app; REVOKE UPDATE,DELETE ON clock_events,attendance_snapshots,legal_rule_packs,rule_sources,minimum_wages,insurance_policies,pit_policies,earning_component_policies,opening_hour_versions,employment_contracts,schedule_templates,schedule_assignments,attendance_adjustments,approval_events,adjustment_links,payslips,document_artifacts,delivery_attempts,audit_events,audit_events,retention_actions,outbox_jobs FROM payslip_app');
+    schemaReady=true;
+   }else if(taskId==='PAY-W4-01'){
+    const migrationsRoot=path.join(root,'prisma','migrations');
+    const baseline=fs.readdirSync(migrationsRoot,{withFileTypes:true})
+      .filter(entry=>entry.isDirectory()&&entry.name<'202609060006_w4_01_pay_runs')
+      .map(entry=>path.join(migrationsRoot,entry.name,'migration.sql'))
+      .filter(file=>fs.existsSync(file))
+      .sort();
+    if(baseline.length!==7)throw Error('W4_BASELINE_MIGRATION_SET_INVALID');
+    for(const file of baseline)run(path.join(bin,'psql.exe'),['--dbname',ownerUrl,'--set','ON_ERROR_STOP=1','--file',file]);
+    schemaReady=true;
+   }
+   if(schemaReady){
+    await owner.query('GRANT SELECT,INSERT,UPDATE,DELETE ON ALL TABLES IN SCHEMA public TO payslip_app; REVOKE UPDATE,DELETE ON clock_events,attendance_snapshots,legal_rule_packs,rule_sources,minimum_wages,insurance_policies,pit_policies,earning_component_policies,opening_hour_versions,employment_contracts,schedule_templates,schedule_assignments,attendance_adjustments,approval_events,adjustment_links,payslips,document_artifacts,delivery_attempts,audit_events,audit_events,retention_actions,outbox_jobs FROM payslip_app');
+    if((await owner.query("SELECT to_regclass('public._prisma_migrations') AS name")).rows[0].name)await owner.query('REVOKE ALL ON TABLE _prisma_migrations FROM payslip_app');
     if((await owner.query("SELECT to_regclass('public.outbox_dispatch_attempts') AS name")).rows[0].name)await owner.query('REVOKE UPDATE,DELETE ON outbox_dispatch_attempts FROM payslip_app');
    }
   }finally{await owner.end();}
-  const tests=run(process.execPath,['node_modules/vitest/vitest.mjs','run',taskId==='PAY-W3-03'?'tests/integration/attendance/review.spec.ts':kioskTask?(taskId==='PAY-W7-02a'?'tests/integration/operations/service-lifecycle.windows.spec.ts':'tests/integration/attendance/ingress.spec.ts'):taskId==='PAY-W3-01b'?'tests/integration/attendance/schedule-effective-dates.spec.ts':taskId==='PAY-W2-03'?'tests/integration/employees':taskId==='PAY-W2-02'?'tests/integration/auth':'tests/integration/db',...(taskId==='PAY-W6-02a'?['tests/integration/delivery']:[]),'--maxWorkers=1','--no-file-parallelism'],undefined,true);
+  const tests=run(process.execPath,['node_modules/vitest/vitest.mjs','run',taskId==='PAY-W4-01'?'tests/integration/pay-runs':taskId==='PAY-W3-03'?'tests/integration/attendance/review.spec.ts':kioskTask?(taskId==='PAY-W7-02a'?'tests/integration/operations/service-lifecycle.windows.spec.ts':'tests/integration/attendance/ingress.spec.ts'):taskId==='PAY-W3-01b'?'tests/integration/attendance/schedule-effective-dates.spec.ts':taskId==='PAY-W2-03'?'tests/integration/employees':taskId==='PAY-W2-02'?'tests/integration/auth':'tests/integration/db',...(taskId==='PAY-W6-02a'?['tests/integration/delivery']:[]),'--maxWorkers=1','--no-file-parallelism'],undefined,true);
   receipt.tests={exit:tests.exit,passed_count:Number(tests.output.match(/Tests\s+(\d+) passed/)?.[1]||0)};
   if(mode==='Red'){
-   if(tests.exit===0||!tests.output.includes('does not exist'))throw Error('Expected real missing-schema RED was not observed');
+   const expectedRed=taskId==='PAY-W4-01'
+    ?tests.output.includes('INVALID_STATE_TRANSITION')||tests.output.includes('pay_runs_status_check')
+    :tests.output.includes('does not exist');
+   if(tests.exit===0||!expectedRed)throw Error('Expected behavior-specific RED was not observed');
+   if(taskId==='PAY-W4-01')receipt.red_fingerprint='pre_w4_lifecycle_contract_missing';
    receipt.status='red_observed';
   }else{
    if(tests.exit!==0)throw Error('Integration failed');

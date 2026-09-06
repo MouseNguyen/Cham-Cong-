@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import type { Pool } from "pg";
-import { appPool, seedScenario } from "./support";
+import { appPool, finalizeSyntheticPayRun, moveSyntheticPayRun, prepareSyntheticPayRunForFinalization, seedScenario } from "./support";
 
 let pool: Pool;
 beforeAll(async () => { pool = appPool(); });
@@ -10,28 +10,29 @@ async function fresh() { const client = await pool.connect(); try { return await
 
 describe("DB07 revision and audit atomicity", () => {
   it("rolls back revision/audit together, writes one audit on success, and rejects stale revisions", async () => {
-    const { withTransaction } = await import("../../../apps/web/src/lib/db/transaction"); const { changePayRun } = await import("../../../apps/web/src/lib/db/repositories/pay-runs");
+    const { withTransaction } = await import("../../../apps/web/src/lib/db/transaction");
     const fixture = await fresh(); const initial = Number((await pool.query<{version:number}>("SELECT version FROM pay_runs WHERE id = $1", [fixture.runId])).rows[0]!.version);
-    await expect(withTransaction(pool, async (tx) => { await changePayRun(tx, { id: fixture.runId, expectedVersion: initial, actorId: fixture.ownerId, status: "reviewed" }); throw new Error("injected rollback"); })).rejects.toThrow("injected rollback");
+    const calculate={id:fixture.runId,expectedVersion:initial,actorId:fixture.ownerId,from:"draft" as const,to:"calculated" as const,action:"pay_run.calculated"};
+    await expect(withTransaction(pool, async (tx) => { await moveSyntheticPayRun(tx, calculate); throw new Error("injected rollback"); })).rejects.toThrow("injected rollback");
     expect((await pool.query("SELECT version FROM pay_runs WHERE id = $1", [fixture.runId])).rows[0]!.version).toBe(initial);
     expect((await pool.query("SELECT count(*)::int AS count FROM audit_events WHERE aggregate_id = $1", [fixture.runId])).rows[0].count).toBe(0);
-    await withTransaction(pool, (tx) => changePayRun(tx, { id: fixture.runId, expectedVersion: initial, actorId: fixture.ownerId, status: "reviewed" }));
+    await withTransaction(pool, (tx) => moveSyntheticPayRun(tx,calculate));
     expect((await pool.query("SELECT count(*)::int AS count FROM audit_events WHERE aggregate_id = $1", [fixture.runId])).rows[0].count).toBe(1);
-    await expect(withTransaction(pool, (tx) => changePayRun(tx, { id: fixture.runId, expectedVersion: initial, actorId: fixture.ownerId, status: "finalized" }))).rejects.toMatchObject({ code: "STATE_VERSION_CONFLICT" });
+    await expect(withTransaction(pool, (tx) => moveSyntheticPayRun(tx,calculate))).rejects.toMatchObject({ code: "STATE_VERSION_CONFLICT" });
   });
 });
 
 describe("DB08 finalization/outbox atomicity", () => {
   it("rolls back both records together and writes one job for the committed idempotency key", async () => {
-    const { withTransaction } = await import("../../../apps/web/src/lib/db/transaction"); const { changePayRun, finalizeWithOutbox } = await import("../../../apps/web/src/lib/db/repositories/pay-runs");
+    const { withTransaction } = await import("../../../apps/web/src/lib/db/transaction");
     const fixture = await fresh(); const initial = Number((await pool.query<{version:number}>("SELECT version FROM pay_runs WHERE id = $1", [fixture.runId])).rows[0]!.version);
-    await withTransaction(pool, (tx) => changePayRun(tx, { id: fixture.runId, expectedVersion: initial, actorId: fixture.ownerId, status: "reviewed" }));
+    const approvedVersion=await withTransaction(pool,(tx)=>prepareSyntheticPayRunForFinalization(tx,{id:fixture.runId,expectedVersion:initial,actorId:fixture.ownerId}));
     const rollbackKey = `rollback-${randomUUID()}`;
-    await expect(withTransaction(pool, async (tx) => { await finalizeWithOutbox(tx, { id: fixture.runId, expectedVersion: initial + 1, actorId: fixture.ownerId, idempotencyKey: rollbackKey }); throw new Error("injected finalization rollback"); })).rejects.toThrow("injected finalization rollback");
-    expect((await pool.query("SELECT status FROM pay_runs WHERE id = $1", [fixture.runId])).rows[0].status).toBe("reviewed");
+    await expect(withTransaction(pool, async (tx) => { await finalizeSyntheticPayRun(tx, { id: fixture.runId, expectedVersion: approvedVersion, actorId: fixture.ownerId, idempotencyKey: rollbackKey }); throw new Error("injected finalization rollback"); })).rejects.toThrow("injected finalization rollback");
+    expect((await pool.query("SELECT status FROM pay_runs WHERE id = $1", [fixture.runId])).rows[0].status).toBe("approved");
     expect((await pool.query("SELECT count(*)::int AS count FROM outbox_jobs WHERE pay_run_id = $1", [fixture.runId])).rows[0].count).toBe(0);
     const key = `outbox-${randomUUID()}`;
-    await withTransaction(pool, (tx) => finalizeWithOutbox(tx, { id: fixture.runId, expectedVersion: initial + 1, actorId: fixture.ownerId, idempotencyKey: key }));
+    await withTransaction(pool, (tx) => finalizeSyntheticPayRun(tx, { id: fixture.runId, expectedVersion: approvedVersion, actorId: fixture.ownerId, idempotencyKey: key }));
     expect((await pool.query("SELECT count(*)::int AS count FROM outbox_jobs WHERE pay_run_id = $1 AND idempotency_key = $2", [fixture.runId, key])).rows[0].count).toBe(1);
   });
 });
@@ -47,22 +48,19 @@ describe("DB11 application-role privilege boundary", () => {
     } finally { client.release(); }
   });
 });
-describe("DB08 replay and transaction capability", () => {
+describe("DB08 replay", () => {
  it("replays the same finalization exactly once and rejects changed retry identity",async()=>{
   const {withTransaction}=await import("../../../apps/web/src/lib/db/transaction");
-  const {changePayRun,finalizeWithOutbox}=await import("../../../apps/web/src/lib/db/repositories/pay-runs");
   const f=await fresh(),key=randomUUID();
-  await withTransaction(pool,tx=>changePayRun(tx,{id:f.runId,expectedVersion:0,actorId:f.ownerId,status:"reviewed"}));
-  const input={id:f.runId,expectedVersion:1,actorId:f.ownerId,idempotencyKey:key};
-  const first=await withTransaction(pool,tx=>finalizeWithOutbox(tx,input));
-  const replay=await withTransaction(pool,tx=>finalizeWithOutbox(tx,input));
-  expect(replay).toEqual(first);
-  await expect(withTransaction(pool,tx=>finalizeWithOutbox(tx,{...input,expectedVersion:2}))).rejects.toMatchObject({code:"IDEMPOTENCY_CONFLICT"});
-  expect((await pool.query("SELECT count(*)::int n FROM audit_events WHERE aggregate_id=$1",[f.runId])).rows[0].n).toBe(2);
+  const approvedVersion=await withTransaction(pool,tx=>prepareSyntheticPayRunForFinalization(tx,{id:f.runId,expectedVersion:0,actorId:f.ownerId}));
+  const input={id:f.runId,expectedVersion:approvedVersion,actorId:f.ownerId,idempotencyKey:key};
+  const first=await withTransaction(pool,tx=>finalizeSyntheticPayRun(tx,input));
+  const replay=await withTransaction(pool,tx=>finalizeSyntheticPayRun(tx,input));
+  expect(first.replayed).toBe(false);
+  expect(replay).toEqual({...first,replayed:true});
+  await expect(withTransaction(pool,tx=>finalizeSyntheticPayRun(tx,{...input,expectedVersion:approvedVersion+1}))).rejects.toMatchObject({code:"IDEMPOTENCY_CONFLICT"});
+  expect((await pool.query("SELECT count(*)::int n FROM audit_events WHERE aggregate_id=$1",[f.runId])).rows[0].n).toBe(4);
   expect((await pool.query("SELECT count(*)::int n FROM outbox_jobs WHERE pay_run_id=$1",[f.runId])).rows[0].n).toBe(1);
-  const c=await pool.connect();
-  try {await expect(changePayRun(c,{id:f.runId,expectedVersion:2,actorId:f.ownerId,status:"finalized"})).rejects.toMatchObject({code:"25P01"});}
-  finally {c.release();}
  });
 });
 

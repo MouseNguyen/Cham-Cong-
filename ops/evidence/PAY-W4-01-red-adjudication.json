@@ -1,0 +1,25 @@
+{
+  "task_id": "PAY-W4-01",
+  "run_id": "red-ba7fc2fb-5d6c-464e-bc70-9ed7e16613d2",
+  "status": "behavior_red_observed_with_classifier_mismatch",
+  "baseline": {
+    "migration_count": 7,
+    "last_migration": "202609060005_w3_03_review",
+    "excluded_migration": "202609060006_w4_01_pay_runs"
+  },
+  "direct_evidence": {
+    "test_files_failed": 2,
+    "tests_failed": 3,
+    "fingerprint": "INVALID_STATE_TRANSITION",
+    "layer": "pre_w4_pay_run_lifecycle"
+  },
+  "classifier_error": "The harness accepted only pay_runs_status_check, while the existing trigger emitted INVALID_STATE_TRANSITION first.",
+  "adjudication": "Accepted as behavior-specific RED because the full pre-W4 schema migrated successfully and every focused W4 test reached and failed at the old lifecycle boundary. No rerun is required.",
+  "cleanup": {
+    "status": "passed",
+    "listener_absent": true,
+    "postmaster_pid_file_absent": true
+  },
+  "evidence_limit": "This proves the W4 lifecycle is absent from the pre-W4 baseline. It does not prove the current W4 implementation or any production behavior.",
+  "next_action": "Repair and directly test the nine accepted P1 product/static blockers before one bounded GREEN."
+}

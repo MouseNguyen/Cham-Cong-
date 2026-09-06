@@ -1,0 +1,1 @@
+import type {PayRunCredentials} from "../../../../../../packages/contracts/src/pay-run";import type {PayRunRepository} from "../../db/repositories/pay-runs";export const getPayRun=(r:PayRunRepository,c:PayRunCredentials,id:string)=>r.get(c,id);
