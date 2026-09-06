@@ -1,0 +1,109 @@
+{
+  "task_id": "PAY-W2-03",
+  "as_of": "2026-09-06T06:28:36.798Z",
+  "regressions": [
+    {
+      "source_harness": "ops/evidence/PAY-W6-02a-runtime.json",
+      "runs": [
+        {
+          "task_id": "PAY-W6-02a",
+          "run_id": "green-345acb0c-30c7-426e-8545-ae73b8fcd39d",
+          "mode": "Green",
+          "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W6-02a\\cluster\\green-345acb0c-30c7-426e-8545-ae73b8fcd39d",
+          "port": 55432,
+          "status": "passed",
+          "tests": {
+            "exit": 0,
+            "passed_count": 27
+          },
+          "cleanup": {
+            "status": "passed",
+            "listener_absent": true,
+            "postmaster_pid_file_absent": true
+          }
+        },
+        {
+          "task_id": "PAY-W6-02a",
+          "run_id": "green-63bb7150-5d80-49c4-bd80-23599f7f960e",
+          "mode": "Green",
+          "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W6-02a\\cluster\\green-63bb7150-5d80-49c4-bd80-23599f7f960e",
+          "port": 55432,
+          "status": "passed",
+          "tests": {
+            "exit": 0,
+            "passed_count": 27
+          },
+          "cleanup": {
+            "status": "passed",
+            "listener_absent": true,
+            "postmaster_pid_file_absent": true
+          }
+        }
+      ]
+    },
+    {
+      "source_harness": "ops/evidence/PAY-W2-02-runtime.json",
+      "runs": [
+        {
+          "task_id": "PAY-W2-02",
+          "run_id": "green-6da923b5-8b7f-428f-8fde-e0fc3023bcff",
+          "mode": "Green",
+          "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W2-02\\cluster\\green-6da923b5-8b7f-428f-8fde-e0fc3023bcff",
+          "port": 55432,
+          "status": "passed",
+          "tests": {
+            "exit": 0,
+            "passed_count": 59
+          },
+          "cleanup": {
+            "status": "passed",
+            "listener_absent": true,
+            "postmaster_pid_file_absent": true
+          }
+        }
+      ]
+    }
+  ],
+  "verification": [
+    {
+      "command": "node node_modules/vitest/vitest.mjs run packages tests/architecture --maxWorkers=1 --no-file-parallelism",
+      "status": "passed",
+      "tests": 64
+    },
+    {
+      "command": "npm run build",
+      "status": "passed",
+      "exit": 0
+    },
+    {
+      "command": "npm run lint",
+      "status": "passed",
+      "exit": 0
+    },
+    {
+      "command": "npm run typecheck",
+      "status": "passed",
+      "exit": 0
+    }
+  ],
+  "evidence_limit": "Direct local synthetic execution; no real provider, employee UI, production data or release proof.",
+  "retention": "Original runtime harness receipts retain their appended W2-03 regression runs. No receipt restoration or deletion was performed.",
+  "auth_argon2_benchmark": {
+    "task_id": "PAY-W2-02",
+    "platform": "win32",
+    "node": "v24.19.0",
+    "parameters": {
+      "type": 2,
+      "memoryCost": 19456,
+      "timeCost": 2,
+      "parallelism": 1
+    },
+    "samples_ms_hash_plus_two_verifications": [
+      48,
+      47,
+      48
+    ],
+    "maximum_sample_ms": 5000,
+    "scope": "local synthetic benchmark; not concurrent production capacity"
+  }
+}

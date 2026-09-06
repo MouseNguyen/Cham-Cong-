@@ -6,3 +6,6 @@ export const BODY = "Synthetic verification test only. No payroll or verificatio
 export interface FakeMessage { jobId: string; idempotencyKey: string; to: string; subject: string; body: string }
 export interface Lease { jobId: string; organizationId: string; token: string; generation: number; phase: "send" | "reconcile"; message: FakeMessage }
 export interface FakeAdapter { send(message: FakeMessage): Promise<SendOutcome>; reconcile(message: FakeMessage): Promise<ReconcileOutcome> }
+
+export function isVerificationBody(body:string):boolean{return /^Mã xác minh email: [0-9]{6}\. Hết hạn sau 10 phút\.$/.test(body);}
+export function verificationBody(code:string):string{if(!/^[0-9]{6}$/.test(code))throw Error("INVALID_VERIFICATION_CODE");return "Mã xác minh email: "+code+". Hết hạn sau 10 phút.";}

@@ -1,0 +1,13 @@
+{
+  "task_id": "PAY-W2-03",
+  "status": "runtime_stopped_temporary_files_retained",
+  "as_of": "2026-09-06T13:28:38.2957318+07:00",
+  "listener_ports_checked": [
+    55432,
+    46217
+  ],
+  "listeners_absent": true,
+  "owned_postgres_processes_absent": true,
+  "temporary_files": "Retained under project .tmp. No recursive deletion performed.",
+  "approval_review": "Rejected recursive deletion and historical receipt restoration; selected non-destructive retention instead."
+}

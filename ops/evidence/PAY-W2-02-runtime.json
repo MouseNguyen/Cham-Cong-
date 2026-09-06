@@ -194,6 +194,23 @@
         "exit": 0,
         "passed_count": 3
       }
+    },
+    {
+      "task_id": "PAY-W2-02",
+      "run_id": "green-6da923b5-8b7f-428f-8fde-e0fc3023bcff",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W2-02\\cluster\\green-6da923b5-8b7f-428f-8fde-e0fc3023bcff",
+      "port": 55432,
+      "status": "passed",
+      "tests": {
+        "exit": 0,
+        "passed_count": 59
+      },
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      }
     }
   ]
 }

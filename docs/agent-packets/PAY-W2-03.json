@@ -1,0 +1,73 @@
+{
+  "task_id": "PAY-W2-03",
+  "agent_id": "codex-parent",
+  "status": "accepted_synthetic_only",
+  "base_commit": "646eb21aad486483d6beacfb394110097da6a658",
+  "authority": "Duke clarified Approve as Yes next implement for the previously named employee contracts and delivery verification task. Parent executes; no push or further delegation.",
+  "core_outcome": "Authenticated owner/accountant commands create supported synthetic employees and 12-month contracts, resolve exact effective compensation, verify synthetic email ownership through a code-bearing fake outbox message, and deactivate without rewriting history.",
+  "must_pass_gates": [
+    "Supported population/template and salary-basis/floor validation",
+    "No overlapping logical intervals; previous physical payload/hash unchanged",
+    "Atomic updates, trusted authorization, cross-organization denial and audit",
+    "Hash-only verification challenge plus DPAPI-protected outbox transport; expiry, attempt limit and replay prevention",
+    "Email changes/deactivation invalidate pending drafts and grants; historical payroll remains unchanged",
+    "Focused nonempty RED/GREEN, existing DB/delivery/auth/domain regression, typecheck/lint/build and exact cleanup"
+  ],
+  "owned_files": [
+    "packages/contracts/src/employee.ts",
+    "packages/contracts/src/compensation.ts",
+    "apps/web/src/lib/application/commands/*employee*.ts",
+    "apps/web/src/lib/application/commands/add-contract.ts",
+    "apps/web/src/lib/application/commands/change-compensation.ts",
+    "apps/web/src/lib/application/commands/change-email.ts",
+    "apps/web/src/lib/application/commands/verify-email-code.ts",
+    "apps/web/src/lib/application/queries/*employee*.ts",
+    "apps/web/src/lib/db/repositories/employees.ts",
+    "apps/web/src/lib/db/repositories/compensation.ts",
+    "apps/web/src/lib/auth/authorization.ts",
+    "apps/web/src/lib/delivery/types.ts",
+    "apps/web/src/lib/delivery/fake-adapter.ts",
+    "apps/web/src/lib/delivery/outbox.ts",
+    "apps/web/src/lib/delivery/employee-verification.ts",
+    "prisma/schema.prisma",
+    "prisma/migrations/202609060002_w2_03_employees/migration.sql",
+    "scripts/windows/test-database.ps1",
+    "scripts/windows/test-employees.ps1",
+    "package.json",
+    "tests/integration/employees/**",
+    "tests/integration/db/transactions.spec.ts",
+    "tests/integration/auth/authorization.spec.ts",
+    "docs/agent-packets/PAY-W2-03*.json",
+    "docs/planning/W2-03*.md",
+    "docs/planning/task-status.json",
+    "ops/evidence/PAY-W2-03*.json",
+    ".tmp/PAY-W2-03/**"
+  ],
+  "runtime_wave": {
+    "command": "powershell -NoProfile -File scripts/windows/test-employees.ps1",
+    "effects": "Existing local PostgreSQL18.6, fresh synthetic payslip_w2_03_synthetic database on127.0.0.1:55432; generated credentials in memory; existing Prisma validate/generate/migrate; Vitest employees and approved relevant regressions; synthetic CurrentUser DPAPI; npm run lint/typecheck/build. No installs/network/browser/real provider or production writes.",
+    "cleanup": "Owned PostgreSQL processes stopped and listeners verified absent. Temporary synthetic files retained; automatic review rejected recursive removal and historical receipt restoration. No destructive cleanup performed.",
+    "limit": "One writer,60minutes total,15-minute core checkpoint,30minutes active runtime,2same-layer failures before researched repair; no GPU,new models or downloads."
+  },
+  "design_decisions": [
+    "Append-only closure rows end effective intervals without modifying referenced compensation/destination rows or hashes. Database logical-overlap guards and employee-row locks preserve concurrent exclusion.",
+    "Verification rows store only code hashes; outbox carries DPAPI ciphertext for reliable low-sensitivity fake dispatch. Plaintext exists only in process memory and fake adapter messages.",
+    "User-employee linkage and revocable employee grants supply deactivation semantics; inactive employees are denied clock-event insertion. No public kiosk or real onboarding added."
+  ],
+  "polish_backlog": [
+    "Employee UI belongs to W5",
+    "Real email/provider, production enrollment, legal source signature and release are separate gates"
+  ],
+  "outcome_status": "passed_synthetic_backend",
+  "preparation_status": "implemented_and_verified",
+  "blocker_count": 0,
+  "evidence": [
+    "docs/agent-packets/PAY-W2-03-parent-acceptance.json"
+  ],
+  "generated_regression_artifacts": [
+    "ops/evidence/PAY-W2-02-runtime.json",
+    "ops/evidence/PAY-W6-02a-runtime.json",
+    "ops/evidence/PAY-W2-02-argon2.json"
+  ],
+  "generated_regression_artifact_scope": "Existing approved test harnesses generated these artifacts during W2-03 regression verification; retain their current direct results and preserve provenance in PAY-W2-03-regressions.json."
+}

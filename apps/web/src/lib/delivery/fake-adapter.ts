@@ -1,9 +1,9 @@
 import { conflict } from "../db/transaction";
-import { BODY, SUBJECT, type FakeMessage, type SendOutcome, type ReconcileOutcome } from "./types";
+import { BODY, SUBJECT, isVerificationBody, type FakeMessage, type SendOutcome, type ReconcileOutcome } from "./types";
 
 export function assertSyntheticMessage(message: FakeMessage): void {
   if (!/^[A-Za-z0-9._+-]+@example\.invalid$/.test(message.to) ||
-      message.subject !== SUBJECT || message.body !== BODY ||
+      message.subject !== SUBJECT || (message.body !== BODY && !isVerificationBody(message.body)) ||
       Object.keys(message).sort().join(",") !== "body,idempotencyKey,jobId,subject,to") throw conflict("SYNTHETIC_ONLY");
 }
 /** In-memory fake provider ledger. Never makes an external call or claims delivery.

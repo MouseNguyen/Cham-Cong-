@@ -40,6 +40,8 @@ model public_holidays {
 }
 
 model employees {
+  nationality String?
+  tax_residency String?
   id String @db.Uuid @id
   organization_id String @db.Uuid
   workplace_id String @db.Uuid
@@ -50,6 +52,7 @@ model employees {
 }
 
 model users {
+  employee_id String? @db.Uuid
   id String @db.Uuid @id
   organization_id String @db.Uuid
   role String
@@ -61,6 +64,9 @@ model users {
 }
 
 model employment_contracts {
+  template_version String?
+  probation_days Int?
+  population_policy_version String?
   id String @db.Uuid @id
   organization_id String @db.Uuid
   employee_id String @db.Uuid
@@ -467,4 +473,39 @@ model auth_security_events {
   outcome String
   account_ref String
   created_at DateTime @default(now()) @db.Timestamptz(3)
+}
+
+model compensation_term_closures {
+ term_id String @id @db.Uuid
+ organization_id String @db.Uuid
+ employee_id String @db.Uuid
+ source_hash String
+ effective_to DateTime @db.Timestamptz(3)
+}
+model delivery_destination_closures {
+ destination_id String @id @db.Uuid
+ organization_id String @db.Uuid
+ employee_id String @db.Uuid
+ source_hash String
+ effective_to DateTime @db.Timestamptz(3)
+}
+model employee_access_grants {
+ id String @id @db.Uuid
+ organization_id String @db.Uuid
+ employee_id String @db.Uuid
+ kind String
+ token_hash String @unique
+ revoked_at DateTime? @db.Timestamptz(3)
+}
+model employee_email_verifications {
+ id String @id @db.Uuid
+ organization_id String @db.Uuid
+ employee_id String @db.Uuid
+ destination_id String @unique @db.Uuid
+ job_id String @unique @db.Uuid
+ code_hash String
+ expires_at DateTime @db.Timestamptz(3)
+ attempts Int @default(0)
+ verified_at DateTime? @db.Timestamptz(3)
+ invalidated_at DateTime? @db.Timestamptz(3)
 }

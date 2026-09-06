@@ -1,0 +1,310 @@
+{
+  "task_id": "PAY-W2-03",
+  "agent_id": "codex-parent",
+  "status": "accepted_synthetic_only",
+  "outcome_status": "passed_synthetic_backend",
+  "preparation_status": "implementation_and_verification_recorded",
+  "as_of": "2026-09-06T06:30:01.202Z",
+  "base_commit": "646eb21aad486483d6beacfb394110097da6a658",
+  "accepted_commit_reference": "Commit containing this receipt",
+  "scope": "Employee contracts, effective compensation, synthetic email verification and deactivation backend commands and queries",
+  "blocker_count": 0,
+  "production": "not_run",
+  "release_blocker_group_count": 5,
+  "release_blocker_groups": [
+    "Signed numeric/source matrix",
+    "Real iPOS/tunnel/security evidence",
+    "Real Gmail authorization/send/revoke",
+    "Replacement-profile recovery and Windows operation proof",
+    "Two signed parallel payroll cycles"
+  ],
+  "claim_ledger": [
+    {
+      "layer": "structure",
+      "status": "passed",
+      "evidence": "Additive migration, 46-model database comparison, lint and typecheck"
+    },
+    {
+      "layer": "focused_red",
+      "status": "passed",
+      "evidence": "Missing implementation and targeted closed-history/unsupported-profile tests failed before fixes; runtime receipt contains failed run IDs. Mixed failure receipt passed_count is a harness parsing limitation, not a zero-test run."
+    },
+    {
+      "layer": "approved_synthetic_runtime",
+      "status": "passed",
+      "tests": 22,
+      "run_id": "green-fa824835-029e-456d-a6d6-2837d4aab89a"
+    },
+    {
+      "layer": "regression",
+      "status": "passed",
+      "tests": 150,
+      "evidence": "27 DB/delivery, 59 auth, 64 domain/architecture"
+    },
+    {
+      "layer": "build",
+      "status": "passed",
+      "evidence": "npm run build exit 0"
+    },
+    {
+      "layer": "runtime_cleanup",
+      "status": "passed",
+      "evidence": "No owned PostgreSQL process or listeners on 55432/46217; stopped temporary clusters retained"
+    },
+    {
+      "layer": "new_employee_ui",
+      "status": "not_required",
+      "owner": "W5",
+      "evidence": "No new employee UI or public API claim"
+    },
+    {
+      "layer": "production",
+      "status": "not_run",
+      "blocker_group_count": 5
+    }
+  ],
+  "verification": {
+    "total_distinct_tests": 172,
+    "employee": 22,
+    "database_delivery": 27,
+    "authentication": 59,
+    "domain_architecture": 64,
+    "build": "passed",
+    "lint": "passed",
+    "typecheck": "passed",
+    "receipts": [
+      "ops/evidence/PAY-W2-03-runtime.json",
+      "ops/evidence/PAY-W2-03-regressions.json",
+      "ops/evidence/PAY-W2-03-cleanup.json"
+    ]
+  },
+  "review": {
+    "owner": "codex-parent",
+    "method": "Source inspection and direct focused plus shared regression verification",
+    "independent_reviewer": "not_run; no separate worker spawned",
+    "repairs": [
+      "Closed source rows protected against mutation even when not referenced by finalized payroll",
+      "Unsupported legacy employee and contract profiles denied compensation/contract changes"
+    ],
+    "evidence_limit": "Thin application wrappers compiled; authenticated repository behavior exercised against synthetic PostgreSQL. No external audit or production assurance."
+  },
+  "historical_migrations": [
+    {
+      "path": "prisma/migrations/202609040001_initial/migration.sql",
+      "sha256": "e04f0f9c243cb9167a5809410182ab1b25d150d96aa7690d425de4f08eaec792",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/202609050001_outbox_dispatch/migration.sql",
+      "sha256": "6aa049d22081dc02e5a04db00b348adada96705588f3c6b55deaaa6f420dcaf0",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/202609060001_w2_02_auth/migration.sql",
+      "sha256": "245070886ec4c830f65bd983aa3650ce31756a543bf1924b927227a172f850d9",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/migration_lock.toml",
+      "sha256": "1db17a8d051aa136110736752c5e1f8b7ed92b6ea8e803112fbbe2497047c210",
+      "unchanged": true
+    }
+  ],
+  "files_modified": [
+    "apps/web/src/lib/application/commands/add-contract.ts",
+    "apps/web/src/lib/application/commands/change-compensation.ts",
+    "apps/web/src/lib/application/commands/change-email.ts",
+    "apps/web/src/lib/application/commands/create-employee.ts",
+    "apps/web/src/lib/application/commands/deactivate-employee.ts",
+    "apps/web/src/lib/application/commands/verify-email-code.ts",
+    "apps/web/src/lib/application/queries/get-employee.ts",
+    "apps/web/src/lib/application/queries/list-employees.ts",
+    "apps/web/src/lib/auth/authorization.ts",
+    "apps/web/src/lib/db/repositories/compensation.ts",
+    "apps/web/src/lib/db/repositories/employees.ts",
+    "apps/web/src/lib/delivery/employee-verification.ts",
+    "apps/web/src/lib/delivery/fake-adapter.ts",
+    "apps/web/src/lib/delivery/outbox.ts",
+    "apps/web/src/lib/delivery/types.ts",
+    "docs/agent-packets/PAY-W2-03.json",
+    "docs/planning/W2-03-employee-contract.md",
+    "docs/planning/task-status.json",
+    "ops/evidence/PAY-W2-02-argon2.json",
+    "ops/evidence/PAY-W2-02-runtime.json",
+    "ops/evidence/PAY-W2-03-cleanup.json",
+    "ops/evidence/PAY-W2-03-regressions.json",
+    "ops/evidence/PAY-W2-03-runtime.json",
+    "ops/evidence/PAY-W6-02a-runtime.json",
+    "package.json",
+    "packages/contracts/src/compensation.ts",
+    "packages/contracts/src/employee.ts",
+    "prisma/migrations/202609060002_w2_03_employees/migration.sql",
+    "prisma/schema.prisma",
+    "scripts/windows/test-database.ps1",
+    "scripts/windows/test-employees.ps1",
+    "tests/integration/auth/authorization.spec.ts",
+    "tests/integration/db/transactions.spec.ts",
+    "tests/integration/employees/compensation-effective-dates.spec.ts",
+    "tests/integration/employees/email-verification.spec.ts",
+    "tests/integration/employees/lifecycle.spec.ts",
+    "tests/integration/employees/support.ts",
+    "tests/integration/employees/tsconfig.json",
+    "docs/agent-packets/PAY-W2-03-parent-acceptance.json"
+  ],
+  "source_hashes": [
+    {
+      "path": "apps/web/src/lib/application/commands/add-contract.ts",
+      "sha256": "9294768215e71b9f36236c43f5c520a5b5a70df0921afb7a773de8f58e8d38cb"
+    },
+    {
+      "path": "apps/web/src/lib/application/commands/change-compensation.ts",
+      "sha256": "8bc9b0605bb3a8c73761ade914a6f21f3ea6280cf55f7d98a79921c26ca6aa9f"
+    },
+    {
+      "path": "apps/web/src/lib/application/commands/change-email.ts",
+      "sha256": "980ece0b419b7cd16428ded467e54bcf684bf38f792b7105a0244960f21929f8"
+    },
+    {
+      "path": "apps/web/src/lib/application/commands/create-employee.ts",
+      "sha256": "7efef170a4a0d490938aab5983098f945cacc80fee8b6e98151f1dffdfaf3e18"
+    },
+    {
+      "path": "apps/web/src/lib/application/commands/deactivate-employee.ts",
+      "sha256": "3b5edf4e187acff8e78a9ed0ac4050a09ed491b4040956c469408182ceed0d6b"
+    },
+    {
+      "path": "apps/web/src/lib/application/commands/verify-email-code.ts",
+      "sha256": "fb8dae16039313234a90bcdc00445ff3b0dbbd52f8bcd420df154ee524f0a30a"
+    },
+    {
+      "path": "apps/web/src/lib/application/queries/get-employee.ts",
+      "sha256": "ade98f13d4fce42e67ea15902a3e1b16efd89e8241178c3323df8d0540aa3bca"
+    },
+    {
+      "path": "apps/web/src/lib/application/queries/list-employees.ts",
+      "sha256": "9388d508ed7c1394b37cc2dc1ae121f5b0cb2ca7996a1571f1eafed5359eb641"
+    },
+    {
+      "path": "apps/web/src/lib/auth/authorization.ts",
+      "sha256": "bb949bd507814eee69852fc08a0a4e1b2b89d7bc0e6a28a135208572e960e11a"
+    },
+    {
+      "path": "apps/web/src/lib/db/repositories/compensation.ts",
+      "sha256": "4f676fec55b41ae8ee50c514bc3f700bbd5256cd97d59df42cfc6f93a3ddb418"
+    },
+    {
+      "path": "apps/web/src/lib/db/repositories/employees.ts",
+      "sha256": "00279e119764624e4bf81732a0bbd272b9cfbc10e77e5dcaa27ab5fc44b16744"
+    },
+    {
+      "path": "apps/web/src/lib/delivery/employee-verification.ts",
+      "sha256": "712a3962fc6e8eb06e124eb7ef1e06c366e9e2491557d2269e6f489150cfee46"
+    },
+    {
+      "path": "apps/web/src/lib/delivery/fake-adapter.ts",
+      "sha256": "349b05742a86b9b9270cae4095fe4ffa85921c1a4eb19deaa6b20b44ff0c9fc6"
+    },
+    {
+      "path": "apps/web/src/lib/delivery/outbox.ts",
+      "sha256": "93d879f92f4d62a775f26934e3b6187731e5bac104bfcf2a3f2631cd4d413c99"
+    },
+    {
+      "path": "apps/web/src/lib/delivery/types.ts",
+      "sha256": "f16d1d6e78ed0a430663df851e86f347541f0facfda0f4fa0a8e200cca8029c8"
+    },
+    {
+      "path": "docs/agent-packets/PAY-W2-03.json",
+      "sha256": "a425b2efd0590077c3ad2918419a9b33707ec3f5065eb9e6e6361e4a19956063"
+    },
+    {
+      "path": "docs/planning/W2-03-employee-contract.md",
+      "sha256": "8087c42b6271b0c3c3c680c951ea9a62f5f6606ed7155b60859236038921ad1c"
+    },
+    {
+      "path": "docs/planning/task-status.json",
+      "sha256": "5cde44bf40182c7387b86ca49d4b95a17d9e62a75a2d08cf2502d70bbdd04123"
+    },
+    {
+      "path": "ops/evidence/PAY-W2-02-argon2.json",
+      "sha256": "bcc240da6402c995c012f60e5561c18203ff19b99f0b60d488494fb415ddfa4c"
+    },
+    {
+      "path": "ops/evidence/PAY-W2-02-runtime.json",
+      "sha256": "7611434aaba84152344d3191362ba58dd26bde6640ae6da72991983c8338591c"
+    },
+    {
+      "path": "ops/evidence/PAY-W2-03-cleanup.json",
+      "sha256": "805308d3285ad71605631f52d4bef31effb7ba6ab79fecf1b046cf9a0e1b6579"
+    },
+    {
+      "path": "ops/evidence/PAY-W2-03-regressions.json",
+      "sha256": "3aadab98b78e5caa15cccf53ff0cc7194d5ed32db4040a864942ffe4e69be51b"
+    },
+    {
+      "path": "ops/evidence/PAY-W2-03-runtime.json",
+      "sha256": "660b881c53bb20dcdbfc6f13d58f7706112a12802be21b68906846744b6b6618"
+    },
+    {
+      "path": "ops/evidence/PAY-W6-02a-runtime.json",
+      "sha256": "451d666aa7a5f381b7ea0ed782975090bc92ec3a5b90616db5d3d9fcb4558a9e"
+    },
+    {
+      "path": "package.json",
+      "sha256": "4689b4f12f394e31608d2546b2bde65ec25a9eaba86212ca73584874fae9db53"
+    },
+    {
+      "path": "packages/contracts/src/compensation.ts",
+      "sha256": "b85b84537f5cfafaf7bac45b3729c36bf79ededb3b367c8d30a59f7fdf727c26"
+    },
+    {
+      "path": "packages/contracts/src/employee.ts",
+      "sha256": "5b2af5b7d34861839359a27bc7a4058e0610ed49cafd562a388497ca34283efc"
+    },
+    {
+      "path": "prisma/migrations/202609060002_w2_03_employees/migration.sql",
+      "sha256": "3db26a9594e52448ed5ef0f3550b074d277823c2e37ee0b5f3d60c3418919ef0"
+    },
+    {
+      "path": "prisma/schema.prisma",
+      "sha256": "a48cb536d0b1ae9169f24134ef57c49e1fbc3f9a652d5b5c6bc875789f83d5e1"
+    },
+    {
+      "path": "scripts/windows/test-database.ps1",
+      "sha256": "9a8581eba4dd81e4ae4aed449f20179d6390334cfe2fe6b7ef100cb97f7fe005"
+    },
+    {
+      "path": "scripts/windows/test-employees.ps1",
+      "sha256": "7c9d30a18fcefd74750dc70ffb38ee3cbb743060eb44dd05cba4578025eadb66"
+    },
+    {
+      "path": "tests/integration/auth/authorization.spec.ts",
+      "sha256": "d12e7d0b083fe9b80da12626a283d8b2513cb917d8cf8ce087ac158ebb373478"
+    },
+    {
+      "path": "tests/integration/db/transactions.spec.ts",
+      "sha256": "1cbcfe3ef44836c62ed154b7a922ec04863e4cf81d2fdba9454f9395e9819c01"
+    },
+    {
+      "path": "tests/integration/employees/compensation-effective-dates.spec.ts",
+      "sha256": "6c79b3973d3aadb7114515bbe87b2eb5382cb6a980707c8712ad475c5f359839"
+    },
+    {
+      "path": "tests/integration/employees/email-verification.spec.ts",
+      "sha256": "df5885a139055b7056d8dcc4cf287b49fe7d67c08876ffd8cc95fdc63187a901"
+    },
+    {
+      "path": "tests/integration/employees/lifecycle.spec.ts",
+      "sha256": "bb207bc68918711a49f592eda6bfed773cae899eec8843681b37ae689ec4a4d4"
+    },
+    {
+      "path": "tests/integration/employees/support.ts",
+      "sha256": "722ddbffb40227d2ba1d3c44306378b0a11a5b2bcc94d04ac5f37a3e7fc82401"
+    },
+    {
+      "path": "tests/integration/employees/tsconfig.json",
+      "sha256": "7b1b79a2c2da14e69747e9507827eec0e633b3c8edec0833741608c88da28974"
+    }
+  ],
+  "retention": "No deletion or historical receipt restoration. Existing test harness outputs retained with W2-03 provenance. No background task remains running.",
+  "next_action": "Implement W3-01b effective-dated schedule commands using accepted W2-03 dependencies"
+}

@@ -33,7 +33,7 @@ export async function enqueueSyntheticVerification(tx: PoolClient, input: {
       if (prior.kind !== "synthetic_email_verification" || prior.employee_id !== input.employeeId || prior.destination_id !== input.destinationId) throw conflict("IDEMPOTENCY_CONFLICT");
       return { jobId: prior.id as string };
     }
-    const destination = (await tx.query("SELECT * FROM delivery_destinations WHERE id=$1 AND organization_id=$2 AND employee_id=$3 AND channel='email' AND valid_from<=$4 AND (valid_to IS NULL OR valid_to>$4) FOR UPDATE", [input.destinationId, input.organizationId, input.employeeId, input.now])).rows[0];
+    const destination = (await tx.query("SELECT * FROM delivery_destinations WHERE id=$1 AND organization_id=$2 AND employee_id=$3 AND channel='email' AND valid_from<=$4 AND (valid_to IS NULL OR valid_to>$4) AND NOT EXISTS(SELECT 1 FROM delivery_destination_closures c WHERE c.destination_id=delivery_destinations.id AND c.effective_to<=$4) FOR UPDATE", [input.destinationId, input.organizationId, input.employeeId, input.now])).rows[0];
     if (!destination) throw conflict("DESTINATION_MISMATCH");
     const jobId = randomUUID();
     const message: FakeMessage = { jobId, idempotencyKey: jobId, to: destination.address as string, subject: SUBJECT, body: BODY };

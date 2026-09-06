@@ -103,13 +103,16 @@
     {
       "task_id": "PAY-W2-03",
       "title": "Employee contracts and destinations",
-      "owner": "codex-implementation-worker",
-      "status": "not_started",
-      "evidence": [],
+      "owner": "codex-parent",
+      "status": "accepted_synthetic_only",
+      "evidence": [
+        "docs/agent-packets/PAY-W2-03-parent-acceptance.json"
+      ],
       "accepted_commit": null,
       "production": "not_run",
       "planned_manager": "codex-parent",
-      "planned_reviewer": "codex-independent-reviewer"
+      "planned_reviewer": "codex-parent source and integration review",
+      "acceptance_commit_reference": "Commit containing docs/agent-packets/PAY-W2-03-parent-acceptance.json"
     },
     {
       "task_id": "PAY-W3-01",
@@ -344,7 +347,11 @@
         "W6-02a"
       ],
       "outcome": "contracts and fake email verification",
-      "status": "not_started"
+      "status": "accepted_synthetic_only",
+      "evidence": [
+        "docs/agent-packets/PAY-W2-03-parent-acceptance.json"
+      ],
+      "blocker_count": 0
     },
     {
       "id": "W3-01b",
@@ -564,9 +571,9 @@
     "current_receipt": "docs/agent-packets/PAY-W2-02-parent-acceptance.json"
   },
   "execution_route": {
-    "kind": "codex_parent_after_bounded_hermes_job",
-    "decision": "Duke explicitly approved full Hermes W2-02 wave; worker stopped partial, parent completed scoped integration and direct verification.",
-    "packet": "docs/agent-packets/PAY-W2-02-HERMES-execution.json",
-    "roster_confirmation": "Existing Forge session only; no extra workers; W2-02 accepted synthetic only"
+    "kind": "codex_parent",
+    "decision": "Duke clarified Approve as Yes next implement for W2-03. Parent implemented and directly verified the synthetic backend; no additional worker or push.",
+    "packet": "docs/agent-packets/PAY-W2-03.json",
+    "roster_confirmation": "Parent only; no worker spawned"
   }
 }
