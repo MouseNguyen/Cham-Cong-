@@ -26,7 +26,8 @@
     "test:auth:browser": "powershell -NoProfile -File scripts/windows/test-auth.ps1 -Browser",
     "test:employees": "powershell -NoProfile -File scripts/windows/test-employees.ps1",
     "test:schedules": "powershell -NoProfile -File scripts/windows/test-schedules.ps1",
-    "test:kiosk": "powershell -NoProfile -File scripts/windows/test-kiosk.ps1"
+    "test:kiosk": "powershell -NoProfile -File scripts/windows/test-kiosk.ps1",
+    "test:attendance-review": "powershell -NoProfile -File scripts/windows/test-attendance-review.ps1"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",

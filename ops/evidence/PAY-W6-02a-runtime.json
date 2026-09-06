@@ -117,6 +117,41 @@
         "listener_absent": true,
         "postmaster_pid_file_absent": true
       }
+    },
+    {
+      "task_id": "PAY-W6-02a",
+      "run_id": "green-d6419f4c-8006-4fc7-875f-dfffc6a93365",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W6-02a\\cluster\\green-d6419f4c-8006-4fc7-875f-dfffc6a93365",
+      "port": 55432,
+      "status": "failed",
+      "tests": {
+        "exit": 1,
+        "passed_count": 0
+      },
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      },
+      "error": "Integration failed"
+    },
+    {
+      "task_id": "PAY-W6-02a",
+      "run_id": "green-03e47d2d-e1e3-461b-8768-7c9ecb8990f5",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W6-02a\\cluster\\green-03e47d2d-e1e3-461b-8768-7c9ecb8990f5",
+      "port": 55432,
+      "status": "passed",
+      "tests": {
+        "exit": 0,
+        "passed_count": 27
+      },
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      }
     }
   ]
 }

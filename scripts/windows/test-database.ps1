@@ -1,4 +1,4 @@
-param([ValidateSet('Red','Green')][string]$Mode='Green', [ValidateSet('PAY-W2-01','PAY-W6-02a','PAY-W2-02','PAY-W2-03','PAY-W3-01b','PAY-W3-02a','PAY-W3-02b','PAY-W7-02a')][string]$TaskId='PAY-W2-01', [switch]$Browser)
+param([ValidateSet('Red','Green')][string]$Mode='Green', [ValidateSet('PAY-W2-01','PAY-W6-02a','PAY-W2-02','PAY-W2-03','PAY-W3-01b','PAY-W3-02a','PAY-W3-02b','PAY-W7-02a','PAY-W3-03')][string]$TaskId='PAY-W2-01', [switch]$Browser)
 $ErrorActionPreference='Stop'
 $env:PAYSLIP_DB_TEST_MODE=$Mode
 $env:PAYSLIP_DB_TASK_ID=$TaskId
@@ -14,7 +14,7 @@ const cluster=path.join(root,'.tmp',taskId,'cluster',runId);
 const log=path.join(root,'.tmp',taskId,runId+'.log');
 const ownerPassword=crypto.randomBytes(32).toString('hex'),appPassword=crypto.randomBytes(32).toString('hex'),ingressPassword=crypto.randomBytes(32).toString('hex');
 const kioskTask=['PAY-W3-02a','PAY-W3-02b','PAY-W7-02a'].includes(taskId);
-const database=kioskTask?'payslip_w3_02_synthetic':taskId==='PAY-W3-01b'?'payslip_w3_01b_synthetic':taskId==='PAY-W2-03'?'payslip_w2_03_synthetic':taskId==='PAY-W2-02'?'payslip_w2_02_auth_synthetic':'payslip_w2_01_synthetic';
+const database=taskId==='PAY-W3-03'?'payslip_w3_03_synthetic':kioskTask?'payslip_w3_02_synthetic':taskId==='PAY-W3-01b'?'payslip_w3_01b_synthetic':taskId==='PAY-W2-03'?'payslip_w2_03_synthetic':taskId==='PAY-W2-02'?'payslip_w2_02_auth_synthetic':'payslip_w2_01_synthetic';
 const ownerConnection=new URL('postgresql://127.0.0.1:55432/'+database); ownerConnection.username='payslip_owner'; ownerConnection.password=ownerPassword; const ownerUrl=ownerConnection.href;
 const appConnection=new URL('postgresql://127.0.0.1:55432/'+database); appConnection.username='payslip_app'; appConnection.password=appPassword; const appUrl=appConnection.href;
 const ingressConnection=new URL(ownerUrl); ingressConnection.username='payslip_ingress';ingressConnection.password=ingressPassword;const ingressUrl=ingressConnection.href;
@@ -54,7 +54,7 @@ let started=false,admin;
     if((await owner.query("SELECT to_regclass('public.outbox_dispatch_attempts') AS name")).rows[0].name)await owner.query('REVOKE UPDATE,DELETE ON outbox_dispatch_attempts FROM payslip_app');
    }
   }finally{await owner.end();}
-  const tests=run(process.execPath,['node_modules/vitest/vitest.mjs','run',kioskTask?(taskId==='PAY-W7-02a'?'tests/integration/operations/service-lifecycle.windows.spec.ts':'tests/integration/attendance/ingress.spec.ts'):taskId==='PAY-W3-01b'?'tests/integration/attendance/schedule-effective-dates.spec.ts':taskId==='PAY-W2-03'?'tests/integration/employees':taskId==='PAY-W2-02'?'tests/integration/auth':'tests/integration/db',...(taskId==='PAY-W6-02a'?['tests/integration/delivery']:[]),'--maxWorkers=1','--no-file-parallelism'],undefined,true);
+  const tests=run(process.execPath,['node_modules/vitest/vitest.mjs','run',taskId==='PAY-W3-03'?'tests/integration/attendance/review.spec.ts':kioskTask?(taskId==='PAY-W7-02a'?'tests/integration/operations/service-lifecycle.windows.spec.ts':'tests/integration/attendance/ingress.spec.ts'):taskId==='PAY-W3-01b'?'tests/integration/attendance/schedule-effective-dates.spec.ts':taskId==='PAY-W2-03'?'tests/integration/employees':taskId==='PAY-W2-02'?'tests/integration/auth':'tests/integration/db',...(taskId==='PAY-W6-02a'?['tests/integration/delivery']:[]),'--maxWorkers=1','--no-file-parallelism'],undefined,true);
   receipt.tests={exit:tests.exit,passed_count:Number(tests.output.match(/Tests\s+(\d+) passed/)?.[1]||0)};
   if(mode==='Red'){
    if(tests.exit===0||!tests.output.includes('does not exist'))throw Error('Expected real missing-schema RED was not observed');
@@ -65,6 +65,11 @@ let started=false,admin;
     const browser=run(process.execPath,['tests/integration/auth/browser-runner.cjs'],undefined,true);
     receipt.browser={exit:browser.exit,passed_count:Number(browser.output.match(/(\d+) passed/)?.[1]||0)};
     if(browser.exit!==0)throw Error('Browser flow failed');
+   }
+   if(taskId==='PAY-W3-03'&&process.env.PAYSLIP_AUTH_BROWSER==='1'){
+    const browser=run(process.execPath,['tests/integration/attendance/review-browser-runner.cjs'],undefined,true);
+    receipt.browser={exit:browser.exit,passed_count:Number(browser.output.match(/(\d+) passed/)?.[1]||0)};
+    if(browser.exit!==0||receipt.browser.passed_count<1)throw Error('Review browser failed or empty');
    }
    if(taskId==='PAY-W3-02b'){
     const browser=run(process.execPath,['tests/integration/attendance/kiosk-browser-runner.cjs'],undefined,true);

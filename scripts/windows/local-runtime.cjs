@@ -31,7 +31,7 @@ function listenerOwner(port) {
 function syntheticUrl(value) {
   if(!value)throw Error('EXPLICIT_SYNTHETIC_DATABASE_REQUIRED');
   const u=new URL(value);
-  if(u.protocol!=='postgresql:'||u.hostname!=='127.0.0.1'||u.port!=='55432'||u.pathname!=='/payslip_w3_02_synthetic')throw Error('UNAPPROVED_DATABASE_TARGET');
+  if(u.protocol!=='postgresql:'||u.hostname!=='127.0.0.1'||u.port!=='55432'||!['/payslip_w3_02_synthetic','/payslip_w3_03_synthetic'].includes(u.pathname))throw Error('UNAPPROVED_DATABASE_TARGET');
   return value;
 }
 function baseEnv() {

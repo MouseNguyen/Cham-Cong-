@@ -1,0 +1,51 @@
+{
+  "agent_id": "hermes-forge-w3-03",
+  "task_id": "PAY-W3-03",
+  "status": "blocked_runtime_parent_owned",
+  "summary": "Implemented typed attendance-review contract, deterministic source/candidate hashing and validation, authenticated repository commands, append-only proposal/decision/audit migration, Prisma model fragment, thin command/query adapters, a synthetic PostgreSQL fixture/spec, and pure review tests. No Prisma schema was edited.",
+  "evidence": {
+    "known": [
+      "npm run typecheck exited 0 on 2026-09-06.",
+      "npm run test:unit -- --run packages/attendance-domain/test/review.spec.ts exited 0: 1 file, 3 tests.",
+      "git diff --check exited 0."
+    ],
+    "not_run": [
+      "No PostgreSQL server, migration, integration test, app server, or browser was started by this worker; these are expressly parent-owned in the task packet."
+    ]
+  },
+  "files_read": [
+    "AGENTS.md",
+    "docs/agent-packets/PAY-W3-03.json",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md",
+    "packages/attendance-domain/src/{anomalies,payable-segments,schedule,state-machine,types}.ts",
+    "apps/web/src/lib/db/repositories/{auth,schedules,snapshots}.ts",
+    "apps/web/src/lib/auth/authorization.ts",
+    "tests/integration/auth/support.ts",
+    "prisma/migrations/202609040001_initial/migration.sql"
+  ],
+  "files_modified": [
+    "packages/contracts/src/attendance-review.ts",
+    "packages/attendance-domain/src/review.ts",
+    "packages/attendance-domain/test/review.spec.ts",
+    "apps/web/src/lib/db/repositories/attendance-review.ts",
+    "apps/web/src/lib/application/commands/draft-attendance-classification.ts",
+    "apps/web/src/lib/application/commands/approve-attendance-exception.ts",
+    "apps/web/src/lib/application/commands/finalize-attendance-snapshot.ts",
+    "apps/web/src/lib/application/queries/list-attendance-exceptions.ts",
+    "prisma/migrations/202609060005_w3_03_review/migration.sql",
+    "docs/agent-packets/PAY-W3-03-schema-fragment.prisma",
+    "tests/integration/attendance/review-support.ts",
+    "tests/integration/attendance/review.spec.ts",
+    "docs/agent-packets/PAY-W3-03-HERMES-progress.json",
+    "docs/agent-packets/PAY-W3-03-HERMES-handoff.json"
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "pure_review_test": "pass (3 tests)",
+    "postgresql_integration": "not run; parent-owned runtime gate",
+    "migration": "not applied; parent-owned lifecycle/runtime gate"
+  },
+  "blocker": "Real PostgreSQL evidence cannot be claimed because the task explicitly assigns DB startup/migration/runtime to the parent. The parent must use only PAYSLIP_TEST_DATABASE_URL for payslip_app@127.0.0.1:55432/payslip_w3_03_synthetic.",
+  "next_action": "Review the additive SQL and Prisma fragment together; apply it to the approved synthetic database; run the focused integration suite and inspect the resulting snapshot/audit rows."
+}

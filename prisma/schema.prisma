@@ -219,6 +219,7 @@ model attendance_adjustments {
 }
 
 model attendance_snapshots {
+  review_case_id String? @unique @db.Uuid
   id String @db.Uuid @id
   organization_id String @db.Uuid
   workplace_id String @db.Uuid
@@ -605,4 +606,56 @@ model schedule_exception_supersessions {
  organization_id String @db.Uuid
  employee_id String @db.Uuid
  created_at DateTime @db.Timestamptz(3)
+}
+
+model attendance_review_cases {
+  id String @id @db.Uuid
+  organization_id String @db.Uuid
+  workplace_id String @db.Uuid
+  employee_id String @db.Uuid
+  month String
+  version Int @default(0)
+  created_at DateTime @db.Timestamptz(3)
+  @@unique([organization_id, workplace_id, employee_id, month])
+}
+
+model attendance_review_proposals {
+  id String @id @db.Uuid
+  case_id String @db.Uuid
+  organization_id String @db.Uuid
+  workplace_id String @db.Uuid
+  employee_id String @db.Uuid
+  expected_version Int
+  source_hash String
+  candidate_hash String
+  canonical_payload String
+  reason String
+  made_by String @db.Uuid
+  made_at DateTime @db.Timestamptz(3)
+}
+
+model attendance_review_decisions {
+  id String @id @db.Uuid
+  proposal_id String @unique @db.Uuid
+  case_id String @db.Uuid
+  organization_id String @db.Uuid
+  expected_version Int
+  source_hash String
+  candidate_hash String
+  reason String
+  approved_by String @db.Uuid
+  approved_at DateTime @db.Timestamptz(3)
+}
+
+model attendance_review_audits {
+  id String @id @db.Uuid
+  case_id String @db.Uuid
+  organization_id String @db.Uuid
+  actor_id String @db.Uuid
+  action String
+  expected_version Int
+  reason String
+  source_hash String
+  candidate_hash String?
+  created_at DateTime @db.Timestamptz(3)
 }

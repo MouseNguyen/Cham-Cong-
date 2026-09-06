@@ -1,0 +1,323 @@
+{
+  "task_id": "PAY-W3-03",
+  "agent_id": "codex-parent",
+  "status": "accepted_synthetic_only",
+  "outcome_status": "passed_synthetic_attendance_review",
+  "preparation_status": "integrated_migrated_built_verified",
+  "as_of": "2026-09-06T08:57:29.109Z",
+  "base_commit": "1928f8b83419450363e2f9b00f3ad2e3962770bd",
+  "accepted_commit_reference": "Commit containing this receipt",
+  "worker": {
+    "session": "20260906_151311_177454",
+    "model": "gpt-5.6-terra-900k",
+    "status": "stopped",
+    "exit_code": 0,
+    "evidence": "Worker draft was repaired and verified independently by parent. Historical worker handoff and later repair progress remain separate evidence."
+  },
+  "local_core_blocker_count": 0,
+  "production": "not_run",
+  "production_release_blocker_group_count": 5,
+  "production_release_blocker_groups": [
+    "Signed numeric/source matrix",
+    "Real iPOS/tunnel/security evidence",
+    "Real Gmail authorization/send/revoke",
+    "Replacement-profile recovery and Windows operation proof",
+    "Two signed parallel payroll cycles"
+  ],
+  "claim_ledger": [
+    {
+      "layer": "structure",
+      "status": "passed",
+      "evidence": "Seven additive migrations; generated Prisma client; direct comparison of 60 declared models and every column/type/nullability; final build/typecheck/lint/diff checks."
+    },
+    {
+      "layer": "red_green",
+      "status": "passed",
+      "evidence": "Direct failures then repairs: cyclic canonical arrays, outside-schedule classification, frozen review source, browser employee label, and overbroad snapshot uniqueness. Fixture clock and callback-wrapper failures remain in historical receipts.",
+      "limit": "UI test was authored before UI; first actual browser RED occurred after implementation. Do not infer a pre-implementation browser run."
+    },
+    {
+      "layer": "approved_runtime_backend",
+      "status": "passed",
+      "evidence": "Eight real PostgreSQL tests: maker/checker, current authorization, exact milliseconds, complete exclusions, corrected missing punch, stale source/proposal, concurrent finalization, audit rollback, frozen-source display."
+    },
+    {
+      "layer": "approved_runtime_browser",
+      "status": "passed",
+      "evidence": "Two Chromium review tests with actual accountant and owner password/TOTP sessions; source/candidate flow and frozen snapshot hash checked against real PostgreSQL; guest/cross-origin rejection. Screenshot inspected."
+    },
+    {
+      "layer": "regressions",
+      "status": "passed",
+      "evidence": "235 distinct passing tests across current scoped suites, including 78 domain/architecture tests. Repeated runs are not counted twice."
+    },
+    {
+      "layer": "cleanup",
+      "status": "passed",
+      "evidence": "Every harness cleanup passed; final listener check showed no listeners on 55432,46217,46218. No owned worker remains active; synthetic clusters retained."
+    },
+    {
+      "layer": "production",
+      "status": "not_run",
+      "blocker_group_count": 5
+    }
+  ],
+  "verification": {
+    "distinct_passed_tests": 235,
+    "unit_and_architecture": 78,
+    "runs": [
+      {
+        "task_id": "PAY-W3-03",
+        "path": "ops/evidence/PAY-W3-03-runtime.json",
+        "run_id": "green-79ce066e-0ee4-42c4-9279-508f45e9098b",
+        "tests": 8,
+        "browser": 2,
+        "cleanup": {
+          "status": "passed",
+          "listener_absent": true,
+          "postmaster_pid_file_absent": true
+        }
+      },
+      {
+        "task_id": "PAY-W6-02a",
+        "path": "ops/evidence/PAY-W6-02a-runtime.json",
+        "run_id": "green-03e47d2d-e1e3-461b-8768-7c9ecb8990f5",
+        "tests": 27,
+        "browser": 0,
+        "cleanup": {
+          "status": "passed",
+          "listener_absent": true,
+          "postmaster_pid_file_absent": true
+        }
+      },
+      {
+        "task_id": "PAY-W2-02",
+        "path": "ops/evidence/PAY-W2-02-runtime.json",
+        "run_id": "green-20caff0e-3244-4861-a716-93d9650fc3df",
+        "tests": 67,
+        "browser": 3,
+        "cleanup": {
+          "status": "passed",
+          "listener_absent": true,
+          "postmaster_pid_file_absent": true
+        }
+      },
+      {
+        "task_id": "PAY-W2-03",
+        "path": "ops/evidence/PAY-W2-03-runtime.json",
+        "run_id": "green-50df32ad-51f1-4eec-8bde-7057cb28cd9b",
+        "tests": 22,
+        "browser": 0,
+        "cleanup": {
+          "status": "passed",
+          "listener_absent": true,
+          "postmaster_pid_file_absent": true
+        }
+      },
+      {
+        "task_id": "PAY-W3-01b",
+        "path": "ops/evidence/PAY-W3-01b-runtime.json",
+        "run_id": "green-fe60fb6e-dac0-4b72-9b57-b7f321c3ff72",
+        "tests": 8,
+        "browser": 0,
+        "cleanup": {
+          "status": "passed",
+          "listener_absent": true,
+          "postmaster_pid_file_absent": true
+        }
+      },
+      {
+        "task_id": "PAY-W3-02b",
+        "path": "ops/evidence/PAY-W3-02b-runtime.json",
+        "run_id": "green-487f91ec-e487-4687-b69a-ef0a6765e360",
+        "tests": 11,
+        "browser": 5,
+        "cleanup": {
+          "status": "passed",
+          "listener_absent": true,
+          "postmaster_pid_file_absent": true
+        }
+      },
+      {
+        "task_id": "PAY-W7-02a",
+        "path": "ops/evidence/PAY-W7-02a-runtime.json",
+        "run_id": "green-bec4cfe6-48ad-427f-ba02-bda1c8778d3a",
+        "tests": 4,
+        "browser": 0,
+        "cleanup": {
+          "status": "passed",
+          "listener_absent": true,
+          "postmaster_pid_file_absent": true
+        }
+      }
+    ],
+    "build": "passed",
+    "typecheck": "passed",
+    "lint": "passed",
+    "diff_check": "passed after staged-file EOF whitespace normalization; no behavior change"
+  },
+  "scope_limits": [
+    "Synthetic local W3-03 only; not M0 or production completion.",
+    "Combined holiday plus night remains a named unsupported blocker; corrections need raw-event provenance.",
+    "Adjustment execution belongs to W4; schema preserves the separate-snapshot route."
+  ],
+  "polish_backlog": [
+    "Detailed responsive/tablet visual sweep and page-tool evals belong to W5.",
+    "More compact source/history browsing and per-segment reason presentation."
+  ],
+  "screenshot": {
+    "path": ".tmp/PAY-W3-03/review-approved.png",
+    "sha256": "824e03b261f1e2526573e730a4a70d7d5e274edf254a03573b4ce7b8ee3df112"
+  },
+  "source_seals": [
+    {
+      "path": "apps/web/src/app/login/page.tsx",
+      "sha256": "8f067258282aadd8a206a2192460c6d1117fe429d16357c43c0e050cd596768b"
+    },
+    {
+      "path": "package.json",
+      "sha256": "f92a50e941e56575c31b1dc1ddc234b7c41828e88d5fb6359510b7100d3f10b2"
+    },
+    {
+      "path": "playwright.config.ts",
+      "sha256": "90d25ae8d73356e43b33cdd7a7ecf0b690de03c42cb995ee04ef8942655e95fb"
+    },
+    {
+      "path": "prisma/schema.prisma",
+      "sha256": "68e5a427c3fe4c6071bee67e90a3949479ff74b6df8ed06d0c95e2ffde66100a"
+    },
+    {
+      "path": "scripts/windows/local-runtime.cjs",
+      "sha256": "ef321b7d2c13605260e61d6fb61d4197ece0dc16fa0e40b44178257e8421c099"
+    },
+    {
+      "path": "scripts/windows/test-database.ps1",
+      "sha256": "ab118f1005797a96913a71ae8f6a12af61d53fbfcad92b3a5546c89f5909de7b"
+    },
+    {
+      "path": "tests/integration/db/transactions.spec.ts",
+      "sha256": "23a6250c3cdac5610ceebca5d6aa2bbeb44ca98bc6d06dd270607ecf3e97d655"
+    },
+    {
+      "path": "apps/web/src/app/(admin)/attendance/page.tsx",
+      "sha256": "1e181d9baab079586d961c996472381cdcdc0c2c59079d3db3a8b7315b1d81c7"
+    },
+    {
+      "path": "apps/web/src/app/(admin)/attendance/review-panel.tsx",
+      "sha256": "635e8b538a0b2c5049683862273f6bda4f70c0d5a593ee0f4ff73dd871b52fa0"
+    },
+    {
+      "path": "apps/web/src/app/(admin)/attendance/review.module.css",
+      "sha256": "a888337eb1ecb7401bcb28515c5313dfec12fdb5e91433874e0fd38c0f2d1f0f"
+    },
+    {
+      "path": "apps/web/src/app/api/attendance/route.ts",
+      "sha256": "1b07ba2b915131918013c053be58ae3c6223ae413d3b53da177dfcf150096ba0"
+    },
+    {
+      "path": "apps/web/src/lib/application/commands/approve-attendance-exception.ts",
+      "sha256": "2947d9f25144496f116104d5bae6700a9505aef7fa8a2cfe812628555282202a"
+    },
+    {
+      "path": "apps/web/src/lib/application/commands/draft-attendance-classification.ts",
+      "sha256": "e9036c0191a76a739bec35863b8acb03dd90420dc5128d24a238f92719fff979"
+    },
+    {
+      "path": "apps/web/src/lib/application/commands/finalize-attendance-snapshot.ts",
+      "sha256": "2ccdd6d03f8409cabb7ecb8ef7b0fb2787348f4880c07e83da5ed48dc164d951"
+    },
+    {
+      "path": "apps/web/src/lib/application/queries/list-attendance-exceptions.ts",
+      "sha256": "c01c1b1127bbc03b1b42f368f867fcb109063ea514c17a1ce4d612fb1b9a57a9"
+    },
+    {
+      "path": "apps/web/src/lib/attendance/http.ts",
+      "sha256": "eb76ba2b42e8180a387b8f7f61d5ab72f9d0222fe9959685d66c5a555780ba8b"
+    },
+    {
+      "path": "apps/web/src/lib/db/repositories/attendance-review.ts",
+      "sha256": "189de1c52d868ffa67169b6af8f26ebb154199bdf65db85590384c7e393c4b02"
+    },
+    {
+      "path": "packages/attendance-domain/src/review.ts",
+      "sha256": "4a4478c3f8531792a5b54dd759edd3ac38f57109d7a48b5f112a5d3c8e74f478"
+    },
+    {
+      "path": "packages/attendance-domain/test/review.spec.ts",
+      "sha256": "5e062a7ed8c4356aa5754950b512e06746362869e46cf6f8cb91238a0654a70b"
+    },
+    {
+      "path": "packages/contracts/src/attendance-review.ts",
+      "sha256": "777d59d4ac91e07596b26cbd68f77d8c1af879e35bb1542f4d2cbe189829a676"
+    },
+    {
+      "path": "prisma/migrations/202609060005_w3_03_review/migration.sql",
+      "sha256": "288bd3d192ccdd9ee2c6e38a24386b1330eb10e83049ed7fe272c8325263eee0"
+    },
+    {
+      "path": "scripts/windows/test-attendance-review.ps1",
+      "sha256": "cc667d7f6fdeb4d11d48ff63f2857c8246a39a23c335bf81bbf0e5ecf7bc4796"
+    },
+    {
+      "path": "tests/e2e/attendance-review.spec.ts",
+      "sha256": "b91bfcb93764ce70f15502448c47c4ecc7ca9e5ef6ac2d4a189245cebb7f911b"
+    },
+    {
+      "path": "tests/integration/attendance/review-browser-runner.cjs",
+      "sha256": "241b21c3f2a2bdf62ac56969b686bba2c7e06b36b2641a129533e569142803d7"
+    },
+    {
+      "path": "tests/integration/attendance/review-support.ts",
+      "sha256": "7ccfaff2b2d9a32f9a4c90c63c23f2eff9b49d8b79197c8ff4bf638546ced9da"
+    },
+    {
+      "path": "tests/integration/attendance/review.spec.ts",
+      "sha256": "257fc9fe6528371239c5c980fd969d9fb90628e5d8fb6533c66e2aaf1436fb69"
+    }
+  ],
+  "modified_files": [
+    "apps/web/src/app/(admin)/attendance/page.tsx",
+    "apps/web/src/app/(admin)/attendance/review-panel.tsx",
+    "apps/web/src/app/(admin)/attendance/review.module.css",
+    "apps/web/src/app/api/attendance/route.ts",
+    "apps/web/src/app/login/page.tsx",
+    "apps/web/src/lib/application/commands/approve-attendance-exception.ts",
+    "apps/web/src/lib/application/commands/draft-attendance-classification.ts",
+    "apps/web/src/lib/application/commands/finalize-attendance-snapshot.ts",
+    "apps/web/src/lib/application/queries/list-attendance-exceptions.ts",
+    "apps/web/src/lib/attendance/http.ts",
+    "apps/web/src/lib/db/repositories/attendance-review.ts",
+    "docs/agent-packets/PAY-W3-03-HERMES-domain-repair.md",
+    "docs/agent-packets/PAY-W3-03-HERMES-handoff.json",
+    "docs/agent-packets/PAY-W3-03-HERMES-progress.json",
+    "docs/agent-packets/PAY-W3-03-HERMES-prompt.md",
+    "docs/agent-packets/PAY-W3-03-parent-acceptance.json",
+    "docs/agent-packets/PAY-W3-03-schema-fragment.prisma",
+    "docs/agent-packets/PAY-W3-03.json",
+    "docs/planning/task-status.json",
+    "ops/evidence/PAY-W2-02-argon2.json",
+    "ops/evidence/PAY-W2-02-runtime.json",
+    "ops/evidence/PAY-W2-03-runtime.json",
+    "ops/evidence/PAY-W3-01b-runtime.json",
+    "ops/evidence/PAY-W3-02b-runtime.json",
+    "ops/evidence/PAY-W3-03-runtime.json",
+    "ops/evidence/PAY-W6-02a-runtime.json",
+    "ops/evidence/PAY-W7-02a-runtime.json",
+    "package.json",
+    "packages/attendance-domain/src/review.ts",
+    "packages/attendance-domain/test/review.spec.ts",
+    "packages/contracts/src/attendance-review.ts",
+    "playwright.config.ts",
+    "prisma/migrations/202609060005_w3_03_review/migration.sql",
+    "prisma/schema.prisma",
+    "scripts/windows/local-runtime.cjs",
+    "scripts/windows/test-attendance-review.ps1",
+    "scripts/windows/test-database.ps1",
+    "tests/e2e/attendance-review.spec.ts",
+    "tests/integration/attendance/review-browser-runner.cjs",
+    "tests/integration/attendance/review-support.ts",
+    "tests/integration/attendance/review.spec.ts",
+    "tests/integration/db/transactions.spec.ts"
+  ],
+  "next_action": "W4-01: consume the approved snapshot in full-time pay-run orchestration; no W4 runtime or production claim here."
+}

@@ -1,0 +1,126 @@
+{
+  "task_id": "PAY-W3-03",
+  "status": "accepted_synthetic_only",
+  "base_commit": "1928f8b83419450363e2f9b00f3ad2e3962770bd",
+  "authority": "Duke approved the next action following W3-02: attendance review and approval. Existing delegation-as-needed authorization persists. Reuse one Hermes Forge Terra900k medium backend owner; parent owns UI, integration, synthetic runtime and commit. No extra model or child.",
+  "core_outcome": "An accountant proposes a source-bound correction/classification; an independently authenticated owner approves and freezes a canonical monthly snapshot with exact approved segments and explicit exclusions. Raw/correction changes invalidate stale approvals. The real local review screen exercises the same commands.",
+  "must_pass_gates": [
+    "Separate maker/checker roles and identities; CSRF/session/org checks; fresh owner MFA for approval/finalization",
+    "Current source and candidate hashes, optimistic versions, complete raw-event coverage, reasons and timestamps; unsupported/unresolved evidence blocks",
+    "Frozen snapshot includes canonical approved intervals/classifications, rejected/excluded raw evidence, correction provenance, schedule/raw source seal and actor/time; exact integer milliseconds",
+    "No raw history update/delete, no rejected duration payable, no snapshot mutation; atomic append-only decision/audit and idempotent finalization",
+    "Local actual browser flow with separate accountant/owner sessions, blockers first and raw/scheduled evidence visible",
+    "Focused RED/GREEN PostgreSQL and browser, relevant regressions, build/typecheck/lint and exact process/listener cleanup"
+  ],
+  "roster": [
+    {
+      "agent_id": "hermes-forge-w3-03",
+      "profile": "forge",
+      "model": "gpt-5.6-terra-900k",
+      "reasoning": "medium",
+      "job": "Complete attendance review backend and focused tests",
+      "children": 0
+    },
+    {
+      "agent_id": "codex-parent",
+      "job": "UI/API composition, harness, integration and final evidence"
+    }
+  ],
+  "worker_owned_files": [
+    "packages/contracts/src/attendance-review.ts",
+    "packages/attendance-domain/src/review.ts",
+    "packages/attendance-domain/test/review.spec.ts",
+    "apps/web/src/lib/db/repositories/attendance-review.ts",
+    "apps/web/src/lib/application/commands/draft-attendance-classification.ts",
+    "apps/web/src/lib/application/commands/approve-attendance-exception.ts",
+    "apps/web/src/lib/application/commands/finalize-attendance-snapshot.ts",
+    "apps/web/src/lib/application/queries/list-attendance-exceptions.ts",
+    "prisma/migrations/202609060005_w3_03_review/migration.sql",
+    "docs/agent-packets/PAY-W3-03-schema-fragment.prisma",
+    "tests/integration/attendance/review.spec.ts",
+    "tests/integration/attendance/review-support.ts",
+    "docs/agent-packets/PAY-W3-03-HERMES-progress.json",
+    "docs/agent-packets/PAY-W3-03-HERMES-handoff.json"
+  ],
+  "parent_owned_files": [
+    "apps/web/src/app/(admin)/attendance/**",
+    "apps/web/src/app/api/attendance/**",
+    "apps/web/src/lib/attendance/**",
+    "apps/web/src/app/login/** only navigation link if required",
+    "prisma/schema.prisma only after explicit lifecycle review; no optional W3-02 metadata edit",
+    "scripts/windows/test-database.ps1",
+    "scripts/windows/test-attendance-review.ps1",
+    "scripts/windows/local-runtime.cjs",
+    "tests/integration/attendance/review-browser-runner.cjs",
+    "tests/e2e/attendance-review.spec.ts",
+    "tests/integration/db/transactions.spec.ts",
+    "tests/integration/attendance/tsconfig.json",
+    "playwright.config.ts",
+    "package.json",
+    "docs/agent-packets/PAY-W3-03*",
+    "docs/planning/task-status.json",
+    "ops/evidence/PAY-W3-03*",
+    "existing generated regression receipts"
+  ],
+  "runtime": {
+    "scope": "fresh synthetic only; no real data",
+    "database": "payslip_w3_03_synthetic at 127.0.0.1:55432; generated credentials via parent harness",
+    "app": "127.0.0.1:46217 private admin, existing Chromium; no public access",
+    "actions": "Installed Node/Vitest/TypeScript/Next/Playwright and PostgreSQL; generated DPAPI synthetic auth; reviewed additive migration/generate/app restart, never ambient DATABASE_URL",
+    "schema_lifecycle": "Parent examines migration/schema synchronization before schema edits. Do not use db push to remove migration-owned FKs/checks/triggers. Prior optional schema metadata rejection remains unapplied and is not retried by this task.",
+    "limits": {
+      "minutes": 90,
+      "worker_seconds": 2400,
+      "worker_turns": 100,
+      "core_checkpoint_minutes": 15,
+      "attempts_per_evidence_layer": 2,
+      "disk_gb": 2,
+      "children": 0
+    },
+    "cleanup": "Stop exact owned processes/listeners; retain synthetic temporary clusters and evidence; no recursive deletion"
+  },
+  "exclusions": [
+    "Payroll finalization W4-01 and later phases",
+    "Real records, laws/rate changes, Gmail/Zalo/tunnels/iPOS/production",
+    "Dependency install, new provider, global edits, push, worktrees, unrelated refactors"
+  ],
+  "next_action": "W4-01 full-time pay-run orchestration is the next dependency; outside this accepted packet.",
+  "worker_session": "20260906_151311_177454",
+  "integration": {
+    "worker_status": "stopped",
+    "status": "parent_verified",
+    "known_blockers": [],
+    "next_action": "First actual PostgreSQL acceptance, then one source-backed repair",
+    "browser_research": {
+      "failed_family": "implicit nested label exact text",
+      "evidence": "First snapshot shows employee combobox and option; bounded second run identifies getByLabel exact text waiting, not API or database failure.",
+      "hypothesis": "Nested option text changes the label text used by exact getByLabel matching.",
+      "repair": "Explicit Vietnamese aria-label for employee selection; preserve the browser user flow and no coordinate fallback.",
+      "stop": "Stop this selector family if explicit-label rerun fails at the same action.",
+      "direct_source": "node_modules/playwright-core/lib/coreBundle.js getElementLabels: aria-label takes precedence; implicit labels use elementText including nested option text.",
+      "result": "passed after explicit aria-label, same user flow"
+    },
+    "schema_lifecycle_review": {
+      "authority": "Approved W3-03 additive migration/generate/app restart wave; project implementation plan W2 Step 4 explicitly uses reviewed SQL and prisma migrate deploy.",
+      "decision": "Synchronize only the four required new W3-03 model declarations. Use the project migration lifecycle with generate, fresh synthetic migrate deploy, 60-model database comparison, build and local app startup/shutdown.",
+      "excluded": "Do not apply the earlier optional W3-02 composite-unique metadata edit. Do not db push a schema lacking migration-owned foreign keys, checks or triggers.",
+      "status": "passed_generate_migrate_60_model_agreement_build_browser_restart_cleanup"
+    },
+    "snapshot_uniqueness_repair": {
+      "evidence": "Design section 153 requires new linked adjustment snapshots; existing archive regression legitimately writes another snapshot for the same period.",
+      "decision": "Replace blanket employee-period uniqueness with nullable unique review_case_id plus composite scope FK. Preserve existing archive behavior; one original snapshot per W3 review case.",
+      "test": "Keep the existing archive test unchanged; rerun baseline DB and W3 concurrent finalization."
+    }
+  },
+  "scope_limits": [
+    "Synthetic local W3-03 only; not M0 or production completion.",
+    "Combined holiday plus night remains a named unsupported blocker; corrections need raw-event provenance.",
+    "Adjustment execution belongs to W4; schema preserves the separate-snapshot route."
+  ],
+  "polish_backlog": [
+    "Detailed responsive/tablet visual sweep and page-tool evals belong to W5.",
+    "More compact source/history browsing and per-segment reason presentation."
+  ],
+  "acceptance_receipt": "docs/agent-packets/PAY-W3-03-parent-acceptance.json",
+  "worker_completed_at": "2026-09-06"
+}

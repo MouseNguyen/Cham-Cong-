@@ -67,7 +67,7 @@ describe("DB08 replay and transaction capability", () => {
 });
 
 describe("W2 schema/client/repository agreement",()=>{
- it("exposes exactly the 56 declared models with their columns with matching PostgreSQL types and nullability",async()=>{
+ it("exposes exactly the 60 declared models with their columns with matching PostgreSQL types and nullability",async()=>{
   const {readFileSync}=await import("node:fs");
   const schema=readFileSync("prisma/schema.prisma","utf8");
   const expected:Record<string,Record<string,{type:string;nullable:boolean}>>={};
@@ -82,7 +82,7 @@ describe("W2 schema/client/repository agreement",()=>{
    }
    expected[model[1]!]=fields;
   }
-  expect(Object.keys(expected)).toHaveLength(56);
+  expect(Object.keys(expected)).toHaveLength(60);
   const actual:typeof expected={};
   for(const row of (await pool.query("SELECT table_name,column_name,udt_name,is_nullable FROM information_schema.columns WHERE table_schema='public' AND table_name<>'_prisma_migrations'")).rows){
    (actual[row.table_name]??={})[row.column_name]={type:row.udt_name,nullable:row.is_nullable==="YES"};

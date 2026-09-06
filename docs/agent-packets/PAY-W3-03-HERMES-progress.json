@@ -1,0 +1,23 @@
+{
+  "task_id": "PAY-W3-03",
+  "agent_id": "hermes-forge-w3-03",
+  "status": "domain_repair_complete_pure_verified",
+  "scope": [
+    "packages/attendance-domain/src/review.ts",
+    "packages/attendance-domain/test/review.spec.ts"
+  ],
+  "known": [
+    "normalizeReviewCandidate now deep-validates and canonically orders candidates.",
+    "Candidate validation resolves source anomalies only through full correction/exclusion disposition, requires correction for changed normal pairs, preserves cross-month source IDs, and enforces evidence-derived classifications.",
+    "canonicalReview rejects undefined, non-finite, unsupported, and cyclic values.",
+    "Pure unit suite passed: npm run test:unit -- --run packages/attendance-domain/test/review.spec.ts (1 file, 6 tests).",
+    "Attendance-domain TypeScript check passed: npx tsc --noEmit -p packages/attendance-domain/tsconfig.json.",
+    "git diff --check passed."
+  ],
+  "inferred": [],
+  "unknown": [
+    "No database, HTTP/UI, migration, or integration behavior was run or claimed.",
+    "A segment with simultaneous holiday and night evidence remains UNSUPPORTED_SCOPE because the current classification contract cannot represent that combination."
+  ],
+  "next_action": "Parent may integrate normalized candidates and run its independently owned PostgreSQL/UI verification."
+}
