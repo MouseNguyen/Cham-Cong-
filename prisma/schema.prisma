@@ -509,3 +509,40 @@ model employee_email_verifications {
  verified_at DateTime? @db.Timestamptz(3)
  invalidated_at DateTime? @db.Timestamptz(3)
 }
+
+model opening_hour_closures {
+ version_id String @id @db.Uuid
+ organization_id String @db.Uuid
+ workplace_id String @db.Uuid
+ source_hash String
+ effective_to DateTime @db.Timestamptz(3)
+}
+
+model schedule_assignment_closures {
+ assignment_id String @id @db.Uuid
+ organization_id String @db.Uuid
+ workplace_id String @db.Uuid
+ employee_id String @db.Uuid
+ effective_to DateTime @db.Timestamptz(3)
+}
+
+model schedule_exceptions {
+ id String @id @db.Uuid
+ organization_id String @db.Uuid
+ workplace_id String @db.Uuid
+ employee_id String @db.Uuid
+ kind String
+ local_date DateTime @db.Date
+ canonical_payload String
+ content_hash String
+ created_at DateTime @db.Timestamptz(3)
+ @@unique([id, organization_id, employee_id])
+}
+
+model schedule_exception_supersessions {
+ prior_exception_id String @id @db.Uuid
+ replacement_exception_id String @unique @db.Uuid
+ organization_id String @db.Uuid
+ employee_id String @db.Uuid
+ created_at DateTime @db.Timestamptz(3)
+}

@@ -1,0 +1,30 @@
+{
+  "task_id": "PAY-W3-01b",
+  "agent_id": "hermes-forge-w3-01b",
+  "status": "exited",
+  "as_of": "2026-09-06T06:45:10.541Z",
+  "exec_session_id": 65877,
+  "process_ids": {
+    "launcher": 119516,
+    "venv": 38724,
+    "runtime": 86516
+  },
+  "model": "gpt-5.6-terra-900k",
+  "reasoning": "medium",
+  "profile": "forge",
+  "provider": "openai-codex",
+  "toolsets": [
+    "terminal",
+    "file"
+  ],
+  "turn_limit": 90,
+  "run_budget_seconds": 3600,
+  "progress": "docs/agent-packets/PAY-W3-01b-HERMES-progress.json",
+  "handoff": "docs/agent-packets/PAY-W3-01b-HERMES-handoff.json",
+  "outcome_status": "passed_synthetic_backend_after_parent_integration",
+  "preparation_status": "packet_and_parent_harness_ready",
+  "verification_limit": "Process existence proves dispatch, not implementation progress.",
+  "worker_session_id": "20260906_134406_7083de",
+  "exit_code": 0,
+  "evidence": "docs/agent-packets/PAY-W3-01b-parent-acceptance.json"
+}

@@ -1,0 +1,99 @@
+{
+  "agent_id": "hermes-forge-w3-01b",
+  "task_id": "PAY-W3-01b",
+  "session_id": "20260906_134406_7083de",
+  "status": "ready_for_parent_verification",
+  "outcome_status": "implementation_complete_pending_parent_synthetic_db_runtime",
+  "preparation_status": "migration_repository_commands_queries_tests_and_contract_ready",
+  "summary": "Implemented versioned opening hours, effective employee weekly assignments, explicit date/public-holiday overrides, and trusted effective schedule queries. Source schedule rows remain immutable; future replacements use closure/supersession records. The returned schedule context is deliberately not worked time, payable approval, or payroll input approval.",
+  "known": [
+    "The focused schedule suite was written first and failed at the missing module import, then passed after the schedule module was implemented.",
+    "Pure schedule coverage passed 5/5; authorization coverage passed 49/49; the new attendance integration TypeScript project typecheck passed.",
+    "The parent-owned harness exists at scripts/windows/test-schedules.ps1 and delegates to the project database harness for PAY-W3-01b."
+  ],
+  "inferred": [
+    "The additive migration should be applied by the fresh synthetic harness before the schedule integration tests are run."
+  ],
+  "unknown": [
+    "Migration application, generated Prisma client validation, synthetic PostgreSQL integration behavior, full regressions, lint, root typecheck, and build have not been run by this worker.",
+    "No production, real employee, attendance, payroll, kiosk, or external-provider behavior has been exercised."
+  ],
+  "evidence": {
+    "red": {
+      "command": "node node_modules/vitest/vitest.mjs run packages/attendance-domain/test/schedule.spec.ts --maxWorkers=1 --no-file-parallelism",
+      "exit_code": 1,
+      "cause": "Cannot find module ../src/schedule; the suite therefore had zero runnable tests because it could not load."
+    },
+    "green": [
+      {
+        "command": "node node_modules/vitest/vitest.mjs run packages/attendance-domain/test/schedule.spec.ts --maxWorkers=1 --no-file-parallelism",
+        "exit_code": 0,
+        "result": "1 file, 5 passed tests"
+      },
+      {
+        "command": "node node_modules/vitest/vitest.mjs run tests/integration/auth/authorization.spec.ts --maxWorkers=1 --no-file-parallelism",
+        "exit_code": 0,
+        "result": "1 file, 49 passed tests"
+      },
+      {
+        "command": "node node_modules/typescript/bin/tsc --noEmit -p tests/integration/attendance/tsconfig.json",
+        "exit_code": 0,
+        "result": "focused attendance integration typecheck passed"
+      },
+      {
+        "command": "git diff --check",
+        "exit_code": 0,
+        "result": "no whitespace errors"
+      }
+    ]
+  },
+  "files_read": [
+    "AGENTS.md",
+    "docs/agent-packets/PAY-W3-01b-HERMES.json",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md",
+    "docs/planning/task-status.json",
+    "docs/planning/payroll-decision-matrix.md",
+    "docs/agent-packets/PAY-W3-01a-handoff.json",
+    "docs/agent-packets/PAY-W2-03-parent-acceptance.json",
+    "prisma/schema.prisma",
+    "prisma/migrations/202609040001_initial/migration.sql",
+    "prisma/migrations/202609060002_w2_03_employees/migration.sql",
+    "apps/web/src/lib/db/repositories/employees.ts",
+    "apps/web/src/lib/auth/authorization.ts",
+    "packages/attendance-domain/src/types.ts",
+    "packages/attendance-domain/src/anomalies.ts",
+    "tests/integration/employees/support.ts",
+    "tests/integration/auth/support.ts",
+    "tests/integration/auth/authorization.spec.ts",
+    "scripts/windows/test-schedules.ps1"
+  ],
+  "files_modified": [
+    "packages/attendance-domain/src/schedule.ts",
+    "packages/attendance-domain/test/schedule.spec.ts",
+    "apps/web/src/lib/auth/authorization.ts",
+    "tests/integration/auth/authorization.spec.ts",
+    "apps/web/src/lib/db/repositories/schedules.ts",
+    "apps/web/src/lib/application/commands/save-weekly-schedule.ts",
+    "apps/web/src/lib/application/commands/set-schedule-exception.ts",
+    "apps/web/src/lib/application/queries/get-effective-schedule.ts",
+    "prisma/schema.prisma",
+    "prisma/migrations/202609060003_w3_01b_schedules/migration.sql",
+    "tests/integration/attendance/schedule-effective-dates.spec.ts",
+    "tests/integration/attendance/tsconfig.json",
+    "docs/planning/W3-01b-schedule-contract.md",
+    "docs/agent-packets/PAY-W3-01b-HERMES-progress.json",
+    "docs/agent-packets/PAY-W3-01b-HERMES-handoff.json"
+  ],
+  "verification": {
+    "focused_pure_domain": "passed: 5 tests",
+    "focused_authorization": "passed: 49 tests",
+    "focused_typescript": "passed",
+    "synthetic_postgresql": "not_run_by_worker; parent-owned harness",
+    "prisma_validate_generate_migrate": "not_run_by_worker; parent-owned harness",
+    "lint_typecheck_build_regressions": "not_run_by_worker; parent-owned verification",
+    "production": "not_run"
+  },
+  "blocker": null,
+  "next_action": "Parent should execute scripts/windows/test-schedules.ps1 against its fresh project-local synthetic PostgreSQL database, inspect migration/repository transaction behavior, then run its required shared verification. Do not claim database or production success until those direct receipts exist."
+}

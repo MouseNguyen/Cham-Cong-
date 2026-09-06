@@ -1,0 +1,165 @@
+{
+  "contract_kind": "task_runtime",
+  "schema_version": "1.0.0",
+  "task_id": "PAY-W3-01b",
+  "agent_id": "hermes-forge-w3-01b",
+  "status": "worker_exited_parent_accepted_synthetic_scope",
+  "workspace": "F:\\Codex\\Projects\\Pay Slip",
+  "base_commit": "7bd1619213b76737539a0d3adeff510f741492d8",
+  "authority": {
+    "approval": "Duke: Ok approve for it. You can delegate that job to Hermes. Applies to the just-proposed W3-01b effective-dated schedule backend, using existing project runtimes and synthetic verification.",
+    "route_exception": "Direct project-bound Hermes Forge assignment supersedes historical deferred-Hermes text for this packet only. No fleet dispatcher or child workers.",
+    "interpretation": "Implement this bounded job now; no repeat intake approval. Parent owns integration, runtime verification, commit and final claims."
+  },
+  "model_route": {
+    "profile": "forge",
+    "model": "gpt-5.6-terra-900k",
+    "provider": "openai-codex",
+    "reasoning_effort": "medium",
+    "fallback": "none"
+  },
+  "core_outcome": "Authenticated schedule commands persist versioned workplace opening hours, per-employee weekly assignments, and dated/public-holiday exceptions; effective queries preserve earlier history and produce schedule context without inventing attendance or pay.",
+  "must_pass_gates": [
+    "Approved default opening pattern Monday closed, Tue-Fri 15:00-21:00, Sat-Sun 11:00-21:00; later Tue-Fri 11:00-21:00 is a new effective version",
+    "Per-employee weekly assignments and explicit per-date/holiday overrides with deterministic precedence and immutable history",
+    "Trusted current organization/session/role/CSRF checks; inactive and cross-workplace/cross-organization denial; transactional audit and expected-version concurrency",
+    "Half-open intervals, unambiguous shop timezone dates, canonical payload/hash, invalid interval/overlap rejection; no historical clock/snapshot/payroll rewrites",
+    "No deduction of breaks, rounding raw timestamps, synthetic attendance creation or implied salary deductions",
+    "Nonempty focused RED/GREEN with synthetic PG; existing domain/DB/auth/employee regressions and typecheck/lint/build; stopped owned runtime"
+  ],
+  "inputs": [
+    "AGENTS.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md",
+    "docs/planning/task-status.json",
+    "docs/planning/payroll-decision-matrix.md",
+    "docs/agent-packets/PAY-W3-01a-handoff.json",
+    "docs/agent-packets/PAY-W2-03-parent-acceptance.json",
+    "prisma/schema.prisma",
+    "apps/web/src/lib/db/repositories/employees.ts",
+    "packages/attendance-domain/src/types.ts"
+  ],
+  "owned_files": [
+    "packages/attendance-domain/src/schedule.ts",
+    "packages/attendance-domain/test/schedule.spec.ts",
+    "apps/web/src/lib/db/repositories/schedules.ts",
+    "apps/web/src/lib/application/commands/save-weekly-schedule.ts",
+    "apps/web/src/lib/application/commands/set-schedule-exception.ts",
+    "apps/web/src/lib/application/queries/get-effective-schedule.ts",
+    "apps/web/src/lib/auth/authorization.ts",
+    "tests/integration/auth/authorization.spec.ts",
+    "tests/integration/attendance/**",
+    "prisma/schema.prisma",
+    "prisma/migrations/202609060003_w3_01b_schedules/migration.sql",
+    "docs/planning/W3-01b-schedule-contract.md",
+    "docs/agent-packets/PAY-W3-01b-HERMES-progress.json",
+    "docs/agent-packets/PAY-W3-01b-HERMES-handoff.json"
+  ],
+  "parent_owned_files": [
+    "scripts/windows/test-database.ps1",
+    "scripts/windows/test-schedules.ps1",
+    "package.json",
+    "tests/integration/db/transactions.spec.ts",
+    "docs/planning/task-status.json",
+    "docs/agent-packets/PAY-W3-01b*.json",
+    "docs/agent-packets/PAY-W3-01b*.md",
+    "ops/evidence/PAY-W3-01b*.json",
+    "existing harness-generated regression receipts"
+  ],
+  "allowed_actions": [
+    "Read non-secret project source and existing skills needed for implementation",
+    "Edit only worker owned files. Parent may separately modify only parent-owned harness/status/evidence files; that expected dirtiness is not a stale-input failure",
+    "Existing Hermes configured provider transport only; terminal/file tools; no fallback, child delegation, external messaging or agent-initiated network",
+    "Existing installed Vitest/TypeScript tools for focused checks. Parent runs project-owned PostgreSQL18.6 fresh synthetic database harness at 127.0.0.1:55432, Prisma validate/generate/migrate, DPAPI synthetic fixture setup, regression tests, lint/typecheck/build",
+    "One additive migration; never change old migrations. Coordinate with parent to finish full synthetic schema cycle before acceptance"
+  ],
+  "exclusions": [
+    "No installs or dependency changes",
+    "No browser, admin UI, public ingress, kiosk, real data/provider, network research, secrets/.env reads or ambient database connections",
+    "No staged/committed/pushed files, worktrees, global edits or recursive cleanup",
+    "No clock events/snapshot approval/payroll feature implementation; already accepted pure attendance code is read-only except new schedule module"
+  ],
+  "limits": {
+    "max_turns": 90,
+    "run_budget_seconds": 3600,
+    "checkpoint_minutes": 15,
+    "parallel_writers": 1,
+    "children": 0,
+    "same_layer_attempts": 2,
+    "zero_progress": "Freeze blocked family, report exact cause and ask parent for necessary runtime; continue independent in-scope implementation",
+    "gpu": false,
+    "additional_disk_gb": 1,
+    "database_ram_gb": 1,
+    "active_test_minutes": 20
+  },
+  "cleanup": "Worker starts no servers or databases. Parent synthetic harness stops its exact owned PostgreSQL process and proves port absent. Retain synthetic temporary artifacts; no recursive deletion. Hermes exits at completion/budget and preserves normal session history plus project progress/handoff.",
+  "handoff": {
+    "artifact": "docs/agent-packets/PAY-W3-01b-HERMES-handoff.json",
+    "required_fields": [
+      "agent_id",
+      "task_id",
+      "session_id",
+      "status",
+      "summary",
+      "evidence",
+      "files_read",
+      "files_modified",
+      "verification",
+      "blocker",
+      "next_action",
+      "outcome_status",
+      "preparation_status"
+    ]
+  },
+  "polish_backlog": [
+    "Schedule UI W5",
+    "Live kiosk W3-02",
+    "New operational wrapper infrastructure not needed by direct failure"
+  ],
+  "input_hashes": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "4c6e5f97e085cba64a4e6f466d09afc71b8bbcbfee7963ec732b00e0a356d89d"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+      "sha256": "91474c6b5f28f7a1e721355b4dc4e2e5aced2976a26b9ff9626c57a645f83ad2"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md",
+      "sha256": "f65246ee13f5de2c63ea1299443f9891ec8bdcd20fe0a012cef070490539238d"
+    },
+    {
+      "path": "docs/planning/task-status.json",
+      "sha256": "5cde44bf40182c7387b86ca49d4b95a17d9e62a75a2d08cf2502d70bbdd04123"
+    },
+    {
+      "path": "docs/planning/payroll-decision-matrix.md",
+      "sha256": "51079fcc31cb08f909764426f837004dc593d99a7277087b899eae9f0e780b11"
+    },
+    {
+      "path": "docs/agent-packets/PAY-W3-01a-handoff.json",
+      "sha256": "d903d3e5bdf0615200e64a3d09af576c6f522a41c4f90e768c106d09a2cf0693"
+    },
+    {
+      "path": "docs/agent-packets/PAY-W2-03-parent-acceptance.json",
+      "sha256": "ccae5e1548a6d809ce535f28f5f374c3d2c74d5b2f4dda90b865a4541f653598"
+    },
+    {
+      "path": "prisma/schema.prisma",
+      "sha256": "a48cb536d0b1ae9169f24134ef57c49e1fbc3f9a652d5b5c6bc875789f83d5e1"
+    },
+    {
+      "path": "apps/web/src/lib/db/repositories/employees.ts",
+      "sha256": "00279e119764624e4bf81732a0bbd272b9cfbc10e77e5dcaa27ab5fc44b16744"
+    },
+    {
+      "path": "packages/attendance-domain/src/types.ts",
+      "sha256": "ff54df2a5deae42e77bb32a35f16f1a6bf71d77b49925cb47f4c38421c7a064a"
+    }
+  ],
+  "parent_acceptance": "docs/agent-packets/PAY-W3-01b-parent-acceptance.json",
+  "outcome_status": "passed_synthetic_backend",
+  "preparation_status": "implemented_and_verified",
+  "blocker_count": 0
+}

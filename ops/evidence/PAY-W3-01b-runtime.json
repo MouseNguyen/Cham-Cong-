@@ -1,0 +1,111 @@
+{
+  "task_id": "PAY-W3-01b",
+  "runs": [
+    {
+      "task_id": "PAY-W3-01b",
+      "run_id": "green-87e6ba48-b7fe-4748-b27a-0392e3074a47",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W3-01b\\cluster\\green-87e6ba48-b7fe-4748-b27a-0392e3074a47",
+      "port": 55432,
+      "status": "failed",
+      "tests": {
+        "exit": 1,
+        "passed_count": 0
+      },
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      },
+      "error": "Integration failed"
+    },
+    {
+      "task_id": "PAY-W3-01b",
+      "run_id": "green-d45c8e31-4f58-4fb2-b4f4-e4e54c063a8d",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W3-01b\\cluster\\green-d45c8e31-4f58-4fb2-b4f4-e4e54c063a8d",
+      "port": 55432,
+      "status": "failed",
+      "tests": {
+        "exit": 1,
+        "passed_count": 0
+      },
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      },
+      "error": "Integration failed"
+    },
+    {
+      "task_id": "PAY-W3-01b",
+      "run_id": "green-e5a9796f-9256-4f83-895e-7a10ca244fea",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W3-01b\\cluster\\green-e5a9796f-9256-4f83-895e-7a10ca244fea",
+      "port": 55432,
+      "status": "passed",
+      "tests": {
+        "exit": 0,
+        "passed_count": 3
+      },
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      }
+    },
+    {
+      "task_id": "PAY-W3-01b",
+      "run_id": "green-fe941791-ee56-43c8-9206-fba0113b57f9",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W3-01b\\cluster\\green-fe941791-ee56-43c8-9206-fba0113b57f9",
+      "port": 55432,
+      "status": "failed",
+      "tests": {
+        "exit": 1,
+        "passed_count": 0
+      },
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      },
+      "error": "Integration failed"
+    },
+    {
+      "task_id": "PAY-W3-01b",
+      "run_id": "green-80ef8eb3-83b9-43d6-876b-b66dce23b6cb",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W3-01b\\cluster\\green-80ef8eb3-83b9-43d6-876b-b66dce23b6cb",
+      "port": 55432,
+      "status": "failed",
+      "tests": {
+        "exit": 1,
+        "passed_count": 0
+      },
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      },
+      "error": "Integration failed"
+    },
+    {
+      "task_id": "PAY-W3-01b",
+      "run_id": "green-3dc17286-e29e-41c6-bca6-eff39790e22e",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W3-01b\\cluster\\green-3dc17286-e29e-41c6-bca6-eff39790e22e",
+      "port": 55432,
+      "status": "passed",
+      "tests": {
+        "exit": 0,
+        "passed_count": 8
+      },
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      }
+    }
+  ]
+}

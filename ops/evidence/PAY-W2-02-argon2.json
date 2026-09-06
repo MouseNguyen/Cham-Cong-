@@ -9,9 +9,9 @@
     "parallelism": 1
   },
   "samples_ms_hash_plus_two_verifications": [
+    49,
     48,
-    47,
-    48
+    49
   ],
   "maximum_sample_ms": 5000,
   "scope": "local synthetic benchmark; not concurrent production capacity"

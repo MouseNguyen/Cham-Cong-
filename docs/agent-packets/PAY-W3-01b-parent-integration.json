@@ -1,0 +1,44 @@
+{
+  "task_id": "PAY-W3-01b",
+  "status": "passed_synthetic_backend",
+  "ownership": "Worker handoff returned product files for parent verification and repair; no second writer assigned.",
+  "worker_session": "20260906_134406_7083de",
+  "attempt_family": "schedule_synthetic_database",
+  "failed_evidence_layer": "test_fixture_initialization",
+  "failed_run": "green-87e6ba48-b7fe-4748-b27a-0392e3074a47",
+  "cause": "W3 integration imported W2-specific testPool, which correctly rejects the W3 owned database.",
+  "repair": "Keep original W2 guard unchanged; W3 suite uses its own exact database guard. Preserve authenticated fixture clock rather than expiring sessions by advancing eight months.",
+  "predicted_delta": "Schedule tests execute; next relevant assertion will confirm inherited physical exclusion constraints conflict with closure-based replacement.",
+  "runtime_blockers": 0,
+  "production": "not_run",
+  "worker_exit": 0,
+  "worker_mutation_ownership": "released",
+  "local_research": {
+    "failed_run": "green-d45c8e31-4f58-4fb2-b4f4-e4e54c063a8d",
+    "observed": "3 actual tests failed at SELECT FOR UPDATE OF immutable opening history, permission denied",
+    "sources": [
+      "scripts/windows/test-database.ps1: immutable table UPDATE privileges revoked",
+      "prisma/migrations/202609040001_initial/migration.sql: immutable trigger plus physical exclusion ranges",
+      "apps/web/src/lib/db/repositories/schedules.ts: workplace/employee row locks already precede immutable version lookup",
+      "prisma/migrations/202609060003_w3_01b_schedules/migration.sql: logical range guards added without removing original exclusion constraints"
+    ],
+    "hypothesis": "UPDATE privilege required by FOR UPDATE is intentionally unavailable on immutable source rows. Their aggregate workplace/employee locks already serialize application commands. Original physical ranges conflict with append-only closure semantics.",
+    "primary_repair": "Remove row-lock requests on immutable sources; acquire aggregate locks in closure validation too. Replace only original two physical exclusion constraints with the already implemented logical range guard. Keep original immutable triggers and UPDATE privilege denial.",
+    "predicted_delta": "Focused tests reach successful future version changes, historical reads and exception precedence; concurrent callers resolve one accepted version and one stale denial.",
+    "retry_policy": "No repeated blind execution; this repair is grounded in the exact current SQL, role grants and direct error stack."
+  },
+  "history_fixture_research": {
+    "layer": "added_test_fixture",
+    "failed_runs": [
+      "green-fe941791-ee56-43c8-9206-fba0113b57f9",
+      "green-80ef8eb3-83b9-43d6-876b-b66dce23b6cb"
+    ],
+    "source": "Initial migration clock_events and attendance_snapshots full table constraints inspected before repair",
+    "cause": "Parent test reused one parameter for UUID/text, then supplied a non-SHA256 request_hash. Product schedule behavior remained passing in 7 tests.",
+    "repair": "Distinct parameters and actual SHA256 of synthetic clock ID; all snapshot FK/hash/range inputs checked against current schema.",
+    "predicted_delta": "The test can create its immutable fixture and compare unchanged rows after schedule commands.",
+    "stop": "If this fixture layer still fails, stop that attempt family and preserve the 7 passing core assertions; do not retry variants."
+  },
+  "acceptance": "docs/agent-packets/PAY-W3-01b-parent-acceptance.json",
+  "final_schedule_run": "green-3dc17286-e29e-41c6-bca6-eff39790e22e"
+}

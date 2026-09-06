@@ -118,16 +118,17 @@
       "task_id": "PAY-W3-01",
       "title": "Schedule and attendance domain",
       "owner": "codex-parent",
-      "status": "partial",
+      "status": "accepted_synthetic_only",
       "evidence": [
         "docs/agent-packets/PAY-W3-01a-handoff.json",
-        "docs/agent-packets/PAY-W3-01a-review.json"
+        "docs/agent-packets/PAY-W3-01a-review.json",
+        "docs/agent-packets/PAY-W3-01b-parent-acceptance.json"
       ],
       "accepted_commit": null,
       "production": "not_run",
       "planned_manager": "codex-parent",
-      "planned_reviewer": "/root/pay_w3_01a_reviewer",
-      "remaining_scope": "W3-01b effective-dated schedule repositories/commands after W2-03; W3-01a accepted synthetic domain only."
+      "planned_reviewer": "codex-parent integration review for W3-01b; historical W3-01a reviewer retained in its receipt",
+      "acceptance_commit_reference": "W3-01b accepted in commit containing docs/agent-packets/PAY-W3-01b-parent-acceptance.json; W3-01a evidence remains at its original scope/commit"
     },
     {
       "task_id": "PAY-W3-02",
@@ -361,7 +362,11 @@
         "W2-03"
       ],
       "outcome": "schedule commands",
-      "status": "not_started"
+      "status": "accepted_synthetic_only",
+      "evidence": [
+        "docs/agent-packets/PAY-W3-01b-parent-acceptance.json"
+      ],
+      "blocker_count": 0
     },
     {
       "id": "W7-02a",
@@ -563,17 +568,19 @@
   "production_status": "not_run",
   "assignment_evidence": "Native role proposals; actual worker IDs/model bindings come from each confirmed packet. Historical executed ownership remains in receipts.",
   "hermes_dispatch": {
-    "status": "w2_02_job_stopped_parent_accepted",
+    "status": "w3_01b_worker_stopped_parent_accepted",
     "historical_blocker_count": 3,
     "blocks_current_execution_route": false,
-    "packet": "docs/agent-packets/PAY-HERMES-MANAGER-01.json",
-    "current_job": "20260906_113852_022cf9",
-    "current_receipt": "docs/agent-packets/PAY-W2-02-parent-acceptance.json"
+    "packet": "docs/agent-packets/PAY-W3-01b-HERMES.json",
+    "current_job": "20260906_134406_7083de",
+    "current_receipt": "docs/agent-packets/PAY-W3-01b-parent-acceptance.json"
   },
   "execution_route": {
-    "kind": "codex_parent",
-    "decision": "Duke clarified Approve as Yes next implement for W2-03. Parent implemented and directly verified the synthetic backend; no additional worker or push.",
-    "packet": "docs/agent-packets/PAY-W2-03.json",
-    "roster_confirmation": "Parent only; no worker spawned"
+    "kind": "direct_hermes_forge_with_parent_integration",
+    "decision": "Duke approved W3-01b and delegated to Hermes. Forge supplied implementation; parent repaired and independently verified synthetic runtime.",
+    "packet": "docs/agent-packets/PAY-W3-01b-HERMES.json",
+    "worker_session": "20260906_134406_7083de",
+    "status": "accepted_synthetic_only",
+    "next_dependency": "W3-02a isolated ingress/device enrollment plus W7-02a local launcher before W3-02b kiosk"
   }
 }

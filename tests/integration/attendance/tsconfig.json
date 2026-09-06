@@ -1,0 +1,15 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["node", "vitest/globals"]
+  },
+  "include": [
+    "./**/*.ts",
+    "../../../packages/attendance-domain/src/**/*.ts",
+    "../../../apps/web/src/lib/db/repositories/schedules.ts",
+    "../../../apps/web/src/lib/application/commands/save-weekly-schedule.ts",
+    "../../../apps/web/src/lib/application/commands/set-schedule-exception.ts",
+    "../../../apps/web/src/lib/application/queries/get-effective-schedule.ts"
+  ],
+  "exclude": ["../../../node_modules"]
+}

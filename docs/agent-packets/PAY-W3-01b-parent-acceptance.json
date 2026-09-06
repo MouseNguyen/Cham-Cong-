@@ -1,0 +1,299 @@
+{
+  "task_id": "PAY-W3-01b",
+  "agent_id": "codex-parent",
+  "status": "accepted_synthetic_only",
+  "outcome_status": "passed_synthetic_backend",
+  "preparation_status": "implementation_integrated_and_verified",
+  "as_of": "2026-09-06T07:08:29.272Z",
+  "base_commit": "7bd1619213b76737539a0d3adeff510f741492d8",
+  "accepted_commit_reference": "Commit containing this receipt",
+  "worker": {
+    "agent_id": "hermes-forge-w3-01b",
+    "session_id": "20260906_134406_7083de",
+    "model": "gpt-5.6-terra-900k",
+    "effort": "medium",
+    "profile": "forge",
+    "exit_code": 0,
+    "handoff": "docs/agent-packets/PAY-W3-01b-HERMES-handoff.json",
+    "verification_limit": "Worker supplied code, pure tests and typecheck; parent fixed integration and ran database/regression/build verification."
+  },
+  "scope": "Versioned opening hours, employee weekly schedules, dated/public-holiday exceptions, authenticated commands and effective query; accepted W3-01a remains unchanged.",
+  "blocker_count": 0,
+  "production": "not_run",
+  "production_release_blocker_groups": [
+    "Signed numeric/source matrix",
+    "Real iPOS/tunnel/security evidence",
+    "Real Gmail authorization/send/revoke",
+    "Replacement-profile recovery and Windows operation proof",
+    "Two signed parallel payroll cycles"
+  ],
+  "production_release_blocker_group_count": 5,
+  "claim_ledger": [
+    {
+      "layer": "structure",
+      "status": "passed",
+      "evidence": "Prisma validate/generate/five migrations, 50-model DB comparison, lint/typecheck"
+    },
+    {
+      "layer": "red",
+      "status": "passed",
+      "evidence": "Worker reported missing module RED. Parent directly observed failing fixture and immutable-row privilege tests before repaired GREEN; failed receipts retained."
+    },
+    {
+      "layer": "approved_synthetic_schedule_runtime",
+      "status": "passed",
+      "tests": 8,
+      "run_id": "green-3dc17286-e29e-41c6-bca6-eff39790e22e"
+    },
+    {
+      "layer": "regression",
+      "status": "passed",
+      "tests": 185,
+      "breakdown": {
+        "domain_architecture": 69,
+        "db_delivery": 27,
+        "authentication": 67,
+        "employees": 22
+      }
+    },
+    {
+      "layer": "build",
+      "status": "passed",
+      "evidence": "npm run build exit 0"
+    },
+    {
+      "layer": "cleanup",
+      "status": "passed",
+      "evidence": "Hermes exited; owned PostgreSQL and ports55432/46217 absent; synthetic temp clusters retained"
+    },
+    {
+      "layer": "schedule_ui_and_public_ingress",
+      "status": "not_required",
+      "owner": "W5 and W3-02"
+    },
+    {
+      "layer": "production",
+      "status": "not_run",
+      "blocker_group_count": 5
+    }
+  ],
+  "total_distinct_tests": 193,
+  "parent_repairs": [
+    "Schedule-specific owned DB guard; W2 guard unchanged",
+    "Removed UPDATE locks from immutable histories without granting UPDATE rights; aggregate locks serialize versions",
+    "Replaced only physical schedule/opening exclusions with closure-aware logical guards",
+    "Read date-only values as ISO text",
+    "Expanded direct acceptance coverage and corrected synthetic fixture UUID/text/hash fields",
+    "Normalized new Prisma models; schema comparison verifies50 models"
+  ],
+  "verification_receipts": [
+    "ops/evidence/PAY-W3-01b-runtime.json",
+    "ops/evidence/PAY-W3-01b-regressions.json",
+    "ops/evidence/PAY-W3-01b-cleanup.json",
+    "docs/agent-packets/PAY-W3-01b-parent-integration.json"
+  ],
+  "historical_migrations": [
+    {
+      "path": "prisma/migrations/202609040001_initial/migration.sql",
+      "working_sha256": "e04f0f9c243cb9167a5809410182ab1b25d150d96aa7690d425de4f08eaec792",
+      "git_blob_sha256": "e04f0f9c243cb9167a5809410182ab1b25d150d96aa7690d425de4f08eaec792",
+      "raw_bytes_identical": true,
+      "git_normalized_content_unchanged": true,
+      "git_diff_empty": true
+    },
+    {
+      "path": "prisma/migrations/202609050001_outbox_dispatch/migration.sql",
+      "working_sha256": "6aa049d22081dc02e5a04db00b348adada96705588f3c6b55deaaa6f420dcaf0",
+      "git_blob_sha256": "6aa049d22081dc02e5a04db00b348adada96705588f3c6b55deaaa6f420dcaf0",
+      "raw_bytes_identical": true,
+      "git_normalized_content_unchanged": true,
+      "git_diff_empty": true
+    },
+    {
+      "path": "prisma/migrations/202609060001_w2_02_auth/migration.sql",
+      "working_sha256": "245070886ec4c830f65bd983aa3650ce31756a543bf1924b927227a172f850d9",
+      "git_blob_sha256": "245070886ec4c830f65bd983aa3650ce31756a543bf1924b927227a172f850d9",
+      "raw_bytes_identical": true,
+      "git_normalized_content_unchanged": true,
+      "git_diff_empty": true
+    },
+    {
+      "path": "prisma/migrations/202609060002_w2_03_employees/migration.sql",
+      "working_sha256": "3db26a9594e52448ed5ef0f3550b074d277823c2e37ee0b5f3d60c3418919ef0",
+      "git_blob_sha256": "a392e0ed94b69b661f40faf8d80c0add06b03d4152993670c3150775a3a7e861",
+      "raw_bytes_identical": false,
+      "git_normalized_content_unchanged": true,
+      "git_diff_empty": true
+    },
+    {
+      "path": "prisma/migrations/migration_lock.toml",
+      "working_sha256": "1db17a8d051aa136110736752c5e1f8b7ed92b6ea8e803112fbbe2497047c210",
+      "git_blob_sha256": "1db17a8d051aa136110736752c5e1f8b7ed92b6ea8e803112fbbe2497047c210",
+      "raw_bytes_identical": true,
+      "git_normalized_content_unchanged": true,
+      "git_diff_empty": true
+    }
+  ],
+  "migration_evidence_note": "One historical working file differs from its Git blob by a CRLF byte only; normalized contents are equal and Git diff is empty. Both hashes retained; no historical migration edit performed.",
+  "files_modified": [
+    "apps/web/src/lib/application/commands/save-weekly-schedule.ts",
+    "apps/web/src/lib/application/commands/set-schedule-exception.ts",
+    "apps/web/src/lib/application/queries/get-effective-schedule.ts",
+    "apps/web/src/lib/auth/authorization.ts",
+    "apps/web/src/lib/db/repositories/schedules.ts",
+    "docs/agent-packets/PAY-W3-01b-HERMES-handoff.json",
+    "docs/agent-packets/PAY-W3-01b-HERMES-progress.json",
+    "docs/agent-packets/PAY-W3-01b-HERMES-prompt.md",
+    "docs/agent-packets/PAY-W3-01b-HERMES.json",
+    "docs/agent-packets/PAY-W3-01b-dispatch.json",
+    "docs/agent-packets/PAY-W3-01b-parent-integration.json",
+    "docs/planning/W3-01b-schedule-contract.md",
+    "docs/planning/task-status.json",
+    "ops/evidence/PAY-W2-02-argon2.json",
+    "ops/evidence/PAY-W2-02-runtime.json",
+    "ops/evidence/PAY-W2-03-runtime.json",
+    "ops/evidence/PAY-W3-01b-cleanup.json",
+    "ops/evidence/PAY-W3-01b-regressions.json",
+    "ops/evidence/PAY-W3-01b-runtime.json",
+    "ops/evidence/PAY-W6-02a-runtime.json",
+    "package.json",
+    "packages/attendance-domain/src/schedule.ts",
+    "packages/attendance-domain/test/schedule.spec.ts",
+    "prisma/migrations/202609060003_w3_01b_schedules/migration.sql",
+    "prisma/schema.prisma",
+    "scripts/windows/test-database.ps1",
+    "scripts/windows/test-schedules.ps1",
+    "tests/integration/attendance/schedule-effective-dates.spec.ts",
+    "tests/integration/attendance/tsconfig.json",
+    "tests/integration/auth/authorization.spec.ts",
+    "tests/integration/db/transactions.spec.ts",
+    "docs/agent-packets/PAY-W3-01b-parent-acceptance.json"
+  ],
+  "source_hashes": [
+    {
+      "path": "apps/web/src/lib/application/commands/save-weekly-schedule.ts",
+      "sha256": "178c805fea4dbf68a5c217737176876f76f4de11c5236328559e56220244405d"
+    },
+    {
+      "path": "apps/web/src/lib/application/commands/set-schedule-exception.ts",
+      "sha256": "bf778cbee506e1455161c7506014ccb86c09cd16cf6a2003c547d5d4aba9745d"
+    },
+    {
+      "path": "apps/web/src/lib/application/queries/get-effective-schedule.ts",
+      "sha256": "8740ead6088513eeb96077e524c6bdabad5908f2d13915e944bed1d737acdae7"
+    },
+    {
+      "path": "apps/web/src/lib/auth/authorization.ts",
+      "sha256": "3a20062454e520c46c4071cc2a71da6ad064b44c84d06a6c722bc5409bac73ea"
+    },
+    {
+      "path": "apps/web/src/lib/db/repositories/schedules.ts",
+      "sha256": "26664dd62b4732a068a0cd1c8d66cb4527d90d2148e08d6b03c7ac6e976765d3"
+    },
+    {
+      "path": "docs/agent-packets/PAY-W3-01b-HERMES-handoff.json",
+      "sha256": "bd89c51d0a9553cb0ba867260ebd35d34821c18de2630efc077042e65c5dfce6"
+    },
+    {
+      "path": "docs/agent-packets/PAY-W3-01b-HERMES-progress.json",
+      "sha256": "199c04cec0e47c28a6b8ddcb113e4c2639233f6f5cad6122d9ac7c3ee4124ca8"
+    },
+    {
+      "path": "docs/agent-packets/PAY-W3-01b-HERMES-prompt.md",
+      "sha256": "b0b2c55e525a547fc5da93ef085e86ca260a10a45a7c536aad3b31fadf4b20e8"
+    },
+    {
+      "path": "docs/agent-packets/PAY-W3-01b-HERMES.json",
+      "sha256": "27d9d577aa391de50fa46d57425b1b03bc61eafa5c2564d0a5ce1fb63053dbb9"
+    },
+    {
+      "path": "docs/agent-packets/PAY-W3-01b-dispatch.json",
+      "sha256": "d0539f6e5561e5e1ea52d9d77356826a8ea17efd430f814383b66df24de7ab42"
+    },
+    {
+      "path": "docs/agent-packets/PAY-W3-01b-parent-integration.json",
+      "sha256": "75645b46e1a98177c7a272262bc93a1f2f1ad9a648b9ecbb2adb82012b504a6f"
+    },
+    {
+      "path": "docs/planning/W3-01b-schedule-contract.md",
+      "sha256": "4c267bdc1c3210ec0bc9b4401c37615e621a869a1e4c4076b8d6722f8c56629c"
+    },
+    {
+      "path": "docs/planning/task-status.json",
+      "sha256": "0e2678007408595ba765b4b40c8a3c8d4fca53c7a793334ab7351b6b60842879"
+    },
+    {
+      "path": "ops/evidence/PAY-W2-02-argon2.json",
+      "sha256": "659fff07c95ef980b52d6debd728b7e56794bee31647787c335b98c9ce2f34b1"
+    },
+    {
+      "path": "ops/evidence/PAY-W2-02-runtime.json",
+      "sha256": "3adae317ee275f5bad0fae06cf5dccdf69d6f9dc9849c6f885710218334a2ce8"
+    },
+    {
+      "path": "ops/evidence/PAY-W2-03-runtime.json",
+      "sha256": "77fc3425ab24e039f76d7098481d553c3eab566c6590e749a79613d24f323f23"
+    },
+    {
+      "path": "ops/evidence/PAY-W3-01b-cleanup.json",
+      "sha256": "c13d60e575fd3d84e9717c09115ef1cdd72db73d19d22ebbfa47a817e451aab5"
+    },
+    {
+      "path": "ops/evidence/PAY-W3-01b-regressions.json",
+      "sha256": "6e5d3244bf4ac9475e46e7bd3aa2575579219f1798b5053ba1af93fdf06295b1"
+    },
+    {
+      "path": "ops/evidence/PAY-W3-01b-runtime.json",
+      "sha256": "2f8eafe70e8da0454867e6fdf465b7f4a602a3780784a6b999c8143e5447f401"
+    },
+    {
+      "path": "ops/evidence/PAY-W6-02a-runtime.json",
+      "sha256": "69633bdec6c4bb6de08d51ef359a077e854ff0dc43459a62a723c8f8e467013b"
+    },
+    {
+      "path": "package.json",
+      "sha256": "bc65847fd04d040ef7eb4496938280c42feaefd031b705166af64624b10f1b3e"
+    },
+    {
+      "path": "packages/attendance-domain/src/schedule.ts",
+      "sha256": "ed783b5dac9f81e8d9ef9ba8f76de5ff584f7670dfb4ac8b62ace0cb10d856b4"
+    },
+    {
+      "path": "packages/attendance-domain/test/schedule.spec.ts",
+      "sha256": "6eea40accdafc45f3880681b37d970d0589a6e3bc2c14bd908579c488fbfb76f"
+    },
+    {
+      "path": "prisma/migrations/202609060003_w3_01b_schedules/migration.sql",
+      "sha256": "7c26a54e5fc309df8dc4abc7d0e67620b92b7ed7bba7a6e0a103f6e55de86bb1"
+    },
+    {
+      "path": "prisma/schema.prisma",
+      "sha256": "21de3b5c8d05bfc1a3aad409ef2a57e138c35ae886165b8c3aad47e83aefd373"
+    },
+    {
+      "path": "scripts/windows/test-database.ps1",
+      "sha256": "884c606778cfa479bde248533df828d83db4d1b95938c27bc77bd928fffe25c7"
+    },
+    {
+      "path": "scripts/windows/test-schedules.ps1",
+      "sha256": "4fa3d43bc77c598d759944f00bdd6117e7014c26ba7b9a9cec5aa62314a38298"
+    },
+    {
+      "path": "tests/integration/attendance/schedule-effective-dates.spec.ts",
+      "sha256": "c9de2474512bcb8ccbe8c565624887c6f058f650ad6f473a25adca37e32a1c15"
+    },
+    {
+      "path": "tests/integration/attendance/tsconfig.json",
+      "sha256": "7b0ff5307aac7a8d88d38c5a8f2c50f8205591f22acc3a4c1de4c0271c95e88f"
+    },
+    {
+      "path": "tests/integration/auth/authorization.spec.ts",
+      "sha256": "a8bac954d5443582bd20df521a69fcd48c49a098dcc06a668fb98844ac5c1a5f"
+    },
+    {
+      "path": "tests/integration/db/transactions.spec.ts",
+      "sha256": "4d6738704ecec0a4da6b600a8f183a9ef7bc3d6fd3ce6e25ae92bcb16c439d92"
+    }
+  ],
+  "next_action": "W3-02a isolated attendance ingress/device enrollment and W7-02a local launcher, then W3-02b kiosk; not started in this wave"
+}

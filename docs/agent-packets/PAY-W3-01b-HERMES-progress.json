@@ -1,0 +1,48 @@
+{
+  "task_id": "PAY-W3-01b",
+  "agent_id": "hermes-forge-w3-01b",
+  "session_id": "20260906_134406_7083de",
+  "status": "ready_for_parent_verification",
+  "current_phase": "handoff_ready",
+  "known": {
+    "red": "The focused schedule suite first failed at the missing ../src/schedule module; zero runnable tests was caused by failed suite loading, not claimed as success.",
+    "green": "Focused schedule tests pass 5/5; authorization tests pass 49/49; focused attendance integration TypeScript typecheck passes.",
+    "implementation": "The additive migration, immutable closure/supersession records, schedule repository, commands/query, integration tests, schedule contract, and handoff are written."
+  },
+  "inferred": {
+    "database_scope": "The parent-owned fresh PostgreSQL harness must apply the new migration before executing the new integration suite."
+  },
+  "unknown": {
+    "database_runtime": "This worker did not run migration, Prisma, or PostgreSQL integration execution.",
+    "broader_verification": "Lint, root typecheck, build, and shared regressions remain parent verification work.",
+    "production": "No production or real-data behavior was run."
+  },
+  "files_changed": [
+    "packages/attendance-domain/src/schedule.ts",
+    "packages/attendance-domain/test/schedule.spec.ts",
+    "apps/web/src/lib/auth/authorization.ts",
+    "tests/integration/auth/authorization.spec.ts",
+    "apps/web/src/lib/db/repositories/schedules.ts",
+    "apps/web/src/lib/application/commands/save-weekly-schedule.ts",
+    "apps/web/src/lib/application/commands/set-schedule-exception.ts",
+    "apps/web/src/lib/application/queries/get-effective-schedule.ts",
+    "prisma/schema.prisma",
+    "prisma/migrations/202609060003_w3_01b_schedules/migration.sql",
+    "tests/integration/attendance/schedule-effective-dates.spec.ts",
+    "tests/integration/attendance/tsconfig.json",
+    "docs/planning/W3-01b-schedule-contract.md",
+    "docs/agent-packets/PAY-W3-01b-HERMES-progress.json",
+    "docs/agent-packets/PAY-W3-01b-HERMES-handoff.json"
+  ],
+  "focused_tests": {
+    "red": "schedule Vitest command exit 1: missing module; suite not loadable",
+    "green": "schedule Vitest command exit 0: 5 tests passed",
+    "authorization": "authorization Vitest command exit 0: 49 tests passed",
+    "typescript": "node node_modules/typescript/bin/tsc --noEmit -p tests/integration/attendance/tsconfig.json exit 0",
+    "scope": "git diff --check exit 0"
+  },
+  "readiness_for_parent_db_execution": "ready",
+  "exact_parent_command": "scripts/windows/test-schedules.ps1",
+  "blockers": [],
+  "next_action": "Parent executes its owned synthetic database harness, reads back its runtime receipt, and independently reviews the migration/repository boundary before integration or commit."
+}

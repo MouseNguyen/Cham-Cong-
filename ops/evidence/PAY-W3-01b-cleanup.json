@@ -1,0 +1,16 @@
+{
+  "task_id": "PAY-W3-01b",
+  "status": "passed",
+  "as_of": "2026-09-06T14:05:21.7672208+07:00",
+  "owned_postgres_processes_absent": true,
+  "listeners_absent": true,
+  "ports_checked": [
+    55432,
+    46217
+  ],
+  "hermes_processes_absent": true,
+  "hermes_exit_code": 0,
+  "hermes_session_id": "20260906_134406_7083de",
+  "temporary_data": "Synthetic clusters retained under project .tmp; no recursive deletion requested or performed",
+  "production": "not_run"
+}
