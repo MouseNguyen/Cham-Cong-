@@ -1,0 +1,482 @@
+{
+  "task_id": "PAY-W3-02-LOCAL",
+  "agent_id": "codex-parent",
+  "status": "accepted_synthetic_only",
+  "outcome_status": "passed_synthetic_local_kiosk",
+  "preparation_status": "integrated_build_typecheck_lint_passed",
+  "as_of": "2026-09-06T07:59:59.883Z",
+  "base_commit": "5a54030299d31bc84a7185e4eb2a4d619f579c35",
+  "accepted_commit_reference": "Commit containing this receipt",
+  "scope": "W7-02a minimum launcher; W3-02a isolated backend; W3-02b local kiosk and real browser harness",
+  "worker": {
+    "session": "20260906_141812_a53cc8",
+    "model": "gpt-5.6-terra-900k",
+    "status": "stopped",
+    "exit_code": 0,
+    "handoff": "docs/agent-packets/PAY-W3-02a-HERMES-handoff.json",
+    "limit": "Worker draft repaired and independently tested by parent; worker handoff alone was not accepted."
+  },
+  "local_core_blocker_count": 0,
+  "production": "not_run",
+  "production_release_blocker_group_count": 5,
+  "production_release_blocker_groups": [
+    "Signed numeric/source matrix",
+    "Real iPOS/tunnel/security evidence",
+    "Real Gmail authorization/send/revoke",
+    "Replacement-profile recovery and Windows operation proof",
+    "Two signed parallel payroll cycles"
+  ],
+  "claim_ledger": [
+    {
+      "layer": "structure",
+      "status": "passed",
+      "evidence": "lint, typecheck, built kiosk JS and Next production build; six migrations; direct comparison of 56 models/columns/types/nullability"
+    },
+    {
+      "layer": "backend_red",
+      "status": "passed",
+      "evidence": "Actual COMMIT then driver acknowledgement error returned false; parent observed failure and repaired commitAttempted classification; failed receipt retained."
+    },
+    {
+      "layer": "kiosk_red",
+      "status": "passed",
+      "evidence": "Actual Chromium test failed on absent Chấm công screen before implementation."
+    },
+    {
+      "layer": "approved_synthetic_http_and_db",
+      "status": "passed",
+      "tests": 11,
+      "run_id": "green-a0acc08e-0e53-4d4a-9a80-3ec12d060be7"
+    },
+    {
+      "layer": "approved_local_kiosk_browser",
+      "status": "passed",
+      "tests": 5,
+      "run_id": "green-a0acc08e-0e53-4d4a-9a80-3ec12d060be7",
+      "evidence": "Three interactions, durable IN/OUT, PIN clearing, generic rejection, actual committed response lost then reconcile, unknown command across reload, tablet/narrow 44px controls, screenshot inspected"
+    },
+    {
+      "layer": "minimum_launcher",
+      "status": "passed",
+      "tests": 4,
+      "run_id": "green-f5301b3b-6b60-421c-97d1-6dc05dc684ca",
+      "evidence": "Invalid target rejection, unrelated busy listener retained, real built app startup/health/stop, foreground stop and cleanup. Both app listeners also verified through kiosk runner."
+    },
+    {
+      "layer": "regression",
+      "status": "passed",
+      "tests": 197,
+      "breakdown": {
+        "domain_architecture": 70,
+        "db_delivery": 27,
+        "authentication": 67,
+        "employees": 22,
+        "schedules": 8,
+        "auth_browser": 3
+      }
+    },
+    {
+      "layer": "cleanup",
+      "status": "passed",
+      "evidence": "Every selected latest harness receipt passed PostgreSQL cleanup; launcher/browser logs confirm owned app listeners released; synthetic clusters retained."
+    },
+    {
+      "layer": "dry_run",
+      "status": "not_required",
+      "reason": "Direct approved synthetic runtime executed"
+    },
+    {
+      "layer": "real_ipos_tunnel",
+      "status": "not_run",
+      "owner": "Release gate; outside local approval"
+    },
+    {
+      "layer": "full_windows_operations_OS_ctrl_c_identity_recovery",
+      "status": "not_run",
+      "owner": "W7-02b/W7-01b; minimum foreground/stop helper evidence does not claim this layer"
+    },
+    {
+      "layer": "production",
+      "status": "not_run"
+    }
+  ],
+  "distinct_tests_passed": 217,
+  "tests_not_double_counted": "The 11 backend tests repeated in multiple harnesses count once. Includes 8 browser tests (5 kiosk + 3 auth).",
+  "runtime_receipts": {
+    "PAY-W3-02b": {
+      "run_id": "green-a0acc08e-0e53-4d4a-9a80-3ec12d060be7",
+      "tests": {
+        "exit": 0,
+        "passed_count": 11
+      },
+      "browser": {
+        "exit": 0,
+        "passed_count": 5
+      },
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      }
+    },
+    "PAY-W7-02a": {
+      "run_id": "green-f5301b3b-6b60-421c-97d1-6dc05dc684ca",
+      "tests": {
+        "exit": 0,
+        "passed_count": 4
+      },
+      "browser": null,
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      }
+    },
+    "PAY-W6-02a": {
+      "run_id": "green-b5f3e6fe-88b4-4d6e-8404-8edfd18567d7",
+      "tests": {
+        "exit": 0,
+        "passed_count": 27
+      },
+      "browser": null,
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      }
+    },
+    "PAY-W2-02": {
+      "run_id": "green-2604cf8d-7640-41f2-b93c-82eb4a60fa06",
+      "tests": {
+        "exit": 0,
+        "passed_count": 67
+      },
+      "browser": {
+        "exit": 0,
+        "passed_count": 3
+      },
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      }
+    },
+    "PAY-W2-03": {
+      "run_id": "green-0566407c-6978-4074-85b7-829ca1eff541",
+      "tests": {
+        "exit": 0,
+        "passed_count": 22
+      },
+      "browser": null,
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      }
+    },
+    "PAY-W3-01b": {
+      "run_id": "green-41335e52-b2d5-4528-82eb-e40a3613cb4c",
+      "tests": {
+        "exit": 0,
+        "passed_count": 8
+      },
+      "browser": null,
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      }
+    }
+  },
+  "known": [
+    "Local synthetic core works; exact failures and successful runtime receipts are retained",
+    "No production records, real messages, network tunnels or package installs used"
+  ],
+  "inferred": [],
+  "unknown": [
+    "Actual iPOS browser/hardware behavior",
+    "Full release operations and real-data payroll outcomes"
+  ],
+  "optional_backlog": [
+    {
+      "item": "Prisma duplicate unique-key metadata alignment",
+      "status": "unapplied_auto_review_rejection",
+      "blocks_core": false,
+      "reason": "Full generate/db-push/BFF-restart cycle absent"
+    },
+    {
+      "item": "Full keyboard/screen-reader/axe and actual iPOS canary",
+      "owner": "Later UI/release verification"
+    }
+  ],
+  "limitations": "This accepts only the bounded local synthetic flow, not the entire app, production readiness, exhaustive accessibility or iPOS/tunnel deployment.",
+  "files_modified": [
+    "apps/attendance-ingress/package.json",
+    "apps/attendance-ingress/src/device-session.ts",
+    "apps/attendance-ingress/src/kiosk/index.html",
+    "apps/attendance-ingress/src/kiosk/kiosk.css",
+    "apps/attendance-ingress/src/kiosk/kiosk.ts",
+    "apps/attendance-ingress/src/main.ts",
+    "apps/attendance-ingress/src/record-clock-event.ts",
+    "apps/attendance-ingress/src/repository.ts",
+    "apps/attendance-ingress/src/server.ts",
+    "apps/attendance-ingress/tsconfig.json",
+    "apps/attendance-ingress/tsconfig.kiosk.json",
+    "apps/web/AGENTS.md",
+    "apps/web/CLAUDE.md",
+    "apps/web/src/app/api/health/route.ts",
+    "apps/web/src/lib/application/commands/enroll-kiosk-device.ts",
+    "apps/web/src/lib/application/commands/revoke-kiosk-device.ts",
+    "apps/web/src/lib/application/commands/set-kiosk-pin.ts",
+    "apps/web/src/lib/db/repositories/kiosk-admin.ts",
+    "docs/agent-packets/PAY-W3-02-LOCAL.json",
+    "docs/agent-packets/PAY-W3-02a-HERMES-handoff.json",
+    "docs/agent-packets/PAY-W3-02a-HERMES-progress.json",
+    "docs/agent-packets/PAY-W3-02a-HERMES-prompt.md",
+    "docs/agent-packets/PAY-W3-02a-HERMES-repair-prompt.md",
+    "docs/planning/W3-02a-ingress-contract.md",
+    "ops/evidence/PAY-W3-02a-runtime.json",
+    "ops/evidence/PAY-W3-02b-runtime.json",
+    "ops/evidence/PAY-W7-02a-runtime.json",
+    "ops/runbooks/private-admin-access.md",
+    "ops/runbooks/startup-shutdown.md",
+    "ops/services/pay-slip-services.json",
+    "packages/attendance-domain/src/ports.ts",
+    "packages/contracts/src/attendance.ts",
+    "prisma/migrations/202609060004_w3_02a_kiosk/migration.sql",
+    "scripts/windows/health-pay-slip.ps1",
+    "scripts/windows/local-runtime.cjs",
+    "scripts/windows/start-pay-slip.ps1",
+    "scripts/windows/stop-pay-slip.ps1",
+    "scripts/windows/test-kiosk.ps1",
+    "tests/architecture/ingress-boundary.spec.ts",
+    "tests/e2e/kiosk.spec.ts",
+    "tests/integration/attendance/ingress-support.ts",
+    "tests/integration/attendance/ingress.spec.ts",
+    "tests/integration/attendance/kiosk-browser-runner.cjs",
+    "tests/integration/operations/service-lifecycle.windows.spec.ts",
+    "docs/planning/task-status.json",
+    "eslint.config.mjs",
+    "ops/evidence/PAY-W2-02-argon2.json",
+    "ops/evidence/PAY-W2-02-runtime.json",
+    "ops/evidence/PAY-W2-03-runtime.json",
+    "ops/evidence/PAY-W3-01b-runtime.json",
+    "ops/evidence/PAY-W6-02a-runtime.json",
+    "package-lock.json",
+    "package.json",
+    "playwright.config.ts",
+    "prisma/schema.prisma",
+    "scripts/windows/test-database.ps1",
+    "tests/integration/db/transactions.spec.ts",
+    "tests/integration/operations/tsconfig.json",
+    "tsconfig.base.json"
+  ],
+  "source_hashes": [
+    {
+      "path": "apps/attendance-ingress/package.json",
+      "sha256": "ecdd833c545de93286736dd435924c9df57d5ecdab300b196d6272e2024af73f"
+    },
+    {
+      "path": "apps/attendance-ingress/src/device-session.ts",
+      "sha256": "3bc92a9e28a6f2a1efa935d61f974545103a18f2bec29377b66d50aaecf56c0e"
+    },
+    {
+      "path": "apps/attendance-ingress/src/kiosk/index.html",
+      "sha256": "8a2cb7f5b618cdb182a3935b9410d173c1353481bf37ebc1c1ecd57a38e119af"
+    },
+    {
+      "path": "apps/attendance-ingress/src/kiosk/kiosk.css",
+      "sha256": "5e4a2536056b0af496725559ee3507b64c4df9c2a77b4f11db995791870b273c"
+    },
+    {
+      "path": "apps/attendance-ingress/src/kiosk/kiosk.ts",
+      "sha256": "90ea83e746017a03e28b1938abbe247c2a4134d9e7345a01807fa6b0e4d97837"
+    },
+    {
+      "path": "apps/attendance-ingress/src/main.ts",
+      "sha256": "c5880a04a60540ef2d8c8af7d490c0425f622d5c9f767a143aa0e6e26f29b316"
+    },
+    {
+      "path": "apps/attendance-ingress/src/record-clock-event.ts",
+      "sha256": "f12dec1ceb4098c2391c515b165de2e469f62d839bed3e337b8b776192304bc6"
+    },
+    {
+      "path": "apps/attendance-ingress/src/repository.ts",
+      "sha256": "4c826a6219112a4aaa52bfcd653097e1ac5d8da16c1d24f47181f0ac13c60a62"
+    },
+    {
+      "path": "apps/attendance-ingress/src/server.ts",
+      "sha256": "6b8c3f3af715c0b91333fc9abe6a42523b70c2211c99a4545319bc454b553419"
+    },
+    {
+      "path": "apps/attendance-ingress/tsconfig.json",
+      "sha256": "5cf432b3859613da033c1bc39c9a8ccef741a3cce647bf4a0eeed86a1f10341c"
+    },
+    {
+      "path": "apps/attendance-ingress/tsconfig.kiosk.json",
+      "sha256": "56aeb1f4cd68d29c4cbd90fff336d9a349ac7a3fe9b54eda5edf8d1de1b64877"
+    },
+    {
+      "path": "apps/web/AGENTS.md",
+      "sha256": "63f2c50380ed6303237cce215ce27af1d620d094c215e28d1b1538a3c070e3bb"
+    },
+    {
+      "path": "apps/web/CLAUDE.md",
+      "sha256": "336cc4fbf19beaada7ccf9986414fa91851a8d7a07dfb3ccbe800a69eed0ab49"
+    },
+    {
+      "path": "apps/web/src/app/api/health/route.ts",
+      "sha256": "18b69116971e120c027d94b298f81edc5f4f88ee159f3f5061d1d7a92c7a9c74"
+    },
+    {
+      "path": "apps/web/src/lib/application/commands/enroll-kiosk-device.ts",
+      "sha256": "b201c5928f2b6fd96fd1cd453b5a8e998fc30161b3b92ab4f6a0e81a0c33ec20"
+    },
+    {
+      "path": "apps/web/src/lib/application/commands/revoke-kiosk-device.ts",
+      "sha256": "8fe6d373d6f786578e7698354e06d4cb10490f0b6e109a25a3c147b11f60cb78"
+    },
+    {
+      "path": "apps/web/src/lib/application/commands/set-kiosk-pin.ts",
+      "sha256": "84258fd21df884c907846daedb94633c073dd2020825c561f18af3a05d6d58ce"
+    },
+    {
+      "path": "apps/web/src/lib/db/repositories/kiosk-admin.ts",
+      "sha256": "2ccd8b54b2bf47508bdbcd9046b94c38025336ecd63d84002df761d343237d2b"
+    },
+    {
+      "path": "docs/agent-packets/PAY-W3-02-LOCAL.json",
+      "sha256": "80bed10b5931f74aa04085c3a2290c4368d512e6016ffacb89fdbd21b756db06"
+    },
+    {
+      "path": "docs/agent-packets/PAY-W3-02a-HERMES-handoff.json",
+      "sha256": "33254efd9fbf9e96b5d08c9f1a3a3952d7a2de0a0a9e3b7ed8b4ae83251b9fe2"
+    },
+    {
+      "path": "docs/agent-packets/PAY-W3-02a-HERMES-progress.json",
+      "sha256": "1de0cd59eb70559371e6f8fa3c012732662ea4795e5f7c6c07d61c8cad52780b"
+    },
+    {
+      "path": "docs/agent-packets/PAY-W3-02a-HERMES-prompt.md",
+      "sha256": "58279d4e3898320857ffbd3685f2ef721da9da8d7bbff7333cae5dcb5a3f45bc"
+    },
+    {
+      "path": "docs/agent-packets/PAY-W3-02a-HERMES-repair-prompt.md",
+      "sha256": "ff786fea83aa0e74d807542356794694097b6bdea2c3184088254c5f7d3db9b5"
+    },
+    {
+      "path": "docs/planning/W3-02a-ingress-contract.md",
+      "sha256": "80fa97475c8a174193a00898093e89c77c687c5a2b81b0d3b92db8b1fe7d73e7"
+    },
+    {
+      "path": "ops/runbooks/private-admin-access.md",
+      "sha256": "848e6040145ed560902a75904e4a42cda82a8b3968d2362e5125b839370fe96b"
+    },
+    {
+      "path": "ops/runbooks/startup-shutdown.md",
+      "sha256": "461be9fcf7a072cfcaed71fe1193ae0c2df7d599b5bcaa7a1770e893d91f555b"
+    },
+    {
+      "path": "ops/services/pay-slip-services.json",
+      "sha256": "442b6783cceeff8940d842d6378582550b751710f48737369f5823161f148c3d"
+    },
+    {
+      "path": "packages/attendance-domain/src/ports.ts",
+      "sha256": "8cc4d97166797aec2a747c6f67e29587c7ab29b6d1de2a7e172054ef30ed82ed"
+    },
+    {
+      "path": "packages/contracts/src/attendance.ts",
+      "sha256": "359d1e83cde537901c2dae5d1fbd57122a034e8ce93e3fafac4cf42155d56327"
+    },
+    {
+      "path": "prisma/migrations/202609060004_w3_02a_kiosk/migration.sql",
+      "sha256": "087c98561af4830a2e5ba1149a2010df1dbd46ef8302c0f6b9cd41cd293fc891"
+    },
+    {
+      "path": "scripts/windows/health-pay-slip.ps1",
+      "sha256": "a03bbc0c384b311f757e2d47e941bf3c615a194eac275217a43fbda7315fade6"
+    },
+    {
+      "path": "scripts/windows/local-runtime.cjs",
+      "sha256": "d75b34ca46c56b6f7297d5a5418168ef920492e32ce0d20609528970b51881ff"
+    },
+    {
+      "path": "scripts/windows/start-pay-slip.ps1",
+      "sha256": "52461f6e751fd9829e64f5a94053a9ad67f7a0416f8292a235636f06ad5bc9e9"
+    },
+    {
+      "path": "scripts/windows/stop-pay-slip.ps1",
+      "sha256": "c5b9b51f38445f1cbe5638f50ef03bac4331ceca91b55ff41aa3012e38aa968f"
+    },
+    {
+      "path": "scripts/windows/test-kiosk.ps1",
+      "sha256": "72d45924a769509347319821a5dcbdab6676cc5c32901fbfac1b76cb6e5600ee"
+    },
+    {
+      "path": "tests/architecture/ingress-boundary.spec.ts",
+      "sha256": "fa120b7fac39f76c5243c90d68a1a88b11aa50ac4a3dbe23b28dd2b552a50d8e"
+    },
+    {
+      "path": "tests/e2e/kiosk.spec.ts",
+      "sha256": "49c9c80a25ecc7dd9236dca4e2b0ab7de45188b583c032759370daa6dbf16833"
+    },
+    {
+      "path": "tests/integration/attendance/ingress-support.ts",
+      "sha256": "07181c741eb02e89ab5d46aa3d831ea2010761d63c28507701d6eb98f2e3bd66"
+    },
+    {
+      "path": "tests/integration/attendance/ingress.spec.ts",
+      "sha256": "8002bae76316fe3a77b46a3d09b5031dbdaec224c077c68c1205ff084b62691b"
+    },
+    {
+      "path": "tests/integration/attendance/kiosk-browser-runner.cjs",
+      "sha256": "ceadd92b1442d018112c1c3fe783c834f91cffc385c530ff276db736bfa26e87"
+    },
+    {
+      "path": "tests/integration/operations/service-lifecycle.windows.spec.ts",
+      "sha256": "46ca5a68a1ea2f82531d02f4d9918ec8ebc9f8a528ab29619df81894af34b877"
+    },
+    {
+      "path": "docs/planning/task-status.json",
+      "sha256": "bfc33428531458bff971c76832f8fed7babd8a8cb58ea762a02e53b9787aff30"
+    },
+    {
+      "path": "eslint.config.mjs",
+      "sha256": "1b77e05cbcfcdbec722e2291adfc08ecba1c9dcdaa249bc31c3c68229c56b626"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "f94eb17e2676ce35f89396ee2630318a5f95078a87814fe116768c3c602883a1"
+    },
+    {
+      "path": "package.json",
+      "sha256": "eadde1468e7c83f9ff7efdf1d7dac2cc1f7a476afebcdd5c4f063401386c7af1"
+    },
+    {
+      "path": "playwright.config.ts",
+      "sha256": "3e48e4dfc4aadb5611eead1462d742549b9ce025e6c783d7157a611612635be0"
+    },
+    {
+      "path": "prisma/schema.prisma",
+      "sha256": "8bb70fbdb749bd0a0a4f3baf0adbd727cbc0c54bad9f5e570ce91a16d699855f"
+    },
+    {
+      "path": "scripts/windows/test-database.ps1",
+      "sha256": "d2b8d5b753b4f180f3af335cff9d36bbd01d36bdac3d3bfd940dd99ef553bbca"
+    },
+    {
+      "path": "tests/integration/db/transactions.spec.ts",
+      "sha256": "034869ce53cab5e5ef187f35834dd61131b7155a8de29339d00cbdc44d97b57d"
+    },
+    {
+      "path": "tests/integration/operations/tsconfig.json",
+      "sha256": "777d39f8ab897e0232a1bb68e4f72c99d6a9bcb3479750e3c2a251c7b638225e"
+    },
+    {
+      "path": "tsconfig.base.json",
+      "sha256": "59554f47a40e5902dbaf91fa195a7e553e00235802d2f6ba63301d455ccf4f4f"
+    }
+  ],
+  "next_action": "W3-03 attendance review and immutable snapshot approval",
+  "source_hash_basis": "Working-tree bytes at acceptance; Git autocrlf may normalize index line endings."
+}

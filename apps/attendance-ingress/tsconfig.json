@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "types": [
+      "node"
+    ],
+    "allowImportingTsExtensions": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "../../packages/contracts/src/attendance.ts",
+    "../../packages/attendance-domain/src/ports.ts"
+  ]
+}

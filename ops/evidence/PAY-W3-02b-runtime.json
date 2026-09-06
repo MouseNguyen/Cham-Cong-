@@ -1,0 +1,69 @@
+{
+  "task_id": "PAY-W3-02b",
+  "runs": [
+    {
+      "task_id": "PAY-W3-02b",
+      "run_id": "green-9a0c8ba1-d77e-4866-8b5f-89c321a79dcf",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W3-02b\\cluster\\green-9a0c8ba1-d77e-4866-8b5f-89c321a79dcf",
+      "port": 55432,
+      "status": "failed",
+      "tests": {
+        "exit": 0,
+        "passed_count": 10
+      },
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      },
+      "browser": {
+        "exit": 1,
+        "passed_count": 0
+      },
+      "error": "Kiosk browser flow failed or empty"
+    },
+    {
+      "task_id": "PAY-W3-02b",
+      "run_id": "green-f1fcc3f1-92ac-47f3-b698-fcf6fa613063",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W3-02b\\cluster\\green-f1fcc3f1-92ac-47f3-b698-fcf6fa613063",
+      "port": 55432,
+      "status": "passed",
+      "tests": {
+        "exit": 0,
+        "passed_count": 10
+      },
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      },
+      "browser": {
+        "exit": 0,
+        "passed_count": 5
+      }
+    },
+    {
+      "task_id": "PAY-W3-02b",
+      "run_id": "green-a0acc08e-0e53-4d4a-9a80-3ec12d060be7",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W3-02b\\cluster\\green-a0acc08e-0e53-4d4a-9a80-3ec12d060be7",
+      "port": 55432,
+      "status": "passed",
+      "tests": {
+        "exit": 0,
+        "passed_count": 11
+      },
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      },
+      "browser": {
+        "exit": 0,
+        "passed_count": 5
+      }
+    }
+  ]
+}

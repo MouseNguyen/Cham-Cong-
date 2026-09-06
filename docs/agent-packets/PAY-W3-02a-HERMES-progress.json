@@ -1,0 +1,10 @@
+{
+  "task_id":"PAY-W3-02a","agent_id":"hermes-forge-w3-02a","session_id":"20260906_141812_a53cc8","status":"ready_for_parent_db_runtime","repair_pass":"completed_structural_and_compile_repair",
+  "known":["The kiosk-admin import repair makes the full web build pass.","Ingress, web, and attendance integration TypeScript projects pass tsc.","The ingress test was replaced with guarded real PostgreSQL fixture/server coverage; it has not run because parent owns the guarded DB harness execution.","Public ingress source has no web auth/admin/payroll/database repository import."],
+  "red":"Prior parent evidence: web build failed resolving ../auth.ts.",
+  "green":["npx tsc --noEmit -p apps/attendance-ingress/tsconfig.json","npx tsc --noEmit -p apps/web/tsconfig.json","npx tsc --noEmit -p tests/integration/attendance/tsconfig.json","npm run build","git diff --check"],
+  "runtime":"not_run; parent must run powershell -NoProfile -File scripts/windows/test-database.ps1 -Mode Green -TaskId PAY-W3-02a before any runtime acceptance claim.",
+  "schema":"State is employee-wide; device advisory transaction locks synchronize rotate/revoke with ingress; ingress grants remain column-restricted for employees. The migration adds the fixed-search-path SECURITY DEFINER active-employee trigger.",
+  "blockers":["Prisma validate was not run: prisma.config.ts requires DATABASE_URL and this worker did not read/set credentials.","Real DB/HTTP tests are not run until the parent invokes the approved PAY-W3-02a database harness."],
+  "next_action":"Parent applies/runs the approved harness and reviews real PostgreSQL results, including limited-role privilege assertions."
+}

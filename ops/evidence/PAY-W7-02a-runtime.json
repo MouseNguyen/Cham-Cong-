@@ -1,0 +1,39 @@
+{
+  "task_id": "PAY-W7-02a",
+  "runs": [
+    {
+      "task_id": "PAY-W7-02a",
+      "run_id": "green-e718afed-43cc-45d6-8e29-ca33f14219fd",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W7-02a\\cluster\\green-e718afed-43cc-45d6-8e29-ca33f14219fd",
+      "port": 55432,
+      "status": "passed",
+      "tests": {
+        "exit": 0,
+        "passed_count": 3
+      },
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      }
+    },
+    {
+      "task_id": "PAY-W7-02a",
+      "run_id": "green-f5301b3b-6b60-421c-97d1-6dc05dc684ca",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W7-02a\\cluster\\green-f5301b3b-6b60-421c-97d1-6dc05dc684ca",
+      "port": 55432,
+      "status": "passed",
+      "tests": {
+        "exit": 0,
+        "passed_count": 4
+      },
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      }
+    }
+  ]
+}

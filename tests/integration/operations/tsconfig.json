@@ -8,6 +8,7 @@
   "include": [
     "secrets.windows.spec.ts",
     "secrets.windows.identity.spec.ts",
-    "../../../apps/web/src/lib/secrets/**/*.ts"
+    "../../../apps/web/src/lib/secrets/**/*.ts",
+    "service-lifecycle.windows.spec.ts"
   ]
 }

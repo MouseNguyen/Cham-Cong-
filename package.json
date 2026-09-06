@@ -12,20 +12,21 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build --workspace @pay-slip/web",
+    "build": "tsc -p apps/attendance-ingress/tsconfig.kiosk.json && npm run build --workspace @pay-slip/web",
     "lint": "eslint . --max-warnings=0",
-    "typecheck": "tsc --noEmit -p apps/web/tsconfig.json && tsc --noEmit -p packages/payroll-domain/tsconfig.json && tsc --noEmit -p packages/attendance-domain/tsconfig.json && tsc --noEmit -p tests/integration/db/tsconfig.json && tsc --noEmit -p tests/integration/operations/tsconfig.json && tsc --noEmit -p tests/integration/delivery/tsconfig.json && tsc --noEmit -p tests/integration/auth/tsconfig.json && tsc --noEmit -p tests/integration/employees/tsconfig.json && tsc --noEmit -p tests/integration/attendance/tsconfig.json",
+    "typecheck": "tsc --noEmit -p apps/web/tsconfig.json && tsc --noEmit -p packages/payroll-domain/tsconfig.json && tsc --noEmit -p packages/attendance-domain/tsconfig.json && tsc --noEmit -p tests/integration/db/tsconfig.json && tsc --noEmit -p tests/integration/operations/tsconfig.json && tsc --noEmit -p tests/integration/delivery/tsconfig.json && tsc --noEmit -p tests/integration/auth/tsconfig.json && tsc --noEmit -p tests/integration/employees/tsconfig.json && tsc --noEmit -p tests/integration/attendance/tsconfig.json && tsc --noEmit -p apps/attendance-ingress/tsconfig.json",
     "test": "vitest run",
     "test:unit": "vitest run",
-    "test:integration": "vitest run --passWithNoTests tests/integration",
-    "test:e2e": "powershell -NoProfile -File scripts/windows/test-auth.ps1 -Browser",
+    "test:integration": "vitest run tests/integration",
+    "test:e2e": "playwright test",
     "test:db": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/windows/test-database.ps1 -Mode Green",
     "test:secrets": "vitest run tests/integration/operations/secrets.windows.spec.ts --maxWorkers=1 --no-file-parallelism",
     "test:secrets:identity": "vitest run tests/integration/operations/secrets.windows.identity.spec.ts --maxWorkers=1 --no-file-parallelism",
     "test:auth": "powershell -NoProfile -File scripts/windows/test-auth.ps1",
     "test:auth:browser": "powershell -NoProfile -File scripts/windows/test-auth.ps1 -Browser",
     "test:employees": "powershell -NoProfile -File scripts/windows/test-employees.ps1",
-    "test:schedules": "powershell -NoProfile -File scripts/windows/test-schedules.ps1"
+    "test:schedules": "powershell -NoProfile -File scripts/windows/test-schedules.ps1",
+    "test:kiosk": "powershell -NoProfile -File scripts/windows/test-kiosk.ps1"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",

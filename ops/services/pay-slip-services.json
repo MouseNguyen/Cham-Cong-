@@ -1,0 +1,28 @@
+{
+  "scope": "synthetic_local_only",
+  "database": {
+    "host": "127.0.0.1",
+    "port": 55432,
+    "name": "payslip_w3_02_synthetic"
+  },
+  "services": [
+    {
+      "name": "admin",
+      "host": "127.0.0.1",
+      "port": 46217,
+      "health": "/api/health",
+      "database_environment": "PAYSLIP_AUTH_DATABASE_URL"
+    },
+    {
+      "name": "attendance",
+      "host": "127.0.0.1",
+      "port": 46218,
+      "health": "/health",
+      "database_environment": "PAYSLIP_INGRESS_DATABASE_URL"
+    }
+  ],
+  "launcher": "scripts/windows/start-pay-slip.ps1",
+  "stop": "scripts/windows/stop-pay-slip.ps1",
+  "state": ".tmp/PAY-W7-02a/local-runtime.json",
+  "production": "not_run"
+}

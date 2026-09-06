@@ -1,0 +1,13 @@
+{
+  "name": "@pay-slip/attendance-ingress",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node --experimental-transform-types src/main.ts"
+  },
+  "dependencies": {
+    "argon2": "0.45.1",
+    "pg": "8.23.0"
+  }
+}

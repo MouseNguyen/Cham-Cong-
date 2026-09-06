@@ -134,6 +134,66 @@ model clock_events {
   @@unique([organization_id, workplace_id, employee_id, idempotency_key])
 }
 
+model kiosk_devices {
+  id String @id @db.Uuid
+  organization_id String @db.Uuid
+  workplace_id String @db.Uuid
+  session_id String @db.Uuid
+  token_hash String @unique
+  enrolled_at DateTime @db.Timestamptz(3)
+  expires_at DateTime @db.Timestamptz(3)
+  revoked_at DateTime? @db.Timestamptz(3)
+}
+
+model kiosk_employee_pins {
+  employee_id String @db.Uuid
+  organization_id String @db.Uuid
+  device_id String @db.Uuid
+  employee_code String
+  pin_hash String
+  revoked_at DateTime? @db.Timestamptz(3)
+  @@id([employee_id, device_id])
+  @@unique([device_id, employee_code])
+}
+
+model kiosk_employee_states {
+  employee_id String @id @db.Uuid
+  organization_id String @db.Uuid
+  workplace_id String @db.Uuid
+  last_direction String?
+  revision Int @default(0)
+  updated_at DateTime @db.Timestamptz(3)
+}
+
+model kiosk_command_proofs {
+  id String @id @db.Uuid
+  idempotency_key_hash String
+  device_id String @db.Uuid
+  session_id String @db.Uuid
+  employee_id String @db.Uuid
+  event_id String @db.Uuid
+  direction String
+  expires_at DateTime @db.Timestamptz(3)
+  @@unique([idempotency_key_hash, device_id, session_id, employee_id])
+}
+
+model kiosk_audit_events {
+  id String @id @db.Uuid
+  organization_id String @db.Uuid
+  device_id String @db.Uuid
+  employee_id String? @db.Uuid
+  action String
+  outcome String
+  created_at DateTime @db.Timestamptz(3)
+}
+
+model kiosk_rate_limits {
+  key_hash String @id
+  failure_count Int @default(0)
+  locked_until DateTime? @db.Timestamptz(3)
+  updated_at DateTime @db.Timestamptz(3)
+}
+
 model attendance_exceptions {
   id String @db.Uuid @id
   organization_id String @db.Uuid

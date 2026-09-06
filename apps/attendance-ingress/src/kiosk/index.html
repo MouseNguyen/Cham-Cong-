@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="vi">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#133f36"><title>Chấm công · The Kay's Gelato</title><link rel="stylesheet" href="/kiosk.css"><script src="/kiosk.js" defer></script></head>
+<body><header><a class="brand" href="/" aria-label="The Kay's Gelato">the kay’s<span>GELATO</span></a><span class="location">CHẤM CÔNG TẠI CỬA HÀNG</span></header>
+<main><section class="intro"><div class="eyebrow">MỘT NGÀY MỚI, MỘT NIỀM VUI</div><h1>Chấm công</h1><p>Nhập mã nhân viên và PIN của bạn để bắt đầu hoặc kết thúc ca.</p></section>
+<section class="card" aria-label="Chấm công nhân viên"><form id="clock-form" autocomplete="off"><label for="employee-code">Mã nhân viên</label><input id="employee-code" name="employee-code" type="text" maxlength="64" pattern="[A-Za-z0-9_-]+" autocomplete="off" autocapitalize="none" spellcheck="false" required placeholder="Nhập mã của bạn">
+<label for="pin">PIN 6 số</label><input id="pin" name="pin" type="password" inputmode="numeric" pattern="[0-9]{6}" minlength="6" maxlength="6" autocomplete="off" required placeholder="••••••" aria-describedby="pin-note"><p id="pin-note" class="hint">PIN được xóa ngay sau khi gửi.</p>
+<div class="actions"><button type="submit" name="action" value="CLOCK_IN" class="primary">Vào ca <span aria-hidden="true">↗</span></button><button type="submit" name="action" value="CLOCK_OUT">Ra ca <span aria-hidden="true">↘</span></button></div></form>
+<div id="receipt" role="status" aria-live="polite" aria-atomic="true"><span id="status-title">Sẵn sàng cho ca làm của bạn</span><p id="status-detail">Chọn Vào ca hoặc Ra ca sau khi nhập thông tin.</p></div><button id="recheck" type="button" hidden>Kiểm tra lại</button></section>
+<p class="support">Cần hỗ trợ? Liên hệ quản lý cửa hàng.</p></main><footer><span>THE KAY’S GELATO</span><span>Mỗi ca làm đều được trân trọng.</span></footer></body></html>

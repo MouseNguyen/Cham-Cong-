@@ -133,13 +133,16 @@
     {
       "task_id": "PAY-W3-02",
       "title": "Isolated ingress and kiosk",
-      "owner": "codex-implementation-worker",
-      "status": "not_started",
-      "evidence": [],
+      "owner": "codex-parent",
+      "status": "partial",
+      "evidence": [
+        "docs/agent-packets/PAY-W3-02-LOCAL-parent-acceptance.json"
+      ],
       "accepted_commit": null,
       "production": "not_run",
       "planned_manager": "codex-parent",
-      "planned_reviewer": "codex-independent-reviewer"
+      "planned_reviewer": "codex-independent-reviewer",
+      "remaining_scope": "W3-02a/b accepted local synthetic; real iPOS/tunnel release evidence not run."
     },
     {
       "task_id": "PAY-W3-03",
@@ -232,13 +235,16 @@
     {
       "task_id": "PAY-W7-02",
       "title": "Windows lifecycle",
-      "owner": "codex-implementation-worker",
-      "status": "not_started",
-      "evidence": [],
+      "owner": "codex-parent",
+      "status": "partial",
+      "evidence": [
+        "docs/agent-packets/PAY-W3-02-LOCAL-parent-acceptance.json"
+      ],
       "accepted_commit": null,
       "production": "not_run",
       "planned_manager": "codex-parent",
-      "planned_reviewer": "codex-independent-reviewer"
+      "planned_reviewer": "codex-independent-reviewer",
+      "remaining_scope": "W7-02a minimum local launcher accepted; W7-02b full operations remains not_started."
     },
     {
       "task_id": "PAY-W7-03",
@@ -375,7 +381,11 @@
         "W2-01"
       ],
       "outcome": "minimum start/health/stop launcher; deferred full operations suite",
-      "status": "not_started"
+      "status": "accepted_synthetic_only",
+      "evidence": [
+        "docs/agent-packets/PAY-W3-02-LOCAL-parent-acceptance.json"
+      ],
+      "blocker_count": 0
     },
     {
       "id": "W3-02a",
@@ -385,7 +395,11 @@
         "W2-02"
       ],
       "outcome": "isolated ingress entrypoint and device enrollment/revocation",
-      "status": "not_started"
+      "status": "accepted_synthetic_only",
+      "evidence": [
+        "docs/agent-packets/PAY-W3-02-LOCAL-parent-acceptance.json"
+      ],
+      "blocker_count": 0
     },
     {
       "id": "W3-02b",
@@ -395,7 +409,11 @@
         "W7-02a"
       ],
       "outcome": "real Playwright harness + local kiosk flow; iPOS/tunnel later",
-      "status": "not_started"
+      "status": "accepted_synthetic_only",
+      "evidence": [
+        "docs/agent-packets/PAY-W3-02-LOCAL-parent-acceptance.json"
+      ],
+      "blocker_count": 0
     },
     {
       "id": "W3-03",
@@ -568,19 +586,18 @@
   "production_status": "not_run",
   "assignment_evidence": "Native role proposals; actual worker IDs/model bindings come from each confirmed packet. Historical executed ownership remains in receipts.",
   "hermes_dispatch": {
-    "status": "w3_01b_worker_stopped_parent_accepted",
+    "status": "w3_02a_worker_stopped_parent_accepted",
     "historical_blocker_count": 3,
     "blocks_current_execution_route": false,
-    "packet": "docs/agent-packets/PAY-W3-01b-HERMES.json",
-    "current_job": "20260906_134406_7083de",
-    "current_receipt": "docs/agent-packets/PAY-W3-01b-parent-acceptance.json"
+    "packet": "docs/agent-packets/PAY-W3-02-LOCAL.json",
+    "current_job": "20260906_141812_a53cc8",
+    "current_receipt": "docs/agent-packets/PAY-W3-02-LOCAL-parent-acceptance.json"
   },
   "execution_route": {
     "kind": "direct_hermes_forge_with_parent_integration",
-    "decision": "Duke approved W3-01b and delegated to Hermes. Forge supplied implementation; parent repaired and independently verified synthetic runtime.",
-    "packet": "docs/agent-packets/PAY-W3-01b-HERMES.json",
-    "worker_session": "20260906_134406_7083de",
+    "packet": "docs/agent-packets/PAY-W3-02-LOCAL.json",
+    "worker_session": "20260906_141812_a53cc8",
     "status": "accepted_synthetic_only",
-    "next_dependency": "W3-02a isolated ingress/device enrollment plus W7-02a local launcher before W3-02b kiosk"
+    "next_dependency": "W3-03 attendance review and immutable snapshot approval"
   }
 }

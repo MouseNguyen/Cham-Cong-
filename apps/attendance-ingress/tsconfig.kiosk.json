@@ -1,0 +1,1 @@
+{"extends":"../../tsconfig.base.json","compilerOptions":{"noEmit":false,"allowImportingTsExtensions":false,"rootDir":"src/kiosk","outDir":"dist","types":[],"module":"ESNext"},"include":["src/kiosk/kiosk.ts"]}
