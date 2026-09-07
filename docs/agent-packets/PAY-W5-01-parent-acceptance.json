@@ -1,0 +1,114 @@
+{
+  "task_id": "PAY-W5-01",
+  "agent_id": "codex-parent",
+  "status": "accepted_design_contract",
+  "outcome_status": "passed_owner_approved_visual_direction",
+  "preparation_status": "initialized_generated_corrected_branded_rendered_verified",
+  "as_of": "2026-09-07T05:35:05.1925297Z",
+  "base_commit": "0c34bda767f1be836ff2d68e685980fb188a1e9d",
+  "accepted_commit_reference": "Commit containing this receipt",
+  "local_core_blocker_count": 0,
+  "production": "not_run",
+  "claim_ledger": [
+    {
+      "layer": "structure",
+      "status": "passed",
+      "evidence": "All six Superdesign initialization files are present and non-empty; design-system, screen inventory, UX acceptance contract, and two-target resume state are valid."
+    },
+    {
+      "layer": "approved_superdesign_runtime",
+      "status": "passed",
+      "evidence": "Authenticated Personal team and existing project d8b04b46-809b-44cf-90ce-b95914f0a081. Two approved generation calls reported 33.5 total credits; eight deterministic imports reported zero generation credits."
+    },
+    {
+      "layer": "owner_review",
+      "status": "passed",
+      "evidence": "Duke approved the final W5 design conditional on the supplied updated logo. The exact approved logo is present in dashboard v4 and kiosk v7."
+    },
+    {
+      "layer": "brand_identity",
+      "status": "passed",
+      "evidence": "Repository file, uploaded Brand Asset, and upload response share SHA-256 4f978b7fe2f4299179f2fe57db854816fd3c7d1c8d8ea017a4d6d240fabfbede. Asset key the-kays-gelato-logo appears once in each final draft; no generic substitute remains."
+    },
+    {
+      "layer": "remote_source_integrity",
+      "status": "passed",
+      "evidence": "Refetched dashboard v4 SHA-256 16517f1624b3a2449e890f8febb3d6c57a8ec648d16d0231e1cb2537228db3db and kiosk v7 SHA-256 dcef9ae46ca0ea15335cdd0c73f07df1c3a29e85a9dbc15a951bbe4d33b3c276 exactly matched their local import sources."
+    },
+    {
+      "layer": "rendered_visual",
+      "status": "passed",
+      "evidence": "Chrome rendered dashboard v4 at 1440x900 and kiosk v7 at 1280x800. Each loaded one exact 2000x2000 logo asset, preserved the approved palette and hierarchy, and had no horizontal overflow."
+    },
+    {
+      "layer": "synthetic_interaction",
+      "status": "passed",
+      "evidence": "Kiosk v7 kept actions disabled for incomplete credentials; accepted employee code plus six-digit PIN; passed Vào ca and Tan ca copy; cleared PIN immediately; passed definitive rejection, unknown-outcome warning, same-flow recovery, privacy, and touch-target checks."
+    },
+    {
+      "layer": "cleanup",
+      "status": "passed",
+      "evidence": "Playwright browser closed and repository-local .playwright-cli scratch removed; no browser session remained."
+    },
+    {
+      "layer": "product_implementation",
+      "status": "not_run",
+      "evidence": "W5-01 is a design-contract task. Production React kiosk/admin implementation and its E2E tests belong to W5-02a and later tasks."
+    },
+    {
+      "layer": "production",
+      "status": "not_run",
+      "evidence": "No deployment, tunnel, real employee data, real payroll data, or production action occurred."
+    }
+  ],
+  "remote_design": {
+    "project_id": "d8b04b46-809b-44cf-90ce-b95914f0a081",
+    "canvas": "https://superdesign.dev/teams/d310777b-9640-4bff-9b43-813eb0f2b5c7/projects/d8b04b46-809b-44cf-90ce-b95914f0a081",
+    "dashboard": {
+      "draft_id": "1fe18151-3cdd-4453-a54a-3d4c1f4a3a86",
+      "version": 4,
+      "preview": "https://p.superdesign.dev/draft/1fe18151-3cdd-4453-a54a-3d4c1f4a3a86"
+    },
+    "kiosk": {
+      "draft_id": "85ad5cdb-724e-43c6-94a3-e7eb35f678ac",
+      "version": 7,
+      "preview": "https://p.superdesign.dev/draft/85ad5cdb-724e-43c6-94a3-e7eb35f678ac"
+    }
+  },
+  "source_seals": [
+    {
+      "path": ".superdesign/design-system.md",
+      "sha256": "72bb3c66c68d59e979ffc1053f399b8108296268b46bf512ab9d7312808712e2"
+    },
+    {
+      "path": ".superdesign/resume.json",
+      "sha256": "ede6514788dc003225e154055ad6d003b4756fa2805cdaedfc0ea8b28c5e9bdb"
+    },
+    {
+      "path": "docs/design/screen-inventory.md",
+      "sha256": "266d19d0de9df6c320d3f09027583d40154cb67bb46fa0f8428910c137cad492"
+    },
+    {
+      "path": "docs/design/ux-acceptance.md",
+      "sha256": "515a86a2159e37fafcb1c95914abd3febed50c9f409042f35aedfbbb9c294c41"
+    },
+    {
+      "path": "docs/design/assets/the-kays-gelato-logo.jpg",
+      "sha256": "4f978b7fe2f4299179f2fe57db854816fd3c7d1c8d8ea017a4d6d240fabfbede"
+    },
+    {
+      "path": "docs/agent-packets/PAY-W5-01.json",
+      "sha256": "a9d1cd1f17c2ed7296c48d8a6e546dbeab904d87dbc262eafbfcedbbc8858a2c"
+    },
+    {
+      "path": "docs/planning/task-status.json",
+      "sha256": "e5117aba10ad8075a1b16866f8e2a5547be2d95ab94e9bcff9488b6d7d2a4f91"
+    }
+  ],
+  "scope_limits": [
+    "Accepted only as the W5-01 visual and UX design contract.",
+    "Superdesign preview warnings for Tailwind CDN production use and favicon HTTP 400 are preview-only; production implementation must use the repository build pipeline.",
+    "No product build, local product runtime, production deployment, real iPOS canary, tunnel, real employee data, or real payroll data was run."
+  ],
+  "next_action": "PAY-W5-02a may implement the minimum employee, attendance, and pay-run admin UI from this accepted design contract under its own approved runtime and verification scope."
+}

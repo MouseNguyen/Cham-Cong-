@@ -1,0 +1,113 @@
+{
+  "task_id": "PAY-W5-01",
+  "status": "accepted_design_contract",
+  "authority": "Duke approved continuing with PAY-W5-01 on 2026-09-06. On 2026-09-07 Duke approved one Superdesign tablet-kiosk flow-generation call with a maximum of 20 credits, the exact one-page prompt, and no publishing or deployment. Duke then approved the no-credit employee-code correction and explicitly approved running npx --yes @superdesign/cli@latest with network access to import and verify the corrected draft. Duke approved the final W5 direction conditional on the supplied updated logo and then explicitly approved uploading that exact file to Superdesign project d8b04b46-809b-44cf-90ce-b95914f0a081 as a durable Brand Asset.",
+  "terminal_outcome": "One owner-reviewed simple-premium visual direction for the Vietnamese payroll application, recorded as a Superdesign base draft plus an implementable token, screen, and UX acceptance contract.",
+  "core_outcome": "A single desktop-admin and tablet-kiosk visual system that makes payroll state, blockers, next action, calculation trace, and consequential confirmations immediately understandable.",
+  "local_core_blocker_count": 0,
+  "must_pass_gates": [
+    "All six Superdesign repository initialization files exist and are non-empty before generation",
+    "Only synthetic UI context is shared; no credentials, real employee records, payroll exports, contracts, secrets, or production data",
+    "The selected direction uses the locked cream, ink/cocoa, pistachio, and berry palette with Vietnamese-first typography and accessible states",
+    "Desktop admin and tablet kiosk are reviewed separately",
+    "The pay-run flow has exactly five legible states and one primary action per state",
+    "Agent-facing actions are read-first or draft-first; consequential mutations require confirmation and normal service validation",
+    "Visual runtime acceptance is not claimed from generated HTML alone"
+  ],
+  "owned_files": [
+    ".gitignore",
+    ".superdesign/init/components.md",
+    ".superdesign/init/layouts.md",
+    ".superdesign/init/routes.md",
+    ".superdesign/init/theme.md",
+    ".superdesign/init/pages.md",
+    ".superdesign/init/extractable-components.md",
+    ".superdesign/design-system.md",
+    ".superdesign/resume.json",
+    "docs/design/screen-inventory.md",
+    "docs/design/ux-acceptance.md",
+    "docs/design/assets/the-kays-gelato-logo.jpg",
+    "docs/agent-packets/PAY-W5-01.json",
+    "docs/agent-packets/PAY-W5-01-parent-acceptance.json",
+    "docs/planning/task-status.json"
+  ],
+  "superdesign_preparation": {
+    "status": "passed",
+    "cli_version": "0.14.0",
+    "authenticated_team": "Personal",
+    "selected_model": "gemini-3.1-pro",
+    "selected_model_plan": "not_marked_premium_in_current_catalog",
+    "selected_style_source": "mosaic-grid-architecture-style",
+    "style_use": "structural cues only; product palette, typography, accessibility, and task hierarchy remain authoritative",
+    "generation_count": 2,
+    "dashboard_generation_credits_reported": 18.5,
+    "tablet_flow_generation_credits_reported": 15,
+    "total_cli_reported_generation_credits": 33.5,
+    "credit_interpretation": "CLI-reported generation usage only; no cash charge or current account-balance deduction is claimed without billing evidence",
+    "direct_import_count": 8,
+    "direct_import_credits": 0
+  },
+  "remote_design": {
+    "project_id": "d8b04b46-809b-44cf-90ce-b95914f0a081",
+    "draft_id": "1fe18151-3cdd-4453-a54a-3d4c1f4a3a86",
+    "active_version": 4,
+    "canvas": "https://superdesign.dev/teams/d310777b-9640-4bff-9b43-813eb0f2b5c7/projects/d8b04b46-809b-44cf-90ce-b95914f0a081",
+    "preview": "https://p.superdesign.dev/draft/1fe18151-3cdd-4453-a54a-3d4c1f4a3a86",
+    "owner_direction_review": "approved_final_conditional_logo_requirement_satisfied",
+    "v4_source_verification": "passed_sha256_match",
+    "v4_rendered_review": "passed_owner_final",
+    "v4_rendered_evidence": {
+      "reviewed_at": "2026-09-07",
+      "browser": "Chrome via Playwright CLI",
+      "full_page_size": "1440x900",
+      "visual_result": "passed",
+      "logo_result": "passed_exact_brand_asset_loaded_2000x2000",
+      "kiosk_navigation_preserved": true,
+      "horizontal_overflow": false,
+      "preview_only_console_findings": [
+        "Tailwind CDN production warning",
+        "favicon.ico returned HTTP 400"
+      ]
+    },
+    "tablet_kiosk_review": "passed_owner_final_visual_and_interaction",
+    "tablet_kiosk": {
+      "draft_id": "85ad5cdb-724e-43c6-94a3-e7eb35f678ac",
+      "active_version": 7,
+      "preview": "https://p.superdesign.dev/draft/85ad5cdb-724e-43c6-94a3-e7eb35f678ac",
+      "generation_credits_reported": 15,
+      "remote_source_verification": "passed_sha256_match",
+      "rendered_viewport": "1280x800",
+      "normal_path": "passed_synthetic_clock_in_and_clock_out",
+      "rejected_pin_path": "passed_synthetic_generic_credentials_000000",
+      "unknown_outcome_path": "passed_synthetic_999999",
+      "status_recovery_path": "passed_synthetic",
+      "interaction_count": "passed_three_interactions_employee_code_six_digit_pin_action",
+      "pin_clearing": "passed_immediately_after_submission_all_tested_outcomes",
+      "touch_targets": "passed_at_least_44_by_44_pixels",
+      "horizontal_overflow": "none_at_1280_by_800",
+      "privacy_surface": "passed_no_admin_navigation_employee_list_or_payroll_amounts",
+      "logo_result": "passed_exact_brand_asset_loaded_2000x2000",
+      "owner_review": "approved_final_conditional_logo_requirement_satisfied",
+      "preview_only_console_findings": [
+        "Tailwind CDN production warning",
+        "favicon.ico returned HTTP 400"
+      ]
+    }
+  },
+  "external_gate": {
+    "status": "passed",
+    "effects": []
+  },
+  "brand_asset": {
+    "source_path": "docs/design/assets/the-kays-gelato-logo.jpg",
+    "source_sha256": "4f978b7fe2f4299179f2fe57db854816fd3c7d1c8d8ea017a4d6d240fabfbede",
+    "superdesign_asset_key": "the-kays-gelato-logo",
+    "purpose": "brand",
+    "type": "logo",
+    "upload_hash_matched_source": true,
+    "dashboard_exact_url_count": 1,
+    "kiosk_exact_url_count": 1,
+    "generic_logo_substitutes_remaining": 0
+  },
+  "production": "not_run"
+}

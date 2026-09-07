@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-09-06",
+  "as_of": "2026-09-07",
   "baseline_commit": "b581e21ebf2b2c26e49b794a0035e30a6da269d1",
   "authority": "Current task state; checkbox steps in the dated implementation plan are templates, not execution receipts.",
   "task_count": 20,
@@ -182,9 +182,12 @@
       "task_id": "PAY-W5-01",
       "title": "Visual design contract",
       "owner": "codex-parent",
-      "status": "not_started",
-      "evidence": [],
+      "status": "accepted_design_contract",
+      "evidence": [
+        "docs/agent-packets/PAY-W5-01-parent-acceptance.json"
+      ],
       "accepted_commit": null,
+      "acceptance_commit_reference": "Commit containing docs/agent-packets/PAY-W5-01-parent-acceptance.json",
       "production": "not_run",
       "planned_manager": "codex-parent",
       "planned_reviewer": "codex-independent-reviewer"
@@ -460,7 +463,11 @@
         "PAY-W0-01"
       ],
       "outcome": "approved visual direction; independent when tool use authorized",
-      "status": "not_started"
+      "status": "accepted_design_contract",
+      "blocker_count": 0,
+      "evidence": [
+        "docs/agent-packets/PAY-W5-01-parent-acceptance.json"
+      ]
     },
     {
       "id": "W5-02a",

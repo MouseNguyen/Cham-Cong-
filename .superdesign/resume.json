@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "targets": {
+    "/dashboard": {
+      "targetKind": "new-ui",
+      "projectId": "d8b04b46-809b-44cf-90ce-b95914f0a081",
+      "activeDraftId": "1fe18151-3cdd-4453-a54a-3d4c1f4a3a86",
+      "designSystemPath": ".superdesign/design-system.md",
+      "referenceIds": [
+        "the-kays-gelato-logo"
+      ],
+      "brandAssets": {
+        "logo": {
+          "assetKey": "the-kays-gelato-logo",
+          "url": "https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/d8b04b46-809b-44cf-90ce-b95914f0a081/brand-assets/the-kays-gelato-logo/the-kays-gelato-logo.jpg",
+          "sourcePath": "docs/design/assets/the-kays-gelato-logo.jpg"
+        }
+      },
+      "contextFiles": [
+        ".superdesign/design-system.md",
+        ".superdesign/init/theme.md",
+        "apps/web/src/app/layout.tsx",
+        "apps/web/src/app/(admin)/attendance/page.tsx",
+        "apps/web/src/app/(admin)/attendance/review-panel.tsx",
+        "apps/web/src/app/(admin)/attendance/review.module.css",
+        "docs/design/screen-inventory.md",
+        "docs/design/ux-acceptance.md"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system.md": "72bb3c66c68d59e979ffc1053f399b8108296268b46bf512ab9d7312808712e2",
+        ".superdesign/init/theme.md": "081134357475225c4a162618f82ba5abff63bb24dcf797dc4526f007a934b8de",
+        "apps/web/src/app/layout.tsx": "d10b09ffa30aded5bee816fe68a875d39e65c20a41f7a0ca337626e31292e745",
+        "apps/web/src/app/(admin)/attendance/page.tsx": "1e181d9baab079586d961c996472381cdcdc0c2c59079d3db3a8b7315b1d81c7",
+        "apps/web/src/app/(admin)/attendance/review-panel.tsx": "635e8b538a0b2c5049683862273f6bda4f70c0d5a593ee0f4ff73dd871b52fa0",
+        "apps/web/src/app/(admin)/attendance/review.module.css": "a888337eb1ecb7401bcb28515c5313dfec12fdb5e91433874e0fd38c0f2d1f0f",
+        "docs/design/screen-inventory.md": "266d19d0de9df6c320d3f09027583d40154cb67bb46fa0f8428910c137cad492",
+        "docs/design/ux-acceptance.md": "515a86a2159e37fafcb1c95914abd3febed50c9f409042f35aedfbbb9c294c41"
+      },
+      "drafts": {
+        "1fe18151-3cdd-4453-a54a-3d4c1f4a3a86": {
+          "title": "Việc cần làm hôm nay",
+          "visualDirection": "Sổ vận hành ấm áp",
+          "currentVersion": 4
+        }
+      },
+      "updatedAt": "2026-09-07T05:33:07.3414612Z"
+    },
+    "flow:kiosk-cham-cong": {
+      "targetKind": "new-ui",
+      "projectId": "d8b04b46-809b-44cf-90ce-b95914f0a081",
+      "activeDraftId": "85ad5cdb-724e-43c6-94a3-e7eb35f678ac",
+      "designSystemPath": ".superdesign/design-system.md",
+      "referenceIds": [
+        "the-kays-gelato-logo"
+      ],
+      "brandAssets": {
+        "logo": {
+          "assetKey": "the-kays-gelato-logo",
+          "url": "https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/d8b04b46-809b-44cf-90ce-b95914f0a081/brand-assets/the-kays-gelato-logo/the-kays-gelato-logo.jpg",
+          "sourcePath": "docs/design/assets/the-kays-gelato-logo.jpg"
+        }
+      },
+      "sourceTarget": "/dashboard",
+      "sourceDraftId": "1fe18151-3cdd-4453-a54a-3d4c1f4a3a86",
+      "contextFiles": [
+        ".superdesign/design-system.md",
+        ".superdesign/init/theme.md",
+        "docs/design/screen-inventory.md"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system.md": "72bb3c66c68d59e979ffc1053f399b8108296268b46bf512ab9d7312808712e2",
+        ".superdesign/init/theme.md": "081134357475225c4a162618f82ba5abff63bb24dcf797dc4526f007a934b8de",
+        "docs/design/screen-inventory.md": "266d19d0de9df6c320d3f09027583d40154cb67bb46fa0f8428910c137cad492"
+      },
+      "drafts": {
+        "85ad5cdb-724e-43c6-94a3-e7eb35f678ac": {
+          "title": "Kiosk chấm công — iPOS",
+          "visualDirection": "Sổ vận hành ấm áp — kiosk",
+          "currentVersion": 7,
+          "parentDraftId": "1fe18151-3cdd-4453-a54a-3d4c1f4a3a86",
+          "generationModel": "gemini-3.1-pro",
+          "generationCreditsReported": 15
+        }
+      },
+      "updatedAt": "2026-09-07T05:33:07.3414612Z"
+    }
+  }
+}
