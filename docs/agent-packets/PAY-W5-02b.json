@@ -1,0 +1,110 @@
+{
+  "task_id": "PAY-W5-02b",
+  "revision": 1,
+  "parent_task": "PAY-W5-02",
+  "workspace": "F:/Codex/Projects/Pay Slip",
+  "status": "accepted_synthetic_only",
+  "approval": {
+    "scope": "Duke: Next W5-02b delivery UI approved",
+    "runtime": "Exact runtime preview approved by Duke on 2026-09-08"
+  },
+  "roster": [
+    {
+      "agent_id": "codex-parent",
+      "role": "implementation, verification, integration and local commit",
+      "children": 0
+    }
+  ],
+  "core_outcome": "From a finalized synthetic pay run, the owner opens a Vietnamese delivery panel, generates/views the employee-bound encrypted payslip, previews exact recipient/file/period/hash, reauthenticates, confirms fake release or manual handoff, and sees truthful persisted receipts after reload.",
+  "core_outcome_classification": "core_outcome_blocker_for_M0",
+  "prerequisites": [
+    "PAY-W5-02a accepted UI",
+    "PAY-W6-01 encrypted PDF",
+    "PAY-W6-02b owner-bound release/manual services"
+  ],
+  "owned_files": [
+    "docs/agent-packets/PAY-W5-02b.json",
+    "docs/agent-packets/PAY-W5-02b-runtime-preview.md",
+    "docs/agent-packets/PAY-W5-02b-parent-acceptance.json",
+    "docs/planning/task-status.json",
+    "apps/web/src/app/(admin)/pay-runs/pay-run-panel.tsx",
+    "apps/web/src/app/(admin)/pay-runs/delivery-panel.tsx",
+    "apps/web/src/app/api/documents/route.ts",
+    "apps/web/src/lib/admin/http.ts",
+    "apps/web/src/lib/admin/queries.ts",
+    "apps/web/src/lib/admin/runtime.ts",
+    "apps/web/src/lib/admin/delivery-tools.ts",
+    "apps/web/src/lib/admin/documents-http.ts",
+    "apps/web/src/lib/delivery/password-handoff.ts",
+    "apps/web/src/styles/globals.css",
+    "scripts/windows/test-delivery-ui.ps1",
+    "scripts/windows/test-database.ps1",
+    "tests/integration/admin/delivery-browser-runner.cjs",
+    "tests/integration/admin/delivery-fixtures.ts",
+    "tests/integration/admin/delivery-http.spec.ts",
+    "tests/integration/admin/tsconfig.json",
+    "tests/e2e/delivery.spec.ts",
+    "playwright.config.ts",
+    "package.json"
+  ],
+  "must_pass_gates": [
+    "Reuse approved Vietnamese visual direction and existing components; avoid unrelated redesign",
+    "Only finalized synthetic rows can generate documents; authenticated org/employee-bound private download, never a public filesystem URL",
+    "Exact employee/verified recipient/period/file/hash preview with explicit owner confirmation and fresh MFA",
+    "Truthful fake accepted/manual confirmed states; reload shows durable evidence; failed/uncertain outcomes do not auto-resend",
+    "Separate owner-only password-handoff interaction; no secret in tool results, audit, URLs, screenshots or logs",
+    "Typed read-only tools registered before mutating tools; JSON schemas, current-state registration/cleanup, same UI/backend handlers and explicit confirmation for effects",
+    "Direct browser flow and negative HTTP/tool cases for wrong role, stale preview, wrong file/employee, missing confirmation; desktop/tablet and keyboard checks",
+    "Focused RED/GREEN, lint/typecheck/build, exact owned process/listener and plaintext cleanup"
+  ],
+  "runtime": {
+    "commands": [
+      "powershell -NoProfile -File scripts/windows/test-delivery-ui.ps1 -Mode Red",
+      "powershell -NoProfile -File scripts/windows/test-delivery-ui.ps1 -Mode Green",
+      "npm run lint",
+      "npm run typecheck",
+      "npm run build",
+      "git diff --check; explicit-path staging; local commit"
+    ],
+    "database": "Fresh payslip_w5_02b_synthetic at 127.0.0.1:55432, existing PostgreSQL18.6 and all nine accepted migrations; no schema changes",
+    "server": "Owned Next.js synthetic admin at http://127.0.0.1:46217; host/port ownership and health checked before browser tests",
+    "browser": "Existing project Chromium/Playwright; local desktop and tablet viewports; no browser downloads or external navigation",
+    "pdf": "Existing qpdf/fonts/DPAPI; new synthetic PDF/passwords only, private test storage and temporary plaintext cleanup",
+    "limits": {
+      "minutes": 60,
+      "checkpoint_minutes": 15,
+      "attempts_per_evidence_layer": 2,
+      "disk_gb": 2,
+      "ram_gb": 4,
+      "gpu": false
+    },
+    "cleanup": "Stop only exact owned server/cluster/PDF browser processes and prove ports46217/55432 absent. Preserve stopped synthetic cluster, encrypted documents and redacted screenshots/receipts."
+  },
+  "generated_paths": [
+    ".tmp/PAY-W5-02b/**",
+    "ops/evidence/PAY-W5-02b-*",
+    "apps/web/.next/**",
+    "apps/web/src/generated/prisma/**",
+    "apps/web/next-env.d.ts",
+    "apps/attendance-ingress/dist/**"
+  ],
+  "exclusions": [
+    "No subagents, installs, downloads, schema changes, outside-project writes or push",
+    "No real employee records, existing secrets, OAuth, real Gmail/Zalo messages or external network",
+    "No production deployment, public/LAN port, tunnel or existing database operation"
+  ],
+  "rollback": "Transactions retain finalized payroll and roll back failed actions. All runtime data is in the fresh synthetic cluster; stop exact owned processes and preserve evidence. No destructive Git reset or database down migration.",
+  "polish_backlog": [
+    "Remaining broad responsive/accessibility states in W5-02c",
+    "Part-time and numeric expansion after M0",
+    "Real integrations and production approval in W8"
+  ],
+  "outcome_status": "passed_synthetic_delivery_ui",
+  "preparation_status": "implemented_and_verified",
+  "approval_blocker_count": 0,
+  "production_status": "not_run",
+  "production_release_blocker_group_count": 5,
+  "core_blocker_count": 0,
+  "acceptance_receipt": "docs/agent-packets/PAY-W5-02b-parent-acceptance.json",
+  "next_action": "M0 consolidated full-time synthetic acceptance, including holiday trace; not yet executed"
+}

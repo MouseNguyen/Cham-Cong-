@@ -1,0 +1,79 @@
+{
+  "task_id": "PAY-W5-02b",
+  "runs": [
+    {
+      "task_id": "PAY-W5-02b",
+      "run_id": "red-a8ac54a5-6fed-4c16-b452-cc5d17f6c770",
+      "mode": "Red",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W5-02b\\cluster\\red-a8ac54a5-6fed-4c16-b452-cc5d17f6c770",
+      "port": 55432,
+      "status": "failed",
+      "tests": null,
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      },
+      "browser": {
+        "exit": 1,
+        "passed_count": 0
+      },
+      "error": "ADMIN_BROWSER_FAILED"
+    },
+    {
+      "task_id": "PAY-W5-02b",
+      "run_id": "red-d8f70d2b-e909-430b-83aa-2b5c244060f5",
+      "mode": "Red",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W5-02b\\cluster\\red-d8f70d2b-e909-430b-83aa-2b5c244060f5",
+      "port": 55432,
+      "status": "red_observed",
+      "tests": null,
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      },
+      "browser": {
+        "exit": 0,
+        "passed_count": 0
+      }
+    },
+    {
+      "task_id": "PAY-W5-02b",
+      "run_id": "green-3bd77541-eb52-407b-a10a-8cd3817a0f09",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W5-02b\\cluster\\green-3bd77541-eb52-407b-a10a-8cd3817a0f09",
+      "port": 55432,
+      "status": "failed",
+      "tests": null,
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      },
+      "browser": {
+        "exit": 1,
+        "passed_count": 0
+      },
+      "error": "ADMIN_BROWSER_FAILED"
+    },
+    {
+      "task_id": "PAY-W5-02b",
+      "run_id": "green-17b7a997-45bb-4d5e-84d9-8ff6f09d02b3",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W5-02b\\cluster\\green-17b7a997-45bb-4d5e-84d9-8ff6f09d02b3",
+      "port": 55432,
+      "status": "passed",
+      "tests": null,
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      },
+      "browser": {
+        "exit": 0,
+        "passed_count": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "task_id": "PAY-W5-02b",
+  "as_of": "2026-09-08",
+  "owner": "codex-parent",
+  "children": 0,
+  "base_commit": "d11070b63b1bd2e13dda5dd0bca5be45d3cd48c0",
+  "status": "accepted_synthetic_only",
+  "outcome_status": "passed_synthetic_delivery_ui",
+  "preparation_status": "implemented_and_verified",
+  "core_blocker_count": 0,
+  "approval_blocker_count": 0,
+  "production_status": "not_run",
+  "production_release_blocker_group_count": 5,
+  "result": "Finalized synthetic payroll has a Vietnamese delivery panel for encrypted PDF generation/private download, exact recipient/period/file/hash preview, fresh MFA plus human confirmation, fake acceptance, manual receipt and separate password handoff. Reload reads durable receipts.",
+  "claim_ledger": [
+    {
+      "layer": "structure",
+      "status": "passed",
+      "evidence": "Owned source review, lint, typecheck, build and scoped diff checks"
+    },
+    {
+      "layer": "dry_run",
+      "status": "not_required",
+      "reason": "Direct approved synthetic runtime used"
+    },
+    {
+      "layer": "approved_browser_runtime",
+      "status": "passed",
+      "evidence": "One full browser case: actual login, finalized pay run, PDF generation/download, exact preview, disabled confirmation before checkbox, stale MFA rejection, real step-up, fake acceptance, separate password reveal/handoff, durable reload, keyboard activation and page tool cleanup"
+    },
+    {
+      "layer": "private_HTTP_and_tool_contracts",
+      "status": "passed",
+      "evidence": "Four asserting tests cover private authenticated/employee/org-bound download, altered PDF, wrong role, CSRF, missing confirmation, changed recipient, wrong preview hash, expired preview, wrong generation employee, manual receipt, duplicate-preview rejection and post-expiry fresh-MFA password access; stale/extra-input tools reject"
+    },
+    {
+      "layer": "visual",
+      "status": "passed",
+      "evidence": "Directly inspected desktop1440 and tablet800 screenshots; no tablet horizontal overflow, keyboard focus visible; synthetic data only"
+    },
+    {
+      "layer": "manual_UI_click_path",
+      "status": "not_run",
+      "reason": "Manual service/HTTP and persistence proven; the actual manual button click path remains part of broader W5-02c UI state coverage"
+    },
+    {
+      "layer": "model_prompt_to_tool_reliability",
+      "status": "not_run",
+      "reason": "Deterministic schema/state/confirmation evals only; no model/provider calls authorized"
+    },
+    {
+      "layer": "cleanup",
+      "status": "passed",
+      "evidence": "Both local ports absent; owned cluster/server stopped; no matching Chromium/qpdf processes; PDF work directories empty, only encrypted PDF and DPAPI sidecar pairs retained"
+    },
+    {
+      "layer": "production",
+      "status": "not_run",
+      "reason": "Five separate release blocker groups remain; no real messages, external integrations, real employee data or deployment"
+    },
+    {
+      "layer": "M0_consolidated_holiday_trace",
+      "status": "not_run",
+      "reason": "Next milestone; this delivery test begins with an accepted finalized synthetic fixture"
+    }
+  ],
+  "runtime_evidence": "ops/evidence/PAY-W5-02b-runtime.json",
+  "accepted_runtime_run_id": "green-17b7a997-45bb-4d5e-84d9-8ff6f09d02b3",
+  "red_run_id": "red-d8f70d2b-e909-430b-83aa-2b5c244060f5",
+  "verification": {
+    "browser_cases": 1,
+    "asserting_http_tool_cases": 4,
+    "reported_vitest_cases": 5,
+    "vitest_count_note": "One additional seed-mode test is a no-op during the final HTTP run; do not count it as behavioral coverage",
+    "lint": "exit_0",
+    "typecheck": "exit_0",
+    "build": "exit_0",
+    "migrations": 9
+  },
+  "attempts": {
+    "red": 2,
+    "green": 2,
+    "red_repair": "Receipt matcher still named prior dashboard heading; direct missing delivery heading already proved. Corrected matcher passed.",
+    "green_repair": "Password assertion read hidden output before async response. Wait on boolean condition and clear secret before any test failure snapshot. Also corrected initial fetch lifecycle lint finding.",
+    "core_progress": "First GREEN already proved PDF generation/download, stale MFA rejection and reauth, fake acceptance; second proved handoff, reload and all focused negatives."
+  },
+  "review": {
+    "reviewer": "codex-parent",
+    "independent_agent": "not_required_parent_only_roster",
+    "findings_closed": [
+      "Serialize conflicting release/manual previews per artifact, preventing duplicate UI release",
+      "Preserve owner handoff access after delivery preview expiry while rechecking current binding and fresh MFA",
+      "Remove page tools during confirmations and password reveal; invalidate captured tools on cleanup"
+    ],
+    "polish_backlog": [
+      "W5-02c broader responsive/accessibility/manual UI states",
+      "Match download anchor styling to Button vocabulary"
+    ]
+  },
+  "next_action": "Prepare and verify M0 consolidated synthetic acceptance, including holiday trace, under its own owned packet.",
+  "source_sha256": {
+    "docs/agent-packets/PAY-W5-02b.json": "14c34c0d554dfb531f9116ec1299ef5a8d2d7ca8f90297274235aaa61a457eb9",
+    "docs/agent-packets/PAY-W5-02b-runtime-preview.md": "c233c839d7dcafe150be9cd2a4facc626d62c60e5f669882a52f60c71dad031c",
+    "docs/planning/task-status.json": "0bee08eb736e58f0fc147fb0d96336ea28db9abc9d7ee71e28187c946a056181",
+    "apps/web/src/app/(admin)/pay-runs/pay-run-panel.tsx": "a3b81a1e3ac154c08b63bde9ebbef3fa5404cfc9da06e2d46917747e765bb43f",
+    "apps/web/src/app/(admin)/pay-runs/delivery-panel.tsx": "cc2633a3d4aba0753f85b725b1a2790922726242bfccf15a2799b554e4ba14aa",
+    "apps/web/src/app/api/documents/route.ts": "cc97df0034ff98998bb7940964160bcb86a910d9a2b4223a3590529aabbf0638",
+    "apps/web/src/lib/admin/http.ts": "9db184afddf6039195cec8421b6471997ddd62049e0ba48fb877e685510abd24",
+    "apps/web/src/lib/admin/queries.ts": "24281abb2fe42a365ac09357a9e03e39812f4665270e179a8a33dd3a17fdff46",
+    "apps/web/src/lib/admin/runtime.ts": "df495f9250ae47410393193e5389834aa424d6fd047c033fdb9f723617120fa4",
+    "apps/web/src/lib/admin/delivery-tools.ts": "7a39f8797486cfebf400823b79dfe76284c1e7b1ca7308a16311d15510d8db7a",
+    "apps/web/src/lib/admin/documents-http.ts": "62510f822bedd3874beb852986d906745ac458fbb2f1f27fee63108a68dacc2c",
+    "apps/web/src/lib/delivery/password-handoff.ts": "393121e4af43ea26b9e770c827ff0bae61d653fcc56454a2e75abf8d6b4c4033",
+    "apps/web/src/styles/globals.css": "15bf93d71ccacb09b9bce85a0e4a26dbdda9b53c009e40f66ce0503755a3ab60",
+    "scripts/windows/test-delivery-ui.ps1": "a4a738e970ec1cc5fd912e2ee6455af28c2af2e1f0b64590c5c84b6c097a1321",
+    "scripts/windows/test-database.ps1": "38c8cbabbe7c0985effdf586cda2f8e8b372a6c416076601ca96649b2a85c767",
+    "tests/integration/admin/delivery-browser-runner.cjs": "28c36edd0ea690613e0dfeaa3d033e3838a06362d615fbd11ef3db073bdc502d",
+    "tests/integration/admin/delivery-fixtures.ts": "346d27d83b39b50e5e2a0d0bbf6830fab42007f6be88abfe46d8eb6d592df408",
+    "tests/integration/admin/delivery-http.spec.ts": "a3ffdc799b33246cb4791a3a5477af740584ff400428ca2b56446594000cdf2a",
+    "tests/integration/admin/tsconfig.json": "d7e3882399230b7c055ae0f7ab73b3a1b20af4f3dbe1ddf2de3c963eb419d9ed",
+    "tests/e2e/delivery.spec.ts": "8cc78654c7eef73c420e062490eaa59227edb18400d5a6c23a67d73c3a934726",
+    "playwright.config.ts": "f27b6df0d357d9b12d4b5c43b37e0c93f7f251ed102807203be33c7d0b90d2a0",
+    "package.json": "64b3f73d06f41871ba26165aca91167f134295d30ec48dadb7e841f62dcaff1d",
+    "ops/evidence/PAY-W5-02b-runtime.json": "661d15918b856247f4ba12cb5f77f03984e6893efc67d1cf665491598b104f2e",
+    "ops/evidence/PAY-W5-02b-red.json": "6ebe6d16573d7da306e77f444a3253e7a4de8a63fb85708a55d6dfb421875f1a",
+    "ops/evidence/PAY-W5-02b-desktop.png": "df83a5fd0c0dcc5b636d9d666b5fe0aa8b8b828ce8b74637354e29054dc443e9",
+    "ops/evidence/PAY-W5-02b-tablet.png": "6df21e5feabd8c55c4216c83cc2c0a89416ec8f94b0c16229283486d7e643ecf"
+  }
+}

@@ -6,8 +6,9 @@ import { PayRunRepository } from '../db/repositories/pay-runs';
 import { createWindowsDpapi } from '../secrets/windows-dpapi';
 import { inputFromFixture, calculatePayroll } from '../../../../../packages/payroll-domain/src/calculate';
 import { createAdminHandler } from './http';
+import { createDocumentsHandler } from './documents-http';
 
-type Runtime = { pool: Pool; handle: ReturnType<typeof createAdminHandler> };
+type Runtime = { pool: Pool; handle: ReturnType<typeof createAdminHandler>; documents: ReturnType<typeof createDocumentsHandler> | null };
 type CalculatorConfig = { id: string; version: string; canonicalizationVersion: string; artifactHash: string; inputTemplate: Record<string, unknown>; periodStart: string; periodEnd: string };
 const state = globalThis as typeof globalThis & { paySlipAdminRuntime?: Runtime };
 function runtime(): Runtime {
@@ -36,7 +37,14 @@ function runtime(): Runtime {
   const auth = new AuthRepository(pool, protector, { organizationId });
   const employees = new EmployeesRepository(pool, protector, { organizationId });
   const payRuns = config ? new PayRunRepository(pool, auth, { organizationId, now: () => new Date(), calculator: config }) : null;
-  return state.paySlipAdminRuntime = { pool, handle: createAdminHandler({ pool, auth, employees, payRuns, organizationId, origin, calculatorPeriod: config }) };
+  const storageRoot=process.env.PAYSLIP_DOCUMENT_STORAGE,qpdfPath=process.env.PAYSLIP_QPDF_PATH,chromiumPath=process.env.PAYSLIP_CHROMIUM_PATH;
+  const documents=storageRoot&&qpdfPath&&chromiumPath&&[storageRoot,qpdfPath,chromiumPath].every(isAbsolute)
+    ?createDocumentsHandler({pool,protector,projectRoot:root,storageRoot,qpdfPath,chromiumPath,organizationId,origin,now:()=>new Date()}):null;
+  return state.paySlipAdminRuntime = { pool, documents, handle: createAdminHandler({ pool, auth, employees, payRuns, organizationId, origin, calculatorPeriod: config }) };
+}
+export async function documentsRoute(request:Request):Promise<Response>{
+ try{const handle=runtime().documents;if(!handle)throw Error();return await handle(request);}
+ catch{return Response.json({code:'DELIVERY_UNAVAILABLE'},{status:503,headers:{'cache-control':'no-store'}});}
 }
 export async function adminRoute(request: Request): Promise<Response> {
   try { return await runtime().handle(request); }

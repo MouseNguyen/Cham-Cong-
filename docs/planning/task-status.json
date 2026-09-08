@@ -198,7 +198,8 @@
       "owner": "codex-implementation-worker",
       "status": "partial",
       "evidence": [
-        "docs/agent-packets/PAY-W5-02a-parent-acceptance.json"
+        "docs/agent-packets/PAY-W5-02a-parent-acceptance.json",
+        "docs/agent-packets/PAY-W5-02b-parent-acceptance.json"
       ],
       "accepted_commit": null,
       "production": "not_run",
@@ -527,7 +528,13 @@
         "W6-02b"
       ],
       "outcome": "delivery UI + read/mutating page-tool evals",
-      "status": "not_started"
+      "status": "accepted_synthetic_only",
+      "packet": "docs/agent-packets/PAY-W5-02b.json",
+      "blocker_count": 0,
+      "evidence": [
+        "docs/agent-packets/PAY-W5-02b-parent-acceptance.json"
+      ],
+      "acceptance_commit_reference": "Commit containing this acceptance receipt"
     },
     {
       "id": "M0",
@@ -638,8 +645,8 @@
   },
   "execution_route": {
     "kind": "parent_only",
-    "packet": "docs/agent-packets/PAY-W6-02b.json",
-    "status": "w6_02b_accepted_synthetic_only",
-    "next_dependency": "W5-02b delivery UI and page-tool integration"
+    "packet": "docs/agent-packets/PAY-W5-02b.json",
+    "status": "w5_02b_accepted_synthetic_only",
+    "next_dependency": "M0 consolidated synthetic full-time end-to-end acceptance including holiday trace"
   }
 }

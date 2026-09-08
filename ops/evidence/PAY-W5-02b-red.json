@@ -1,0 +1,8 @@
+{
+  "layer": "behavior_specific_red",
+  "status": "passed",
+  "expected": "finalized pay-run delivery heading",
+  "actual": "missing delivery panel on finalized pay run",
+  "test": "finalized delivery panel",
+  "all_current_migrations_applied": true
+}
