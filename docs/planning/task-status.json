@@ -621,8 +621,8 @@
   },
   "execution_route": {
     "kind": "native_codex_sequential",
-    "packet": "docs/agent-packets/PAY-W5-02a.json",
-    "status": "w5_02a_accepted_synthetic_core",
-    "next_dependency": "W6-01 encrypted PDF"
+    "packet": "docs/agent-packets/PAY-W6-01.json",
+    "status": "prepared_awaiting_runtime_approval",
+    "next_dependency": "Approve W6-01 bounded tool acquisition and encrypted PDF verification"
   }
 }
