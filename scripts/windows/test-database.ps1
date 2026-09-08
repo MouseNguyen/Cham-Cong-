@@ -1,4 +1,4 @@
-param([ValidateSet('Red','Green')][string]$Mode='Green', [ValidateSet('PAY-W2-01','PAY-W6-02a','PAY-W2-02','PAY-W2-03','PAY-W3-01b','PAY-W3-02a','PAY-W3-02b','PAY-W7-02a','PAY-W3-03','PAY-W4-01','PAY-W5-02a','PAY-W6-01','PAY-W6-02b','PAY-W5-02b')][string]$TaskId='PAY-W2-01', [switch]$Browser)
+param([ValidateSet('Red','Green')][string]$Mode='Green', [ValidateSet('PAY-W2-01','PAY-W6-02a','PAY-W2-02','PAY-W2-03','PAY-W3-01b','PAY-W3-02a','PAY-W3-02b','PAY-W7-02a','PAY-W3-03','PAY-W4-01','PAY-W5-02a','PAY-W6-01','PAY-W6-02b','PAY-W5-02b','PAY-M0')][string]$TaskId='PAY-W2-01', [switch]$Browser)
 $ErrorActionPreference='Stop'
 $env:PAYSLIP_DB_TEST_MODE=$Mode
 $env:PAYSLIP_DB_TASK_ID=$TaskId
@@ -14,7 +14,7 @@ const cluster=path.join(root,'.tmp',taskId,'cluster',runId);
 const log=path.join(root,'.tmp',taskId,runId+'.log');
 const ownerPassword=crypto.randomBytes(32).toString('hex'),appPassword=crypto.randomBytes(32).toString('hex'),ingressPassword=crypto.randomBytes(32).toString('hex');
 const kioskTask=['PAY-W3-02a','PAY-W3-02b','PAY-W7-02a'].includes(taskId);
-const database=taskId==='PAY-W5-02b'?'payslip_w5_02b_synthetic':taskId==='PAY-W6-02b'?'payslip_w6_02b_synthetic':taskId==='PAY-W6-01'?'payslip_w6_01_synthetic':taskId==='PAY-W5-02a'?'payslip_w5_02a_synthetic':taskId==='PAY-W4-01'?'payslip_w4_01_synthetic':taskId==='PAY-W3-03'?'payslip_w3_03_synthetic':kioskTask?'payslip_w3_02_synthetic':taskId==='PAY-W3-01b'?'payslip_w3_01b_synthetic':taskId==='PAY-W2-03'?'payslip_w2_03_synthetic':taskId==='PAY-W2-02'?'payslip_w2_02_auth_synthetic':'payslip_w2_01_synthetic';
+const database=taskId==='PAY-M0'?'payslip_m0_synthetic':taskId==='PAY-W5-02b'?'payslip_w5_02b_synthetic':taskId==='PAY-W6-02b'?'payslip_w6_02b_synthetic':taskId==='PAY-W6-01'?'payslip_w6_01_synthetic':taskId==='PAY-W5-02a'?'payslip_w5_02a_synthetic':taskId==='PAY-W4-01'?'payslip_w4_01_synthetic':taskId==='PAY-W3-03'?'payslip_w3_03_synthetic':kioskTask?'payslip_w3_02_synthetic':taskId==='PAY-W3-01b'?'payslip_w3_01b_synthetic':taskId==='PAY-W2-03'?'payslip_w2_03_synthetic':taskId==='PAY-W2-02'?'payslip_w2_02_auth_synthetic':'payslip_w2_01_synthetic';
 const ownerConnection=new URL('postgresql://127.0.0.1:55432/'+database); ownerConnection.username='payslip_owner'; ownerConnection.password=ownerPassword; const ownerUrl=ownerConnection.href;
 const appConnection=new URL('postgresql://127.0.0.1:55432/'+database); appConnection.username='payslip_app'; appConnection.password=appPassword; const appUrl=appConnection.href;
 const ingressConnection=new URL(ownerUrl); ingressConnection.username='payslip_ingress';ingressConnection.password=ingressPassword;const ingressUrl=ingressConnection.href;
@@ -69,9 +69,9 @@ let started=false,admin;
     if((await owner.query("SELECT to_regclass('public.outbox_dispatch_attempts') AS name")).rows[0].name)await owner.query('REVOKE UPDATE,DELETE ON outbox_dispatch_attempts FROM payslip_app');
    }
   }finally{await owner.end();}
-  if(taskId==='PAY-W5-02a'||taskId==='PAY-W5-02b'){
+  if(taskId==='PAY-W5-02a'||taskId==='PAY-W5-02b'||taskId==='PAY-M0'){
    if(process.env.PAYSLIP_AUTH_BROWSER!=='1')throw Error('ADMIN_BROWSER_REQUIRED');
-   const browser=run(process.execPath,[taskId==='PAY-W5-02b'?'tests/integration/admin/delivery-browser-runner.cjs':'tests/integration/admin/browser-runner.cjs'],undefined,true);
+   const browser=run(process.execPath,[taskId==='PAY-M0'?'tests/integration/admin/m0-browser-runner.cjs':taskId==='PAY-W5-02b'?'tests/integration/admin/delivery-browser-runner.cjs':'tests/integration/admin/browser-runner.cjs'],undefined,true);
    receipt.browser={exit:browser.exit,passed_count:Number(browser.output.match(/(\d+) passed/)?.[1]||0)};
    if(browser.exit!==0)throw Error('ADMIN_BROWSER_FAILED');
    if(mode==='Red'&&!browser.output.includes('ADMIN_BEHAVIOR_RED_OBSERVED'))throw Error('ADMIN_PRODUCT_RED_REQUIRED');

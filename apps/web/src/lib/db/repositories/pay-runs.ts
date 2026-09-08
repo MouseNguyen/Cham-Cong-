@@ -18,6 +18,40 @@ import type { AuthRepository } from "./auth";
 
 const HASH = /^[a-f0-9]{64}$/;
 
+/** Materialize supported time from a frozen snapshot; configuration never supplies worked hours. */
+export function snapshotPayableTime(value: unknown, start: number, end: number): {payable:string;holiday:string} {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) throw conflict('ATTENDANCE_SNAPSHOT_INVALID');
+  const snapshot=value as Record<string,unknown>;
+  const payable=snapshot.totalPayableDurationMs??snapshot.approvedPayableMilliseconds;
+  if(typeof payable!=='string'||!/^\d+$/.test(payable))throw conflict('ATTENDANCE_TOTAL_PAYABLE_REQUIRED');
+  // Historical synthetic W4 ordinary-only fixtures have no classified segments.
+  // They may replay ordinary payroll, but cannot contribute holiday hours.
+  if(snapshot.segments===undefined&&snapshot.synthetic===true)return {payable,holiday:'0'};
+  if(!Array.isArray(snapshot.segments))throw conflict('ATTENDANCE_COMPONENT_REVIEW_REQUIRED');
+  const intervals: {start:number;end:number;holiday:boolean}[]=[];
+  for(const entry of snapshot.segments){
+    if(!entry||typeof entry!=='object'||Array.isArray(entry))throw conflict('ATTENDANCE_SNAPSHOT_INVALID');
+    const s=entry as Record<string,unknown>;
+    if(s.classification!=='ordinary'&&s.classification!=='holiday_daytime')throw conflict('ATTENDANCE_COMPONENT_REVIEW_REQUIRED');
+    if(!Number.isSafeInteger(s.startUtcMs)||!Number.isSafeInteger(s.endUtcMs))throw conflict('ATTENDANCE_SNAPSHOT_INVALID');
+    const from=s.startUtcMs as number,to=s.endUtcMs as number;
+    if(from<start||to>end||to<=from||s.durationMs!==String(BigInt(to)-BigInt(from)))throw conflict('ATTENDANCE_SNAPSHOT_INVALID');
+    intervals.push({start:from,end:to,holiday:s.classification==='holiday_daytime'});
+  }
+  intervals.sort((a,b)=>a.start-b.start);let total=0n,holiday=0n,previous=start;
+  for(const s of intervals){if(s.start<previous)throw conflict('ATTENDANCE_SNAPSHOT_INVALID');previous=s.end;const ms=BigInt(s.end)-BigInt(s.start);total+=ms;if(s.holiday)holiday+=ms;}
+  if(total.toString()!==payable)throw conflict('ATTENDANCE_TOTAL_MISMATCH');
+  return {payable,holiday:holiday.toString()};
+}
+
+export function materializeHoliday(template:unknown,milliseconds:string,policy:unknown):Record<string,unknown>|null {
+  if(milliseconds==='0')return null;
+  if(!template||typeof template!=='object'||Array.isArray(template)||!policy||typeof policy!=='object')throw conflict('HOLIDAY_POLICY_REQUIRED');
+  const h=template as Record<string,unknown>,p=policy as Record<string,unknown>;
+  if(typeof h.ordinaryHourlyDivisorHours!=='string'||!/^\d+$/.test(h.ordinaryHourlyDivisorHours)||BigInt(h.ordinaryHourlyDivisorHours)<=0n)throw conflict('HOLIDAY_POLICY_REQUIRED');
+  return {...h,payableMilliseconds:milliseconds,daytimePremiumBasisPoints:p.holidayPremiumBasisPoints,entitlementTreatment:p.holidayEntitlementTreatment};
+}
+
 type Run = {
   id: string;
   organization_id: string;
@@ -139,13 +173,14 @@ export class PayRunRepository {
     const attendance = JSON.parse(source.snapshot) as { rawMilliseconds?: string; approvedPayableMilliseconds?: string; totalPayableDurationMs?: string };
     if (!raw.employment || !raw.attendance || !raw.calculator || !raw.ruleBinding) throw conflict("RULE_PACK_CALCULATOR_INPUT_MISSING");
     if (rule.kind !== "synthetic_materialized_policy" || rule.id !== binding.rulePackId || typeof rule.version !== "string" || !rule.policy || !Array.isArray(rule.funds) || !rule.pit) throw conflict("RULE_PACK_CALCULATOR_INPUT_MISSING");
-    const payable = attendance.totalPayableDurationMs ?? attendance.approvedPayableMilliseconds;
-    if (typeof payable !== "string" || !/^\d+$/.test(payable)) throw conflict("ATTENDANCE_TOTAL_PAYABLE_REQUIRED");
+    if(sha256(source.snapshot)!==binding.snapshotHash)throw conflict('SNAPSHOT_HASH_INVALID');
+    const {payable,holiday}=snapshotPayableTime(attendance,run.period_start.getTime(),run.period_end.getTime());
     const templateFunds = new Map((raw.insuranceFunds as Array<Record<string, unknown>>).map((fund) => [fund.id, fund]));
     if (templateFunds.size !== rule.funds.length) throw conflict("RULE_PACK_CALCULATOR_INPUT_MISSING");
     raw.employment.monthlySalaryVnd = source.salary;
     raw.attendance.rawMilliseconds = attendance.rawMilliseconds ?? payable;
     raw.attendance.payableMilliseconds = payable;
+    raw.holiday=materializeHoliday(raw.holiday,holiday,rule.policy);
     raw.ruleBinding = { ...raw.ruleBinding, id: rule.id, version: rule.version, status: "released" };
     raw.policy = rule.policy;
     raw.insuranceFunds = rule.funds.map((fund) => ({ ...templateFunds.get(fund.id), ...fund, baseVnd: source.salary, componentDate: raw.ruleBinding.componentDates.insurance }));

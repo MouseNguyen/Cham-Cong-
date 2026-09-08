@@ -1,0 +1,118 @@
+{
+  "task_id": "PAY-M0",
+  "status": "accepted_synthetic_only",
+  "owner": "codex-parent",
+  "children": 0,
+  "base_commit": "05ca10910863dc3876f3878d0cf1b80010533898",
+  "approval": "Duke explicitly approved M0 consolidated end-to-end test including holiday trace on 2026-09-08; parent-only reuse of accepted local synthetic test stack. Duke approved the proposed two-boundary product fix and full M0 rerun in the latest message. Duke approved the PDF mapper scope extension and full M0 rerun.",
+  "owned_files": [
+    "docs/agent-packets/PAY-M0.json",
+    "docs/agent-packets/PAY-M0-parent-acceptance.json",
+    "docs/planning/task-status.json",
+    "scripts/windows/test-m0.ps1",
+    "scripts/windows/test-database.ps1",
+    "tests/integration/admin/m0-browser-runner.cjs",
+    "tests/integration/admin/m0-fixtures.ts",
+    "tests/e2e/m0.spec.ts",
+    "tests/integration/admin/tsconfig.json",
+    "playwright.config.ts",
+    "apps/web/src/lib/admin/queries.ts",
+    "apps/web/src/lib/db/repositories/pay-runs.ts",
+    "tests/integration/admin/m0-holiday.spec.ts",
+    "packages/document-domain/src/payslip-view-model.ts"
+  ],
+  "core_outcome": "One synthetic full-time employee created through UI, approved holiday attendance, independently checked holiday/insurance/PIT trace, maker-checker finalization, encrypted PDF and fake receipt in the same flow.",
+  "must_pass_gates": [
+    "Snapshot contains exactly two approved holiday-daytime hours",
+    "Calculator holiday time derives from the frozen employee snapshot, not an attendance value copied from configuration",
+    "Synthetic divisor80 and premium30000bp: salary8000000, holiday600000, insurance840000, PIT0, gross8600000, net7760000",
+    "Immutable hashes linked through payroll, PDF and fake receipt",
+    "Owned process/port and plaintext cleanup"
+  ],
+  "runtime": {
+    "command": "powershell -NoProfile -File scripts/windows/test-m0.ps1",
+    "database": "Fresh payslip_m0_synthetic on 127.0.0.1:55432; existing PostgreSQL18.6, nine current migrations, Prisma validate/generate/migrate deploy",
+    "server": "Existing Next.js synthetic admin on 127.0.0.1:46217",
+    "browser": "Existing project Playwright Chromium; local app only",
+    "documents": "Existing qpdf/fonts/DPAPI; new synthetic outputs only if calculation gate passes",
+    "limits": {
+      "minutes": 60,
+      "attempts_per_layer": 2,
+      "gpu": false,
+      "disk_gb": 2,
+      "ram_gb": 4
+    },
+    "verification": [
+      "npm run lint",
+      "npm run typecheck",
+      "git diff --check",
+      "local explicit-path commit",
+      "npm run build",
+      "node node_modules/vitest/vitest.mjs run tests/integration/admin/m0-holiday.spec.ts"
+    ],
+    "cleanup": "Exact owned server/cluster/browser tree only; ports absent; preserve synthetic stopped data and redacted receipts"
+  },
+  "generated_paths": [
+    ".tmp/PAY-M0/**",
+    "ops/evidence/PAY-M0-*",
+    "apps/web/.next/**",
+    "apps/web/src/generated/prisma/**",
+    "apps/web/next-env.d.ts"
+  ],
+  "exclusions": [
+    "No subagents, package changes, external network, real data/messages, existing credentials, production, push or outside-repository writes",
+    "No payroll behavior fix without separate approval if this test confirms a root cause"
+  ],
+  "polish_backlog": [
+    "W5-02c broader UI states",
+    "W1-04 part-time expansion"
+  ],
+  "outcome_status": "passed_synthetic_M0",
+  "preparation_status": "verified",
+  "production_status": "not_run",
+  "production_release_blocker_group_count": 5,
+  "core_blocker_count": 0,
+  "failure": {
+    "run_id": "green-91f8c283-1b55-46f7-bfb5-83f39f09bfa5",
+    "stage": "draft_payroll_source_selection",
+    "direct_runtime": "Employee creation and attendance proposal/approval/finalization passed; calculate button remained disabled.",
+    "source_evidence": [
+      "apps/web/src/lib/admin/queries.ts:71 rejects every segment classification other than ordinary",
+      "apps/web/src/lib/db/repositories/pay-runs.ts:139-155 materializes total payable time but leaves holiday data in inputTemplate"
+    ],
+    "unknown": "Holiday calculation, payroll finalization, PDF and fake receipt were not reached in this consolidated run."
+  },
+  "proposed_repair": {
+    "status": "implemented_and_runtime_verified",
+    "owned_product_files": [
+      "apps/web/src/lib/admin/queries.ts",
+      "apps/web/src/lib/db/repositories/pay-runs.ts"
+    ],
+    "scope": [
+      "Permit approved ordinary and holiday_daytime segments while still blocking night/out-of-schedule/unknown classifications",
+      "Derive holiday payable milliseconds from immutable approved snapshot segments, validate durations and total consistency, and reject unsupported or missing holiday policy",
+      "Retain explicit synthetic divisor80 with documented provenance; do not invent statutory divisor or silently promote it to production",
+      "Run focused ordinary/holiday/mixed/unsupported source-binding checks, then the full prepared M0 browser flow; verify unchanged finalized hashes, PDF binding, fake receipt and cleanup"
+    ],
+    "runtime": "Reuse the exact PAY-M0 fresh synthetic PostgreSQL/Next/Chromium/qpdf stack; no installs/network/real data/schema changes. Run lint/typecheck/build after approved product changes. Two attempts per layer; local commit only after verification.",
+    "risk": "Removing the source guard without correct snapshot materialization can underpay or misattribute holiday pay; both boundaries must change together."
+  },
+  "pdf_repair": {
+    "status": "implemented_and_runtime_verified",
+    "file": "packages/document-domain/src/payslip-view-model.ts",
+    "problem": "PDF mapper binds attendance.payableMilliseconds only to snapshot.approvedPayableMilliseconds; real attendance-review/v1 snapshots contain totalPayableDurationMs.",
+    "change": "Use totalPayableDurationMs for current snapshots, preserve explicit legacy approvedPayableMilliseconds fallback, reject disagreement if both fields exist, retain all existing hash and identity checks.",
+    "tests": "Focused current/legacy/mismatch PDF-source regression in the owned m0-holiday.spec.ts, then full M0 rerun through encrypted PDF/fake receipt.",
+    "runtime": "Same already approved local fresh M0 database/Next/Chromium/qpdf stack; lint/typecheck/build and exact cleanup; no additional network, installs, schemas, real data, or messages.",
+    "risk": "Accepting inconsistent snapshot aliases could weaken source binding; reject conflicting values rather than choosing one silently.",
+    "compensation_followup": {
+      "classification": "core_outcome_blocker",
+      "failed_run": "green-39bb7e6a-31ef-4487-ab11-ec914b0e62d9",
+      "evidence": "employees.ts insertContract writes compensation-v1 nested CompensationTerm; mapper assumed legacy flat monthlySalaryVnd. Focused reproduction failed before fix.",
+      "changed_hypothesis": "Explicitly adapt current compensation-v1 in the same approved mapper, preserve legacy shape and reject conflicting aliases/unsupported schema or basis.",
+      "predicted_delta": "PDF generation proceeds beyond sealed source binding to encrypted artifact and fake receipt.",
+      "retry_limit": 1,
+      "outcome": "Full M0 passed on green-e5d364a9-4d41-4528-b311-d5c53554524d"
+    }
+  }
+}

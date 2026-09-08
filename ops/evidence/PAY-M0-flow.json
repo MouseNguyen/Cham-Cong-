@@ -1,0 +1,733 @@
+{
+  "scope": "synthetic_M0",
+  "stage": "fake_accepted",
+  "snapshotHash": "fe045e7ee4545ed0893b1599ac34cff306bd3c183aa55e828def9e23c9773ebe",
+  "inputHash": "c0f231d1b8e785f6865688b8775945df55de1039e7eac6b2174916896fa4f256",
+  "resultHash": "2f9573aaa93e55cc59b929560af1f8d47a48fc1a86982f5b0a61b9bc43d96974",
+  "snapshotHolidayMilliseconds": "7200000",
+  "calculatorHolidayMilliseconds": "7200000",
+  "independentExpected": {
+    "divisorHours": "80",
+    "premiumBasisPoints": 30000,
+    "holidayPremiumVnd": "600000",
+    "gross": "8600000",
+    "employeeInsuranceTotal": "840000",
+    "pit": "0",
+    "net": "7760000"
+  },
+  "actual": {
+    "blockers": [
+      "SYNTHETIC_DRAFT_RULES_NONFINALIZABLE"
+    ],
+    "calculator": {
+      "canonicalizationVersion": "1",
+      "id": "payroll-domain",
+      "sourceArtifactSha256": "fb3438677ec909359aa1d5e997e0801673d84b9e118815ecba9d546791a73947",
+      "version": "0.1.0"
+    },
+    "calculatorArtifactHash": "fb3438677ec909359aa1d5e997e0801673d84b9e118815ecba9d546791a73947",
+    "calculatorVersion": "0.1.0",
+    "canonicalizationVersion": "1",
+    "employeeInsuranceTotal": "840000",
+    "employerCost": "10320000",
+    "employerInsuranceTotal": "1720000",
+    "finalizable": false,
+    "fundContributions": [
+      {
+        "appliedBaseVnd": "8000000",
+        "employeeVnd": "120000",
+        "employerVnd": "240000",
+        "id": "HEALTH_INSURANCE"
+      },
+      {
+        "appliedBaseVnd": "8000000",
+        "employeeVnd": "0",
+        "employerVnd": "40000",
+        "id": "OCCUPATIONAL_ACCIDENT_DISEASE"
+      },
+      {
+        "appliedBaseVnd": "8000000",
+        "employeeVnd": "640000",
+        "employerVnd": "1120000",
+        "id": "SI_RETIREMENT_SURVIVORSHIP"
+      },
+      {
+        "appliedBaseVnd": "8000000",
+        "employeeVnd": "0",
+        "employerVnd": "240000",
+        "id": "SI_SICKNESS_MATERNITY"
+      },
+      {
+        "appliedBaseVnd": "8000000",
+        "employeeVnd": "80000",
+        "employerVnd": "80000",
+        "id": "UNEMPLOYMENT_INSURANCE"
+      }
+    ],
+    "gross": "8600000",
+    "inputHash": "c0f231d1b8e785f6865688b8775945df55de1039e7eac6b2174916896fa4f256",
+    "lines": [
+      {
+        "amountVnd": "8000000",
+        "code": "ordinary.monthly_salary",
+        "componentDate": "2026-08-31",
+        "evidenceStatus": "synthetic_assumption",
+        "formula": "monthlySalaryVnd",
+        "labelVi": "Lương tháng",
+        "operands": {
+          "formula": "monthly_salary",
+          "monthlySalaryVnd": "8000000"
+        },
+        "preRounding": {
+          "denominator": "1",
+          "numerator": "8000000"
+        },
+        "reason": "FULL_TIME_MONTHLY_SALARY",
+        "roundedAmountVnd": "8000000",
+        "roundingRule": "HALF_UP_VND",
+        "ruleBinding": "452290aa-b113-49b0-b9fc-55b13e8302e8@fixture-1",
+        "ruleId": "ordinary.monthly_salary",
+        "ruleVersion": "fixture-1"
+      },
+      {
+        "amountVnd": "0",
+        "code": "holiday.entitlement",
+        "componentDate": "2026-08-31",
+        "evidenceStatus": "synthetic_assumption",
+        "formula": "0 (included in monthly salary)",
+        "labelVi": "Quyền hưởng lương ngày lễ",
+        "operands": {
+          "entitlementTreatment": "included_in_monthly",
+          "reason": "already_in_monthly_salary"
+        },
+        "preRounding": {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "reason": "EXPLICIT_HOLIDAY_ENTITLEMENT",
+        "roundedAmountVnd": "0",
+        "roundingRule": "HALF_UP_VND",
+        "ruleBinding": "452290aa-b113-49b0-b9fc-55b13e8302e8@fixture-1",
+        "ruleId": "holiday.entitlement",
+        "ruleVersion": "fixture-1"
+      },
+      {
+        "amountVnd": "600000",
+        "code": "holiday.daytime_premium",
+        "componentDate": "2026-08-31",
+        "evidenceStatus": "synthetic_assumption",
+        "formula": "monthlySalaryVnd * payableMilliseconds * daytimePremiumBasisPoints / (ordinaryHourlyDivisorHours * 3600000 * 10000)",
+        "labelVi": "Phụ cấp làm ngày lễ ban ngày",
+        "operands": {
+          "daytimePremiumBasisPoints": 30000,
+          "denominator": "2880000000000",
+          "exactNumerator": "1728000000000000000",
+          "monthlySalaryVnd": "8000000",
+          "ordinaryHourlyDivisorHours": "80",
+          "payableMilliseconds": "7200000"
+        },
+        "preRounding": {
+          "denominator": "2880000000000",
+          "numerator": "1728000000000000000"
+        },
+        "reason": "EXPLICIT_DIVISOR_AND_300_PERCENT_PREMIUM",
+        "roundedAmountVnd": "600000",
+        "roundingRule": "HALF_UP_VND",
+        "ruleBinding": "452290aa-b113-49b0-b9fc-55b13e8302e8@fixture-1",
+        "ruleId": "holiday.daytime_premium",
+        "ruleVersion": "fixture-1"
+      },
+      {
+        "amountVnd": "120000",
+        "code": "insurance.employee.HEALTH_INSURANCE",
+        "componentDate": "2026-08-31",
+        "evidenceStatus": "synthetic_assumption",
+        "formula": "appliedBaseVnd * rateBasisPoints / 10000",
+        "labelVi": "Người lao động đóng HEALTH_INSURANCE",
+        "operands": {
+          "baseVnd": "8000000",
+          "componentDate": "2026-08-31",
+          "denominator": "10000",
+          "eligible": true,
+          "exactNumerator": "1200000000",
+          "maximumVnd": "50600000",
+          "minimumVnd": "2530000",
+          "rateBasisPoints": 150,
+          "requestedBaseVnd": "8000000"
+        },
+        "preRounding": {
+          "denominator": "10000",
+          "numerator": "1200000000"
+        },
+        "reason": "EXPLICIT_FUND_BASE_AND_RATE",
+        "roundedAmountVnd": "120000",
+        "roundingRule": "HALF_UP_VND",
+        "ruleBinding": "452290aa-b113-49b0-b9fc-55b13e8302e8@fixture-1",
+        "ruleId": "insurance.employee.HEALTH_INSURANCE",
+        "ruleVersion": "fixture-1"
+      },
+      {
+        "amountVnd": "240000",
+        "code": "insurance.employer.HEALTH_INSURANCE",
+        "componentDate": "2026-08-31",
+        "evidenceStatus": "synthetic_assumption",
+        "formula": "appliedBaseVnd * rateBasisPoints / 10000",
+        "labelVi": "Người sử dụng lao động đóng HEALTH_INSURANCE",
+        "operands": {
+          "baseVnd": "8000000",
+          "componentDate": "2026-08-31",
+          "denominator": "10000",
+          "eligible": true,
+          "exactNumerator": "2400000000",
+          "maximumVnd": "50600000",
+          "minimumVnd": "2530000",
+          "rateBasisPoints": 300,
+          "requestedBaseVnd": "8000000"
+        },
+        "preRounding": {
+          "denominator": "10000",
+          "numerator": "2400000000"
+        },
+        "reason": "EXCLUDED_FROM_EMPLOYEE_NET",
+        "roundedAmountVnd": "240000",
+        "roundingRule": "HALF_UP_VND",
+        "ruleBinding": "452290aa-b113-49b0-b9fc-55b13e8302e8@fixture-1",
+        "ruleId": "insurance.employer.HEALTH_INSURANCE",
+        "ruleVersion": "fixture-1"
+      },
+      {
+        "amountVnd": "0",
+        "code": "insurance.employee.OCCUPATIONAL_ACCIDENT_DISEASE",
+        "componentDate": "2026-08-31",
+        "evidenceStatus": "synthetic_assumption",
+        "formula": "appliedBaseVnd * rateBasisPoints / 10000",
+        "labelVi": "Người lao động đóng OCCUPATIONAL_ACCIDENT_DISEASE",
+        "operands": {
+          "baseVnd": "8000000",
+          "componentDate": "2026-08-31",
+          "denominator": "10000",
+          "eligible": true,
+          "exactNumerator": "0",
+          "maximumVnd": "50600000",
+          "minimumVnd": "2530000",
+          "rateBasisPoints": 0,
+          "requestedBaseVnd": "8000000"
+        },
+        "preRounding": {
+          "denominator": "10000",
+          "numerator": "0"
+        },
+        "reason": "EXPLICIT_FUND_BASE_AND_RATE",
+        "roundedAmountVnd": "0",
+        "roundingRule": "HALF_UP_VND",
+        "ruleBinding": "452290aa-b113-49b0-b9fc-55b13e8302e8@fixture-1",
+        "ruleId": "insurance.employee.OCCUPATIONAL_ACCIDENT_DISEASE",
+        "ruleVersion": "fixture-1"
+      },
+      {
+        "amountVnd": "40000",
+        "code": "insurance.employer.OCCUPATIONAL_ACCIDENT_DISEASE",
+        "componentDate": "2026-08-31",
+        "evidenceStatus": "synthetic_assumption",
+        "formula": "appliedBaseVnd * rateBasisPoints / 10000",
+        "labelVi": "Người sử dụng lao động đóng OCCUPATIONAL_ACCIDENT_DISEASE",
+        "operands": {
+          "baseVnd": "8000000",
+          "componentDate": "2026-08-31",
+          "denominator": "10000",
+          "eligible": true,
+          "exactNumerator": "400000000",
+          "maximumVnd": "50600000",
+          "minimumVnd": "2530000",
+          "rateBasisPoints": 50,
+          "requestedBaseVnd": "8000000"
+        },
+        "preRounding": {
+          "denominator": "10000",
+          "numerator": "400000000"
+        },
+        "reason": "EXCLUDED_FROM_EMPLOYEE_NET",
+        "roundedAmountVnd": "40000",
+        "roundingRule": "HALF_UP_VND",
+        "ruleBinding": "452290aa-b113-49b0-b9fc-55b13e8302e8@fixture-1",
+        "ruleId": "insurance.employer.OCCUPATIONAL_ACCIDENT_DISEASE",
+        "ruleVersion": "fixture-1"
+      },
+      {
+        "amountVnd": "640000",
+        "code": "insurance.employee.SI_RETIREMENT_SURVIVORSHIP",
+        "componentDate": "2026-08-31",
+        "evidenceStatus": "synthetic_assumption",
+        "formula": "appliedBaseVnd * rateBasisPoints / 10000",
+        "labelVi": "Người lao động đóng SI_RETIREMENT_SURVIVORSHIP",
+        "operands": {
+          "baseVnd": "8000000",
+          "componentDate": "2026-08-31",
+          "denominator": "10000",
+          "eligible": true,
+          "exactNumerator": "6400000000",
+          "maximumVnd": "50600000",
+          "minimumVnd": "2530000",
+          "rateBasisPoints": 800,
+          "requestedBaseVnd": "8000000"
+        },
+        "preRounding": {
+          "denominator": "10000",
+          "numerator": "6400000000"
+        },
+        "reason": "EXPLICIT_FUND_BASE_AND_RATE",
+        "roundedAmountVnd": "640000",
+        "roundingRule": "HALF_UP_VND",
+        "ruleBinding": "452290aa-b113-49b0-b9fc-55b13e8302e8@fixture-1",
+        "ruleId": "insurance.employee.SI_RETIREMENT_SURVIVORSHIP",
+        "ruleVersion": "fixture-1"
+      },
+      {
+        "amountVnd": "1120000",
+        "code": "insurance.employer.SI_RETIREMENT_SURVIVORSHIP",
+        "componentDate": "2026-08-31",
+        "evidenceStatus": "synthetic_assumption",
+        "formula": "appliedBaseVnd * rateBasisPoints / 10000",
+        "labelVi": "Người sử dụng lao động đóng SI_RETIREMENT_SURVIVORSHIP",
+        "operands": {
+          "baseVnd": "8000000",
+          "componentDate": "2026-08-31",
+          "denominator": "10000",
+          "eligible": true,
+          "exactNumerator": "11200000000",
+          "maximumVnd": "50600000",
+          "minimumVnd": "2530000",
+          "rateBasisPoints": 1400,
+          "requestedBaseVnd": "8000000"
+        },
+        "preRounding": {
+          "denominator": "10000",
+          "numerator": "11200000000"
+        },
+        "reason": "EXCLUDED_FROM_EMPLOYEE_NET",
+        "roundedAmountVnd": "1120000",
+        "roundingRule": "HALF_UP_VND",
+        "ruleBinding": "452290aa-b113-49b0-b9fc-55b13e8302e8@fixture-1",
+        "ruleId": "insurance.employer.SI_RETIREMENT_SURVIVORSHIP",
+        "ruleVersion": "fixture-1"
+      },
+      {
+        "amountVnd": "0",
+        "code": "insurance.employee.SI_SICKNESS_MATERNITY",
+        "componentDate": "2026-08-31",
+        "evidenceStatus": "synthetic_assumption",
+        "formula": "appliedBaseVnd * rateBasisPoints / 10000",
+        "labelVi": "Người lao động đóng SI_SICKNESS_MATERNITY",
+        "operands": {
+          "baseVnd": "8000000",
+          "componentDate": "2026-08-31",
+          "denominator": "10000",
+          "eligible": true,
+          "exactNumerator": "0",
+          "maximumVnd": "50600000",
+          "minimumVnd": "2530000",
+          "rateBasisPoints": 0,
+          "requestedBaseVnd": "8000000"
+        },
+        "preRounding": {
+          "denominator": "10000",
+          "numerator": "0"
+        },
+        "reason": "EXPLICIT_FUND_BASE_AND_RATE",
+        "roundedAmountVnd": "0",
+        "roundingRule": "HALF_UP_VND",
+        "ruleBinding": "452290aa-b113-49b0-b9fc-55b13e8302e8@fixture-1",
+        "ruleId": "insurance.employee.SI_SICKNESS_MATERNITY",
+        "ruleVersion": "fixture-1"
+      },
+      {
+        "amountVnd": "240000",
+        "code": "insurance.employer.SI_SICKNESS_MATERNITY",
+        "componentDate": "2026-08-31",
+        "evidenceStatus": "synthetic_assumption",
+        "formula": "appliedBaseVnd * rateBasisPoints / 10000",
+        "labelVi": "Người sử dụng lao động đóng SI_SICKNESS_MATERNITY",
+        "operands": {
+          "baseVnd": "8000000",
+          "componentDate": "2026-08-31",
+          "denominator": "10000",
+          "eligible": true,
+          "exactNumerator": "2400000000",
+          "maximumVnd": "50600000",
+          "minimumVnd": "2530000",
+          "rateBasisPoints": 300,
+          "requestedBaseVnd": "8000000"
+        },
+        "preRounding": {
+          "denominator": "10000",
+          "numerator": "2400000000"
+        },
+        "reason": "EXCLUDED_FROM_EMPLOYEE_NET",
+        "roundedAmountVnd": "240000",
+        "roundingRule": "HALF_UP_VND",
+        "ruleBinding": "452290aa-b113-49b0-b9fc-55b13e8302e8@fixture-1",
+        "ruleId": "insurance.employer.SI_SICKNESS_MATERNITY",
+        "ruleVersion": "fixture-1"
+      },
+      {
+        "amountVnd": "80000",
+        "code": "insurance.employee.UNEMPLOYMENT_INSURANCE",
+        "componentDate": "2026-08-31",
+        "evidenceStatus": "synthetic_assumption",
+        "formula": "appliedBaseVnd * rateBasisPoints / 10000",
+        "labelVi": "Người lao động đóng UNEMPLOYMENT_INSURANCE",
+        "operands": {
+          "baseVnd": "8000000",
+          "componentDate": "2026-08-31",
+          "denominator": "10000",
+          "eligible": true,
+          "exactNumerator": "800000000",
+          "maximumVnd": "106200000",
+          "minimumVnd": "2530000",
+          "rateBasisPoints": 100,
+          "requestedBaseVnd": "8000000"
+        },
+        "preRounding": {
+          "denominator": "10000",
+          "numerator": "800000000"
+        },
+        "reason": "EXPLICIT_FUND_BASE_AND_RATE",
+        "roundedAmountVnd": "80000",
+        "roundingRule": "HALF_UP_VND",
+        "ruleBinding": "452290aa-b113-49b0-b9fc-55b13e8302e8@fixture-1",
+        "ruleId": "insurance.employee.UNEMPLOYMENT_INSURANCE",
+        "ruleVersion": "fixture-1"
+      },
+      {
+        "amountVnd": "80000",
+        "code": "insurance.employer.UNEMPLOYMENT_INSURANCE",
+        "componentDate": "2026-08-31",
+        "evidenceStatus": "synthetic_assumption",
+        "formula": "appliedBaseVnd * rateBasisPoints / 10000",
+        "labelVi": "Người sử dụng lao động đóng UNEMPLOYMENT_INSURANCE",
+        "operands": {
+          "baseVnd": "8000000",
+          "componentDate": "2026-08-31",
+          "denominator": "10000",
+          "eligible": true,
+          "exactNumerator": "800000000",
+          "maximumVnd": "106200000",
+          "minimumVnd": "2530000",
+          "rateBasisPoints": 100,
+          "requestedBaseVnd": "8000000"
+        },
+        "preRounding": {
+          "denominator": "10000",
+          "numerator": "800000000"
+        },
+        "reason": "EXCLUDED_FROM_EMPLOYEE_NET",
+        "roundedAmountVnd": "80000",
+        "roundingRule": "HALF_UP_VND",
+        "ruleBinding": "452290aa-b113-49b0-b9fc-55b13e8302e8@fixture-1",
+        "ruleId": "insurance.employer.UNEMPLOYMENT_INSURANCE",
+        "ruleVersion": "fixture-1"
+      },
+      {
+        "amountVnd": "0",
+        "code": "pit.withholding",
+        "componentDate": "2026-08-31",
+        "evidenceStatus": "synthetic_assumption",
+        "formula": "sum(taxable bracket segment * bracket basis points) / 10000",
+        "labelVi": "Khấu trừ thuế TNCN",
+        "operands": {
+          "taxableIncomeVnd": "0"
+        },
+        "preRounding": {
+          "denominator": "10000",
+          "numerator": "0"
+        },
+        "reason": "PROGRESSIVE_BRACKETS",
+        "roundedAmountVnd": "0",
+        "roundingRule": "HALF_UP_VND",
+        "ruleBinding": "452290aa-b113-49b0-b9fc-55b13e8302e8@fixture-1",
+        "ruleId": "pit.withholding",
+        "ruleVersion": "fixture-1"
+      }
+    ],
+    "net": "7760000",
+    "pit": "0",
+    "resultSchemaVersion": "1",
+    "rulePackHash": "e703213abb1cea310361f8f274724d673d2925d8c4a980cad1a7ebc2f9ec6002",
+    "rulePackId": "452290aa-b113-49b0-b9fc-55b13e8302e8",
+    "rulePackKind": "synthetic_materialized_policy",
+    "status": "synthetic_preview",
+    "totals": {
+      "employeeInsuranceVnd": "840000",
+      "employerCostVnd": "10320000",
+      "employerInsuranceVnd": "1720000",
+      "grossVnd": "8600000",
+      "netVnd": "7760000",
+      "pitVnd": "0"
+    },
+    "trace": [
+      {
+        "amountVnd": "8000000",
+        "code": "ordinary.monthly_salary",
+        "operands": {
+          "formula": "monthly_salary",
+          "monthlySalaryVnd": "8000000"
+        }
+      },
+      {
+        "amountVnd": "120000",
+        "code": "insurance.employee.HEALTH_INSURANCE",
+        "operands": {
+          "baseVnd": "8000000",
+          "componentDate": "2026-08-31",
+          "denominator": "10000",
+          "eligible": true,
+          "exactNumerator": "1200000000",
+          "maximumVnd": "50600000",
+          "minimumVnd": "2530000",
+          "rateBasisPoints": 150,
+          "requestedBaseVnd": "8000000"
+        }
+      },
+      {
+        "amountVnd": "240000",
+        "code": "insurance.employer.HEALTH_INSURANCE",
+        "operands": {
+          "baseVnd": "8000000",
+          "componentDate": "2026-08-31",
+          "denominator": "10000",
+          "eligible": true,
+          "exactNumerator": "2400000000",
+          "maximumVnd": "50600000",
+          "minimumVnd": "2530000",
+          "rateBasisPoints": 300,
+          "requestedBaseVnd": "8000000"
+        }
+      },
+      {
+        "amountVnd": "0",
+        "code": "insurance.employee.OCCUPATIONAL_ACCIDENT_DISEASE",
+        "operands": {
+          "baseVnd": "8000000",
+          "componentDate": "2026-08-31",
+          "denominator": "10000",
+          "eligible": true,
+          "exactNumerator": "0",
+          "maximumVnd": "50600000",
+          "minimumVnd": "2530000",
+          "rateBasisPoints": 0,
+          "requestedBaseVnd": "8000000"
+        }
+      },
+      {
+        "amountVnd": "40000",
+        "code": "insurance.employer.OCCUPATIONAL_ACCIDENT_DISEASE",
+        "operands": {
+          "baseVnd": "8000000",
+          "componentDate": "2026-08-31",
+          "denominator": "10000",
+          "eligible": true,
+          "exactNumerator": "400000000",
+          "maximumVnd": "50600000",
+          "minimumVnd": "2530000",
+          "rateBasisPoints": 50,
+          "requestedBaseVnd": "8000000"
+        }
+      },
+      {
+        "amountVnd": "640000",
+        "code": "insurance.employee.SI_RETIREMENT_SURVIVORSHIP",
+        "operands": {
+          "baseVnd": "8000000",
+          "componentDate": "2026-08-31",
+          "denominator": "10000",
+          "eligible": true,
+          "exactNumerator": "6400000000",
+          "maximumVnd": "50600000",
+          "minimumVnd": "2530000",
+          "rateBasisPoints": 800,
+          "requestedBaseVnd": "8000000"
+        }
+      },
+      {
+        "amountVnd": "1120000",
+        "code": "insurance.employer.SI_RETIREMENT_SURVIVORSHIP",
+        "operands": {
+          "baseVnd": "8000000",
+          "componentDate": "2026-08-31",
+          "denominator": "10000",
+          "eligible": true,
+          "exactNumerator": "11200000000",
+          "maximumVnd": "50600000",
+          "minimumVnd": "2530000",
+          "rateBasisPoints": 1400,
+          "requestedBaseVnd": "8000000"
+        }
+      },
+      {
+        "amountVnd": "0",
+        "code": "insurance.employee.SI_SICKNESS_MATERNITY",
+        "operands": {
+          "baseVnd": "8000000",
+          "componentDate": "2026-08-31",
+          "denominator": "10000",
+          "eligible": true,
+          "exactNumerator": "0",
+          "maximumVnd": "50600000",
+          "minimumVnd": "2530000",
+          "rateBasisPoints": 0,
+          "requestedBaseVnd": "8000000"
+        }
+      },
+      {
+        "amountVnd": "240000",
+        "code": "insurance.employer.SI_SICKNESS_MATERNITY",
+        "operands": {
+          "baseVnd": "8000000",
+          "componentDate": "2026-08-31",
+          "denominator": "10000",
+          "eligible": true,
+          "exactNumerator": "2400000000",
+          "maximumVnd": "50600000",
+          "minimumVnd": "2530000",
+          "rateBasisPoints": 300,
+          "requestedBaseVnd": "8000000"
+        }
+      },
+      {
+        "amountVnd": "80000",
+        "code": "insurance.employee.UNEMPLOYMENT_INSURANCE",
+        "operands": {
+          "baseVnd": "8000000",
+          "componentDate": "2026-08-31",
+          "denominator": "10000",
+          "eligible": true,
+          "exactNumerator": "800000000",
+          "maximumVnd": "106200000",
+          "minimumVnd": "2530000",
+          "rateBasisPoints": 100,
+          "requestedBaseVnd": "8000000"
+        }
+      },
+      {
+        "amountVnd": "80000",
+        "code": "insurance.employer.UNEMPLOYMENT_INSURANCE",
+        "operands": {
+          "baseVnd": "8000000",
+          "componentDate": "2026-08-31",
+          "denominator": "10000",
+          "eligible": true,
+          "exactNumerator": "800000000",
+          "maximumVnd": "106200000",
+          "minimumVnd": "2530000",
+          "rateBasisPoints": 100,
+          "requestedBaseVnd": "8000000"
+        }
+      },
+      {
+        "amountVnd": "0",
+        "code": "holiday.entitlement",
+        "operands": {
+          "entitlementTreatment": "included_in_monthly",
+          "reason": "already_in_monthly_salary"
+        }
+      },
+      {
+        "amountVnd": "600000",
+        "code": "holiday.daytime_premium",
+        "operands": {
+          "daytimePremiumBasisPoints": 30000,
+          "denominator": "2880000000000",
+          "exactNumerator": "1728000000000000000",
+          "monthlySalaryVnd": "8000000",
+          "ordinaryHourlyDivisorHours": "80",
+          "payableMilliseconds": "7200000"
+        }
+      },
+      {
+        "amountVnd": "0",
+        "code": "pit.taxable_income",
+        "operands": {
+          "dependentCount": 0,
+          "dependentDeductionVnd": "6200000",
+          "employeeInsuranceVnd": "840000",
+          "formula": "max(0, gross - employee funds - personal deduction - dependents * dependent deduction)",
+          "grossVnd": "8600000",
+          "personalDeductionVnd": "15500000"
+        }
+      },
+      {
+        "amountVnd": "0",
+        "code": "pit.bracket.1",
+        "operands": {
+          "denominator": "10000",
+          "exactNumerator": "0",
+          "rateBasisPoints": 500,
+          "taxableSegmentVnd": "0"
+        }
+      },
+      {
+        "amountVnd": "0",
+        "code": "pit.bracket.2",
+        "operands": {
+          "denominator": "10000",
+          "exactNumerator": "0",
+          "rateBasisPoints": 1000,
+          "taxableSegmentVnd": "0"
+        }
+      },
+      {
+        "amountVnd": "0",
+        "code": "pit.bracket.3",
+        "operands": {
+          "denominator": "10000",
+          "exactNumerator": "0",
+          "rateBasisPoints": 2000,
+          "taxableSegmentVnd": "0"
+        }
+      },
+      {
+        "amountVnd": "0",
+        "code": "pit.bracket.4",
+        "operands": {
+          "denominator": "10000",
+          "exactNumerator": "0",
+          "rateBasisPoints": 3000,
+          "taxableSegmentVnd": "0"
+        }
+      },
+      {
+        "amountVnd": "0",
+        "code": "pit.bracket.5",
+        "operands": {
+          "denominator": "10000",
+          "exactNumerator": "0",
+          "rateBasisPoints": 3500,
+          "taxableSegmentVnd": "0"
+        }
+      }
+    ]
+  },
+  "payRunId": "e39812c3-a0a8-41a2-a8de-76fe4e591d6e",
+  "receipt": {
+    "id": "5c477efd-4304-456a-8ce9-b581dd3dd8a8",
+    "kind": "queued_fake",
+    "status": "accepted",
+    "binding": {
+      "to": "m0-dfa388b1-554d-4bbc-aed5-7ac18ee4eac1@example.invalid",
+      "bytes": 31479,
+      "sha256": "3d8d750aebdb5969c8333ed78e92e585f14b0cd402778b75579f51840dd6c4de",
+      "payRunId": "e39812c3-a0a8-41a2-a8de-76fe4e591d6e",
+      "payslipId": "b22f650b-03c8-429b-91be-98a2af94103b",
+      "periodEnd": "2026-08-31T17:00:00.000Z",
+      "artifactId": "aecd04e7-3150-4289-964f-00e21fd81d8d",
+      "employeeId": "287dc276-25c7-4b1e-8c58-dc7ab0d930bf",
+      "periodStart": "2026-07-31T17:00:00.000Z",
+      "employeeName": "Nhân viên W5 giả lập",
+      "relativePath": "aecd04e7-3150-4289-964f-00e21fd81d8d.pdf",
+      "destinationId": "dd0d0ded-5af0-4faa-ab20-4f6201350a7c",
+      "destinationHash": "50015b6eac95102e8af9ae48152f7ed11478e27f7de57dfc4e58e2863980d1c8",
+      "passwordVersionId": "aecd04e7-3150-4289-964f-00e21fd81d8d"
+    }
+  },
+  "finalizedResultHash": "2f9573aaa93e55cc59b929560af1f8d47a48fc1a86982f5b0a61b9bc43d96974"
+}

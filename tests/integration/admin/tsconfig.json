@@ -10,7 +10,8 @@
     "./**/*.ts",
     "../../e2e/admin-flows.spec.ts",
     "../../e2e/accessibility.spec.ts",
-    "../../e2e/delivery.spec.ts"
+    "../../e2e/delivery.spec.ts",
+    "../../e2e/m0.spec.ts"
   ],
   "exclude": [
     "../../../node_modules"

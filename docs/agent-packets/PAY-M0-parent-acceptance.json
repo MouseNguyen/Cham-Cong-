@@ -1,0 +1,105 @@
+{
+  "task_id": "PAY-M0",
+  "status": "accepted_synthetic_only",
+  "outcome_status": "passed_synthetic_M0",
+  "preparation_status": "verified",
+  "core_blocker_count": 0,
+  "production_release_blocker_group_count": 5,
+  "base_commit": "05ca10910863dc3876f3878d0cf1b80010533898",
+  "product_code_changed": true,
+  "test_runs": 4,
+  "retry_performed": true,
+  "claim_ledger": [
+    {
+      "layer": "structure",
+      "status": "passed",
+      "evidence": "lint, typecheck, build and diff check exit0; six focused regression tests passed after observed RED"
+    },
+    {
+      "layer": "approved_synthetic_runtime",
+      "status": "passed",
+      "evidence": "One connected Chromium flow: UI employee, attendance approval, holiday trace, maker/checker finalization, encrypted PDF download, recipient preview, fake acceptance and reload"
+    },
+    {
+      "layer": "holiday_source_materialization",
+      "status": "passed",
+      "evidence": "Snapshot/calculator 7200000ms; holiday600000, gross8600000, insurance840000, PIT0, net7760000; explicit synthetic divisor80, not a statutory assertion"
+    },
+    {
+      "layer": "PDF_and_receipt_binding",
+      "status": "passed",
+      "evidence": "Generation executes qpdf password check and AESv3 assertion; artifact SHA256 and31479 bytes independently match fake receipt; finalized result hash unchanged"
+    },
+    {
+      "layer": "cleanup",
+      "status": "passed",
+      "evidence": "Owned browser/server/database cleanup passed; both ports absent; documents contain encrypted PDF and DPAPI blob only"
+    },
+    {
+      "layer": "dry_run",
+      "status": "not_required",
+      "evidence": "Direct approved synthetic runtime exercised"
+    },
+    {
+      "layer": "production",
+      "status": "not_run",
+      "evidence": "Five release blocker groups unchanged; no real data or messages"
+    }
+  ],
+  "runtime_run_id": "green-e5d364a9-4d41-4528-b311-d5c53554524d",
+  "runtime_evidence": "ops/evidence/PAY-M0-runtime.json",
+  "browser_evidence": "ops/evidence/PAY-M0-browser-result.json",
+  "next_action": "PAY-W1-04 part-time expansion and numeric boundary coverage",
+  "commit_status": "Verified; commit containing this receipt binds the accepted file set",
+  "product_files_modified": [
+    "apps/web/src/lib/admin/queries.ts",
+    "apps/web/src/lib/db/repositories/pay-runs.ts",
+    "packages/document-domain/src/payslip-view-model.ts"
+  ],
+  "verification": {
+    "focused_holiday_tests": 6,
+    "focused_status": "passed",
+    "lint": "passed",
+    "typecheck": "passed",
+    "build": "passed",
+    "snapshot_holiday_ms": "7200000",
+    "calculator_holiday_ms": "7200000",
+    "gross": "8600000",
+    "insurance": "840000",
+    "pit": "0",
+    "net": "7760000",
+    "full_M0_browser_tests": 1,
+    "artifact_bytes": 31479,
+    "artifact_sha256": "3d8d750aebdb5969c8333ed78e92e585f14b0cd402778b75579f51840dd6c4de",
+    "artifact_hash_matches_receipt": true,
+    "finalized_result_hash_unchanged": true,
+    "plaintext_work_files": 0,
+    "ports_46217_and_55432_absent": true
+  },
+  "evidence": [
+    "ops/evidence/PAY-M0-flow.json",
+    "ops/evidence/PAY-M0-finalized.png",
+    "ops/evidence/PAY-M0-runtime.json",
+    "ops/evidence/PAY-M0-browser-result.json",
+    "ops/evidence/PAY-M0-delivery.png"
+  ],
+  "evidence_limits": [
+    "One synthetic full-time connected case, not exhaustive product coverage",
+    "Recipient verification is a seeded fake precondition; no live email verification/send",
+    "No production legal/calendar assertion"
+  ],
+  "failure_history": [
+    {
+      "run": "green-91f8c283-1b55-46f7-bfb5-83f39f09bfa5",
+      "cause": "ordinary-only snapshot guard"
+    },
+    {
+      "run": "green-fd392abd-97d1-46a7-ad8a-4fd652168aad",
+      "cause": "legacy PDF snapshot field"
+    },
+    {
+      "run": "green-39bb7e6a-31ef-4487-ab11-ec914b0e62d9",
+      "cause": "legacy flat PDF compensation field"
+    }
+  ]
+}

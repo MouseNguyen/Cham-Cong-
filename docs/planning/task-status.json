@@ -543,7 +543,14 @@
         "W5-02b"
       ],
       "outcome": "one synthetic full-time end-to-end core including holiday trace, PDF and fake receipt",
-      "status": "not_started"
+      "status": "accepted_synthetic_only",
+      "blocker_count": 0,
+      "packet": "docs/agent-packets/PAY-M0.json",
+      "evidence": [
+        "docs/agent-packets/PAY-M0-parent-acceptance.json"
+      ],
+      "remaining_scope": "None within the single synthetic M0 contract; production and later milestones remain separate",
+      "acceptance_commit_reference": "Commit containing PAY-M0-parent-acceptance.json"
     },
     {
       "id": "W1-04",
@@ -645,8 +652,8 @@
   },
   "execution_route": {
     "kind": "parent_only",
-    "packet": "docs/agent-packets/PAY-W5-02b.json",
-    "status": "w5_02b_accepted_synthetic_only",
-    "next_dependency": "M0 consolidated synthetic full-time end-to-end acceptance including holiday trace"
+    "packet": "docs/agent-packets/PAY-M0.json",
+    "status": "M0_accepted_synthetic_only",
+    "next_dependency": "PAY-W1-04: part-time expansion and numeric boundary coverage"
   }
 }

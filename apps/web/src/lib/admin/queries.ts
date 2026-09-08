@@ -1,6 +1,7 @@
 import type { Pool } from 'pg';
 import type { EmployeeSourceBinding } from '../../../../../packages/contracts/src/pay-run';
 import { sha256 } from '../../../../../packages/payroll-domain/src/trace';
+import {snapshotPayableTime} from '../db/repositories/pay-runs';
 
 export type CalculatorPeriod = { periodStart: string; periodEnd: string };
 
@@ -68,7 +69,10 @@ export class AdminQueries {
       if (snapshot) {
         if (sha256(snapshot.canonical_payload) !== snapshot.content_hash) { blockers.push(`SNAPSHOT_HASH_INVALID: ${employee.display_name}`); continue; }
         const payload = JSON.parse(snapshot.canonical_payload) as { segments?: { classification: string }[] };
-        if (!Array.isArray(payload.segments) || payload.segments.some(segment => segment.classification !== 'ordinary')) {
+        try {
+          if(!Array.isArray(payload.segments))throw Error('CLASSIFIED_SNAPSHOT_REQUIRED');
+          snapshotPayableTime(payload,run.period_start.getTime(),run.period_end.getTime());
+        } catch {
           blockers.push(`ATTENDANCE_COMPONENT_REVIEW_REQUIRED: ${employee.display_name}`); continue;
         }
       }

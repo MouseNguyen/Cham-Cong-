@@ -1,0 +1,5 @@
+{
+  "exit": 0,
+  "output": "\nRunning 1 test using 1 worker\n\n[1/1] tests\\e2e\\m0.spec.ts:53:1 › M0 full-time holiday snapshot to encrypted PDF and fake receipt\n  1 passed (1.1m)\n",
+  "error": ""
+}
