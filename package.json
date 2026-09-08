@@ -14,7 +14,7 @@
   "scripts": {
     "build": "tsc -p apps/attendance-ingress/tsconfig.kiosk.json && npm run build --workspace @pay-slip/web",
     "lint": "eslint . --max-warnings=0",
-    "typecheck": "tsc --noEmit -p apps/web/tsconfig.json && tsc --noEmit -p packages/payroll-domain/tsconfig.json && tsc --noEmit -p packages/attendance-domain/tsconfig.json && tsc --noEmit -p tests/integration/db/tsconfig.json && tsc --noEmit -p tests/integration/operations/tsconfig.json && tsc --noEmit -p tests/integration/delivery/tsconfig.json && tsc --noEmit -p tests/integration/auth/tsconfig.json && tsc --noEmit -p tests/integration/employees/tsconfig.json && tsc --noEmit -p tests/integration/attendance/tsconfig.json && tsc --noEmit -p tests/integration/pay-runs/tsconfig.json && tsc --noEmit -p apps/attendance-ingress/tsconfig.json && tsc --noEmit -p tests/integration/admin/tsconfig.json",
+    "typecheck": "tsc --noEmit -p apps/web/tsconfig.json && tsc --noEmit -p packages/payroll-domain/tsconfig.json && tsc --noEmit -p packages/attendance-domain/tsconfig.json && tsc --noEmit -p tests/integration/db/tsconfig.json && tsc --noEmit -p tests/integration/operations/tsconfig.json && tsc --noEmit -p tests/integration/delivery/tsconfig.json && tsc --noEmit -p tests/integration/auth/tsconfig.json && tsc --noEmit -p tests/integration/employees/tsconfig.json && tsc --noEmit -p tests/integration/attendance/tsconfig.json && tsc --noEmit -p tests/integration/pay-runs/tsconfig.json && tsc --noEmit -p apps/attendance-ingress/tsconfig.json && tsc --noEmit -p tests/integration/admin/tsconfig.json && tsc --noEmit -p packages/document-domain/tsconfig.json && tsc --noEmit -p tests/integration/documents/tsconfig.json",
     "test": "vitest run",
     "test:unit": "vitest run",
     "test:integration": "vitest run tests/integration",
@@ -28,7 +28,8 @@
     "test:schedules": "powershell -NoProfile -File scripts/windows/test-schedules.ps1",
     "test:kiosk": "powershell -NoProfile -File scripts/windows/test-kiosk.ps1",
     "test:attendance-review": "powershell -NoProfile -File scripts/windows/test-attendance-review.ps1",
-    "test:admin": "powershell -NoProfile -File scripts/windows/test-admin.ps1 -Mode Green -Browser"
+    "test:admin": "powershell -NoProfile -File scripts/windows/test-admin.ps1 -Mode Green -Browser",
+    "test:documents": "powershell -NoProfile -File scripts/windows/test-documents.ps1 -Mode Green"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",

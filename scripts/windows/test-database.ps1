@@ -1,4 +1,4 @@
-param([ValidateSet('Red','Green')][string]$Mode='Green', [ValidateSet('PAY-W2-01','PAY-W6-02a','PAY-W2-02','PAY-W2-03','PAY-W3-01b','PAY-W3-02a','PAY-W3-02b','PAY-W7-02a','PAY-W3-03','PAY-W4-01','PAY-W5-02a')][string]$TaskId='PAY-W2-01', [switch]$Browser)
+param([ValidateSet('Red','Green')][string]$Mode='Green', [ValidateSet('PAY-W2-01','PAY-W6-02a','PAY-W2-02','PAY-W2-03','PAY-W3-01b','PAY-W3-02a','PAY-W3-02b','PAY-W7-02a','PAY-W3-03','PAY-W4-01','PAY-W5-02a','PAY-W6-01')][string]$TaskId='PAY-W2-01', [switch]$Browser)
 $ErrorActionPreference='Stop'
 $env:PAYSLIP_DB_TEST_MODE=$Mode
 $env:PAYSLIP_DB_TASK_ID=$TaskId
@@ -14,7 +14,7 @@ const cluster=path.join(root,'.tmp',taskId,'cluster',runId);
 const log=path.join(root,'.tmp',taskId,runId+'.log');
 const ownerPassword=crypto.randomBytes(32).toString('hex'),appPassword=crypto.randomBytes(32).toString('hex'),ingressPassword=crypto.randomBytes(32).toString('hex');
 const kioskTask=['PAY-W3-02a','PAY-W3-02b','PAY-W7-02a'].includes(taskId);
-const database=taskId==='PAY-W5-02a'?'payslip_w5_02a_synthetic':taskId==='PAY-W4-01'?'payslip_w4_01_synthetic':taskId==='PAY-W3-03'?'payslip_w3_03_synthetic':kioskTask?'payslip_w3_02_synthetic':taskId==='PAY-W3-01b'?'payslip_w3_01b_synthetic':taskId==='PAY-W2-03'?'payslip_w2_03_synthetic':taskId==='PAY-W2-02'?'payslip_w2_02_auth_synthetic':'payslip_w2_01_synthetic';
+const database=taskId==='PAY-W6-01'?'payslip_w6_01_synthetic':taskId==='PAY-W5-02a'?'payslip_w5_02a_synthetic':taskId==='PAY-W4-01'?'payslip_w4_01_synthetic':taskId==='PAY-W3-03'?'payslip_w3_03_synthetic':kioskTask?'payslip_w3_02_synthetic':taskId==='PAY-W3-01b'?'payslip_w3_01b_synthetic':taskId==='PAY-W2-03'?'payslip_w2_03_synthetic':taskId==='PAY-W2-02'?'payslip_w2_02_auth_synthetic':'payslip_w2_01_synthetic';
 const ownerConnection=new URL('postgresql://127.0.0.1:55432/'+database); ownerConnection.username='payslip_owner'; ownerConnection.password=ownerPassword; const ownerUrl=ownerConnection.href;
 const appConnection=new URL('postgresql://127.0.0.1:55432/'+database); appConnection.username='payslip_app'; appConnection.password=appPassword; const appUrl=appConnection.href;
 const ingressConnection=new URL(ownerUrl); ingressConnection.username='payslip_ingress';ingressConnection.password=ingressPassword;const ingressUrl=ingressConnection.href;
@@ -47,7 +47,7 @@ let started=false,admin;
   try{
    await owner.query('REVOKE ALL ON DATABASE '+database+' FROM PUBLIC; GRANT CONNECT ON DATABASE '+database+' TO payslip_app,payslip_ingress; REVOKE CREATE ON SCHEMA public FROM PUBLIC; GRANT USAGE ON SCHEMA public TO payslip_app');
    let schemaReady=false;
-   if(mode==='Green'||taskId==='PAY-W5-02a'){
+   if(mode==='Green'||taskId==='PAY-W5-02a'||taskId==='PAY-W6-01'){
     run(process.execPath,['node_modules/prisma/build/index.js','validate']);
     run(process.execPath,['node_modules/prisma/build/index.js','generate']);
     run(process.execPath,['node_modules/prisma/build/index.js','migrate','deploy']);
@@ -79,10 +79,10 @@ let started=false,admin;
    receipt.status=mode==='Red'?'red_observed':'passed';
    return;
   }
-  const tests=run(process.execPath,['node_modules/vitest/vitest.mjs','run',taskId==='PAY-W4-01'?'tests/integration/pay-runs':taskId==='PAY-W3-03'?'tests/integration/attendance/review.spec.ts':kioskTask?(taskId==='PAY-W7-02a'?'tests/integration/operations/service-lifecycle.windows.spec.ts':'tests/integration/attendance/ingress.spec.ts'):taskId==='PAY-W3-01b'?'tests/integration/attendance/schedule-effective-dates.spec.ts':taskId==='PAY-W2-03'?'tests/integration/employees':taskId==='PAY-W2-02'?'tests/integration/auth':'tests/integration/db',...(taskId==='PAY-W6-02a'?['tests/integration/delivery']:[]),'--maxWorkers=1','--no-file-parallelism'],undefined,true);
+  const tests=run(process.execPath,['node_modules/vitest/vitest.mjs','run',taskId==='PAY-W6-01'?'tests/integration/documents':taskId==='PAY-W4-01'?'tests/integration/pay-runs':taskId==='PAY-W3-03'?'tests/integration/attendance/review.spec.ts':kioskTask?(taskId==='PAY-W7-02a'?'tests/integration/operations/service-lifecycle.windows.spec.ts':'tests/integration/attendance/ingress.spec.ts'):taskId==='PAY-W3-01b'?'tests/integration/attendance/schedule-effective-dates.spec.ts':taskId==='PAY-W2-03'?'tests/integration/employees':taskId==='PAY-W2-02'?'tests/integration/auth':'tests/integration/db',...(taskId==='PAY-W6-02a'?['tests/integration/delivery']:[]),'--maxWorkers=1','--no-file-parallelism'],undefined,true);
   receipt.tests={exit:tests.exit,passed_count:Number(tests.output.match(/Tests\s+(\d+) passed/)?.[1]||0)};
   if(mode==='Red'){
-   const expectedRed=taskId==='PAY-W4-01'
+   const expectedRed=taskId==='PAY-W6-01'?tests.output.includes('DOCUMENT_NOT_IMPLEMENTED'):taskId==='PAY-W4-01'
     ?tests.output.includes('INVALID_STATE_TRANSITION')||tests.output.includes('pay_runs_status_check')
     :tests.output.includes('does not exist');
    if(tests.exit===0||!expectedRed)throw Error('Expected behavior-specific RED was not observed');

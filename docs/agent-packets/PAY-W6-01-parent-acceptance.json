@@ -1,0 +1,134 @@
+{
+  "task_id": "PAY-W6-01",
+  "as_of": "2026-09-08",
+  "status": "accepted_synthetic_only",
+  "outcome_status": "passed_synthetic_encrypted_pdf",
+  "preparation_status": "implemented_and_verified",
+  "owner": "codex-parent",
+  "subagents": 0,
+  "base_commit": "38aecbeb9addc8dd68b0460cb8f3431b1c287e00",
+  "core_blocker_count": 0,
+  "production_status": "not_run",
+  "production_release_blocker_group_count": 5,
+  "core_result": "Finalized synthetic pay-run employee -> sealed-source verification -> Vietnamese A4 PDF -> AES-256 -> CurrentUser DPAPI sidecar -> hash-bound metadata -> verified idempotent replay.",
+  "claim_ledger": [
+    {
+      "layer": "stored_source_hashes_and_binding_rejection",
+      "status": "passed",
+      "evidence": "Focused integration tests; no calculator invocation in document pipeline"
+    },
+    {
+      "layer": "only_finalized_synthetic_scope",
+      "status": "passed",
+      "evidence": "Cross-organization, malformed ID and approved-but-not-finalized employee rejection"
+    },
+    {
+      "layer": "required_content_and_privacy_projection",
+      "status": "passed",
+      "evidence": "Stored 8,000,000 gross / 840,000 employee insurance / 0 PIT / 7,160,000 net; explicit view-model field projection"
+    },
+    {
+      "layer": "AES256_password_and_DPAPI",
+      "status": "passed",
+      "evidence": "No/wrong password rejects; correct password verifies; AESv3 inspection; CurrentUser DPAPI unprotect and binding checks"
+    },
+    {
+      "layer": "artifact_metadata_replay_and_failure_cleanup",
+      "status": "passed",
+      "evidence": "Same artifact replay; qpdf, DPAPI and metadata failure injection; no promoted leftovers on confirmed pre-commit failure"
+    },
+    {
+      "layer": "A4_embedded_font_and_visual",
+      "status": "passed",
+      "evidence": "pypdf embedded-font proof and approximately A4 page boxes; parent inspected one-page sample and all three stress-sample pages"
+    },
+    {
+      "layer": "lint_typecheck_build",
+      "status": "passed",
+      "evidence": "npm run lint, npm run typecheck, npm run build all exit 0"
+    },
+    {
+      "layer": "owned_process_and_plaintext_cleanup",
+      "status": "passed",
+      "evidence": "Runtime receipt plus final exact process/listener and plaintext-path inspection"
+    },
+    {
+      "layer": "dry_run",
+      "status": "not_required",
+      "reason": "Direct approved synthetic runtime used"
+    },
+    {
+      "layer": "production",
+      "status": "not_run",
+      "reason": "Real-data/legal/provider/recovery release gates remain separate"
+    }
+  ],
+  "tdd": {
+    "red_run_id": "red-1e2fe7c5-35f3-4c8e-a234-d21289177128",
+    "red_count": 2,
+    "red_fingerprint": "DOCUMENT_NOT_IMPLEMENTED",
+    "green_run_id": "green-27d11d87-a704-4581-a6d8-4fa54adc2314",
+    "green_count": 5
+  },
+  "repair": {
+    "failed_layer": "Python QA stdout encoding",
+    "first_green": "ops/evidence/PAY-W6-01-first-green.json",
+    "root_cause": "Windows Python stdout charmap cannot encode Vietnamese JSON with ensure_ascii=False",
+    "direct_probe": "UnicodeEncodeError confirmed against existing encrypted sample; fixed JSON transport using ASCII escapes",
+    "outcome": "Existing PDF text/font/raster probe and next full integration run passed"
+  },
+  "evidence": [
+    "ops/evidence/PAY-W6-01-runtime.json",
+    "ops/evidence/PAY-W6-01-one-page-inspection.json",
+    "ops/evidence/PAY-W6-01-multi-page-inspection.json",
+    "ops/evidence/PAY-W6-01-one-page-1.png",
+    "ops/evidence/PAY-W6-01-multi-page-1.png",
+    "ops/evidence/PAY-W6-01-multi-page-2.png",
+    "ops/evidence/PAY-W6-01-multi-page-3.png"
+  ],
+  "evidence_hashes": {
+    "ops/evidence/PAY-W6-01-runtime.json": "3d5f309823e6aa15b6a8a8335d3f7a7482bd9dd91f72e6e648463096d16a63c9",
+    "ops/evidence/PAY-W6-01-one-page-inspection.json": "53a10adad4d545bae2502e2f38b7a5d107bbdf5615faa85bbaf54e54f0dad3ea",
+    "ops/evidence/PAY-W6-01-multi-page-inspection.json": "161cbdd1419a7df8cfc795d920cc10d156025fa9432079af421d7f5bc484140a",
+    "ops/evidence/PAY-W6-01-one-page-1.png": "ed56e58d6c465ed6e6eca0320a7676cc275097fe46cf9064654a649ee53eb8f3",
+    "ops/evidence/PAY-W6-01-multi-page-1.png": "8a27ec6865e87a07325a3b5d4296246616d6445a57fc00efb55a6d2a2784fa3c",
+    "ops/evidence/PAY-W6-01-multi-page-2.png": "9ac22ed1fdef052a916a7641d437ff6ba70fdb22a1396d2f4131f4f85a956818",
+    "ops/evidence/PAY-W6-01-multi-page-3.png": "f959cbeba8a671696159936b389f2ce642c6c92c6c08f8ad3bb97c441354887e"
+  },
+  "modified_file_hashes": {
+    "packages/document-domain/src/payslip-view-model.ts": "d2f2ec86e70d7d3a8763b6fb2576f071e3cf2509a7e66bf14b276e6c6a9be306",
+    "packages/document-domain/src/artifact.ts": "8b5911c0bbfa900c87b94f509ffe0c57130fec392e8b0096d3384e72ca364a11",
+    "packages/document-domain/tsconfig.json": "b3a940c6d5b13e25ae4e8c2e6f4767ce5a13d8c9423970208508de0b796e998c",
+    "apps/web/src/lib/documents/render-payslip.ts": "927033a2c0bd09fb3da5f24cce21fe98b45c6525c857957e679a30d6bd734ebf",
+    "apps/web/src/lib/documents/encrypt-pdf.ts": "08dd345af1dffda8004ef503b59f188a107e21a89b32e953c9b09704905256ce",
+    "apps/web/src/lib/documents/store-document.ts": "82c14c23e3dfd777656d003d12ca8cab558d6900241b14c20ead4242df5a8d1c",
+    "apps/web/src/lib/documents/generate-payslip.ts": "25441bc101e54bad2e10eb60b74c6280c3f28ac5fe07400cc5bc209c15f241fb",
+    "apps/web/src/templates/payslip.vi.tsx": "25369deaf74af156cf773f7bbcf7c907696b4f0e6648d0f1d3d2ef9aba9ef06b",
+    "apps/web/src/styles/payslip.css": "2d89ceb6ee0a11d04d50fa4796e1c75ca10ff3e3ae8058c9c684b6bda645e118",
+    "apps/web/src/templates/fonts/BeVietnamPro-Regular.ttf": "cd1ef6e9d7db28ad5cdb88a65ccbe693870e60d340b791f349d248342b4fe4c3",
+    "apps/web/src/templates/fonts/BeVietnamPro-Bold.ttf": "7f738fe5c43c8872807b20e2d30d42163618de8a4daf7f48a939adac32c16847",
+    "apps/web/src/templates/fonts/OFL.txt": "6b7f8f73609a25ea78c891e34cf37b06f8a676b7ea986e941e43b009110f2a85",
+    "tests/integration/documents/payslip.spec.ts": "d6e1bcfd2a818c0c1320cc7c10e44209228f09146981053a9c283130ea05bc84",
+    "tests/integration/documents/support.ts": "23c981046bac0929a4eca8d1154c5c0fdb56b47884ff259adbf7e5800b25fece",
+    "tests/integration/documents/tsconfig.json": "123fe1d77d29671db279c9f4e8fcbc13f54fef3e55727096758d71cacb75665b",
+    "scripts/windows/test-documents.ps1": "eb1348535ede1df7aa79f8108e429dab00f1cb7ab89433c6cd232d88e4a689fd",
+    "scripts/windows/test-database.ps1": "b683bdc0e70e4d77e3296994f553aed2878c64bf0ab594e12778d1a76e2f2fe6",
+    "package.json": "1ddd8ffb64353e7e497ad468874345cea69183fbd85c7517f8133308e76bd9ce",
+    "docs/adr/0002-pdf-encryption.md": "737cda71c90b7c3c1c9ee8a9d72f37e4d06dc747f29284cb54e0c54c49d54567",
+    "docs/agent-packets/PAY-W6-01.json": "fc0785df5615ea7e8bdf700a9c1c8b71eed0f321201093d93b3290dec5820f4f",
+    "docs/agent-packets/PAY-W6-01-runtime-preview.md": "5ce08cca7f64a37ad010dc619b6f608f9f9c4457e21c20cb984a03e57682abb6"
+  },
+  "limits": [
+    "Synthetic full-time payroll only; multi-page sample is presentation stress data, not a finalized 45-line payroll calculation.",
+    "Service is internal; preview/delivery UI and caller authorization integration remain W5-02b/W6-02b.",
+    "No crash-atomic database/filesystem guarantee: an ambiguous COMMIT preserves ciphertext and reports unknown outcome.",
+    "Windows replacement-profile recovery is not tested here; W7-01b owns it.",
+    "JavaScript password strings cannot be reliably wiped; passwords never enter process argv, log output or plaintext files."
+  ],
+  "retained": [
+    "Pinned portable qpdf under ignored .tools/qpdf; no global install",
+    "Encrypted synthetic samples, protected sidecars, stopped test clusters and QA helper under ignored project-local paths",
+    "Synthetic PNG evidence; no raw PDF or password committed"
+  ],
+  "next_action": "Prepare W6-02b fake release/preview and manual handoff within its next approved packet."
+}

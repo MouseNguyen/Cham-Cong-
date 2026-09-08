@@ -208,13 +208,20 @@
     {
       "task_id": "PAY-W6-01",
       "title": "Encrypted PDF",
-      "owner": "codex-implementation-worker",
-      "status": "not_started",
-      "evidence": [],
+      "owner": "codex-parent",
+      "status": "accepted_synthetic_only",
+      "evidence": [
+        "docs/agent-packets/PAY-W6-01-parent-acceptance.json",
+        "ops/evidence/PAY-W6-01-runtime.json",
+        "ops/evidence/PAY-W6-01-one-page-inspection.json",
+        "ops/evidence/PAY-W6-01-multi-page-inspection.json"
+      ],
       "accepted_commit": null,
       "production": "not_run",
       "planned_manager": "codex-parent",
-      "planned_reviewer": "codex-independent-reviewer"
+      "planned_reviewer": "codex-independent-reviewer",
+      "accepted_commit_note": "The commit containing this acceptance receipt identifies the verified file set.",
+      "core_blocker_count": 0
     },
     {
       "task_id": "PAY-W6-02",
@@ -489,7 +496,10 @@
         "W7-01a"
       ],
       "outcome": "encrypted PDF and immutable artifact metadata",
-      "status": "not_started"
+      "status": "accepted_synthetic_only",
+      "evidence": [
+        "docs/agent-packets/PAY-W6-01-parent-acceptance.json"
+      ]
     },
     {
       "id": "W6-02b",
@@ -622,7 +632,7 @@
   "execution_route": {
     "kind": "native_codex_sequential",
     "packet": "docs/agent-packets/PAY-W6-01.json",
-    "status": "prepared_awaiting_runtime_approval",
-    "next_dependency": "Approve W6-01 bounded tool acquisition and encrypted PDF verification"
+    "status": "w6_01_accepted_synthetic_only",
+    "next_dependency": "W6-02b fake release/preview services and manual handoff"
   }
 }

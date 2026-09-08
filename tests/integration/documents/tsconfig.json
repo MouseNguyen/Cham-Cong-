@@ -1,0 +1,1 @@
+{"extends":"../../../tsconfig.base.json","compilerOptions":{"types":["node","vitest/globals"]},"include":["./**/*.ts","../../visual/payslip.spec.ts","../../../packages/document-domain/src/**/*.ts","../../../apps/web/src/lib/documents/**/*.ts","../../../apps/web/src/templates/**/*.tsx"]}

@@ -1,0 +1,22 @@
+@page { size: A4; margin: 14mm 16mm; }
+* { box-sizing: border-box; }
+body { margin: 0; font: 9pt/1.5 'Be Vietnam Pro', sans-serif; color: #202c29; }
+header { border-bottom: 2px solid #295648; padding-bottom: 12px; margin-bottom: 14px; }
+.brand { font-size: 12pt; font-weight: 700; overflow-wrap: anywhere; }
+.eyebrow { color: #67796e; font-size: 7pt; margin-top: 8px; letter-spacing: .4px; }
+h1 { font-size: 25pt; line-height: 1.25; margin: 8px 0 4px; }
+h2 { font-size: 14pt; margin: 2px 0 6px; overflow-wrap: anywhere; }
+p { margin: 3px 0; }
+.period,.identity>span,.note { color: #53645b; }
+.identity { background: #f0f5f1; padding: 12px 14px; margin-bottom: 12px; break-inside: avoid; }
+table { width: 100%; border-collapse: collapse; margin-top: 12px; table-layout: fixed; }
+thead { display: table-header-group; }
+th { font-weight: 700; text-align: left; color: #295648; background: #f0f5f1; }
+td,th { padding: 5px 8px; border-bottom: 1px solid #dfe6e0; overflow-wrap: anywhere; }
+tr { break-inside: avoid; }
+.money { width: 31%; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.subtotal { display: flex; justify-content: space-between; padding: 8px; break-inside: avoid; }
+.note { font-size: 8pt; margin: 6px 8px; }
+.net { display: flex; align-items: center; justify-content: space-between; background: #254e40; color: white; padding: 14px; margin-top: 12px; break-inside: avoid; }
+.net strong { font-size: 22pt; }.net small { font-size: 10pt; }
+footer { border-top: 1px solid #b7c8be; padding-top: 9px; margin-top: 14px; font-size: 7pt; color: #53645b; break-inside: avoid; }
