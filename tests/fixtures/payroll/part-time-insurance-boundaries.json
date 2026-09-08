@@ -1,0 +1,18 @@
+{
+  "evidence": "synthetic_assumption",
+  "cases": [
+    {
+      "income": "2529999",
+      "eligible": false
+    },
+    {
+      "income": "2530000",
+      "eligible": true
+    },
+    {
+      "income": "2530001",
+      "eligible": true
+    }
+  ],
+  "signatures": []
+}

@@ -62,13 +62,17 @@
     {
       "task_id": "PAY-W1-04",
       "title": "Part-time and boundary coverage",
-      "owner": "codex-implementation-worker",
-      "status": "not_started",
-      "evidence": [],
+      "owner": "codex-parent",
+      "status": "accepted_synthetic_only",
+      "evidence": [
+        "docs/agent-packets/PAY-W1-04-parent-acceptance.json"
+      ],
       "accepted_commit": null,
       "production": "not_run",
       "planned_manager": "codex-parent",
-      "planned_reviewer": "codex-independent-reviewer"
+      "planned_reviewer": "codex-parent source and regression review",
+      "acceptance_commit_reference": "Commit containing PAY-W1-04-parent-acceptance.json",
+      "core_blocker_count": 0
     },
     {
       "task_id": "PAY-W2-01",
@@ -559,7 +563,12 @@
         "M0"
       ],
       "outcome": "part-time expansion and complete numeric boundary pack",
-      "status": "not_started"
+      "status": "accepted_synthetic_only",
+      "blocker_count": 0,
+      "packet": "docs/agent-packets/PAY-W1-04.json",
+      "evidence": [
+        "docs/agent-packets/PAY-W1-04-parent-acceptance.json"
+      ]
     },
     {
       "id": "W5-02c",
@@ -652,8 +661,8 @@
   },
   "execution_route": {
     "kind": "parent_only",
-    "packet": "docs/agent-packets/PAY-M0.json",
-    "status": "M0_accepted_synthetic_only",
-    "next_dependency": "PAY-W1-04: part-time expansion and numeric boundary coverage"
+    "packet": "docs/agent-packets/PAY-W1-04.json",
+    "status": "W1_04_accepted_synthetic_only",
+    "next_dependency": "W5-02c remaining UI states/responsive/accessibility; part-time integration remains runtime-unverified"
   }
 }

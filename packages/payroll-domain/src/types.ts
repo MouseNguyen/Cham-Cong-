@@ -12,6 +12,7 @@ export interface CalculatorBinding {
 
 export interface PayrollInput {
   mode: PayrollMode;
+  compensation?: {basis:'monthly_salary';monthlySalaryVnd:Vnd} | {basis:'hourly_rate';hourlyRateVnd:Vnd;minimumHourlyRateVnd:Vnd;policyVersion:string;effectiveFrom:string;effectiveTo:string};
   policy: { insuranceBasePolicy:string; pitBasePolicy:string; evidence:string; holidayPremiumBasisPoints:number; holidayEntitlementTreatment:string };
   calculator: CalculatorBinding;
   employment: { kind: EmploymentKind; monthlySalaryVnd: Vnd; proration: 'none' | 'unpaid_leave' };
@@ -31,6 +32,7 @@ export interface PayrollInput {
 export interface InsuranceFundInput {
   readonly id: string;
   readonly eligible: boolean;
+  readonly monthlyEligibility?: {month:string;assessedIncomeVnd:Vnd;thresholdVnd:Vnd;policyVersion:string};
   readonly baseVnd: Vnd;
   readonly minimumVnd: Vnd;
   readonly maximumVnd: Vnd;

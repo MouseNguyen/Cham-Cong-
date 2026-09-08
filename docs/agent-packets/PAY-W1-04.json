@@ -1,0 +1,96 @@
+{
+  "task_id": "PAY-W1-04",
+  "status": "accepted_synthetic_only",
+  "owner": "codex-parent",
+  "children": 0,
+  "base_commit": "db21145aa57eb2c6e346a779a0f90ff08cf90fa3",
+  "approval": "Duke explicitly approved the exact W1-04 implementation and runtime wave.",
+  "classification": "core_outcome_blocker",
+  "terminal_outcome": "Verified synthetic pure part-time calculator and numeric boundary review pack; no database/UI or production claim.",
+  "core_outcome": "26000 VND/hour times 80 approved hours equals 2080000 VND with exact millisecond arithmetic and explicit per-fund monthly eligibility.",
+  "owned_files": [
+    "docs/agent-packets/PAY-W1-04.json",
+    "docs/agent-packets/PAY-W1-04-parent-acceptance.json",
+    "docs/planning/task-status.json",
+    "packages/payroll-domain/src/types.ts",
+    "packages/payroll-domain/src/calculate.ts",
+    "packages/payroll-domain/src/insurance.ts",
+    "packages/payroll-domain/src/holiday.ts",
+    "packages/payroll-domain/test/part-time.golden.spec.ts",
+    "packages/payroll-domain/test/legal-boundaries.spec.ts",
+    "packages/payroll-domain/test/invariants.property.spec.ts",
+    "tests/fixtures/payroll/part-time-80h.json",
+    "tests/fixtures/payroll/part-time-insurance-boundaries.json",
+    "tests/fixtures/payroll/review-pack/PAY-W1-04.json"
+  ],
+  "design": [
+    "Add explicit discriminated monthly_salary/hourly_rate compensation with backward-compatible full-time fixture parsing; reject contradictory fields rather than silently override.",
+    "Hourly ordinary pay uses integer numerator rate*approvedMilliseconds divided by3600000, HALF_UP once per component. Trace stores exact operands.",
+    "Use explicit versioned synthetic minimum-rate and per-fund monthly eligibility inputs; no blanket exemption for part-time and no guessed production threshold.",
+    "Preserve full-time results, separate holiday entitlement/premium, explicit component dates, immutable hashes and synthetic nonfinalizability.",
+    "Keep UI/repository part-time integration outside this pure-domain task; do not silently widen M0."
+  ],
+  "must_pass_gates": [
+    "Independent 80-hour golden result",
+    "Minimum hourly rate below/at/above25500 synthetic boundary",
+    "59/60/61 seconds and half-VND rounding; partition invariance",
+    "Each fund below/at/above base floors/caps and monthly eligibility/date mismatch rejection",
+    "PIT below/at/above each fixture bracket; no Resolution43 salary reduction",
+    "Net reconciliation and employer contribution isolation",
+    "Monotonic hourly earnings and clock/timezone independence",
+    "Existing full-time payroll tests unchanged",
+    "Canonical input/result/trace review pack marked draft_review; no accountant or specialist signature claims"
+  ],
+  "runtime_preview": {
+    "commands": [
+      "node node_modules/vitest/vitest.mjs run packages/payroll-domain/test/part-time.golden.spec.ts packages/payroll-domain/test/legal-boundaries.spec.ts packages/payroll-domain/test/invariants.property.spec.ts",
+      "node node_modules/vitest/vitest.mjs run packages/payroll-domain/test",
+      "npm run lint",
+      "npm run typecheck",
+      "npm run build",
+      "git diff --check"
+    ],
+    "sequence": "Write focused tests, observe RED, implement, focused GREEN, full domain regression, lint/typecheck/build, inspect actual diff, local explicit-path commit.",
+    "workspace": "F:/Codex/Projects/Pay Slip",
+    "limits": {
+      "minutes": 45,
+      "core_checkpoint_minutes": 15,
+      "attempts_per_evidence_layer": 2,
+      "ram_gb": 4,
+      "additional_disk_mb": 250,
+      "gpu": false
+    },
+    "network": "none; existing installed dependencies only",
+    "ports": [],
+    "credentials": "none",
+    "servers_databases_browsers": "none",
+    "effects": "Local code/tests and draft review JSON; normal TypeScript/Next build artifacts. No employee data or database changes.",
+    "rollback": "Preserve baseline commit and scoped diff; no automatic destructive rollback. Failed checks remain unaccepted.",
+    "cleanup": "Commands exit normally; no persistent services. Retain code, synthetic fixtures and review receipt.",
+    "exclusions": [
+      "No installs/upgrades",
+      "No network",
+      "No subagents",
+      "No schema/migrations",
+      "No secrets/real data/messages",
+      "No push",
+      "No outside-repository writes"
+    ]
+  },
+  "polish_backlog": [
+    "Responsive/UI states remain W5-02c",
+    "Production signatures remain release gates"
+  ],
+  "outcome_status": "passed_pure_calculator",
+  "preparation_status": "verified",
+  "core_blocker_count": 0,
+  "blockers": [],
+  "production_status": "not_run",
+  "production_release_blocker_group_count": 5,
+  "implementation_notes": [
+    "Explicit hourly compensation required for part-time; legacy monthly shape retained and contradictory bindings rejected.",
+    "Approved total duration includes holiday subset; ordinary hourly pay excludes that subset.",
+    "Monthly eligibility threshold is a versioned synthetic per-fund policy, not statutory evidence.",
+    "Existing insurance arithmetic unchanged; monthly validation at calculator input boundary."
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "task_id": "PAY-W1-04",
+  "status": "accepted_synthetic_only",
+  "outcome_status": "passed_pure_calculator",
+  "preparation_status": "verified",
+  "core_blocker_count": 0,
+  "production_release_blocker_group_count": 5,
+  "production_status": "not_run",
+  "base_commit": "db21145aa57eb2c6e346a779a0f90ff08cf90fa3",
+  "acceptance_commit_reference": "Commit containing this receipt",
+  "modified_files": [
+    "docs/agent-packets/PAY-W1-04.json",
+    "docs/agent-packets/PAY-W1-04-parent-acceptance.json",
+    "docs/planning/task-status.json",
+    "packages/payroll-domain/src/types.ts",
+    "packages/payroll-domain/src/calculate.ts",
+    "packages/payroll-domain/src/holiday.ts",
+    "packages/payroll-domain/test/part-time.golden.spec.ts",
+    "packages/payroll-domain/test/legal-boundaries.spec.ts",
+    "packages/payroll-domain/test/invariants.property.spec.ts",
+    "tests/fixtures/payroll/part-time-80h.json",
+    "tests/fixtures/payroll/part-time-insurance-boundaries.json",
+    "tests/fixtures/payroll/review-pack/PAY-W1-04.json"
+  ],
+  "verification": {
+    "domain_test_files": 9,
+    "domain_tests_passed": 60,
+    "new_tests": 18,
+    "property_runs": 100,
+    "property_seed": 104,
+    "lint": "passed",
+    "typecheck": "passed",
+    "build": "passed",
+    "diff_check": "passed",
+    "review_pack_rows": 12,
+    "review_hashes": "passed against exact file bytes"
+  },
+  "red_green_evidence": [
+    "Initial focused RED rejected compensation input;16 unique focused tests then passed.",
+    "Review RED reproduced holiday double counting and missing duration bound; repaired subtraction and excess guard. Final60 tests passed."
+  ],
+  "verification_note": "Initial independent source hash check used newline-normalized Python text and disagreed with Node raw text. Recomputed exact file bytes matches all12 source hashes; no source mutation or test retry required.",
+  "claim_ledger": [
+    {
+      "layer": "structure",
+      "status": "passed",
+      "evidence": "lint/typecheck/build/diff check"
+    },
+    {
+      "layer": "approved_synthetic_domain_runtime",
+      "status": "passed",
+      "evidence": "60 tests including18 new tests; independent80h gross/net2080000"
+    },
+    {
+      "layer": "golden_review_artifact",
+      "status": "passed",
+      "evidence": "tests/fixtures/payroll/review-pack/PAY-W1-04.json;12 canonical input/result/trace rows; independently checked hashes"
+    },
+    {
+      "layer": "dry_run",
+      "status": "not_required",
+      "evidence": "Direct pure-domain tests"
+    },
+    {
+      "layer": "part_time_database_UI_PDF",
+      "status": "not_run",
+      "evidence": "Outside this pure-domain packet; full-time M0 remains scoped to original receipt"
+    },
+    {
+      "layer": "accountant_specialist_signatures",
+      "status": "not_run",
+      "evidence": "draft_review rows, no signatures"
+    },
+    {
+      "layer": "production",
+      "status": "not_run",
+      "evidence": "Five release blocker groups unchanged"
+    }
+  ],
+  "cleanup": "Test/build commands exited; no browser, server, database, credentials, network or persistent runtime started.",
+  "next_action": "Prepare W5-02c scope; explicitly account for unrun part-time integration."
+}
