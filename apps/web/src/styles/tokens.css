@@ -1,0 +1,17 @@
+:root {
+  --canvas: #f8f4ea;
+  --surface: #fffdf8;
+  --surface-muted: #f1ebdd;
+  --ink: #24342e;
+  --ink-muted: #617068;
+  --cocoa: #5a4034;
+  --pistachio-700: #315c47;
+  --pistachio-100: #e5efe7;
+  --berry-700: #8a2f46;
+  --berry-100: #f8e7eb;
+  --amber-700: #76551e;
+  --amber-100: #fff1d6;
+  --line: #d8d1c3;
+  --focus: #1967d2;
+  --shadow-lifted: 0 8px 28px rgb(36 52 46 / 6%);
+}

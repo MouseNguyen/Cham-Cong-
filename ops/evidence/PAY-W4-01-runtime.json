@@ -226,6 +226,23 @@
         "listener_absent": true,
         "postmaster_pid_file_absent": true
       }
+    },
+    {
+      "task_id": "PAY-W4-01",
+      "run_id": "green-125234a6-12cf-45c7-94b5-6fc6b6bee0b3",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W4-01\\cluster\\green-125234a6-12cf-45c7-94b5-6fc6b6bee0b3",
+      "port": 55432,
+      "status": "passed",
+      "tests": {
+        "exit": 0,
+        "passed_count": 7
+      },
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      }
     }
   ]
 }

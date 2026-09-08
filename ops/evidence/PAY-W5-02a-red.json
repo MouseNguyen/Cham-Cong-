@@ -1,0 +1,8 @@
+{
+  "layer": "behavior_specific_red",
+  "status": "passed",
+  "expected": "authenticated dashboard work-queue heading",
+  "actual": "missing heading on baseline dashboard",
+  "test": "authenticated dashboard exposes payroll work queue",
+  "all_current_migrations_applied": true
+}

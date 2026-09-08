@@ -1,0 +1,117 @@
+{
+  "task_id": "PAY-W5-02a",
+  "runs": [
+    {
+      "task_id": "PAY-W5-02a",
+      "run_id": "red-49820ccf-eead-407f-9688-2b13be1cfc39",
+      "mode": "Red",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W5-02a\\cluster\\red-49820ccf-eead-407f-9688-2b13be1cfc39",
+      "port": 55432,
+      "status": "red_observed",
+      "tests": null,
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      },
+      "browser": {
+        "exit": 0,
+        "passed_count": 0
+      }
+    },
+    {
+      "task_id": "PAY-W5-02a",
+      "run_id": "green-6c4004c3-ed05-400e-b547-ceebe7477a5b",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W5-02a\\cluster\\green-6c4004c3-ed05-400e-b547-ceebe7477a5b",
+      "port": 55432,
+      "status": "failed",
+      "tests": null,
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      },
+      "browser": {
+        "exit": 1,
+        "passed_count": 1
+      },
+      "error": "ADMIN_BROWSER_FAILED"
+    },
+    {
+      "task_id": "PAY-W5-02a",
+      "run_id": "green-905e6382-19f8-4b90-ad1c-3117ef60f915",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W5-02a\\cluster\\green-905e6382-19f8-4b90-ad1c-3117ef60f915",
+      "port": 55432,
+      "status": "failed",
+      "tests": null,
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      },
+      "browser": {
+        "exit": 1,
+        "passed_count": 1
+      },
+      "error": "ADMIN_BROWSER_FAILED"
+    },
+    {
+      "task_id": "PAY-W5-02a",
+      "run_id": "green-f00959a3-b822-42ec-bfeb-018c6e6a1f63",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W5-02a\\cluster\\green-f00959a3-b822-42ec-bfeb-018c6e6a1f63",
+      "port": 55432,
+      "status": "failed",
+      "tests": null,
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      },
+      "browser": {
+        "exit": 1,
+        "passed_count": 2
+      },
+      "error": "ADMIN_BROWSER_FAILED"
+    },
+    {
+      "task_id": "PAY-W5-02a",
+      "run_id": "green-7c26469d-8412-4aef-afe2-ee873ad24be5",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W5-02a\\cluster\\green-7c26469d-8412-4aef-afe2-ee873ad24be5",
+      "port": 55432,
+      "status": "failed",
+      "tests": null,
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      },
+      "browser": {
+        "exit": 1,
+        "passed_count": 3
+      },
+      "error": "ADMIN_BROWSER_FAILED"
+    },
+    {
+      "task_id": "PAY-W5-02a",
+      "run_id": "green-3b946fe1-fa1d-4d89-b519-fd06f429786c",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W5-02a\\cluster\\green-3b946fe1-fa1d-4d89-b519-fd06f429786c",
+      "port": 55432,
+      "status": "passed",
+      "tests": null,
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      },
+      "browser": {
+        "exit": 0,
+        "passed_count": 4
+      }
+    }
+  ]
+}

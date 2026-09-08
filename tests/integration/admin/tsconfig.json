@@ -1,0 +1,6 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": { "types": ["node", "vitest/globals"] },
+  "include": ["./**/*.ts", "../../e2e/admin-flows.spec.ts", "../../e2e/accessibility.spec.ts"],
+  "exclude": ["../../../node_modules"]
+}

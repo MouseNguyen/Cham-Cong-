@@ -1,6 +1,6 @@
 # PAY-W5-01 screen inventory
 
-Status: design contract drafted; Superdesign runtime and owner visual acceptance not yet run.
+Status: W5-01 design contract accepted on 2026-09-07; see PAY-W5-01-parent-acceptance.json. Product-screen implementation and its verification are tracked separately under W5-02a and later packets.
 
 ## Primary surfaces
 

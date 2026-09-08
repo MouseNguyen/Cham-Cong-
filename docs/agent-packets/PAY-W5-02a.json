@@ -1,0 +1,293 @@
+{
+  "task_id": "PAY-W5-02a",
+  "revision": 1,
+  "status": "partial_core_verified_baseline_lint_blocked",
+  "as_of": "2026-09-08",
+  "base_commit": "d608bc179e0564691eb295a014e58aea7e973b88",
+  "workspace": "F:/Codex/Projects/Pay Slip",
+  "authority": "Duke explicitly approved revision 1 roster and bounded local synthetic runtime on 2026-09-08 by saying ok do it. Parent executes the complete listed wave without repeated approvals.",
+  "outcome_status": "synthetic_core_verified",
+  "preparation_status": "built_and_verified",
+  "core_outcome": "Authenticated Vietnamese employee, attendance, and five-state full-time pay-run UI backed by existing application services, verified with synthetic browser and integration evidence.",
+  "core_outcome_blockers": [],
+  "approval_blocker_count": 0,
+  "approval_blocker": null,
+  "source_order": [
+    "AGENTS.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-design.md",
+    "docs/superpowers/plans/2026-09-04-pay-slip-implementation.md",
+    "docs/agent-packets/PAY-W4-01-parent-acceptance.json",
+    "docs/agent-packets/PAY-W5-01-parent-acceptance.json",
+    ".superdesign/design-system.md",
+    "docs/design/ux-acceptance.md",
+    "docs/planning/payroll-decision-matrix.md"
+  ],
+  "state_reconciliation": [
+    "task-status.json execution_route is stale: it references Hermes/W3-03 and next W4-01, while the current AGENTS.md and codex-delegation.md require native Codex and W4/W5 acceptance receipts already exist. Use the current agreement and acceptance receipts; reconcile the projection during parent integration.",
+    "screen-inventory.md opening status is stale relative to the dated W5-01 acceptance receipt and UX acceptance. Preserve screen requirements; owner-approved visual direction is established only at the design-contract layer.",
+    "Dated implementation-plan checkboxes and its old next-packet paragraph are templates, not current execution state."
+  ],
+  "roster": [
+    {
+      "agent_id": "codex-parent",
+      "role": "integration, shared edits, runtime, acceptance and commit",
+      "model": "current parent",
+      "children_max": 1
+    },
+    {
+      "agent_id": "/root/pay_w5_02a_implementer",
+      "role": "bounded implementation",
+      "model": "gpt-5.6-terra",
+      "effort": "high",
+      "delegation": false,
+      "runtime": false
+    },
+    {
+      "agent_id": "/root/pay_w5_02a_reviewer",
+      "role": "independent read-only product and evidence review after implementation",
+      "model": "gpt-5.5",
+      "effort": "xhigh",
+      "delegation": false,
+      "runtime": false
+    }
+  ],
+  "concurrency": "Sequential children, at most parent plus one child; no sidebar tasks or worktrees. Bind actual native IDs on dispatch.",
+  "worker_owned_files": [
+    "apps/web/src/styles/tokens.css",
+    "apps/web/src/styles/globals.css",
+    "apps/web/src/components/Button.tsx",
+    "apps/web/src/components/Field.tsx",
+    "apps/web/src/components/Money.tsx",
+    "apps/web/src/components/Status.tsx",
+    "apps/web/src/components/StepFlow.tsx",
+    "apps/web/src/components/DataTable.tsx",
+    "apps/web/src/components/Dialog.tsx",
+    "apps/web/src/components/TracePanel.tsx",
+    "apps/web/src/components/AdminShell.tsx",
+    "apps/web/src/app/(admin)/layout.tsx",
+    "apps/web/src/app/(admin)/dashboard/page.tsx",
+    "apps/web/src/app/(admin)/employees/page.tsx",
+    "apps/web/src/app/(admin)/employees/employee-panel.tsx",
+    "apps/web/src/app/(admin)/pay-runs/page.tsx",
+    "apps/web/src/app/(admin)/pay-runs/pay-run-panel.tsx",
+    "apps/web/src/app/(admin)/attendance/page.tsx",
+    "apps/web/src/app/(admin)/attendance/review-panel.tsx",
+    "apps/web/src/app/(admin)/attendance/review.module.css",
+    "tests/e2e/admin-flows.spec.ts",
+    "tests/e2e/accessibility.spec.ts",
+    "tests/integration/admin/http.spec.ts",
+    "tests/integration/admin/fixtures.ts",
+    "docs/agent-packets/PAY-W5-02a-implementer-report.md"
+  ],
+  "parent_owned_files": [
+    "apps/web/src/app/page.tsx",
+    "apps/web/src/app/layout.tsx",
+    "apps/web/src/app/api/admin/route.ts",
+    "apps/web/src/lib/admin/http.ts",
+    "apps/web/src/lib/admin/queries.ts",
+    "apps/web/src/lib/admin/runtime.ts",
+    "apps/web/public/the-kays-gelato-logo.jpg",
+    "scripts/windows/test-admin.ps1",
+    "scripts/windows/test-database.ps1",
+    "tests/integration/admin/browser-runner.cjs",
+    "tests/integration/admin/tsconfig.json",
+    "playwright.config.ts",
+    "package.json",
+    "docs/planning/task-status.json",
+    "docs/design/screen-inventory.md",
+    "docs/agent-packets/PAY-W5-02a.json",
+    "docs/agent-packets/PAY-W5-02a-runtime-preview.md",
+    "docs/agent-packets/PAY-W5-02a-review.md",
+    "docs/agent-packets/PAY-W5-02a-parent-acceptance.json"
+  ],
+  "generated_outputs": [
+    ".tmp/PAY-W5-02a/**",
+    "ops/evidence/PAY-W5-02a-*.json",
+    "ops/evidence/PAY-W5-02a-*.png",
+    "apps/web/.next/**",
+    "apps/attendance-ingress/dist/**",
+    "node_modules/.prisma/**",
+    "apps/web/src/generated/prisma/**",
+    "apps/web/next-env.d.ts",
+    ".tmp/PAY-W2-03/**",
+    ".tmp/PAY-W3-03/**",
+    ".tmp/PAY-W4-01/**",
+    "ops/evidence/PAY-W2-03-runtime.json",
+    "ops/evidence/PAY-W3-03-runtime.json",
+    "ops/evidence/PAY-W4-01-runtime.json"
+  ],
+  "implementation_order": [
+    "Parent reads full sources, pins current file hashes, defines HTTP input/output contract using existing service signatures, and adds only the W5 harness branch. Worker writes focused failing tests before behavior implementation.",
+    "Run focused RED with all current migrations applied to a new synthetic database. Reject missing-schema, missing-tool, authentication-fixture, or server-start failures as product RED.",
+    "Implement approved tokens, local exact logo, authenticated shell, employee forms, existing attendance review integration and five-state payroll UI. Commands reuse current service authorization, CSRF, MFA, state/version and audit boundaries.",
+    "Verify focused GREEN: create synthetic full-time employee and effective contract, review attendance, bind approved snapshot, calculate, reveal stored trace, submit, owner approve with fresh MFA, confirm and finalize. Include wrong-role and stale-version rejection and persisted reload evidence.",
+    "Run permitted regressions, typecheck, lint, build, authenticated desktop/tablet browser tests and screenshots. Run independent static review once; only concrete behavior/data-integrity/authorization blockers delay core acceptance.",
+    "Verify cleanup and scoped diff, reconcile stale projections, record layer-specific acceptance, and commit explicit verified paths locally."
+  ],
+  "must_pass_gates": [
+    "Existing owner/accountant session enforcement; no synthetic fallback identity in product routes",
+    "Employee forms call existing services and preserve deterministic integer money and effective-date validation",
+    "Attendance exception review and frozen snapshot retain accepted backend enforcement",
+    "Five pay-run states, single next action, immutable finalized results, one-action stored calculation trace",
+    "Owner approval/finalization enforce fresh MFA, CSRF, confirmation and state/version checks through the existing backend",
+    "Loading, empty, blocked and failure states; unknown mutation outcome never misreported as uncommitted",
+    "Vietnamese copy, approved exact local logo and palette, keyboard labels/focus, 44px targets and no page overflow at desktop/tablet widths",
+    "No PDF/delivery action advertised as available before W6 services exist",
+    "Behavior-specific RED, focused GREEN, relevant regressions, typecheck/lint/build, browser evidence, independent review and exact owned process/listener cleanup"
+  ],
+  "polish_backlog": [
+    "W5-02b delivery UI and typed page-tool registry/evals after W6-02b",
+    "W5-02c part-time UI and full responsive/accessibility breadth after M0/W1-04",
+    "Verified self-hosted font bundle when available; approved system fallback for this wave"
+  ],
+  "limits": {
+    "minutes": 90,
+    "checkpoint_minutes": 15,
+    "attempts_per_evidence_layer": 2,
+    "disk_gb": 2,
+    "network": "loopback only",
+    "production": false
+  },
+  "stop_conditions": [
+    "Two same-layer failures or one zero-evidence-delta attempt freezes that family for source-backed research",
+    "Unexpected real data or ambient credentials",
+    "Unrelated listener on an intended port",
+    "Required dependency unavailable",
+    "Need for unowned product-file or schema changes",
+    "Material change to roster, runtime, cost or effect requires fresh confirmation"
+  ],
+  "next_sequence": [
+    "W5-02a",
+    "W6-01",
+    "W6-02b",
+    "W5-02b",
+    "M0 full-time synthetic end-to-end",
+    "W1-04 and W5-02c",
+    "W7-01b / W7-02b / W7-03",
+    "W8-01 separately authorized release evidence"
+  ],
+  "evidence_layers": {
+    "preparation": "passed_with_two_baseline_lint_errors",
+    "approved_runtime": "passed_local_synthetic_scope",
+    "production": "not_run"
+  },
+  "production_release_blocker_group_count": 5,
+  "checkpoint": {
+    "no_product_runtime_claim": true,
+    "red": "red-49820ccf-eead-407f-9688-2b13be1cfc39",
+    "cleanup": "all_completed_harnesses_passed",
+    "regressions_passed": {
+      "attendance": 8,
+      "pay_runs": 7,
+      "employees": 22,
+      "payroll_domain": 42
+    },
+    "preparation_status": "typecheck_build_passed_root_lint_two_baseline_errors",
+    "outcome_status": "4_browser_and_2_http_tests_passed",
+    "next_action": "Commit verified core; close baseline lint gate before W6-01"
+  },
+  "static_repair_research": {
+    "predicted_delta": "No new-file type/lint errors, baseline lint remains two errors",
+    "runtime_authority": "existing approved wave",
+    "fallback": "none",
+    "status": "frozen_then_exact_local_source_research",
+    "repair": "Explicit validated origin and injected global types; fetch callback state updates; preserve existing lint findings without editing unowned files",
+    "evidence": [
+      "TypeScript TS2322: Status string children corrected by worker",
+      "TS2352: injected axe global needs explicit unknown boundary",
+      "TS2769: optional env origin is not narrowed through beforeAll",
+      "tsconfig.base.json strict/exactOptionalPropertyTypes read",
+      "React lint flags effect-invoked state setters; async fetch callbacks are the permitted synchronization route",
+      "HEAD source independently contains both existing any annotations flagged by root lint"
+    ],
+    "attempt_family": "UI integration typecheck"
+  },
+  "browser_attempts": [
+    {
+      "cleanup": "passed",
+      "run": "green-6c4004c3-ed05-400e-b547-ceebe7477a5b",
+      "outcome": "dashboard passed; salary accessible name prevented remaining flow",
+      "hypothesis": "Field hint inside label changed accessible name; accessibility login helper navigated before auth settled",
+      "repair": "Separate hint via aria-describedby, await completed auth, focused static validation passed"
+    },
+    {
+      "run": "green-905e6382-19f8-4b90-ad1c-3117ef60f915",
+      "outcome": "dashboard passed; employee creation and attendance finalization reached; payroll exact select label failed; muted badge contrast failed",
+      "predicted_delta": "salary input discoverable; proceed to real payroll workflow",
+      "cleanup": "passed"
+    }
+  ],
+  "browser_escalation": {
+    "attempt_family": "W5 synthetic browser GREEN",
+    "status": "frozen",
+    "evidence": "Installed Playwright coreBundle getElementLabels uses recursive elementText(label); wrapping select includes option text. Payroll select mounts only after overview, unlike employee select mounted before options load.",
+    "repair": "Explicit label/control association; muted ink contrast; calculator boundary assertions; TOTP replay-safe helper; unknown-response latch; parent-disposition source fixes for duplicate base-run creation, maker role and stored evidence trace",
+    "known": "Two failures and clean process/listener shutdown; badge contrast 4.38 below 4.5",
+    "inferred": "Exact label mismatch explains payroll selector failure",
+    "unknown": "Later payroll steps and full production build remain unrun",
+    "fallback": "none",
+    "predicted_delta": "Populated workplace dropdown resolves by exact label and muted badge clears contrast gate",
+    "next_gate": "Fresh bounded runtime approval"
+  },
+  "blocker_counts": {
+    "core_runtime": 0,
+    "baseline_lint_errors": 2,
+    "total_open": 2,
+    "production_release_groups_separate": 5
+  },
+  "review": {
+    "receipt": "docs/agent-packets/PAY-W5-02a-review.md",
+    "verdict": "reject_at_reviewed_revision",
+    "findings": 3,
+    "parent_disposition": "source_repairs_drafted_not_rerun",
+    "next_roster": "parent_only_no_new_workers"
+  },
+  "verification_extension": {
+    "approved_by": "Duke",
+    "approval": "approve",
+    "date": "2026-09-08",
+    "minutes": 30,
+    "green_attempts": 1,
+    "roster": "parent only",
+    "status": "failed_attempt_consumed",
+    "run_id": "green-f00959a3-b822-42ec-bfeb-018c6e6a1f63"
+  },
+  "extension_research": {
+    "known": "Next route announcer adds a second alert outside main; installed Playwright filterCookies excludes Secure cookies on HTTP except hostname localhost or .localhost, not 127.0.0.1",
+    "sources": [
+      "apps/web/src/lib/auth/session.ts:7",
+      "node_modules/playwright-core/lib/coreBundle.js:13398",
+      "node_modules/playwright-core/lib/coreBundle.js:13405",
+      "latest browser error context"
+    ],
+    "repair": "Scope alert to main and run authenticated overview fetch inside browser page; no product-auth change",
+    "predicted_delta": "Unknown outcome assertion reaches disabled/reload checks; overview probe shares working browser authentication",
+    "fallback": "none",
+    "current_verification": "not_run"
+  },
+  "corrected_extension": {
+    "approval": "Duke: approve",
+    "date": "2026-09-08",
+    "minutes": 30,
+    "attempts": 1,
+    "status": "failed_attempt_consumed",
+    "roster": "parent_only",
+    "run_id": "green-7c26469d-8412-4aef-afe2-ee873ad24be5"
+  },
+  "status_selector_research": {
+    "source": "Status.tsx aria-hidden decorative bullet remains DOM text; exact Playwright text query includes it",
+    "repair": "Use the same status-scoped hasText selector already used by all payroll-state assertions",
+    "audit": "Read every remaining E2E selector and Dialog/Status source; no other exact badge text match remains",
+    "runtime": "not_run_after_repair"
+  },
+  "final_verification_wave": {
+    "approval": "Duke: ok proceed",
+    "date": "2026-09-08",
+    "minutes": 30,
+    "max_green_runs": 2,
+    "test_only_repair_retry": 1,
+    "product_failure": "stop",
+    "status": "passed_first_run",
+    "run_id": "green-3b946fe1-fa1d-4d89-b519-fd06f429786c"
+  }
+}

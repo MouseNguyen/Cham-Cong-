@@ -1,4 +1,4 @@
-param([ValidateSet('Red','Green')][string]$Mode='Green', [ValidateSet('PAY-W2-01','PAY-W6-02a','PAY-W2-02','PAY-W2-03','PAY-W3-01b','PAY-W3-02a','PAY-W3-02b','PAY-W7-02a','PAY-W3-03','PAY-W4-01')][string]$TaskId='PAY-W2-01', [switch]$Browser)
+param([ValidateSet('Red','Green')][string]$Mode='Green', [ValidateSet('PAY-W2-01','PAY-W6-02a','PAY-W2-02','PAY-W2-03','PAY-W3-01b','PAY-W3-02a','PAY-W3-02b','PAY-W7-02a','PAY-W3-03','PAY-W4-01','PAY-W5-02a')][string]$TaskId='PAY-W2-01', [switch]$Browser)
 $ErrorActionPreference='Stop'
 $env:PAYSLIP_DB_TEST_MODE=$Mode
 $env:PAYSLIP_DB_TASK_ID=$TaskId
@@ -14,14 +14,14 @@ const cluster=path.join(root,'.tmp',taskId,'cluster',runId);
 const log=path.join(root,'.tmp',taskId,runId+'.log');
 const ownerPassword=crypto.randomBytes(32).toString('hex'),appPassword=crypto.randomBytes(32).toString('hex'),ingressPassword=crypto.randomBytes(32).toString('hex');
 const kioskTask=['PAY-W3-02a','PAY-W3-02b','PAY-W7-02a'].includes(taskId);
-const database=taskId==='PAY-W4-01'?'payslip_w4_01_synthetic':taskId==='PAY-W3-03'?'payslip_w3_03_synthetic':kioskTask?'payslip_w3_02_synthetic':taskId==='PAY-W3-01b'?'payslip_w3_01b_synthetic':taskId==='PAY-W2-03'?'payslip_w2_03_synthetic':taskId==='PAY-W2-02'?'payslip_w2_02_auth_synthetic':'payslip_w2_01_synthetic';
+const database=taskId==='PAY-W5-02a'?'payslip_w5_02a_synthetic':taskId==='PAY-W4-01'?'payslip_w4_01_synthetic':taskId==='PAY-W3-03'?'payslip_w3_03_synthetic':kioskTask?'payslip_w3_02_synthetic':taskId==='PAY-W3-01b'?'payslip_w3_01b_synthetic':taskId==='PAY-W2-03'?'payslip_w2_03_synthetic':taskId==='PAY-W2-02'?'payslip_w2_02_auth_synthetic':'payslip_w2_01_synthetic';
 const ownerConnection=new URL('postgresql://127.0.0.1:55432/'+database); ownerConnection.username='payslip_owner'; ownerConnection.password=ownerPassword; const ownerUrl=ownerConnection.href;
 const appConnection=new URL('postgresql://127.0.0.1:55432/'+database); appConnection.username='payslip_app'; appConnection.password=appPassword; const appUrl=appConnection.href;
 const ingressConnection=new URL(ownerUrl); ingressConnection.username='payslip_ingress';ingressConnection.password=ingressPassword;const ingressUrl=ingressConnection.href;
 const env={...process.env,DATABASE_URL:ownerUrl,PAYSLIP_TEST_DATABASE_URL:appUrl,PAYSLIP_TEST_INGRESS_DATABASE_URL:ingressUrl,PRISMA_HIDE_UPDATE_MESSAGE:'1'};
 const redact=text=>String(text).split(ownerPassword).join('[redacted]').split(appPassword).join('[redacted]').split(ingressPassword).join('[redacted]');
 function run(exe,args,input,allowFail=false,childEnv=env){
- const r=cp.spawnSync(exe,args,{cwd:root,env:childEnv,encoding:'utf8',input,timeout:args.some(a=>a.endsWith('browser-runner.cjs'))?240000:120000,windowsHide:true,maxBuffer:8*1024*1024,stdio:path.basename(exe)==='pg_ctl.exe'?'ignore':'pipe'});
+ const r=cp.spawnSync(exe,args,{cwd:root,env:childEnv,encoding:'utf8',input,timeout:args.includes('tests/integration/admin/browser-runner.cjs')?900000:args.some(a=>a.endsWith('browser-runner.cjs'))?240000:120000,windowsHide:true,maxBuffer:8*1024*1024,stdio:path.basename(exe)==='pg_ctl.exe'?'ignore':'pipe'});
  if(r.error)throw r.error;
  const out=redact((r.stdout||'')+(r.stderr||''));
  if(out)process.stdout.write(out);
@@ -47,7 +47,7 @@ let started=false,admin;
   try{
    await owner.query('REVOKE ALL ON DATABASE '+database+' FROM PUBLIC; GRANT CONNECT ON DATABASE '+database+' TO payslip_app,payslip_ingress; REVOKE CREATE ON SCHEMA public FROM PUBLIC; GRANT USAGE ON SCHEMA public TO payslip_app');
    let schemaReady=false;
-   if(mode==='Green'){
+   if(mode==='Green'||taskId==='PAY-W5-02a'){
     run(process.execPath,['node_modules/prisma/build/index.js','validate']);
     run(process.execPath,['node_modules/prisma/build/index.js','generate']);
     run(process.execPath,['node_modules/prisma/build/index.js','migrate','deploy']);
@@ -69,6 +69,16 @@ let started=false,admin;
     if((await owner.query("SELECT to_regclass('public.outbox_dispatch_attempts') AS name")).rows[0].name)await owner.query('REVOKE UPDATE,DELETE ON outbox_dispatch_attempts FROM payslip_app');
    }
   }finally{await owner.end();}
+  if(taskId==='PAY-W5-02a'){
+   if(process.env.PAYSLIP_AUTH_BROWSER!=='1')throw Error('ADMIN_BROWSER_REQUIRED');
+   const browser=run(process.execPath,['tests/integration/admin/browser-runner.cjs'],undefined,true);
+   receipt.browser={exit:browser.exit,passed_count:Number(browser.output.match(/(\d+) passed/)?.[1]||0)};
+   if(browser.exit!==0)throw Error('ADMIN_BROWSER_FAILED');
+   if(mode==='Red'&&!browser.output.includes('ADMIN_BEHAVIOR_RED_OBSERVED'))throw Error('ADMIN_PRODUCT_RED_REQUIRED');
+   if(mode==='Green'&&receipt.browser.passed_count<1)throw Error('ADMIN_EMPTY_BROWSER_SUITE');
+   receipt.status=mode==='Red'?'red_observed':'passed';
+   return;
+  }
   const tests=run(process.execPath,['node_modules/vitest/vitest.mjs','run',taskId==='PAY-W4-01'?'tests/integration/pay-runs':taskId==='PAY-W3-03'?'tests/integration/attendance/review.spec.ts':kioskTask?(taskId==='PAY-W7-02a'?'tests/integration/operations/service-lifecycle.windows.spec.ts':'tests/integration/attendance/ingress.spec.ts'):taskId==='PAY-W3-01b'?'tests/integration/attendance/schedule-effective-dates.spec.ts':taskId==='PAY-W2-03'?'tests/integration/employees':taskId==='PAY-W2-02'?'tests/integration/auth':'tests/integration/db',...(taskId==='PAY-W6-02a'?['tests/integration/delivery']:[]),'--maxWorkers=1','--no-file-parallelism'],undefined,true);
   receipt.tests={exit:tests.exit,passed_count:Number(tests.output.match(/Tests\s+(\d+) passed/)?.[1]||0)};
   if(mode==='Red'){

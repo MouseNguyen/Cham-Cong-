@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-09-07",
+  "as_of": "2026-09-08",
   "baseline_commit": "b581e21ebf2b2c26e49b794a0035e30a6da269d1",
   "authority": "Current task state; checkbox steps in the dated implementation plan are templates, not execution receipts.",
   "task_count": 20,
@@ -196,8 +196,10 @@
       "task_id": "PAY-W5-02",
       "title": "Admin UI and tools",
       "owner": "codex-implementation-worker",
-      "status": "not_started",
-      "evidence": [],
+      "status": "partial",
+      "evidence": [
+        "docs/agent-packets/PAY-W5-02a-parent-acceptance.json"
+      ],
       "accepted_commit": null,
       "production": "not_run",
       "planned_manager": "codex-parent",
@@ -477,7 +479,7 @@
         "W4-01"
       ],
       "outcome": "minimum employee/attendance/payrun admin UI",
-      "status": "not_started"
+      "status": "core_verified_baseline_lint_blocked"
     },
     {
       "id": "W6-01",
@@ -618,9 +620,9 @@
     "current_receipt": "docs/agent-packets/PAY-W3-03-parent-acceptance.json"
   },
   "execution_route": {
-    "kind": "direct_hermes_forge_with_parent_integration",
-    "packet": "docs/agent-packets/PAY-W3-03.json",
-    "status": "accepted_synthetic_only",
-    "next_dependency": "W4-01 full-time pay-run orchestration"
+    "kind": "native_codex_sequential",
+    "packet": "docs/agent-packets/PAY-W5-02a.json",
+    "status": "core_verified_baseline_lint_blocked",
+    "next_dependency": "Two unchanged baseline lint errors; then W6-01"
   }
 }
