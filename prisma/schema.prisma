@@ -662,3 +662,27 @@ model attendance_review_audits {
   candidate_hash String?
   created_at DateTime @db.Timestamptz(3)
 }
+
+model payslip_release_previews {
+ id String @id @db.Uuid
+ organization_id String @db.Uuid
+ draft_id String @unique @db.Uuid
+ actor_id String @db.Uuid
+ binding Json
+ binding_hash String
+ created_at DateTime @db.Timestamptz(3)
+ expires_at DateTime @db.Timestamptz(3)
+ @@unique([id,organization_id])
+}
+model payslip_release_receipts {
+ id String @id @db.Uuid
+ organization_id String @db.Uuid
+ preview_id String @db.Uuid
+ actor_id String @db.Uuid
+ kind String
+ channel String
+ password_version_id String? @db.Uuid
+ job_id String? @db.Uuid
+ created_at DateTime @db.Timestamptz(3)
+ @@unique([preview_id,kind])
+}

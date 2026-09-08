@@ -50,7 +50,7 @@ export async function claimNext(tx: PoolClient, input: {
   if (!input.workerId || input.workerId.length > 100 || !Number.isInteger(input.leaseMs) || input.leaseMs < 1 || input.leaseMs > 300000) throw conflict("INVALID_LEASE");
   return atomic(tx, async () => {
     const row = (await tx.query(
-      "SELECT d.*,j.payload FROM outbox_dispatches d JOIN outbox_jobs j ON j.id=d.job_id WHERE d.organization_id=$1 AND j.kind='synthetic_email_verification' AND ((d.status IN ('pending','retry_wait','reconcile') AND d.available_at<=$2) OR (d.status='leased' AND d.lease_expires_at<=$2)) ORDER BY d.available_at,d.job_id LIMIT 1 FOR UPDATE OF d SKIP LOCKED",
+      "SELECT d.*,j.payload FROM outbox_dispatches d JOIN outbox_jobs j ON j.id=d.job_id WHERE d.organization_id=$1 AND j.kind IN ('synthetic_email_verification','synthetic_payslip_release') AND ((d.status IN ('pending','retry_wait','reconcile') AND d.available_at<=$2) OR (d.status='leased' AND d.lease_expires_at<=$2)) ORDER BY d.available_at,d.job_id LIMIT 1 FOR UPDATE OF d SKIP LOCKED",
       [input.organizationId, input.now])).rows[0];
     if (!row) return null;
     const phase = row.status === "leased" || row.status === "reconcile" ? "reconcile" : "send";

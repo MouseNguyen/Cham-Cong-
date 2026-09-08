@@ -1,0 +1,2 @@
+import type {ReleasePreview} from '../application/commands/preview-payslip-release';
+export function manualHandoff(preview:ReleasePreview){return {employeeId:preview.binding.employeeId,employeeName:preview.binding.employeeName,periodStart:preview.binding.periodStart,periodEnd:preview.binding.periodEnd,relativePath:preview.binding.relativePath,sha256:preview.binding.sha256,descriptor:'Zalo cá nhân · người vận hành tự gửi',copyText:'Phiếu lương của bạn được đính kèm. Mật khẩu được cung cấp qua kênh riêng.',status:'manual_handoff_draft' as const};}

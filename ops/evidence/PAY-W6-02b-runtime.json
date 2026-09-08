@@ -1,0 +1,74 @@
+{
+  "task_id": "PAY-W6-02b",
+  "runs": [
+    {
+      "task_id": "PAY-W6-02b",
+      "run_id": "red-83ce3529-05d6-42c7-a125-f07c89a2661a",
+      "mode": "Red",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W6-02b\\cluster\\red-83ce3529-05d6-42c7-a125-f07c89a2661a",
+      "port": 55432,
+      "status": "red_observed",
+      "tests": {
+        "exit": 1,
+        "passed_count": 0
+      },
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      }
+    },
+    {
+      "task_id": "PAY-W6-02b",
+      "run_id": "green-08483d30-a00d-4009-86fb-a9e1b0b47c05",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W6-02b\\cluster\\green-08483d30-a00d-4009-86fb-a9e1b0b47c05",
+      "port": 55432,
+      "status": "failed",
+      "tests": {
+        "exit": 1,
+        "passed_count": 0
+      },
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      },
+      "error": "Integration failed"
+    },
+    {
+      "task_id": "PAY-W6-02b",
+      "run_id": "green-dd2e2eaa-2aae-4309-a505-18d48048d1b9",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W6-02b\\cluster\\green-dd2e2eaa-2aae-4309-a505-18d48048d1b9",
+      "port": 55432,
+      "status": "passed",
+      "tests": {
+        "exit": 0,
+        "passed_count": 6
+      },
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      }
+    },
+    {
+      "task_id": "PAY-W6-02b",
+      "run_id": "green-67087c40-5591-426a-a388-86b0fa2e6c2d",
+      "mode": "Green",
+      "cluster": "F:\\Codex\\Projects\\Pay Slip\\.tmp\\PAY-W6-02b\\cluster\\green-67087c40-5591-426a-a388-86b0fa2e6c2d",
+      "port": 55432,
+      "status": "passed",
+      "tests": {
+        "exit": 0,
+        "passed_count": 17
+      },
+      "cleanup": {
+        "status": "passed",
+        "listener_absent": true,
+        "postmaster_pid_file_absent": true
+      }
+    }
+  ]
+}

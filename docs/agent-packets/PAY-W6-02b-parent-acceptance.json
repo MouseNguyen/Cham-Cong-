@@ -1,0 +1,162 @@
+{
+  "task_id": "PAY-W6-02b",
+  "as_of": "2026-09-08",
+  "owner": "codex-parent",
+  "children": 0,
+  "base_commit": "5d4b981650704ec447cc395af114d45fa4a47987",
+  "status": "accepted_synthetic_only",
+  "outcome_status": "passed_owner_preview_fake_release_manual_handoff",
+  "preparation_status": "implemented_migrated_and_verified",
+  "core_blocker_count": 0,
+  "approval_blocker_count": 0,
+  "production_status": "not_run",
+  "production_release_blocker_group_count": 5,
+  "result": "Owner authenticates and previews an employee-bound encrypted payslip, releases the exact preview to a fake provider, or confirms manual delivery; password handoff is a separate secret-free draft/receipt. Finalized payroll remains unchanged.",
+  "claim_ledger": [
+    {
+      "layer": "source_recipient_attachment_binding",
+      "status": "passed",
+      "evidence": "Finalized synthetic PDF generated with accepted W6-01 service; preview hash; wrong employee, changed PDF and invalidated destination rejection"
+    },
+    {
+      "layer": "owner_CSRF_fresh_MFA",
+      "status": "passed",
+      "evidence": "Existing AuthRepository plus transactional session/role/CSRF recheck; wrong role, CSRF, absent auth and stale MFA tests"
+    },
+    {
+      "layer": "atomic_release_and_idempotency",
+      "status": "passed",
+      "evidence": "Exact preview to immutable intent and receipt in one transaction; identical replay returns same job; DB transition demands matching receipt"
+    },
+    {
+      "layer": "fake_dispatch",
+      "status": "passed",
+      "evidence": "One fake acceptance and no second claim; no provider call; finalized payroll unchanged"
+    },
+    {
+      "layer": "queue_regressions",
+      "status": "passed",
+      "evidence": "Eleven unchanged original queue test bodies with only appPool factory rebound to this exact fresh database; real PG leases, retries and uncertain reconciliation"
+    },
+    {
+      "layer": "manual_password_handoff",
+      "status": "passed",
+      "evidence": "Manual intent/confirmation, separate password-handoff draft/version/channel receipt, immutable receipt and email/manual conflict tests; operator attestation only"
+    },
+    {
+      "layer": "MIME_disabled_Gmail_contract",
+      "status": "passed",
+      "evidence": "Exactly one To and encrypted PDF, no CC/BCC; attachment bytes decode exactly; wrong hash/domain reject; Gmail send throws GMAIL_DISABLED"
+    },
+    {
+      "layer": "schema_lint_typecheck_build",
+      "status": "passed",
+      "evidence": "Nine migrations applied only to fresh owned cluster; Prisma validate/generate/migrate deploy, lint, typecheck and build exit 0"
+    },
+    {
+      "layer": "cleanup",
+      "status": "passed",
+      "evidence": "Every harness run stopped; final port/process/plaintext work-file inspections returned none"
+    },
+    {
+      "layer": "dry_run",
+      "status": "not_required",
+      "reason": "Direct approved synthetic runtime used"
+    },
+    {
+      "layer": "delivery_UI",
+      "status": "not_required",
+      "reason": "Owned by W5-02b"
+    },
+    {
+      "layer": "production",
+      "status": "not_run",
+      "reason": "Gmail OAuth/live send/revoke, real data and other five production release blocker groups remain separate"
+    }
+  ],
+  "runtime_evidence": "ops/evidence/PAY-W6-02b-runtime.json",
+  "runtime_sha256": "30338c4150f5de7a94bf54bcb2a22fd98c55376dbba2f7618e746e26b10a9219",
+  "tests": {
+    "red": 1,
+    "focused": 6,
+    "regression": 11,
+    "total": 17,
+    "accepted_run": "green-67087c40-5591-426a-a388-86b0fa2e6c2d"
+  },
+  "repair": {
+    "initial_failure": "Delivery-draft state trigger allowed only draft -> invalidated; stale-MFA test clock was only one minute after its seeded MFA.",
+    "source": "prisma/migrations/202609040001_initial/migration.sql#bind_delivery_destination and tests/integration/pay-runs/support.ts#NOW",
+    "change": "New additive migration extends terminal draft states with receipt-required transitions, preserving immutable binding and version checks. Stale fixture uses six minutes after seeded MFA.",
+    "verification": "Next focused run passed six tests; broader run passed seventeen."
+  },
+  "review": {
+    "kind": "parent source review",
+    "findings_resolved": [
+      "Preserved existing W6-02a test command by explicitly selecting its original regression files after adding DB-specific tests."
+    ],
+    "remaining_core_findings": 0
+  },
+  "limits": [
+    "Internal services only; delivery UI and page tools remain W5-02b.",
+    "Fake provider validates attachment binding/MIME locally; no real email or Zalo message sent, delivered or read.",
+    "Manual/password confirmation records an operator assertion, not external transmission evidence.",
+    "Gmail MIME/disabled boundary exists; real OAuth transport and send/revoke proof remain deferred.",
+    "Existing database fixtures and queue bodies were reused against the new approved database; the historical W6-02a database command itself was not rerun.",
+    "The first RED run used eight migrations before implementation; historical RED is preserved in the runtime ledger."
+  ],
+  "retained": [
+    "Stopped synthetic clusters/logs and encrypted PDFs/DPAPI sidecars under ignored .tmp/PAY-W6-02b",
+    "No generated passwords or raw PDFs committed"
+  ],
+  "next_action": "W5-02b delivery UI and typed page tools.",
+  "modified_files": [
+    "docs/agent-packets/PAY-W6-02b.json",
+    "docs/agent-packets/PAY-W6-02b-runtime-preview.md",
+    "docs/planning/task-status.json",
+    "apps/web/src/lib/application/commands/preview-payslip-release.ts",
+    "apps/web/src/lib/application/commands/release-payslips.ts",
+    "apps/web/src/lib/application/commands/confirm-manual-delivery.ts",
+    "apps/web/src/lib/delivery/types.ts",
+    "apps/web/src/lib/delivery/outbox.ts",
+    "apps/web/src/lib/delivery/worker.ts",
+    "apps/web/src/lib/delivery/fake-adapter.ts",
+    "apps/web/src/lib/delivery/gmail-adapter.ts",
+    "apps/web/src/lib/delivery/zalo-manual-adapter.ts",
+    "apps/web/src/lib/delivery/password-handoff.ts",
+    "prisma/schema.prisma",
+    "prisma/migrations/202609080001_w6_02b_delivery_release/migration.sql",
+    "tests/integration/delivery/recipient-isolation.spec.ts",
+    "tests/integration/delivery/gmail-contract.spec.ts",
+    "tests/integration/delivery/release-support.ts",
+    "tests/integration/delivery/tsconfig.json",
+    "scripts/windows/test-delivery-release.ps1",
+    "scripts/windows/test-database.ps1",
+    "package.json",
+    "ops/evidence/PAY-W6-02b-runtime.json"
+  ],
+  "file_sha256": {
+    "docs/agent-packets/PAY-W6-02b.json": "e5dc582bb1b5a5773bc1a4b822e907c52da2defb54102784bae61da188793ece",
+    "docs/agent-packets/PAY-W6-02b-runtime-preview.md": "444f096e37d5cb3ebba424dce3e23bdc9e50723a4c49b31b3263f655d53f74ca",
+    "docs/planning/task-status.json": "742209d1a9cf1835ca104b0fb7268645d1975ca8735056f963417fd8ea379a1f",
+    "apps/web/src/lib/application/commands/preview-payslip-release.ts": "f808c2f803e17a2be700f5cc5220b230aff887484364f4ea2f54eac175f700d0",
+    "apps/web/src/lib/application/commands/release-payslips.ts": "e85f18f128ca43518d845e67a8511f604c19026501f9eef1e9bacf624619d843",
+    "apps/web/src/lib/application/commands/confirm-manual-delivery.ts": "216075c632aefd7e45568f3c7f3d371fed878757af9c8596e2fc3531b5141824",
+    "apps/web/src/lib/delivery/types.ts": "1afa57ea9d5f2ea7128b2f2b937199f6be1bf3289152412a863c60a707c35897",
+    "apps/web/src/lib/delivery/outbox.ts": "dd64e80e97fad44c235dcd8d97578279c8a820294c025c5a044b7548f05a74b8",
+    "apps/web/src/lib/delivery/worker.ts": "6836e071025a2015ebdaf1e42a0cf3eb3c55cf37bc9be7cb5dc4bb10f6091cff",
+    "apps/web/src/lib/delivery/fake-adapter.ts": "aad8e0f72711f3dafd45b895a6839b846f999c18580a8417362a5dea66f97c7f",
+    "apps/web/src/lib/delivery/gmail-adapter.ts": "a2f68ae23d1d0a9ab83acb1fca492f719a1bb8c10f263d8f8d75f795a4c4d789",
+    "apps/web/src/lib/delivery/zalo-manual-adapter.ts": "45203c82fa69f55c01718322d595dbcc325900b26f1815ff65149d82dec98e61",
+    "apps/web/src/lib/delivery/password-handoff.ts": "eec474c3dd670ac2ea74fcaee9109e70548f1cce28eaca491c35a16f9d22176d",
+    "prisma/schema.prisma": "22ff3ae6a5bf156957cc21274ad3b691100b0a8368f7a81ecd1fd8145c6d59ef",
+    "prisma/migrations/202609080001_w6_02b_delivery_release/migration.sql": "8f7db3bbf04b65386a4039808d133af9e4db59fc247c00e55537570aa70bb5cc",
+    "tests/integration/delivery/recipient-isolation.spec.ts": "e5cf2e5335a2bcf8e12516a495707d1c2061a99f0bdf4b3bf00c57ef932664f1",
+    "tests/integration/delivery/gmail-contract.spec.ts": "f1d5e454ebf26bff6577f0bbb7d36124895f2f90f3e10564f44589b4468067d2",
+    "tests/integration/delivery/release-support.ts": "2d7b8e9888c75303164ed45fd78bab49c7d7e8a8ce5564129c97272256a01e66",
+    "tests/integration/delivery/tsconfig.json": "a62f002c7783761265c2eaf18485dd2882d14d3c9d741f3d45960ea702548615",
+    "scripts/windows/test-delivery-release.ps1": "b898edb45817af991af18b6241c0306992dbf712ad1d76046d763a49651b16b1",
+    "scripts/windows/test-database.ps1": "c685b8363c2168ecceac4234e8cc28f2f46354c6a24cd783206b8e9d554f2ebc",
+    "package.json": "64b3f73d06f41871ba26165aca91167f134295d30ec48dadb7e841f62dcaff1d",
+    "ops/evidence/PAY-W6-02b-runtime.json": "30338c4150f5de7a94bf54bcb2a22fd98c55376dbba2f7618e746e26b10a9219"
+  }
+}

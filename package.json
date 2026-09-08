@@ -29,7 +29,8 @@
     "test:kiosk": "powershell -NoProfile -File scripts/windows/test-kiosk.ps1",
     "test:attendance-review": "powershell -NoProfile -File scripts/windows/test-attendance-review.ps1",
     "test:admin": "powershell -NoProfile -File scripts/windows/test-admin.ps1 -Mode Green -Browser",
-    "test:documents": "powershell -NoProfile -File scripts/windows/test-documents.ps1 -Mode Green"
+    "test:documents": "powershell -NoProfile -File scripts/windows/test-documents.ps1 -Mode Green",
+    "test:delivery-release": "powershell -NoProfile -File scripts/windows/test-delivery-release.ps1 -Mode Green"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",

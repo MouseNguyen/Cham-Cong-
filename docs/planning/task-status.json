@@ -231,13 +231,14 @@
       "evidence": [
         "docs/agent-packets/PAY-W6-02a-handoff.json",
         "docs/agent-packets/PAY-W6-02a-review.json",
-        "ops/evidence/PAY-W6-02a-runtime.json"
+        "ops/evidence/PAY-W6-02a-runtime.json",
+        "docs/agent-packets/PAY-W6-02b-parent-acceptance.json"
       ],
       "accepted_commit": null,
       "production": "not_run",
       "planned_manager": "codex-parent",
       "planned_reviewer": "/root/pay_w6_02a_reviewer_terra",
-      "remaining_scope": "W6-02a accepted synthetic queue only; W6-02b release remains not_started and requires W6-01 PDF plus authentication."
+      "remaining_scope": "W6-02a/b accepted synthetic queue/release services; real Gmail OAuth/send/revoke remains deferred and parent task stays partial."
     },
     {
       "task_id": "PAY-W7-01",
@@ -510,7 +511,13 @@
         "W2-02"
       ],
       "outcome": "fake release/preview services and manual handoff",
-      "status": "not_started"
+      "status": "accepted_synthetic_only",
+      "packet": "docs/agent-packets/PAY-W6-02b.json",
+      "blocker_count": 0,
+      "evidence": [
+        "docs/agent-packets/PAY-W6-02b-parent-acceptance.json"
+      ],
+      "acceptance_commit_reference": "Commit containing this acceptance receipt"
     },
     {
       "id": "W5-02b",
@@ -630,9 +637,9 @@
     "current_receipt": "docs/agent-packets/PAY-W3-03-parent-acceptance.json"
   },
   "execution_route": {
-    "kind": "native_codex_sequential",
-    "packet": "docs/agent-packets/PAY-W6-01.json",
-    "status": "w6_01_accepted_synthetic_only",
-    "next_dependency": "W6-02b fake release/preview services and manual handoff"
+    "kind": "parent_only",
+    "packet": "docs/agent-packets/PAY-W6-02b.json",
+    "status": "w6_02b_accepted_synthetic_only",
+    "next_dependency": "W5-02b delivery UI and page-tool integration"
   }
 }

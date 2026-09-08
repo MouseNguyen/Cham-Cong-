@@ -1,0 +1,114 @@
+{
+  "task_id": "PAY-W6-02b",
+  "revision": 1,
+  "parent_task": "PAY-W6-02",
+  "status": "accepted_synthetic_only",
+  "workspace": "F:/Codex/Projects/Pay Slip",
+  "approval": {
+    "preparation": "Duke Approve following W6-02b next-step description",
+    "new_runtime": "Duke: look good approve for next action, confirming exact preview"
+  },
+  "core_outcome": "An owner previews one finalized synthetic employee payslip, reauthenticates and releases the exact recipient/file/hash into the fake outbox; manual delivery and separate password handoff retain truthful receipts.",
+  "core_outcome_classification": "core_outcome_blocker_for_M0",
+  "roster": [
+    {
+      "agent_id": "codex-parent",
+      "role": "implementation, verification, review, integration and local commit",
+      "children": 0
+    }
+  ],
+  "owned_files": [
+    "docs/agent-packets/PAY-W6-02b.json",
+    "docs/agent-packets/PAY-W6-02b-runtime-preview.md",
+    "docs/agent-packets/PAY-W6-02b-parent-acceptance.json",
+    "docs/planning/task-status.json",
+    "apps/web/src/lib/application/commands/preview-payslip-release.ts",
+    "apps/web/src/lib/application/commands/release-payslips.ts",
+    "apps/web/src/lib/application/commands/confirm-manual-delivery.ts",
+    "apps/web/src/lib/delivery/types.ts",
+    "apps/web/src/lib/delivery/outbox.ts",
+    "apps/web/src/lib/delivery/worker.ts",
+    "apps/web/src/lib/delivery/fake-adapter.ts",
+    "apps/web/src/lib/delivery/gmail-adapter.ts",
+    "apps/web/src/lib/delivery/zalo-manual-adapter.ts",
+    "apps/web/src/lib/delivery/password-handoff.ts",
+    "prisma/schema.prisma",
+    "prisma/migrations/202609080001_w6_02b_delivery_release/migration.sql",
+    "tests/integration/delivery/recipient-isolation.spec.ts",
+    "tests/integration/delivery/gmail-contract.spec.ts",
+    "tests/integration/delivery/zalo-manual.spec.ts",
+    "tests/integration/delivery/release-support.ts",
+    "tests/integration/delivery/tsconfig.json",
+    "scripts/windows/test-delivery-release.ps1",
+    "scripts/windows/test-database.ps1",
+    "package.json"
+  ],
+  "prerequisites": [
+    "PAY-W6-01 accepted synthetic encrypted PDF",
+    "PAY-W6-02a accepted fake outbox",
+    "PAY-W2-02 accepted synthetic authentication"
+  ],
+  "must_pass_gates": [
+    "Preview binds organization/employee/verified effective destination/period/payslip/artifact hash/version",
+    "Owner plus fresh reauthentication and CSRF required for release; reject stale preview, replaced destination, wrong employee/file/org and altered attachment",
+    "Exactly one recipient, no CC/BCC, neutral subject/body, one encrypted attachment; no PDF password in message/receipt/log",
+    "Persist immutable release binding and enqueue atomically; same-key identical release replays; changed binding conflicts",
+    "Reuse bounded lease/retry/reconciliation semantics; fake accepted never means delivered/read; uncertain sends never blindly resend",
+    "Manual confirmation records operator/time/destination and operator_confirmed_manual; separate password-handoff receipt contains version/channel but no password",
+    "Gmail adapter disabled by default; MIME contract tested with fake transport and no OAuth/network calls",
+    "Focused RED/GREEN plus existing delivery regression suite, lint/typecheck/build, exact owned process/listener/plaintext cleanup"
+  ],
+  "runtime": {
+    "commands": [
+      "powershell -NoProfile -File scripts/windows/test-delivery-release.ps1 -Mode Red",
+      "powershell -NoProfile -File scripts/windows/test-delivery-release.ps1 -Mode Green",
+      "npm run lint",
+      "npm run typecheck",
+      "npm run build",
+      "git diff --check; explicit file staging and local commit"
+    ],
+    "database": "Fresh payslip_w6_02b_synthetic at 127.0.0.1:55432; existing PostgreSQL 18.6 harness",
+    "schema": "RED applies existing eight migrations; GREEN applies one additive delivery-release migration. Prisma validate/generate/migrate deploy only in this fresh cluster; no existing database or BFF process.",
+    "pdf": "Reuse installed project Chromium/qpdf and CurrentUser DPAPI with newly generated synthetic passwords and W6 document service; private project-local work paths, plaintext removed",
+    "provider": "In-memory fake only; no network, real email, OAuth, Zalo automation or credentials",
+    "limits": {
+      "minutes": 60,
+      "checkpoint_minutes": 15,
+      "attempts_per_evidence_layer": 2,
+      "disk_gb": 2,
+      "ram_gb": 4,
+      "gpu": false
+    },
+    "ports": [
+      "127.0.0.1:55432"
+    ],
+    "cleanup": "Stop only exact harness-owned cluster; close owned PDF child processes; verify no listeners or plaintext work files. Retain stopped synthetic cluster, encrypted artifacts and redacted receipts."
+  },
+  "generated_paths": [
+    ".tmp/PAY-W6-02b/**",
+    "ops/evidence/PAY-W6-02b-*",
+    "apps/web/src/generated/prisma/**",
+    "apps/web/.next/**",
+    "apps/web/next-env.d.ts",
+    "apps/attendance-ingress/dist/**"
+  ],
+  "exclusions": [
+    "No real messages, employee data, OAuth or existing secrets",
+    "No downloads, installs, external metadata/network, containers, tunnels or public/LAN ports",
+    "No W5-02b UI implementation or agent workers",
+    "No existing DB, G-drive/outside-project writes, destructive reset or push"
+  ],
+  "rollback": "Database work stays in a newly created synthetic cluster. Failed writes roll back; retain diagnostics and stop owned cluster. Code remains reviewable in this checkout; no destructive rollback or down migration.",
+  "polish_backlog": [
+    "W5-02b delivery UI and page tools",
+    "W8 separately approved real Gmail send/revoke gate"
+  ],
+  "outcome_status": "passed_owner_preview_fake_release_manual_handoff",
+  "preparation_status": "implemented_migrated_and_verified",
+  "approval_blocker_count": 0,
+  "production_status": "not_run",
+  "production_release_blocker_group_count": 5,
+  "core_blocker_count": 0,
+  "acceptance_receipt": "docs/agent-packets/PAY-W6-02b-parent-acceptance.json",
+  "next_action": "W5-02b delivery UI and page-tool integration; separate packet scope."
+}
