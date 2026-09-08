@@ -1,0 +1,19 @@
+{
+  "task_id": "PAY-W5-02a",
+  "status": "passed",
+  "typecheck": "passed",
+  "root_lint": "passed_zero_errors",
+  "verification": "TypeScript emitted JavaScript compared to HEAD for both type-only edits",
+  "files": [
+    {
+      "file": "apps/web/src/lib/db/repositories/pay-runs.ts",
+      "emitted_js_equal": true,
+      "sha256": "dab6ad0c8cbb4888d0cf940b6499c4d7ae415048dc34d46419cce4243a5a1ba4"
+    },
+    {
+      "file": "tests/integration/pay-runs/support.ts",
+      "emitted_js_equal": true,
+      "sha256": "f3c1094ad49205bd225fb1e8fd111f4df23cf1f6a2be5d828522f3c2e584f0cd"
+    }
+  ]
+}

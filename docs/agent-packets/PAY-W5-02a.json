@@ -1,7 +1,7 @@
 {
   "task_id": "PAY-W5-02a",
   "revision": 1,
-  "status": "partial_core_verified_baseline_lint_blocked",
+  "status": "accepted_synthetic_core",
   "as_of": "2026-09-08",
   "base_commit": "d608bc179e0564691eb295a014e58aea7e973b88",
   "workspace": "F:/Codex/Projects/Pay Slip",
@@ -98,7 +98,9 @@
     "docs/agent-packets/PAY-W5-02a.json",
     "docs/agent-packets/PAY-W5-02a-runtime-preview.md",
     "docs/agent-packets/PAY-W5-02a-review.md",
-    "docs/agent-packets/PAY-W5-02a-parent-acceptance.json"
+    "docs/agent-packets/PAY-W5-02a-parent-acceptance.json",
+    "apps/web/src/lib/db/repositories/pay-runs.ts",
+    "tests/integration/pay-runs/support.ts"
   ],
   "generated_outputs": [
     ".tmp/PAY-W5-02a/**",
@@ -182,9 +184,9 @@
       "employees": 22,
       "payroll_domain": 42
     },
-    "preparation_status": "typecheck_build_passed_root_lint_two_baseline_errors",
+    "preparation_status": "lint_typecheck_passed_emitted_js_unchanged",
     "outcome_status": "4_browser_and_2_http_tests_passed",
-    "next_action": "Commit verified core; close baseline lint gate before W6-01"
+    "next_action": "W6-01 encrypted PDF"
   },
   "static_repair_research": {
     "predicted_delta": "No new-file type/lint errors, baseline lint remains two errors",
@@ -231,8 +233,8 @@
   },
   "blocker_counts": {
     "core_runtime": 0,
-    "baseline_lint_errors": 2,
-    "total_open": 2,
+    "baseline_lint_errors": 0,
+    "total_open": 0,
     "production_release_groups_separate": 5
   },
   "review": {
@@ -289,5 +291,13 @@
     "product_failure": "stop",
     "status": "passed_first_run",
     "run_id": "green-3b946fe1-fa1d-4d89-b519-fd06f429786c"
+  },
+  "lint_closure": {
+    "authority": "Duke requested next step after handoff identified these two lint files",
+    "classification": "formal_claim_only",
+    "scope": "Type annotations only; no payroll behavior, SQL, schema or fixture-value changes",
+    "verification": "Previously approved repository lint/typecheck commands; no new runtime class",
+    "outcome": "Root lint clean with unchanged payroll behavior",
+    "status": "passed"
   }
 }

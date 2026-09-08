@@ -479,7 +479,7 @@
         "W4-01"
       ],
       "outcome": "minimum employee/attendance/payrun admin UI",
-      "status": "core_verified_baseline_lint_blocked"
+      "status": "accepted_synthetic_core"
     },
     {
       "id": "W6-01",
@@ -622,7 +622,7 @@
   "execution_route": {
     "kind": "native_codex_sequential",
     "packet": "docs/agent-packets/PAY-W5-02a.json",
-    "status": "core_verified_baseline_lint_blocked",
-    "next_dependency": "Two unchanged baseline lint errors; then W6-01"
+    "status": "w5_02a_accepted_synthetic_core",
+    "next_dependency": "W6-01 encrypted PDF"
   }
 }

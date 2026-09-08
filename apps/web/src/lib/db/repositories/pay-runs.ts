@@ -42,6 +42,14 @@ type TrustedCalculator = {
   inputTemplate: Record<string, unknown>;
 };
 
+// Mutable source shape used before inputFromFixture validates the complete input.
+type MutableCalculatorTemplate = Record<string, unknown> & {
+  employment: Record<string, unknown>;
+  attendance: Record<string, unknown>;
+  ruleBinding: Record<string, unknown> & { componentDates: Record<string, unknown> };
+  pit: Record<string, unknown>;
+};
+
 type PayRunContext = {
   organizationId: string;
   now: () => Date;
@@ -127,7 +135,7 @@ export class PayRunRepository {
     )).rows[0];
     if (!source) throw conflict("SOURCE_BINDING_STALE");
     const rule = JSON.parse(source.rule_payload) as { kind?: string; id?: string; version?: string; policy?: unknown; funds?: Array<Record<string, unknown>>; pit?: Record<string, unknown> };
-    const raw = structuredClone(this.context.calculator.inputTemplate) as Record<string, any>;
+    const raw = structuredClone(this.context.calculator.inputTemplate) as MutableCalculatorTemplate;
     const attendance = JSON.parse(source.snapshot) as { rawMilliseconds?: string; approvedPayableMilliseconds?: string; totalPayableDurationMs?: string };
     if (!raw.employment || !raw.attendance || !raw.calculator || !raw.ruleBinding) throw conflict("RULE_PACK_CALCULATOR_INPUT_MISSING");
     if (rule.kind !== "synthetic_materialized_policy" || rule.id !== binding.rulePackId || typeof rule.version !== "string" || !rule.policy || !Array.isArray(rule.funds) || !rule.pit) throw conflict("RULE_PACK_CALCULATOR_INPUT_MISSING");

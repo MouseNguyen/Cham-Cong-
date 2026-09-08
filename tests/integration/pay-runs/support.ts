@@ -29,9 +29,7 @@ export interface PayRunFixture {
   ownerCredentials: PayRunCredentials;
 }
 
-type RawInput = Record<string, any>;
-
-function template(rulePackId: string): RawInput {
+function template(rulePackId: string) {
   return {
     mode: "synthetic_preview",
     calculator: { id: "payroll-domain", version: "0.1.0", canonicalizationVersion: "1", sourceArtifactSha256: CALCULATOR_ARTIFACT_HASH },
@@ -52,11 +50,11 @@ function template(rulePackId: string): RawInput {
   };
 }
 
-function rulePayload(rulePackId: string): RawInput {
+function rulePayload(rulePackId: string): Record<string, unknown> {
   const raw = template(rulePackId);
   return {
     kind: "synthetic_materialized_policy", id: rulePackId, version: raw.ruleBinding.version, policy: raw.policy,
-    funds: raw.insuranceFunds.map((fund: RawInput) => ({ id: fund.id, minimumVnd: fund.minimumVnd, maximumVnd: fund.maximumVnd, employeeRateBasisPoints: fund.employeeRateBasisPoints, employerRateBasisPoints: fund.employerRateBasisPoints })).sort((a: RawInput, b: RawInput) => a.id.localeCompare(b.id)),
+    funds: raw.insuranceFunds.map((fund) => ({ id: fund.id, minimumVnd: fund.minimumVnd, maximumVnd: fund.maximumVnd, employeeRateBasisPoints: fund.employeeRateBasisPoints, employerRateBasisPoints: fund.employerRateBasisPoints })).sort((a, b) => a.id.localeCompare(b.id)),
     pit: { personalDeductionVnd: raw.pit.personalDeductionVnd, dependentDeductionVnd: raw.pit.dependentDeductionVnd, brackets: raw.pit.brackets },
   };
 }
@@ -68,8 +66,8 @@ export function calculatorContext(f: PayRunFixture) {
 export function expectedW1Calculation(f: PayRunFixture, salary = "8000000") {
   const raw = template(f.rulePackId);
   raw.employment.monthlySalaryVnd = salary;
-  raw.insuranceFunds.forEach((fund: RawInput) => { fund.baseVnd = salary; });
-  raw.insuranceFunds.sort((left: RawInput, right: RawInput) => left.id.localeCompare(right.id));
+  raw.insuranceFunds.forEach((fund) => { fund.baseVnd = salary; });
+  raw.insuranceFunds.sort((left, right) => left.id.localeCompare(right.id));
   raw.attendance.rawMilliseconds = "3600000";
   raw.attendance.payableMilliseconds = "3600000";
   return calculatePayroll(inputFromFixture(raw));
